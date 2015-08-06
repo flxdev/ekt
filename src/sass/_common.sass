@@ -48,10 +48,16 @@
 // 	+jpg(bla)
 
 body
+	padding: 15px 0
 	font-size: 13px 
 	line-height: 1.4
 	color: #000
-	+f300 
+	+f300
+	+box
+	background: $green
+	&.is-home
+		.header
+			margin-bottom: 0
 // .container
 // 	min-width: 1200px !important
 // 	width: 1200px !important
@@ -76,3 +82,9 @@ a
 			display: inline-block
 			vertical-align: top
 			float: none
+.out
+	margin: 0 auto
+	padding: 0 10px
+	max-width: 1280px
+	min-width: 980px
+	+box

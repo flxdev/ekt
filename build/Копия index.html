@@ -2,9 +2,15 @@
 <html>
 <head>
 	<title>index</title>
-	//= includes/head.html
+	<meta charset="utf-8">
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+	<meta name="viewport" content="width=1200">
+	<meta name="format-detection" content="telephone=no">
+	<!-- theme color for android 5.0 -->
+	<meta name="theme-color" content="#fff"> 
+	<link rel="stylesheet" media="all" href="css/screen.css" >
 </head>
-<body class="is-home">
+<body>
 <!-- BEGIN  out-->
 <div class="out">
 	<!-- header -->
@@ -22,7 +28,7 @@
 		<!-- menu -->
 		<ul class="menu">
 			<li class="menu__item"><a href="#">Компания</a></li>
-			<li class="menu__item">
+			<li class="menu__item is-active">
 				<a href="#">Продажи</a>
 				<div class="menu__in">
 					<!-- cabinet -->
@@ -45,11 +51,16 @@
 			</li>
 			<li class="menu__item"><a href="#">Контакты</a></li>
 		</ul>
+		<!-- basket -->
+		<button class="basket" type="button">
+			<i class="ico ico_basket"></i>
+			<span>Заказ</span>
+		</button>
 	</header>
 	
 		
 </div>
 <!-- END out-->
-//= includes/footer.html
+
 </body>
 </html>
