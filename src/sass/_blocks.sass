@@ -1,0 +1,38 @@
+.btn
+	display: inline-block
+	vertical-align: middle
+	padding: 13px 43px 12px 
+	min-width: 192px
+	background: $primary
+	border-radius: 3px
+	text-align: center
+	font-size: 13px
+	line-height: 1
+	+f900
+	text-transform: uppercase
+	color: #fff
+	+tr(background .3s)
+	&:hover
+		background: $primary_h
+	&:active
+		background: $primary_a
+	&[disabled],
+	&.is-disabled
+		opacity: 0.1
+		cursor: default
+		pointer-events: none
+.btn_border
+	background: #fff
+	border: 1px solid $primary
+	color: $primary 
+	&:hover
+		color: #fff
+	&:active
+		color: #fff 
+.btn_small
+	padding: 10px 20px
+	min-width: 175px
+	max-height: 32px
+	+f300
+	font-size: 13px
+	text-transform: none
