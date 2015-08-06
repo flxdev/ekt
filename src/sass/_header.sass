@@ -1,0 +1,169 @@
+// header
+.header
+	position: relative
+	margin-bottom: 15px
+	padding: 0 30px
+	background: #fff
+	+box
+	+clr
+	.header__left
+		float: left
+		margin-top: 35px
+		font-size: 16px
+		line-height: 1
+
+// btm-menu
+.btm-menu
+	margin-right: 10px
+	margin-top: 3px
+	vertical-align: top
+	background-color: transparent
+	display: inline-block
+	+s($ico-menu)
+
+// logo
+.logo
+	float: left
+	margin: 5px 0 0 160px
+	+s($logo)
+	display: inline-block
+
+// menu
+.menu
+	float: right
+	margin-right: 195px
+	font-size: 0
+	.menu__item
+		padding: 30px 23px 0
+		height: 83px
+		vertical-align: top
+		display: inline-block
+		&.is-active
+			margin-bottom: 83px
+			background: $light-gray
+			& > a
+				&:before
+					background: transparent
+			.menu__in
+				display: block
+		& > a
+			height: 26px
+			line-height: 26px
+			font-size: 13px
+			text-transform: uppercase
+			vertical-align: middle
+			+f900
+			&:hover
+				&:before
+					bottom: -1px
+					background: transparent
+			&:before
+				position: absolute
+				content: ''
+				left: 0
+				right: 0
+				bottom: 0
+				height: 1px
+				background: $green
+				+transition(background .1s linear)
+	a
+		position: relative
+		color: #000
+		display: block
+	.menu__in
+		position: absolute
+		padding: 0 30px
+		bottom: 0
+		left: 0
+		right: 0
+		+box
+		background: $light-gray
+		display: none
+		+clr
+
+// ul
+.ul
+	float: right
+	font-size: 0
+	li
+		margin-left: 38px
+		vertical-align: top
+		font-size: 14px
+		+f300
+		display: inline-block
+		&:first-child
+			margin-left: 0
+	a
+		height: 83px
+		line-height: 89px
+		letter-spacing: 0.45px
+		&:hover,
+		&.is-active
+			&:before
+				bottom: 0
+				background: #000
+		&.is-active
+			+f700
+		&:before
+			position: absolute
+			content: ''
+			left: 0
+			right: 0
+			bottom: -1px
+			height: 2px
+			background: transparent
+			+transition(background .1s linear)
+
+// cabinet
+.cabinet
+	float: right
+	margin-left: 45px
+	padding: 0 0 29px 30px
+	width: 140px
+	height: 83px
+	line-height: 27px
+	font-size: 14px
+	.cabinet__row
+		position: relative
+		height: 20px
+		line-height: 20px
+		vertical-align: bottom
+		display: inline-block
+		.ico
+			position: absolute
+			left: -30px
+			top: 0
+	.cabinet__name
+		width: 106px
+		font-size: 12px
+		height: 12px
+		line-height: 16px
+		vertical-align: bottom
+		overflow: hidden
+		white-space: nowrap
+		text-overflow: ellipsis
+		display: inline-block
+
+// search
+.search
+	float: right
+	margin-top: 35px
+	.search__btn
+		background-color: transparent
+		+s($ico-search)
+		display: inline-block
+
+// basket
+.basket
+	position: absolute
+	top: 35px
+	right: 157px
+	padding-left: 25px
+	font-size: 14px
+	background-color: transparent
+	+f700
+	.ico
+		position: absolute
+		left: 0
+		top: 50%
+		+translate(0,-50%)
