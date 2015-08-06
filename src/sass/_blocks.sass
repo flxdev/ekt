@@ -36,3 +36,130 @@
 	+f300
 	font-size: 13px
 	text-transform: none
+.btn_white
+	background: #fff
+	+f700
+	color: #000 
+	&:hover
+		color: #fff
+	&:active
+		color: #fff 
+.l-layout
+	display: table
+	width: 100%
+	table-layout: fixed
+	background: #fff 
+.sidebar
+	display: table-cell
+	vertical-align: top
+	width: 250px
+	background: $bg 
+.main
+	display: table-cell
+	vertical-align: top
+	background: #fff 
+	
+.title-h1
+	font-size: 34px
+	line-height: 1.35
+	font-weight: normal
+	+f700
+.title-h2
+	font-size: 24px
+	line-height: 1.9
+	font-weight: normal
+	+f500
+.title-h3
+	font-size: 18px
+	font-weight: normal
+	+f700
+	a
+		color: $primary
+		border-bottom: 1px solid
+		transition: color .3s, border .3s
+		&:hover
+			color: $primary_h
+			border-color: transparent
+		&:active
+			color: $primary_a
+			border-color: transparent  
+.title-h4
+	line-height: 1.9
+	font-size: 16px
+	font-weight: normal
+	+f700
+	a
+		color: #000
+		border-bottom: 1px solid
+		transition: color .3s, border .3s
+		&:hover
+			color: $primary_h
+			border-color: transparent
+		&:active
+			color: $primary_a
+			border-color: transparent 
+.title-h5
+	font-size: 14px
+	font-weight: normal
+	+f500
+	a
+		color: #000
+		border-bottom: 1px solid
+		transition: color .3s, border .3s
+		&:hover
+			color: $primary_h
+			border-color: transparent
+		&:active
+			color: $primary_a
+			border-color: transparent 
+.title-h6
+	font-size: 12px
+	font-weight: normal
+	+f500
+.select
+    position: relative
+    cursor: pointer
+    font-size: 12px
+    select
+        opacity: 0
+.select__text
+    position: relative
+    display: block
+    padding: 0 25px 0 11px 
+    height: 30px
+    line-height: 30px
+    border: 1px solid #000
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+    &:after
+        content: ""
+        position: absolute
+        right: 15px
+        top: 50%
+        margin-top: -3px
+        width: 0px
+        height: 0px
+        border-style: solid
+        border-width: 6px 4px 0 4px
+        border-color: #000 transparent transparent transparent
+.select__list
+    position: absolute
+    display: none
+    left: 0
+    right: 0
+    top: 100%
+    z-index: 100
+    border: 1px solid #000
+    border-top: 0 
+    max-height: 200px
+    overflow-x: hidden
+    overflow-y: auto
+    background: #fff
+    li
+        padding: 5px 11px 
+        cursor: pointer
+        line-height: 1
+        &:hover
+            background: #717791
+            color: #fff 
