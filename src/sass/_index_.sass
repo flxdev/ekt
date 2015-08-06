@@ -3,15 +3,38 @@ body
 		.header
 			margin-bottom: 0
 		.out
-			height: 100%
 			padding-bottom: 75px
 		.main
-			padding: 233px 35px 30px
+			padding: 228px 15px 30px
 			min-height: calc(100% - 75px)
 			color: #fff
-			background: url(../img/index-out-bg.jpg) no-repeat -50% 0
+			background: url(../img/index-out-bg.jpg) no-repeat 0 0
 			background-size: cover
+			display: block
 			+box
+			+clr
 		.main__center
-			margin: 0 auto
+			margin: 0 auto 245px
 			width: 715px
+			text-align: center
+		h1
+			margin-bottom: 46px
+			font-size: 36px
+			font-weight: 100
+			+f100
+		.events
+			position: relative
+			font-size: 0
+		.events__item
+			position: static
+			padding: 0 15px 30px
+			width: 25%
+			font-size: 14px
+			line-height: 24px
+			vertical-align: top
+			display: inline-block
+			+box
+			.date
+				position: absolute
+				bottom: 0
+				opacity: .5
