@@ -1,10 +1,14 @@
 body
 	&.is-home
+		background: url(../img/index-bg.png) no-repeat 0 0
+		background-size: cover
+		background-attachment: fixed
 		.header
 			margin-bottom: 0
 		.out
 			padding-bottom: 75px
 		.main
+			position: relative
 			padding: 228px 15px 30px
 			min-height: calc(100% - 75px)
 			color: #fff
@@ -38,3 +42,28 @@ body
 				position: absolute
 				bottom: 0
 				opacity: .5
+		.link-left,
+		.link-right
+			position: absolute
+			top: 50%
+			+translate(0, -50%)
+			+f100
+			font-size: 28px
+			color: #fff
+			+rotate(-90deg)
+		.link-left
+			left: -178px
+			+r(1550)
+				left: -100px
+			+r(1394)
+				left: -80px
+			+r(1354)
+				left: -45px
+		.link-right
+			right: -178px
+			+r(1550)
+				right: -100px
+			+r(1394)
+				right: -80px
+			+r(1354)
+				right: -37px
