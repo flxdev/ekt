@@ -40,5 +40,33 @@ $(document).ready( function() {
 	          return false;
 	          
 	      });
-	    
+
+
+	// open nav
+	function navOpen() {
+		$('.js-list-links').each(function() {
+			if ($(this).parent().hasClass('is-active')) {
+				$(this).show();
+			}
+		});
+		$('.js-nav-item').on('click', function() {
+			var this_ = $(this).parent(),
+				item = $('.js-nav-item').parent(),
+				thisList = this_.find('.js-list-links'),
+				list = $('.js-list-links');
+			if (!this_.hasClass('is-active')) {
+				item.removeClass('is-active');
+				list.slideUp();
+				this_.addClass('is-active');
+				thisList.slideDown();
+			}
+			else {
+				this_.removeClass('is-active');
+				list.slideUp();
+			}
+			return false;
+		});
+	}
+	navOpen();
+
 });
