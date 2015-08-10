@@ -1,0 +1,177 @@
+// topic
+.topic
+	color: #fff
+	font-size: 16px
+	+f700
+	background-repeat: no-repeat
+	+font-smoothing(antialiased)
+	background-size: cover
+	.topic__in
+		padding: 44px
+		background-color: rgba(26, 39, 31, 0.7)
+	.topic__wrap
+		+clr
+		.btn
+			float: right
+			margin-top: 9px
+	.topic__title
+		padding-right: 20px
+		font-size: 34px
+		line-height: 46px
+		letter-spacing: 1px
+		overflow: hidden
+	.topic__text
+		margin-top: 15px
+		line-height: 30px
+		opacity: .8
+		letter-spacing: 0.5px
+	.breadcrumbs
+		margin-bottom: 25px
+
+// view
+.view
+	font-size: 0
+	.view__item
+		position: relative
+		vertical-align: top
+		border: 1px solid $border-filter
+		border-left: none
+		display: inline-block
+		+transition(background, border-color .1s linear)
+		&:before
+			position: absolute
+			content: ''
+			top: -1px
+			left: -1px
+			bottom: -1px
+			width: 1px
+		&:first-child
+			border-radius: 3px 0 0 3px
+			border-left: 1px solid $border-filter
+		&:last-child
+			border-radius: 0 3px 3px 0
+		&.is-active,
+		&:hover
+			border-color: $green
+			background: $green
+			.view__ico_table
+				+s($ico-table-w)
+			.view__ico_cat
+				// +s()
+			.view__ico_list
+				// +s()
+		& + .view__item
+			&.is-active
+				&:before
+					background: $green
+	a
+		height: 30px
+		width: 32px
+		line-height: 30px
+		text-align: center
+		display: block
+	.view__ico
+		vertical-align: middle
+		display: inline-block
+		&.view__ico_table
+			// +s()
+		&.view__ico_cat
+			+s($ico-cat)
+		&.view__ico_list
+			+s($ico-list)
+
+// filter
+.filter
+	margin-bottom: 30px
+	padding-bottom: 35px
+	border-bottom: 1px solid $border-filter
+	+clr
+	.filter__left
+		float: left
+	.filter__right
+		float: right
+	.checkbox,
+	.view,
+	.select,
+	.filter__text
+		vertical-align: top
+		display: inline-block
+	.view
+		margin-left: 50px
+	.checkbox
+		margin-top: 4px
+	.filter__text
+		margin: 4px 8px 0 0
+		font-size: 16px
+		+f700
+
+// items
+.items
+	font-size: 0
+	&.is-prod
+		.item
+			padding-bottom: 75px
+			+f300
+		.item__link
+			margin: 0
+			color: $green
+	.items__row
+		position: relative
+		& + .items__row
+			.item
+				&:before
+					border-top: none
+
+// item
+.item
+	position: static
+	padding: 10px 10px 33px
+	width: 25%
+	min-height: 286px
+	font-size: 16px
+	text-align: center
+	vertical-align: top
+	+f700
+	+box
+	display: inline-block
+	&:before
+		position: absolute
+		content: ''
+		top: 0
+		bottom: 0
+		width: 25%
+		+translate(-50%,0)
+		border: 1px solid $border-item
+	& + .item
+		&:before
+			border-left: none
+	.item__in
+		position: relative
+		z-index: 1
+	.item__img
+		position: relative
+		overflow: hidden
+		height: 173px
+		display: block
+		&:hover
+			& + .item__link
+				text-decoration: none
+		img
+			position: absolute
+			top: 50%
+			left: 50%
+			+translate(-50%,-50%)
+	.item__link
+		margin: 0 25px
+		color: #000
+		line-height: 24px
+		text-decoration: underline
+		display: block
+		&:hover
+			text-decoration: none
+	.article
+		margin-top: 5px
+
+// article
+.article
+	font-size: 12px
