@@ -161,6 +161,11 @@
 			top: 50%
 			left: 50%
 			+translate(-50%,-50%)
+		.badge
+			position: absolute
+			top: 0
+			right: 0
+			z-index: 3
 	.item__link
 		margin: 0 25px
 		color: #000
@@ -171,7 +176,98 @@
 			text-decoration: none
 	.article
 		margin-top: 5px
+	.item__bot
+		position: absolute
+		bottom: 26px
+		width: 25%
+		+translate(-10px, 0)
 
 // article
 .article
 	font-size: 12px
+
+// spiner
+.spiner
+	position: relative
+	border-radius: 3px
+	font-size: 0
+	border: 1px solid $border-item
+	vertical-align: top
+	display: inline-block
+	.spiner__minus,
+	.spiner__plus,
+	.spiner__input
+		height: 30px
+		line-height: 30px
+		font-size: 12px
+		text-align: center
+		vertical-align: top
+		display: inline-block
+	.spiner__minus,
+	.spiner__plus
+		width: 25px
+		background: transparent
+	.spiner__input
+		padding: 0 10px
+		width: 53px
+		+box
+	.btn
+		position: relative
+		top: -1px
+		right: -1px
+		height: 32px
+		margin-bottom: -2px
+		border-radius: 0 3px 3px 0
+
+// advantages
+.advantages
+	.advantages__item
+		margin-top: 30px
+		padding-right: 35px
+		+box
+		&:first-child
+			margin-top: 0
+	.title-green
+		margin-bottom: 20px
+
+// information
+.information
+	margin: 45px 0 10px
+	line-height: 24px
+	letter-spacing: 0.38px
+	.title-h3
+		line-height: 30px
+	p
+		margin-bottom: 30px
+		padding-right: 40px
+		&:first-child
+			margin-top: 5px
+
+// read-more
+.read-more
+	position: relative
+	height: 168px
+	color: #fff
+	+f700
+	+font-smoothing(antialiased)
+	+box
+	background-size: cover
+	background-repeat: no-repeat
+	+vertical
+	.read-more__bg
+		position: absolute
+		top: 0
+		left: 0
+		right: 0
+		bottom: 0
+		background-color: rgba(0, 47, 18, 0.8)
+	.read-more__in
+		position: relative
+		font-size: 18px
+		z-index: 2
+		vertical-align: middle
+		display: inline-block
+	.read-more__text
+		opacity: .5
+		vertical-align: top
+		display: inline-block

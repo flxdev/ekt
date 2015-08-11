@@ -57,6 +57,9 @@
 		top: 50%
 		left: 10px
 		+translate(0,-50%)
+.btn_basket
+	padding: 7px 12px
+	min-width: auto
 .l-layout
 	display: table
 	width: 100%
@@ -129,6 +132,22 @@
 	font-size: 12px
 	font-weight: normal
 	+f500
+.title-green
+	position: relative
+	padding-bottom: 20px
+	font-size: 16px
+	line-height: 24px
+	+f700
+	display: inline-block
+	&:before
+		position: absolute
+		content: ''
+		left: 0
+		right: 0
+		bottom: 0
+		height: 3px
+		background: $green
+
 .select
 	position: relative
 	cursor: pointer
@@ -291,3 +310,29 @@
 			color: #fff
 			&:hover
 				text-decoration: underline
+
+// link-right link-left
+.link-right,
+.link-left
+	position: relative
+	color: $green
+	text-decoration: underline
+	&:hover
+		text-decoration: none
+	&:before
+		position: absolute
+		content: ''
+		top: 50%
+		+translate(0,-50%)
+.link-right
+	margin-left: 5px
+	padding-right: 12px
+	&:before
+		right: 0
+		+s($ico-l-right)
+.link-left
+	margin-right: 5px
+	padding-left: 12px
+	&:before
+		left: 0
+		+s($ico-l-left)

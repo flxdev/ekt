@@ -2,69 +2,12 @@
 <html>
 <head>
 	<title>8-1prodaji-razdel</title>
-	<meta charset="utf-8">
-	<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-	<meta name="viewport" content="width=1200">
-	<meta name="format-detection" content="telephone=no">
-	<!-- theme color for android 5.0 -->
-	<meta name="theme-color" content="#fff"> 
-	<link rel="stylesheet" media="all" href="css/screen.css" >
+	//= includes/head.html
 </head>
 <body>
 <!-- BEGIN  out-->
 <div class="out">
-	<header class="header">
-		<div class="header__left">
-			<button class="btm-menu" type="button"></button>
-			<span>Весь сайт</span>
-		</div>
-		<!-- logo -->
-		<a href="#" class="logo"></a>
-		<!-- search -->
-		<div class="search">
-			<button class="search__btn" type="button"></button>
-		</div>
-		<!-- menu -->
-		<ul class="menu">
-			<li class="menu__item is-active">
-				<a href="#">Компания</a>
-				<div class="menu__in">
-					<!-- ul -->
-					<ul class="ul">                                                           
-						<li><a class="is-active" href="#">О компании</a></li>
-						<li><a href="#">Продукция</a></li>
-						<li><a href="#">Бренды</a></li>
-						<li><a href="#">Наш опыт</a></li>
-						<li><a href="#">Инфо-центр</a></li>
-						<li><a href="#">Карьера</a></li>
-						<li><a href="#">Сервис</a></li>
-					</ul>
-				</div>
-			</li>
-			<li class="menu__item">
-				<a href="#">Продажи</a>
-				<div class="menu__in">
-					<!-- cabinet -->
-					<a href="#" class="cabinet">
-						<div class="cabinet__name">Александр Петровский</div>
-						<div class="cabinet__row">
-							<i class="ico ico_user"></i>
-							<span>Личный кабинет</span>
-						</div>
-					</a>
-					<!-- ul -->
-					<ul class="ul">
-						<li><a class="is-active" href="#">Каталог</a></li>
-						<li><a href="#">Акции и спецпредложения</a></li>
-						<li><a href="#">Где купить продукцию ЕКТ</a></li>
-						<li><a href="#">Проектировщику</a></li>
-						<li><a href="#">Сервисный центр</a></li>
-					</ul>
-				</div>
-			</li>
-			<li class="menu__item"><a href="#">Контакты</a></li>
-		</ul>
-	</header>
+	//= includes/header_company.html
 	<div class="l-layout">
 		<!-- sidebar -->
 		<div class="sidebar">
@@ -336,6 +279,52 @@
 				<div class="promo__text">На электроинструмент, бензоинструмент и строительное оборудование торговых марок: KIRK, HITACHI, Verto, Graphite.</div>
 				<a href="#" class="btn btn_white">подробнее</a>
 			</div>
+			<!-- spec -->
+			<div class="spec">
+				<div class="badge badge_yellow">Спецпредложение</div>
+				<div class="spec__img">
+					<a href="#"><img src="img/spec-img.jpg" alt="img"></a>
+				</div>
+				<a class="spec__title" href="#">
+					Нагреватель дизельный 14кВт, 220В, прямой нагрев, канистра 5л, авто DIR-14K KIRK
+				</a>
+			</div>
+			<!-- debriefing -->
+			<div class="debr">
+				<div class="badge badge_blue">Опрос недели</div>
+				<div class="title-h4">Средства защиты каких органов являются на Вашем предприятии наиболее востребованными?</div>
+				<!-- radiobuttons -->
+				<label class="radiobutton">
+					<input type="radio" name="debriefing" checked>
+					<span>Защита конечностей</span>
+				</label>
+				<label class="radiobutton">
+					<input type="radio" name="debriefing">
+					<span>Защита органов зрения</span>
+				</label>
+				<label class="radiobutton">
+					<input type="radio" name="debriefing">
+					<span>Защита органов дыхания</span>
+				</label>
+				<label class="radiobutton">
+					<input type="radio" name="debriefing">
+					<span>Защита органов слуха</span>
+				</label>
+				<label class="radiobutton">
+					<input type="radio" name="debriefing">
+					<span>Защита кожного покрова</span>
+				</label>
+			</div>
+			<!-- pop-inf -->
+			<div class="pop-inf">
+				<div class="badge badge_orange">Полезная информация</div>
+				<div class="title-h4">Возможно вам также будет интересно:</div>
+				<ul class="pop-inf__list">
+					<li><a href="#">Продукция</a></li>
+					<li><a href="#">Наши бренды</a></li>
+					<li><a href="#">Инфоцентр</a></li>
+				</ul>
+			</div>
 		</div>
 		<div class="main">
 			<!-- topic -->
@@ -355,155 +344,6 @@
 			</div>
 			<!-- wrapper -->
 			<div class="wrapper">
-				<!-- filter -->
-				<div class="filter">
-					<div class="filter__left">
-						<span class="filter__text">Бренд:</span>
-						<div class="select js-select">
-							<span class="select__text js-select-text">Все бренды</span>
-							<ul class="select__list js-select-list">
-								<li data-val="var0">var0</li>
-								<li data-val="var1">var1</li>
-								<li data-val="var2">var2</li>
-								<li data-val="var3">var3</li>
-							</ul>
-							<select>
-								<option value="var0">var0</option>
-								<option value="var1">var1</option>
-								<option value="var2">var2</option>
-								<option value="var3">var3</option>
-							</select>
-						</div>
-					</div>
-					<div class="filter__right">
-						<label class="checkbox">
-							<input type="checkbox">
-							<span>Показать описание</span>
-						</label>
-						<ul class="view">
-							<li class="view__item is-active">
-								<a href="#"><i class="view__ico view__ico_table"></i></a>
-							</li>
-							<li class="view__item">
-								<a href="#"><i class="view__ico view__ico_cat"></i></a>
-							</li>
-							<li class="view__item">
-								<a href="#"><i class="view__ico view__ico_list"></i></a>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="title-h2">Оборудование</div>
-				<!-- items -->
-				<div class="items">
-					<div class="items__row">
-						<div class="item">
-							<div class="item__in">
-								<a href="#" class="item__img"><img src="img/item-img-1.jpg" alt="img"></a>
-								<a href="#" class="item__link">Сварочное оборудование <br>и материалы</a>
-							</div>
-						</div>
-						<div class="item">
-							<div class="item__in">
-								<a href="#" class="item__img"><img src="img/item-img-2.jpg" alt="img"></a>
-								<a href="#" class="item__link">Компрессоры <br>и оснастка</a>
-							</div>
-						</div>
-						<div class="item">
-							<div class="item__in">
-								<a href="#" class="item__img"><img src="img/item-img-3.jpg" alt="img"></a>
-								<a href="#" class="item__link">Генераторы</a>
-							</div>
-						</div>
-						<div class="item">
-							<div class="item__in">
-								<a href="#" class="item__img"><img src="img/item-img-4.jpg" alt="img"></a>
-								<a href="#" class="item__link">Пуско-зарядные приборы</a>
-							</div>
-						</div>
-					</div>
-					<div class="items__row">
-						<div class="item">
-							<div class="item__in">
-								<a href="#" class="item__img"><img src="img/item-img-5.jpg" alt="img"></a>
-								<a href="#" class="item__link">Нагреватели воздуха</a>
-							</div>
-						</div>
-						<div class="item">
-							<div class="item__in">
-								<a href="#" class="item__img"><img src="img/item-img-6.jpg" alt="img"></a>
-								<a href="#" class="item__link">Измерительные приборы</a>
-							</div>
-						</div>
-						<div class="item">
-							<div class="item__in">
-								<a href="#" class="item__img"><img src="img/item-img-7.jpg" alt="img"></a>
-								<a href="#" class="item__link">Мотопомпы</a>
-							</div>
-						</div>
-						<div class="item">
-							<div class="item__in">
-								<a href="#" class="item__img"><img src="img/item-img-8.jpg" alt="img"></a>
-								<a href="#" class="item__link">Бетоносмесители</a>
-							</div>
-						</div>
-					</div>
-					<div class="items__row">
-						<div class="item">
-							<div class="item__in">
-								<a href="#" class="item__img"><img src="img/item-img-9.jpg" alt="img"></a>
-								<a href="#" class="item__link">Лестницы</a>
-							</div>
-						</div>
-						<div class="item">
-							<div class="item__in">
-								<a href="#" class="item__img"><img src="img/item-img-10.jpg" alt="img"></a>
-								<a href="#" class="item__link">Тачки</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="title-h2">Масла</div>
-				<!-- items -->
-				<div class="items is-prod">
-					<div class="items__row">
-						<div class="item">
-							<div class="item__in">
-								<a href="#" class="item__img">
-									<div class="badge badge_red">Акция</div>
-									<img src="img/item-img-11.jpg" alt="img">
-								</a>
-								<a href="#" class="item__link">Инвертор сварочный MMA130A, ПВ20%, кейс, 220В, IGBT, EW2800 HITACHI</a>
-								<div class="article">Артикул: 4557777</div>
-							</div>
-							<div class="item__bot">
-								<!-- spiner -->
-								<div class="spiner js-spiner" data-max-number="10">
-									<button class="spiner__minus js-minus">&ndash;</button>
-									<input type="text" class="spiner__input" name="spiner-input" value="1" readonly="">
-									<button class="spiner__plus js-plus">+</button>
-									<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
-								</div>
-							</div>
-						</div>
-						<div class="item">
-							<div class="item__in">
-								<a href="#" class="item__img"><img src="img/item-img-12.jpg" alt="img"></a>
-								<a href="#" class="item__link">Инвертор сварочный MMA160A, ПВ30%, +TIG DC Lift, 220В, IGBT KIRK</a>
-								<div class="article">Артикул: 27569888</div>
-							</div>
-							<div class="item__bot">
-								<!-- spiner -->
-								<div class="spiner js-spiner" data-max-number="10">
-									<button class="spiner__minus js-minus">&ndash;</button>
-									<input type="text" class="spiner__input" name="spiner-input" value="1" readonly="">
-									<button class="spiner__plus js-plus">+</button>
-									<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
 				<div class="title-h2">Преимущества работы с нами</div>
 				<!-- advantages -->
 				<div class="advantages">
@@ -536,18 +376,6 @@
 						</div>
 					</div>
 				</div>
-				<!-- information -->
-				<div class="information">
-					<div class="row">
-						<div class="col-md-4">
-							<div class="title-h3">Огромный ассортимент различного оборудования</div>
-						</div>
-						<div class="col-md-8">
-							<p>В этот период, строительный рынок Беларуси рос экспоненциальными темпами. Рынок, который традиционно был устойчив к изменениям, начал демонстрировать стремительные витки роста.</p>
-							<p>Количество компаний в отрасли стало увеличиваться в прогрессии. В то время, как большинство новых компаний были ориентированы исключительно на получение сиюминутной прибыли, молодая компания ЕКТ оставалась верна традициям профессионализма. </p>
-						</div>
-					</div>
-				</div>
 			</div>
 			<!-- read-more -->
 			<div class="read-more" style="background-image: url(../img/read-more-img-1.png);">
@@ -560,16 +388,6 @@
 	</div>
 </div>
 <!-- END out-->
-<footer class="footer">
-	<div class="footer__in">
-		<!-- copy -->
-		<div class="copy">&copy; 2015 ЗАО "ЕКТ групп"</div>
-		<div class="footer__info">+375 (17) 269-74-74, <a href="mailto:info@ekt.by">info@ekt.by</a></div>
-		<!-- dev -->
-		<div class="dev">Разработка сайта: Flex Media</div>
-	</div>
-</footer>
-<!-- load scripts -->
-<script src="js/main.js"></script>
+//= includes/footer.html
 </body>
 </html>
