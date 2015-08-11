@@ -134,4 +134,15 @@ $(document).ready( function() {
 	}
 	spiner();
 
+	// slider
+	$('.js-slider').slick({
+		dots: true,
+		arrows: false,
+		infinite: false,
+		speed: 500,
+		slidesToShow: 4,
+		slidesToScroll: 4,
+		cssEase: 'linear'
+	});
+
 });
