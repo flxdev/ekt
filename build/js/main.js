@@ -145,6 +145,8 @@ $(document).ready( function() {
 		slidesToShow: 4,
 		slidesToScroll: 4,
 		cssEase: 'linear',
+		autoplay: true,
+		autoplaySpeed: 5000,
 		responsive: [
 			{
 				breakpoint: 1180,
@@ -158,6 +160,7 @@ $(document).ready( function() {
 		]
 	});
 
+	// dropdown
 	$('.js-open-drop').on('click', function(event) {
 		var this_ = $(this).parents('.js-drop'),
 			list = this_.find('.js-drop-list');
