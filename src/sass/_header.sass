@@ -9,17 +9,40 @@
 	.header__left
 		float: left
 		margin-top: 35px
-		font-size: 16px
-		line-height: 1
 
 // btm-menu
 .btm-menu
-	margin-right: 10px
+	position: relative
+	padding-left: 30px
 	margin-top: 3px
+	height: 16px
+	font-size: 16px
+	line-height: 1
 	vertical-align: top
 	background-color: transparent
-	display: inline-block
-	+s($ico-menu)
+	display: block
+	+transition(color .2s linear)
+	&:hover
+		color: $second_h
+		&:before
+			opacity: 0
+			+s($ico-menu)
+		&:after
+			opacity: 1
+			+s($ico-menu-hov)
+	&:before,
+	&:after
+		position: absolute
+		content: ''
+		left: 0
+		top: 50%
+		+translate(0, -50%)
+		+transition(opacity .2s linear)
+	&:before
+		+s($ico-menu)
+	&:after
+		opacity: 0
+		+s($ico-menu-hov)
 
 // logo
 .logo
@@ -53,7 +76,9 @@
 			text-transform: uppercase
 			vertical-align: middle
 			+f900
+			+transition(color .2s linear)
 			&:hover
+				color: $second_h
 				&:before
 					bottom: -1px
 					background: transparent
@@ -65,7 +90,7 @@
 				bottom: 0
 				height: 1px
 				background: $green
-				+transition(background .1s linear)
+				+transition(background, .2s linear)
 	a
 		position: relative
 		color: #000
@@ -97,7 +122,9 @@
 		height: 83px
 		line-height: 89px
 		letter-spacing: 0.45px
-		&:hover,
+		+transition(color .2s linear)
+		&:hover
+			color: $second_h
 		&.is-active
 			&:before
 				bottom: 0
@@ -112,7 +139,6 @@
 			bottom: -1px
 			height: 2px
 			background: transparent
-			+transition(background .1s linear)
 
 // cabinet
 .cabinet
@@ -149,9 +175,28 @@
 	float: right
 	margin-top: 35px
 	.search__btn
+		position: relative
+		height: 19px
+		width: 19px
 		background-color: transparent
-		+s($ico-search)
 		display: inline-block
+		&:before,
+		&:after
+			position: absolute
+			content: ''
+			top: 0
+			left: 0
+			+transition(opacity .2s linear)
+		&:before
+			+s($ico-search)
+		&:after
+			opacity: 0
+			+s($ico-search-hov)
+		&:hover
+			&:before
+				opacity: 0
+			&:after
+				opacity: 1
 
 // basket
 .basket

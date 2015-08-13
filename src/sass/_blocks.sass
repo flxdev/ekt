@@ -44,7 +44,7 @@
 		color: #fff
 	&:active
 		color: #fff
-.btn_icon
+.btn_share
 	position: relative
 	padding: 10px 15px 10px 34px
 	@extend .btn_white
@@ -52,11 +52,24 @@
 	min-width: 130px
 	+f300
 	+box
-	.ico
+	&:hover
+		&:before,
+			opacity: 0
+		&:after
+			opacity: 1
+	&:before,
+	&:after
 		position: absolute
+		content: ''
 		top: 50%
 		left: 10px
+		+transition(opacity .3s)
 		+translate(0,-50%)
+	&:before
+		+s($ico-share)
+	&:after
+		opacity: 0
+		+s($ico-share-hov)
 .btn_basket
 	padding: 7px 12px
 	min-width: auto
@@ -317,6 +330,36 @@
 			&:hover
 				text-decoration: underline
 
+// read-more
+.read-more
+	position: relative
+	height: 168px
+	color: #fff
+	+f700
+	+font-smoothing(antialiased)
+	+box
+	background-size: cover
+	background-repeat: no-repeat
+	+vertical
+	&:after
+		position: absolute
+		content: ''
+		top: 0
+		left: 0
+		right: 0
+		bottom: 0
+		background-color: rgba(0, 47, 18, 0.8)
+	.read-more__in
+		position: relative
+		font-size: 18px
+		z-index: 2
+		vertical-align: middle
+		display: inline-block
+	.read-more__text
+		opacity: .5
+		vertical-align: top
+		display: inline-block
+
 // link-right link-left
 .link-right,
 .link-left
@@ -324,7 +367,7 @@
 	color: $green
 	text-decoration: underline
 	&:hover
-		text-decoration: none
+		color: $second_h
 	&:before
 		position: absolute
 		content: ''
@@ -333,12 +376,52 @@
 .link-right
 	margin-left: 5px
 	padding-right: 12px
+	&:hover
+		&:before
+			+s($ico-l-right-h)
 	&:before
 		right: 0
 		+s($ico-l-right)
 .link-left
 	margin-right: 5px
 	padding-left: 12px
+	&:hover
+		&:before
+			+s($ico-l-left-h)
 	&:before
 		left: 0
 		+s($ico-l-left)
+
+// drop
+.drop
+	position: relative
+	&.is-active
+		.btn
+			background: $green
+			@extend .btn_share:hover
+	.drop__list
+		position: absolute
+		content: ''
+		top: 100%
+		left: 50%
+		+translate(-50%,0)
+		margin-top: 10px
+		padding: 2px 13px
+		min-width: 130px
+		font-size: 13px
+		z-index: 10
+		box-shadow: 0 2px 7px rgba(0, 0, 0, 0.23)
+		background: #fff
+		display: none
+		li
+			margin: 2px 0
+		a
+			position: relative
+			padding: 3px 0 3px 25px
+			color: #000
+			display: block
+		.ico
+			position: absolute
+			top: 50%
+			left: 0
+			+translate(0,-50%)

@@ -41,8 +41,6 @@
 				&:hover
 					.nav__arr
 						+s($arr-white)
-			// .list-links
-			// 	display: block
 	.nav__arr
 		display: inline-block
 		position: absolute
@@ -80,7 +78,7 @@
 		opacity: 0
 		overflow: hidden
 		z-index: 20
-		+transition(height, opacity .1s linear)
+		+transition(height .1s, opacity .1s linear)
 		+box
 		& + [class^="ul-"]
 			margin-left: -13px
@@ -107,9 +105,10 @@
 		color: #000
 		line-height: 24px
 		border-bottom: 1px solid $green
-		+transition(border-color .1s linear)
+		+transition(color .2s, border-color .2s linear)
 		display: inline
 		&:hover
+			color: $second_h
 			border-color: transparent
 		
 .ul-o
