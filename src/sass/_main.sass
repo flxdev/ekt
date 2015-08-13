@@ -134,6 +134,8 @@
 	+f700
 	+box
 	display: inline-block
+	+r(1180)
+		width: 50%
 	&:before
 		position: absolute
 		content: ''
@@ -142,12 +144,26 @@
 		width: 25%
 		+translate(-50%,0)
 		border: 1px solid $border-item
+		+r(1180)
+			width: 50%
 	& + .item
 		&:before
 			border-left: none
+		& + .item .item__in
+			&:before
+				+r(1180)
+					display: block
 	.item__in
 		position: relative
 		z-index: 1
+		&:before
+			position: absolute
+			content: ''
+			top: -11px
+			left: -9px
+			right: -10px
+			border-top: 1px solid $border-item
+			display: none
 	.item__img
 		position: relative
 		overflow: hidden
@@ -163,8 +179,8 @@
 			+translate(-50%,-50%)
 		.badge
 			position: absolute
-			top: 0
-			right: 0
+			top: 2px
+			right: 2px
 			z-index: 3
 	.item__link
 		margin: 0 17px
@@ -179,6 +195,8 @@
 		bottom: 26px
 		width: 25%
 		+translate(-10px, 0)
+		+r(1180)
+			width: 50%
 	.article
 		margin-top: 5px
 	.item__text
@@ -245,7 +263,7 @@
 	.title-h3
 		line-height: 30px
 	p
-		margin-bottom: 30px
+		margin-top: 30px
 		padding-right: 40px
 		&:first-child
 			margin-top: 5px
@@ -281,11 +299,25 @@
 
 // slider
 .slider
+	position: relative
 	margin: 30px 0 50px
 	padding-bottom: 37px
-	.slick-list
-		padding: 0 2px
-		margin: 0 -2px
+	&:before
+		position: absolute
+		content: ''
+		top: 0
+		left: 0
+		right: 0
+		bottom: 37px
+		border: 1px solid $border-item
+	&.is-prod
+		.item
+			padding-bottom: 10px
+			min-height: 327px
+			+f300
+		.item__link
+			margin: 0
+			color: $green
 	.slick-dots
 		position: absolute
 		left: 0
@@ -310,3 +342,28 @@
 		min-height: 288px
 		&:before
 			width: 100%
+			border-top: none
+			border-bottom: none
+
+// banner
+.banner
+	position: relative
+	margin: 60px 0 48px
+	padding: 62px 345px 32px 30px
+	font-size: 24px
+	color: #fff
+	background-size: cover
+	background-repeat: no-repeat
+	+f500
+	&:before
+		position: absolute
+		content: ''
+		top: 0
+		left: 0
+		right: 0
+		bottom: 0
+		background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%)
+	.banner__text
+		position: relative
+		z-index: 1
+

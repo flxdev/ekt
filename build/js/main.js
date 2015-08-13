@@ -138,11 +138,22 @@ $(document).ready( function() {
 	$('.js-slider').slick({
 		dots: true,
 		arrows: false,
-		infinite: false,
+		infinite: true,
 		speed: 500,
 		slidesToShow: 4,
 		slidesToScroll: 4,
-		cssEase: 'linear'
+		cssEase: 'linear',
+		responsive: [
+			{
+				breakpoint: 1180,
+				settings: {
+					slidesToShow: 3,
+					slidesToScroll: 3,
+					infinite: true,
+					dots: true
+				}
+			}
+		]
 	});
 
 });
