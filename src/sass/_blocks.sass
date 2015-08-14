@@ -228,6 +228,10 @@
 	cursor: pointer
 	user-select: none
 	display: block
+	&:hover
+		span:before
+			border-color: #0b9a42
+			box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 0 8px rgba(11, 154, 66, 0.59)
 	input,
 	span:before
 		position: absolute
@@ -238,6 +242,7 @@
 	input
 		z-index: 2
 		opacity: 0
+		cursor: pointer
 		&:checked
 			& + span
 				&:before
@@ -252,17 +257,21 @@
 			content: ''
 			border: 1px solid $bord-rad
 			border-radius: 50%
+			+transition(border-color .3s, box-shadow .3s)
 			+box
 		&:after
 			position: absolute
 			content: ''
+			display: none
+.radiobutton
+	span
+		&:after
 			top: 8px
 			left: 5px
 			height: 6px
 			width: 6px
 			border-radius: 50%
 			background: $bg-rad
-			display: none
 
 .checkbox
 	input,
@@ -274,6 +283,10 @@
 			border-color: $border-checkbox
 			border-radius: 3px
 			+box
+		&:after
+			top: 7px
+			left: 2px
+			+s($checkbox-arr)
 
 // wrapper
 .wrapper

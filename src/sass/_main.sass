@@ -37,7 +37,16 @@
 		border: 1px solid $border-filter
 		border-left: none
 		display: inline-block
-		+transition(background, border-color .1s linear)
+		+transition(background .2s, border-color .2s, box-shadow .3s)
+		&:hover
+			border-color: $green
+			box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 0 8px rgba(11, 154, 66, 0.15)
+			&:first-child
+				border-color: $green
+			a
+				color: #000
+		&:active
+			background: $viev-active
 		&:before
 			position: absolute
 			content: ''
@@ -45,40 +54,34 @@
 			left: -1px
 			bottom: -1px
 			width: 1px
+			+transition(background .3s)
 		&:first-child
 			border-radius: 3px 0 0 3px
 			border-left: 1px solid $border-filter
 		&:last-child
 			border-radius: 0 3px 3px 0
-		&.is-active,
-		&:hover
+		&.is-active
 			border-color: $green
 			background: $green
-			.view__ico_table
-				+s($ico-table-w)
-			.view__ico_cat
-				// +s()
-			.view__ico_list
-				// +s()
+			a
+				color: #fff
 		& + .view__item
-			&.is-active
+			&.is-active,
+			&:hover
 				&:before
 					background: $green
 	a
 		height: 30px
 		width: 32px
-		line-height: 30px
+		line-height: 29px
+		color: $border-filter
+		font-size: 16px
 		text-align: center
+		+transition(color .3s)
 		display: block
-	.view__ico
+	[class^="icon-"], [class*=" icon-"]
 		vertical-align: middle
 		display: inline-block
-		&.view__ico_table
-			// +s()
-		&.view__ico_cat
-			+s($ico-cat)
-		&.view__ico_list
-			+s($ico-list)
 
 // filter
 .filter
@@ -146,6 +149,8 @@
 		&:after
 			border-color: #0b9a42
 			box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 0 8px rgba(11, 154, 66, 0.15)
+		.item__arr
+			opacity: 1
 	+r(1180)
 		width: 50%
 	&:before,
@@ -222,8 +227,6 @@
 		+translate(-10px, 0)
 		+r(1180)
 			width: 50%
-	.article
-		margin-top: 5px
 	.item__text
 		margin: 5px -3px 0
 		font-size: 13px
@@ -232,6 +235,17 @@
 		letter-spacing: 0.3px
 		+f300
 		opacity: .5
+	.item__arr
+		position: absolute
+		right: 10px
+		bottom: 9px
+		z-index: 3
+		opacity: 0
+		+transition(opacity .2s)
+		display: inline-block
+		+s($item-arr)
+	.article
+		margin-top: 5px
 
 // article
 .article
@@ -300,6 +314,24 @@
 	position: relative
 	margin: 30px 0 50px
 	padding-bottom: 37px
+	&:hover
+		.slick-prev,
+		.slick-next
+			opacity: 1
+			&:active
+				opacity: .5
+			&.slick-disabled
+				opacity: .1
+				cursor: default
+	.slick-prev,
+	.slick-next
+		top: 116px
+		opacity: 0
+		+transition(opacity .2s)
+	.slick-prev
+		+s($slider-arr-left)
+	.slick-next
+		+s($slider-arr-right)
 	&.is-prod
 		.item
 			padding-bottom: 10px

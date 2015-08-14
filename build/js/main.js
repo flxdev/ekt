@@ -139,8 +139,8 @@ $(document).ready( function() {
 	// slider
 	$('.js-slider').slick({
 		dots: true,
-		arrows: false,
-		infinite: true,
+		arrows: true,
+		infinite: false,
 		speed: 500,
 		slidesToShow: 4,
 		slidesToScroll: 4,
@@ -153,7 +153,7 @@ $(document).ready( function() {
 				settings: {
 					slidesToShow: 3,
 					slidesToScroll: 3,
-					infinite: true,
+					infinite: false,
 					dots: true
 				}
 			}
