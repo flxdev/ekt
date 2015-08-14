@@ -161,6 +161,7 @@
 		height: 3px
 		background: $green
 
+// select
 .select
 	position: relative
 	cursor: pointer
@@ -183,19 +184,17 @@
 	border-radius: 3px
 	border: 1px solid $border-filter
 	display: block
-	&:before
-		content: ""
-		position: absolute
-		right: 10px
-		top: 11px
-		margin-top: -3px
-		+arr(5,4,$border-filter,t)
+	&:before,
 	&:after
 		content: ""
 		position: absolute
 		right: 10px
-		bottom: 9px
 		margin-top: -3px
+	&:before
+		top: 11px
+		+arr(5,4,$border-filter,t)
+	&:after
+		bottom: 9px
 		+arr(5,4,$border-filter,b)
 .select__list
 	position: absolute
@@ -218,6 +217,89 @@
 		&:hover
 			background: $green
 			color: #fff
+		
+// multiple-select
+.multiple-select
+	min-width: 211px
+	.ms-choice
+		padding-left: 9px
+		height: 32px
+		border: 1px solid $border-filter
+		font-size: 13px
+		+f300
+		+transition(border-color .3s, box-shadow .3s)
+		&:hover,
+		&.is-active
+			border-color: $green
+			border-radius: 3px
+			box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 0 8px rgba(11, 154, 66, 0.15)
+			& > div
+				&:before
+					top: 12px
+					+arr(5,4,$green,t)
+				&:after
+					bottom: 10px
+					+arr(5,4,$green,b)
+		&:active
+			border-color: $primary_a
+			& > div
+				&:before
+					top: 12px
+					+arr(5,4,$primary_a,t)
+				&:after
+					bottom: 10px
+					+arr(5,4,$primary_a,b)
+		& > div
+			height: 100%
+			&:before,
+			&:after
+				content: ""
+				position: absolute
+				right: 10px
+				margin-top: -3px
+				+transition(border-color .3s, box-shadow .3s)
+			&:before
+				top: 12px
+				+arr(5,4,$border-filter,t)
+			&:after
+				bottom: 10px
+				+arr(5,4,$border-filter,b)
+		& > span
+			padding-left: 9px
+			line-height: 32px
+	.ms-drop.bottom
+		margin-top: 11px
+		border: none
+		box-shadow: 0 2px 7px rgba(0, 0, 0, 0.23)
+		border-radius: 0
+		ul
+			padding: 0
+		li.selected
+			+f700
+			label
+				&:before
+					display: block
+		label
+			position: relative
+			padding: 5px 9px
+			cursor: pointer
+			+transition(background .3s)
+			&:hover
+				background: rgba($green, .1)
+			&:before
+				position: absolute
+				content: ''
+				right: 10px
+				top: 50%
+				+translate(0,-50%)
+				+s($checkbox-arr)
+				display: none
+			input
+				position: absolute
+				right: 10px
+				top: 50%
+				opacity: 0
+				z-index: 2
 
 // radiobutton checkbox
 .radiobutton,

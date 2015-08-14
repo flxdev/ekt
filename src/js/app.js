@@ -5,6 +5,7 @@ $(document).ready( function() {
 		    $(".js-select-list").slideUp(100);
 		    $('.js-drop').removeClass('is-active');
 		    $('.js-drop-list').fadeOut();
+			$('.ms-choice').removeClass('is-active');
 	    });
 	    
 	  // select list
@@ -113,8 +114,6 @@ $(document).ready( function() {
 		slidesToShow: 4,
 		slidesToScroll: 4,
 		cssEase: 'linear',
-		autoplay: true,
-		autoplaySpeed: 5000,
 		responsive: [
 			{
 				breakpoint: 1180,
@@ -143,4 +142,20 @@ $(document).ready( function() {
 		event.stopPropagation();
 	});
 
+	// multiple-select
+	$(".js-multiple-select").multipleSelect({
+		selectAll: false,
+		countSelected: 10,
+		minimumCountSelected: 10,
+		onOpen: function() {
+			$('.ms-choice').addClass('is-active');
+		},
+		onClose: function() {
+			$('.ms-choice').removeClass('is-active');
+		}
+	});
+	$('.ms-choice').on("click", function(event) {
+		event.stopPropagation();
+	});
+	
 });
