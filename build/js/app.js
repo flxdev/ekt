@@ -157,5 +157,26 @@ $(document).ready( function() {
 	$('.ms-choice').on("click", function(event) {
 		event.stopPropagation();
 	});
+
+	// items add wrap
+	function itemWrap() {
+		function addWrap() {
+			var row = $('.items__row'),
+				item = $('.items__wrap').find('.item');
+			if ($(window).width() < 1180) {
+				while(row.children('div:not(.items__wrap)').length)
+					row.children('div:not(.items__wrap):lt(2)').wrapAll('<div class="items__wrap">');
+			}
+			else {
+				item.unwrap();
+			};
+		}
+		window.onload = function() {
+			addWrap();
+		};
+		$(window).resize(function() {
+			addWrap();
+		});
+	} itemWrap();
 	
 });

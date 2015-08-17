@@ -123,7 +123,13 @@
 		& + .items__row
 			.item
 				&:before
-					border-top: none
+					border-top-color: transparent
+	.items__wrap
+		position: relative
+		& + .items__wrap
+			.item
+				&:before
+					border-top-color: transparent
 
 // item
 .item
@@ -151,8 +157,6 @@
 			box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 0 8px rgba(11, 154, 66, 0.15)
 		.item__arr
 			opacity: 1
-	+r(1180)
-		width: 50%
 	&:before,
 	&:after
 		position: absolute
@@ -169,13 +173,15 @@
 		border-top: 1px solid transparent
 	&:before
 		border: 1px solid $border-item
+	+r(1180)
+		width: 50%
 	& + .item
 		&:before
 			border-left: none
-		& + .item .item__in
-			&:before
-				+r(1180)
-					display: block
+		& + .item
+			+r(1180)
+				&:before
+					border-top-color: transparent
 	.item__in
 		position: relative
 		z-index: 1
@@ -380,6 +386,14 @@
 		.item__in
 			&:before
 				top: -100px
+		& + .item + .item
+			+r(1180)
+				&:before
+					border-top-color: $border-item
+		&:nth-child(3)
+			+r(1180)
+				&:before
+					border-left: none
 	.slick-list
 		padding: 2px 2px 2px 1px
 		margin-right: -1px
