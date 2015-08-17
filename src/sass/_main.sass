@@ -21,7 +21,7 @@
 		letter-spacing: 1px
 		overflow: hidden
 	.topic__text
-		margin-top: 15px
+		margin-top: 30px
 		line-height: 30px
 		opacity: .8
 		letter-spacing: 0.5px
@@ -118,18 +118,51 @@
 		.item__link
 			margin: 0
 			color: $green
-	.items__row
-		position: relative
-		& + .items__row
-			.item
-				&:before
-					border-top-color: transparent
+	&.is-part
+		.item
+			position: relative
+			padding-bottom: 25%
+			min-height: auto
+			&:active
+				&:before,
+				&:after
+					border-color: $primary_a
+			&:hover
+				&:before,
+				&:after
+					z-index: 2
+			.item__in
+				position: absolute
+				top: 50%
+				left: 50%
+				+translate(-50%,-50%)
+			&:before,
+			&:after
+				left: 0
+				right: 0
+				width: auto
+				+translate(0,0)
+		.items__row,
+		.items__wrap
+			& + .items__row,
+			& + .items__wrap
+				.item
+					&:before,
+					&:after
+						margin-top: -1px
+						+r(1180)
+							margin-top: 0
+	.items__row,
 	.items__wrap
 		position: relative
+		& + .items__row,
 		& + .items__wrap
 			.item
 				&:before
+					margin-top: -1px
 					border-top-color: transparent
+				&:after
+					margin-top: -1px
 
 // item
 .item
@@ -143,7 +176,7 @@
 	+f700
 	+box
 	display: inline-block
-	+transition(color .1s linear)
+	+transition(border-color .3s, background-color .3s, color .1s linear)
 	&:link
 		color: #000
 	&:visited
@@ -175,9 +208,34 @@
 		border: 1px solid $border-item
 	+r(1180)
 		width: 50%
+	&.item_all
+		background-color: $light-orange
+		&:before,
+		&:after
+			box-shadow: none
+			border-color: $border-item-all
+		&:hover
+			background-color: $bg-item-all_h
+			&:before,
+			&:after
+				border-color: $border-item-all_h
+			.item__text
+				text-decoration: none
+		.item__text
+			position: relative
+			color: #fff
+			opacity: 1
+			text-decoration: underline
+			&:after
+				content: ''
+				margin: 0 0 -1px 10px
+				display: inline-block
+				+s($item-arr-w)
 	& + .item
 		&:before
 			border-left: none
+		&:after
+			margin-left: -1px
 		& + .item
 			+r(1180)
 				&:before
@@ -299,6 +357,8 @@
 		+box
 		&:first-child
 			margin-top: 0
+		p
+			margin-top: 0
 	.title-green
 		margin-bottom: 20px
 
@@ -315,44 +375,9 @@
 		&:first-child
 			margin-top: 5px
 
-// slider
-.slider
-	position: relative
-	margin: 30px 0 50px
-	padding-bottom: 37px
-	&:hover
-		.slick-prev,
-		.slick-next
-			opacity: 1
-			&:active
-				opacity: .5
-			&.slick-disabled
-				opacity: .1
-				cursor: default
-	.slick-prev,
-	.slick-next
-		top: 116px
-		opacity: 0
-		+transition(opacity .2s)
-	.slick-prev
-		+s($slider-arr-left)
-	.slick-next
-		+s($slider-arr-right)
-	&.is-prod
-		.item
-			padding-bottom: 10px
-			min-height: 327px
-			+f300
-		.item__link
-			margin: 0
-			color: $green
-			&:hover
-				color: $second_h
+// slick-slider
+.slick-slider
 	.slick-dots
-		position: absolute
-		left: 0
-		bottom: 0
-		right: 0
 		li
 			margin-left: 22px
 			padding: 0
@@ -376,6 +401,47 @@
 			&:active
 				background-color: $primary_a
 				box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 0 8px rgba(11, 154, 66, 0.15)
+	&:hover
+		.slick-prev,
+		.slick-next
+			opacity: 1
+			&:active
+				opacity: .5
+			&.slick-disabled
+				opacity: .1
+				cursor: default
+	.slick-prev,
+	.slick-next
+		opacity: 0
+		+transition(opacity .3s)
+
+// slider
+.slider
+	position: relative
+	margin: 30px 0 50px
+	padding-bottom: 37px
+	.slick-prev,
+	.slick-next
+		top: 116px
+	.slick-prev
+		+s($slider-arr-left)
+	.slick-next
+		+s($slider-arr-right)
+	&.is-prod
+		.item
+			padding-bottom: 10px
+			min-height: 327px
+			+f300
+		.item__link
+			margin: 0
+			color: $green
+			&:hover
+				color: $second_h
+	.slick-dots
+		position: absolute
+		left: 0
+		bottom: 0
+		right: 0
 	.item
 		position: relative
 		min-height: 288px
@@ -399,6 +465,25 @@
 		margin-right: -1px
 		font-size: 0
 
+// galery
+.galery
+	position: relative
+	margin: 60px 0 40px
+	.slick-prev,
+	.slick-next
+		top: 50%
+		z-index: 1
+		background-color: transparent
+		+translate(0,-50%)
+	.slick-prev
+		left: 20px
+		+s($galery-arr-left)
+	.slick-next
+		right: 20px
+		+s($galery-arr-right)
+	
+
+
 // banner
 .banner
 	position: relative
@@ -421,3 +506,11 @@
 		position: relative
 		z-index: 1
 
+// info-brown
+.info-brown
+	padding: 30px 40px
+	font-size: 16px
+	line-height: 30px
+	letter-spacing: 0.4px
+	text-align: center
+	background: $light-brown

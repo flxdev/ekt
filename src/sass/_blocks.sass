@@ -373,14 +373,29 @@
 // wrapper
 .wrapper
 	padding: 30px 45px 70px 44px
+	line-height: 24px
 	.title-h2
-		margin: 35px 0 22px
+		margin: 40px 0 22px
 	.wrapper__top
 		position: relative
 		.checkbox
 			position: absolute
 			top: 12px
 			right: 0
+.list
+	margin: 20px 0
+	li
+		position: relative
+		padding-left: 20px
+		line-height: 30px
+		&:before
+			position: absolute
+			content: ''
+			top: 14px
+			left: 0
+			height: 1px
+			width: 9px
+			background: $green
 
 // badge
 .badge
@@ -520,3 +535,15 @@
 			top: 50%
 			left: 0
 			+translate(0,-50%)
+// field
+.field
+	margin: 22px 0 15px
+	+clr
+	.field__text
+		overflow: hidden
+	.title-h3
+		margin-top: -5px
+		line-height: 30px
+	img
+		float: left
+		margin: 0 30px 20px 0

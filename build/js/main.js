@@ -754,6 +754,18 @@ $(document).ready( function() {
 			}
 		]
 	});
+	$('.js-galery').slick({
+		dots: true,
+		arrows: true,
+		infinite: true,
+		slidesToShow: 1,
+		slidesToScroll: 1,
+		autoplay: true,
+		speed: 700,
+		autoplaySpeed: 3000,
+		fade: true,
+		cssEase: 'linear',
+	});
 
 	// dropdown
 	$('.js-open-drop').on('click', function(event) {
@@ -791,9 +803,9 @@ $(document).ready( function() {
 		function addWrap() {
 			var row = $('.items__row'),
 				item = $('.items__wrap').find('.item');
-			if ($(window).width() < 1180) {
-				while(row.children('div:not(.items__wrap)').length)
-					row.children('div:not(.items__wrap):lt(2)').wrapAll('<div class="items__wrap">');
+			if ($(window).width() < 1166) {
+				while(row.children('.item:not(.items__wrap)').length)
+					row.children('.item:not(.items__wrap):lt(2)').wrapAll('<div class="items__wrap">');
 			}
 			else {
 				item.unwrap();
