@@ -72,21 +72,6 @@ $(document).ready( function() {
 	}
 	navOpen();
 
-	$('.js-accord-but').on('click', function() {
-		var this_ = $(this),
-			parent = this_.parents('.js-accord'),
-			block = parent.find('.js-accord-block');
-		if (!parent.hasClass('is-active')) {
-			parent.addClass('is-active')
-			block.slideDown(500);
-		}
-		else {
-			parent.removeClass('is-active');
-			block.slideUp(500);
-		}
-		return false;
-	});
-
 	// spiner
 	function spiner() {
 		var number = $('.js-spiner');
@@ -205,5 +190,29 @@ $(document).ready( function() {
 			addWrap();
 		});
 	} itemWrap();
-	
+
+	// accordion
+	function accord() {
+		$('.js-accord').each(function() {
+			var this_ = $(this),
+				block = this_.find('.js-accord-block');
+			if (this_.hasClass('is-active')) {
+				block.show();
+			}
+		});
+		$('.js-accord-but').on('click', function() {
+			var this_ = $(this),
+				parent = this_.parents('.js-accord'),
+				block = parent.find('.js-accord-block');
+			if (!parent.hasClass('is-active')) {
+				parent.addClass('is-active')
+				block.slideDown(400);
+			}
+			else {
+				parent.removeClass('is-active');
+				block.slideUp(400);
+			}
+			return false;
+		});
+	} accord();
 });

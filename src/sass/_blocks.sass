@@ -467,6 +467,15 @@
 		right: 0
 		bottom: 0
 		background-color: rgba(0, 47, 18, 0.8)
+	& + .read-more
+		margin-top: 66px
+	.read-more__wrap
+		position: absolute
+		top: 0
+		left: 0
+		right: 0
+		bottom: 0
+		+clr
 	.read-more__in
 		position: relative
 		font-size: 18px
@@ -477,6 +486,16 @@
 		opacity: .5
 		vertical-align: top
 		display: inline-block
+	.read-more__left,
+	.read-more__right
+		float: left
+		padding: 0 100px
+		width: 50%
+		height: 168px
+		background-size: cover
+		background-repeat: no-repeat
+		+box
+		+vertical
 
 // links
 .link-right,
@@ -486,19 +505,19 @@
 	text-decoration: underline
 	&:hover
 		color: $second_h
+	&:after,
 	&:before
-		position: absolute
 		content: ''
-		top: 50%
-		+translate(0,-50%)
+		margin-bottom: -2px
+		display: inline-block
 .link-right
 	margin-left: 5px
 	padding-right: 12px
 	&:hover
-		&:before
+		&:after
 			+s($ico-l-right-h)
-	&:before
-		right: 0
+	&:after
+		margin-left: 4px
 		+s($ico-l-right)
 .link-left
 	margin-right: 5px
@@ -507,7 +526,7 @@
 		&:before
 			+s($ico-l-left-h)
 	&:before
-		left: 0
+		margin-right: 4px
 		+s($ico-l-left)
 
 .link-black
@@ -578,18 +597,71 @@
 	+f300
 	display: inline-block
 
+// tag
+.tag
+	margin-right: 15px
+	font-size: 13px
+	color: #000
+	display: inline-block
+
+// news
+.news
+	margin: 45px 0 30px
+
 // accord
 .accord
 	padding: 20px 0 28px
 	border-bottom: 1px solid $border
+	&.is-active
+		.accord__title
+			color: #000
+		.accord__but
+			&:before
+				opacity: 0
+			&:after
+				opacity: 1
 	.accord__but
+		position: relative
 		padding-right: 170px
 		cursor: pointer
+		&:before,
+		&:after
+			position: absolute
+			content: ''
+			top: 50%
+			right: 3px
+			+translate(0,-50%)
+			+transition(opacity .3s)
+		&:before
+			+s($accord-arr)
+		&:after
+			opacity: 0
+			+s($accord-arr-op)
 	.accord__title
 		color: $green
 		font-size: 18px
 		line-height: 30px
+		user-select: none
+		+transition(color .3s)
 		border-bottom: 1px dotted $green
+		+font-smoothing(antialiased)
+		+f500
 		display: inline
+	.accord__inf
+		margin-left: 16px
+		color: #000
+		font-size: 13px
+		opacity: 0.5
+		line-height: 24px
+		display: inline-block
 	.accord__block
+		padding-top: 20px
 		display: none
+	.list
+		margin: 3px 0 16px
+		padding-right: 270px
+		letter-spacing: .35px
+		li
+			line-height: 28px
+	.info-brown
+		margin: 0 0 10px
