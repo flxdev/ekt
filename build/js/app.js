@@ -59,18 +59,33 @@ $(document).ready( function() {
 				list = $('.js-list-links');
 			if (!this_.hasClass('is-active')) {
 				item.removeClass('is-active');
-				list.slideUp();
+				list.slideUp(500);
 				this_.addClass('is-active');
-				thisList.slideDown();
+				thisList.slideDown(500);
 			}
 			else {
 				this_.removeClass('is-active');
-				list.slideUp();
+				list.slideUp(500);
 			}
 			return false;
 		});
 	}
 	navOpen();
+
+	$('.js-accord-but').on('click', function() {
+		var this_ = $(this),
+			parent = this_.parents('.js-accord'),
+			block = parent.find('.js-accord-block');
+		if (!parent.hasClass('is-active')) {
+			parent.addClass('is-active')
+			block.slideDown(500);
+		}
+		else {
+			parent.removeClass('is-active');
+			block.slideUp(500);
+		}
+		return false;
+	});
 
 	// spiner
 	function spiner() {

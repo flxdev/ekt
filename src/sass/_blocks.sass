@@ -98,8 +98,12 @@
 	line-height: 1.9
 	font-weight: normal
 	+f500
+	+clr
 	& + p
 		margin-top: -10px
+	.link-black
+		float: right
+		line-height: 45px
 .title-h3
 	font-size: 18px
 	font-weight: normal
@@ -474,7 +478,7 @@
 		vertical-align: top
 		display: inline-block
 
-// link-right link-left
+// links
 .link-right,
 .link-left
 	position: relative
@@ -505,6 +509,20 @@
 	&:before
 		left: 0
 		+s($ico-l-left)
+
+.link-black
+	color: #000
+	font-size: 13px
+	line-height: 36px
+	text-decoration: underline
+	+f300
+	&:link
+		color: #000
+	&:visited
+		color: $second_a
+	&:hover
+		color: $second_h
+		text-decoration: none
 
 // drop
 .drop
@@ -551,3 +569,27 @@
 	img
 		float: left
 		margin: 0 30px 20px 0
+
+// date
+.date
+	color: #000
+	font-size: 13px
+	+opacity(0.5)
+	+f300
+	display: inline-block
+
+// accord
+.accord
+	padding: 20px 0 28px
+	border-bottom: 1px solid $border
+	.accord__but
+		padding-right: 170px
+		cursor: pointer
+	.accord__title
+		color: $green
+		font-size: 18px
+		line-height: 30px
+		border-bottom: 1px dotted $green
+		display: inline
+	.accord__block
+		display: none
