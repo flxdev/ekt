@@ -111,13 +111,17 @@
 // items
 .items
 	font-size: 0
-	&.is-prod
+	&.is-prod,
+	&.is-prod-cena
 		.item
 			padding-bottom: 75px
 			+f300
 		.item__link
 			margin: 0
 			color: $green
+	&.is-prod-cena
+		.item
+			padding-bottom: 105px
 	&.is-part
 		.item
 			position: relative
@@ -291,14 +295,21 @@
 		&:hover
 			color: $second_h
 			text-decoration: none
-	.item__bot
+	.item__bot,
+	.item__price
 		position: absolute
 		bottom: 26px
 		width: 25%
+		color: #000
 		z-index: 1
 		+translate(-10px, 0)
 		+r(1180)
 			width: 50%
+	.item__price
+		bottom: 60px
+		line-height: 50px
+		font-size: 13px
+		+f700
 	.item__text
 		margin: 5px -3px 0
 		font-size: 13px
