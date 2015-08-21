@@ -292,12 +292,23 @@
 					<div class="login">
 						<div class="login__title">Войти в личный кабинет</div>
 						<div class="form">
-							<form action="#">
-								<div class="form__row">
+							<form action="#" class="js-validate">
+								<label class="form__row">
 									<div class="input">
-										<span></span>
+										<p>E-mail (логин)<span>*</span></p>
+										<input type="text" data-validation="email" placeholder="info@hmail.com">
 									</div>
-								</div>
+								</label>
+								<label class="form__row">
+									<div class="input">
+										<p>Пароль<span>*</span></p>
+										<input type="password" data-validation="required" placeholder="***********">
+									</div>
+									<a href="#" class="forgot-pass">Забыли пароль?</a>
+								</label>
+								<div class="form__submit">
+									<input type="submit" class="btn" value="Войти">
+								</div>	
 							</form>
 						</div>
 					</div>	
