@@ -110,6 +110,7 @@ $(document).ready( function() {
 		dots: true,
 		arrows: true,
 		infinite: false,
+		adaptiveHeight: true,
 		speed: 500,
 		slidesToShow: 4,
 		slidesToScroll: 4,
@@ -215,4 +216,21 @@ $(document).ready( function() {
 			return false;
 		});
 	} accord();
+
+	// item show info
+	// $('.js-item-open').on('click', function() {
+	// 	var this_ = $(this),
+	// 		parent = this_.parents('.item')
+	// 		block = parent.find('.js-item-text');
+	// 	if (!parent.hasClass('is-active')) {
+	// 		parent.addClass('is-active')
+	// 		block.slideDown(400);
+	// 	}
+	// 	else {
+	// 		parent.removeClass('is-active');
+	// 		block.slideUp(400);
+	// 	}
+	// 	return false;
+	// })
+
 });

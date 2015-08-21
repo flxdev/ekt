@@ -1,13 +1,69 @@
 <!doctype html>
 <html>
 <head>
-	<title>8-0prodaji-rascruto</title>
-	//= includes/head.html
+	<title>8-0prodaji</title>
+	<meta charset="utf-8">
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+	<meta name="viewport" content="width=1200">
+	<meta name="format-detection" content="telephone=no">
+	<!-- theme color for android 5.0 -->
+	<meta name="theme-color" content="#fff"> 
+	<link rel="stylesheet" media="all" href="css/screen.css" >
 </head>
 <body>
 <!-- BEGIN  out-->
 <div class="out">
-	//= includes/header_company.html
+	<header class="header">
+		<div class="header__left">
+			<button class="btm-menu" type="button">Весь сайт</button>
+		</div>
+		<!-- logo -->
+		<a href="#" class="logo"></a>
+		<!-- search -->
+		<div class="search">
+			<button class="search__btn" type="button"></button>
+		</div>
+		<!-- menu -->
+		<ul class="menu">
+			<li class="menu__item is-active">
+				<a href="#">Компания</a>
+				<div class="menu__in">
+					<!-- ul -->
+					<ul class="ul">                                                           
+						<li><a class="is-active" href="#">О компании</a></li>
+						<li><a href="#">Продукция</a></li>
+						<li><a href="#">Бренды</a></li>
+						<li><a href="#">Наш опыт</a></li>
+						<li><a href="#">Инфо-центр</a></li>
+						<li><a href="#">Карьера</a></li>
+						<li><a href="#">Сервис</a></li>
+					</ul>
+				</div>
+			</li>
+			<li class="menu__item">
+				<a href="#">Продажи</a>
+				<div class="menu__in">
+					<!-- cabinet -->
+					<a href="#" class="cabinet">
+						<div class="cabinet__name">Александр Петровский</div>
+						<div class="cabinet__row">
+							<i class="ico ico_user"></i>
+							<span>Личный кабинет</span>
+						</div>
+					</a>
+					<!-- ul -->
+					<ul class="ul">
+						<li><a class="is-active" href="#">Каталог</a></li>
+						<li><a href="#">Акции и спецпредложения</a></li>
+						<li><a href="#">Где купить продукцию ЕКТ</a></li>
+						<li><a href="#">Проектировщику</a></li>
+						<li><a href="#">Сервисный центр</a></li>
+					</ul>
+				</div>
+			</li>
+			<li class="menu__item"><a href="#">Контакты</a></li>
+		</ul>
+	</header>
 	<div class="l-layout">
 		<!-- sidebar -->
 		<div class="sidebar">
@@ -362,7 +418,7 @@
 				<!-- items -->
 				<div class="items">
 					<div class="items__row">
-						<div class="item is-actve">
+						<div class="item">
 							<div class="item__in">
 								<a href="#" class="item__img"><img src="img/item-img-13.jpg" alt="img"></a>
 								<a href="#" class="item__link">Крепежная техника</a>
@@ -372,7 +428,7 @@
 								<a href="#" class="item__arr js-item-open"></a>
 							</div>
 						</div>
-						<div class="item is-actve">
+						<div class="item">
 							<div class="item__in">
 								<a href="#" class="item__img"><img src="img/item-img-14.jpg" alt="img"></a>
 								<a href="#" class="item__link">Ручной инструмент</a>
@@ -382,7 +438,7 @@
 								<a href="#" class="item__arr js-item-open"></a>
 							</div>
 						</div>
-						<div class="item is-actve">
+						<div class="item">
 							<div class="item__in">
 								<a href="#" class="item__img"><img src="img/item-img-15.jpg" alt="img"></a>
 								<a href="#" class="item__link">Электроинтсрумент и оснастка</a>
@@ -392,7 +448,7 @@
 								<a href="#" class="item__arr js-item-open"></a>
 							</div>
 						</div>
-						<div class="item is-actve">
+						<div class="item">
 							<div class="item__in">
 								<a href="#" class="item__img"><img src="img/item-img-16.jpg" alt="img"></a>
 								<a href="#" class="item__link">Бензоинтсрумент и оснастка</a>
@@ -404,7 +460,7 @@
 						</div>
 					</div>
 					<div class="items__row">
-						<div class="item is-actve">
+						<div class="item">
 							<div class="item__in">
 								<a href="#" class="item__img"><img src="img/item-img-17.jpg" alt="img"></a>
 								<a href="#" class="item__link">Оборудование для промышленности и строительства</a>
@@ -414,7 +470,7 @@
 								<a href="#" class="item__arr js-item-open"></a>
 							</div>
 						</div>
-						<div class="item is-actve">
+						<div class="item">
 							<div class="item__in">
 								<a href="#" class="item__img"><img src="img/item-img-18.jpg" alt="img"></a>
 								<a href="#" class="item__link">Средства индивидуальной защиты</a>
@@ -424,7 +480,7 @@
 								<a href="#" class="item__arr js-item-open"></a>
 							</div>
 						</div>
-						<div class="item is-actve">
+						<div class="item">
 							<div class="item__in">
 								<a href="#" class="item__img"><img src="img/item-img-19.jpg" alt="img"></a>
 								<a href="#" class="item__link">Блистерная программа</a>
@@ -434,7 +490,7 @@
 								<a href="#" class="item__arr js-item-open"></a>
 							</div>
 						</div>
-						<div class="item is-actve">
+						<div class="item">
 							<div class="item__in">
 								<a href="#" class="item__img"><img src="img/item-img-20.jpg" alt="img"></a>
 								<a href="#" class="item__link">Торговое оборудование</a>
@@ -822,6 +878,16 @@
 	</div>
 </div>
 <!-- END out-->
-//= includes/footer.html
+<footer class="footer">
+	<div class="footer__in">
+		<!-- copy -->
+		<div class="copy">&copy; 2015 ЗАО "ЕКТ групп"</div>
+		<div class="footer__info">+375 (17) 269-74-74, <a href="mailto:info@ekt.by">info@ekt.by</a></div>
+		<!-- dev -->
+		<div class="dev">Разработка сайта: Flex Media</div>
+	</div>
+</footer>
+<!-- load scripts -->
+<script src="js/main.js"></script>
 </body>
 </html>

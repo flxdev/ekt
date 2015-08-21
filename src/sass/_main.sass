@@ -218,6 +218,9 @@
 		border-top: 1px solid transparent
 	&:before
 		border: 1px solid $border-item
+	&.is-actve
+		.item__text
+			display: block
 	+r(1180)
 		width: 50%
 	&.item_all
@@ -296,7 +299,8 @@
 			color: $second_h
 			text-decoration: none
 	.item__bot,
-	.item__price
+	.item__price,
+	.item__open
 		position: absolute
 		bottom: 26px
 		width: 25%
@@ -305,6 +309,8 @@
 		+translate(-10px, 0)
 		+r(1180)
 			width: 50%
+	.item__open
+		bottom: 0
 	.item__price
 		bottom: 60px
 		line-height: 50px
@@ -318,15 +324,38 @@
 		letter-spacing: 0.3px
 		+f300
 		opacity: .5
+		display: none
 	.item__arr
 		position: absolute
 		right: 10px
 		bottom: 9px
+		height: 9px
+		width: 9px
 		z-index: 3
 		opacity: 0
 		+transition(opacity .3s)
 		display: inline-block
-		+s($item-arr)
+		&:hover
+			&:before
+				opacity: 0
+			&:after
+				opacity: 1
+		&:before,
+		&:after
+			position: absolute
+			content: ''
+			right: 0
+			bottom: 0
+			+transition(opacity .3s)
+		&:before
+			top: 0
+			left: 0
+			+s($item-arr)
+		&:after
+			top: -1px
+			left: -1px
+			opacity: 0
+			+s($item-arr-h)
 	.article
 		margin-top: 5px
 
@@ -461,13 +490,18 @@
 		left: 0
 		bottom: 0
 		right: 0
+	.slick-track
+		display: table
 	.item
 		position: relative
 		min-height: 288px
-		&:before
-			width: 100%
+		float: none
+		display: table-cell
+		&:before,
 		&:after
 			width: 100%
+			left: 0
+			+translate(0,0)
 		.item__in
 			&:before
 				top: -100px
