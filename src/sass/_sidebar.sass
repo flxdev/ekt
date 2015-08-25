@@ -104,6 +104,11 @@
 	padding: 13px 0 26px
 	li
 		padding: 12px 25px 12px 20px
+		&.is-active 
+			& > ul
+				display: block
+			a
+				border: none
 	a
 		padding: 3px 0
 		color: #000
@@ -117,7 +122,40 @@
 		&.is-active
 			+f700
 			border-bottom: none
-		
+	ul
+		position: relative
+		padding: 16px 0 0 18px
+		display: none
+		&:before
+			position: absolute
+			content: ''
+			top: 22px
+			left: 0
+			bottom: 6px
+			border-left: 1px solid $border-list-links
+		li
+			margin-top: 10px
+			padding: 0
+			&:first-child
+				margin-top: 0
+		a
+			position: relative
+			border: none
+			&.is-active
+				&:before
+					position: absolute
+					content: ''
+					top: 5px
+					left: -18px
+					bottom: 4px
+					border-left: 1px solid $green
+		ul
+			padding: 12px 0 0 20px
+			margin-left: 3px
+			&:before
+				top: 18px
+			li
+				margin-right: -5px
 .ul-o
 	background: $bg_ul-o
 	li
