@@ -205,9 +205,9 @@
 							<a href="#">Сварочное оборудование и материалы</a>
 							<ul>
 								<li class="is-active">
-									<a href="#" class="is-active">Оборудование для сварки и резки Mma, Tig, Mig, Plasma Cut</a>
+									<a href="#">Оборудование для сварки и резки Mma, Tig, Mig, Plasma Cut</a>
 									<ul>
-										<li><a href="#">Ручная дуговая сварка (MMA)</a></li>
+										<li><a href="#" class="is-active">Ручная дуговая сварка (MMA)</a></li>
 										<li><a href="#">Маски Сварщика</a></li>
 										<li><a href="#">Аксессуары для оборудования сварки и резки</a></li>
 										<li><a href="#">Полуавтоматическая сварка</a></li>
@@ -299,7 +299,8 @@
 							<li><a href="#">Главная</a></li>
 							<li><a href="#">Каталог</a></li>
 							<li><a href="#">Оборудование для промышленности и строительства</a></li>
-							<li>Сварочное оборудование и материалы</li>
+							<li><a href="#">Сварочное оборудование и материалы</a></li>
+							<li>Оборудование для сварки и резки Мма, Tig, Mig, Plasma Cut</li>
 						</ul>
 						<div class="topic__wrap">
 							<!-- drop -->
@@ -312,7 +313,7 @@
 									<li><a href="#"><i class="ico ico_m"></i>E-mail</a></li>
 								</ul>
 							</div>
-							<div class="topic__title">Оборудование для сварки и резки Mma, Tig, Mig, Plasma Cut</div>
+							<div class="topic__title">Ручная дуговая сварка (ММА)</div>
 						</div>
 						<div class="topic__text">Товаров с подробными описаниями и фотографиями от 66 производителей с ценами магазинов. Для выбора и покупки свародного оборудования.</div>
 					</div>
@@ -320,44 +321,185 @@
 				<!-- wrapper -->
 				<div class="wrapper">
 					<!-- filter -->
-					<div class="filter">
-						<div class="filter__left">
-							<span class="filter__text">Бренд:</span>
-							<select class="multiple-select js-multiple-select" multiple="multiple">
-								<option value="Все бренды" selected>Все бренды</option>
-								<option value="Станки">Станки</option>
-								<option value="Оборудование">Оборудование</option>
-								<option value="Машины">Машины</option>
-								<option value="Инструменты">Инструменты</option>
-							</select>
+					<form class="filter">
+						<div class="filter__row">
+							<div class="filter__left">
+								<span class="filter__text">Бренд:</span>
+								<select class="multiple-select js-multiple-select" multiple="multiple">
+									<option value="Все бренды" selected>Все бренды</option>
+									<option value="Станки">Станки</option>
+									<option value="Оборудование">Оборудование</option>
+									<option value="Машины">Машины</option>
+									<option value="Инструменты">Инструменты</option>
+								</select>
+							</div>
+							<div class="filter__right">
+								<label class="checkbox">
+									<input type="checkbox">
+									<span>Показать описание</span>
+								</label>
+								<ul class="view">
+									<li class="view__item is-active">
+										<a href="#"><i class="icon-ico-table"></i></a>
+									</li>
+									<li class="view__item">
+										<a href="#"><i class="icon-ico-cat"></i></a>
+									</li>
+									<li class="view__item">
+										<a href="#"><i class="icon-ico-list"></i></a>
+									</li>
+								</ul>
+							</div>
 						</div>
-						<div class="filter__right">
-							<label class="checkbox">
-								<input type="checkbox">
-								<span>Показать описание</span>
-							</label>
-							<ul class="view">
-								<li class="view__item is-active">
-									<a href="#"><i class="icon-ico-table"></i></a>
-								</li>
-								<li class="view__item">
-									<a href="#"><i class="icon-ico-cat"></i></a>
-								</li>
-								<li class="view__item">
-									<a href="#"><i class="icon-ico-list"></i></a>
-								</li>
-							</ul>
+						<div class="filter__block js-filter-block">
+							<div class="filter__col">
+								<!-- accord -->
+								<div class="accord js-accord">
+									<div class="accord__but js-accord-but">
+										<div class="accord__title">Стоимость</div>
+									</div>
+									<div class="accord__block js-accord-block">
+										<div class="form-item">
+											<input type="text" class="input">
+											<input type="text" class="input">
+										</div>
+										<span>бел.руб</span>
+									</div>
+								</div>
+								<!-- accord -->
+								<div class="accord js-accord">
+									<div class="accord__but js-accord-but">
+										<div class="accord__title">Диаметр электрода (мин)</div>
+									</div>
+									<div class="accord__block js-accord-block">
+										<div class="form-item">
+											<select class="multiple-select js-filter-select" multiple="multiple">
+												<option value="Все бренды" selected>Все бренды</option>
+												<option value="Станки">Станки</option>
+												<option value="Оборудование">Оборудование</option>
+												<option value="Машины">Машины</option>
+												<option value="Инструменты">Инструменты</option>
+											</select>
+											<select class="multiple-select js-filter-select" multiple="multiple">
+												<option value="Все бренды" selected>Все бренды</option>
+												<option value="Станки">Станки</option>
+												<option value="Оборудование">Оборудование</option>
+												<option value="Машины">Машины</option>
+												<option value="Инструменты">Инструменты</option>
+											</select>
+										</div>
+										<span>мм</span>
+									</div>
+								</div>
+								<!-- accord -->
+								<div class="accord js-accord">
+									<div class="accord__but js-accord-but">
+										<div class="accord__title">Диаметр электрода (макс)</div>
+									</div>
+									<div class="accord__block js-accord-block">
+										
+									</div>
+								</div>
+								<!-- accord -->
+								<div class="accord js-accord">
+									<div class="accord__but js-accord-but">
+										<div class="accord__title">Класс изоляции</div>
+									</div>
+									<div class="accord__block js-accord-block">
+										
+									</div>
+								</div>
+								<!-- accord -->
+								<div class="accord js-accord">
+									<div class="accord__but js-accord-but">
+										<div class="accord__title">Тип</div>
+									</div>
+									<div class="accord__block js-accord-block">
+										
+									</div>
+								</div>
+								<!-- accord -->
+								<div class="accord js-accord">
+									<div class="accord__but js-accord-but">
+										<div class="accord__title">Вес</div>
+									</div>
+									<div class="accord__block js-accord-block">
+										
+									</div>
+								</div>
+							</div>
+							<div class="filter__col">
+								<!-- accord -->
+								<div class="accord js-accord">
+									<div class="accord__but js-accord-but">
+										<div class="accord__title">Минимальный выходной ток</div>
+									</div>
+									<div class="accord__block js-accord-block">
+										
+									</div>
+								</div>
+								<!-- accord -->
+								<div class="accord js-accord">
+									<div class="accord__but js-accord-but">
+										<div class="accord__title">Максимальный выходной ток</div>
+									</div>
+									<div class="accord__block js-accord-block">
+										
+									</div>
+								</div>
+								<!-- accord -->
+								<div class="accord js-accord">
+									<div class="accord__but js-accord-but">
+										<div class="accord__title">Напряжение холостого хода</div>
+									</div>
+									<div class="accord__block js-accord-block">
+										
+									</div>
+								</div>
+								<label class="checkbox">
+									<input type="checkbox">
+									<span>Наличие осушителя</span>
+								</label>
+								<label class="checkbox">
+									<input type="checkbox">
+									<span>Только товары на акции</span>
+								</label>
+							</div>
 						</div>
+						<div class="filter__bot">
+							<button class="filter__all js-filter-all" type="button">Показать все фильтры</button>
+						</div>
+					</form>
+					<div class="title-h2">Ручная дуговая сварка покрытым электродом</div>
+					<!-- sorting -->
+					<div class="sorting js-sorting">
+						<button class="sorting__item is-active js-sortin-item" type="button">По умолчанию</button>
+						<button class="sorting__item js-sortin-item" type="button" disabled>Стоимость</button>
+						<button class="sorting__item js-sortin-item" type="button" disabled>Название</button>
+						<button class="sorting__item js-sortin-item" type="button" disabled>Артикул</button>
 					</div>
-					<div class="title-h2">Оборудование</div>
 					<!-- items -->
-					<div class="items">
+					<div class="items is-prod-cena">
 						<div class="items__row">
 							<div class="item">
 								<div class="item__in">
-									<a href="#" class="item__img"><img src="img/item-img-21.jpg" alt="img"></a>
-									<a href="#" class="item__link">Ручная дуговая сварка (MMA)</a>
+									<a href="#" class="item__img">
+										<div class="badge badge_red">Акция</div>
+										<img src="img/item-img-21.jpg" alt="img">
+									</a>
+									<a href="#" class="item__link">Инвертор сварочный MMA130A, ПВ20%, кейс, 220В, IGBT, EW2800 HITACHI</a>
+									<div class="article">Артикул: 20455555</div>
 									<div class="item__text js-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga laboriosam, et dicta voluptas nesciunt dolores sed? Suscipit, et unde. Nobis.</div>
+								</div>
+								<div class="item__price">43 201 700 руб</div>
+								<div class="item__bot">
+									<!-- spiner -->
+									<div class="spiner js-spiner" data-max-number="10">
+										<button class="spiner__minus js-minus">&ndash;</button>
+										<input type="text" class="spiner__input" name="spiner-input" value="1" readonly="">
+										<button class="spiner__plus js-plus">+</button>
+										<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
+									</div>
 								</div>
 								<div class="item__open">
 									<a href="#" class="item__arr js-item-open"></a>
@@ -366,8 +508,19 @@
 							<div class="item">
 								<div class="item__in">
 									<a href="#" class="item__img"><img src="img/item-img-22.jpg" alt="img"></a>
-									<a href="#" class="item__link">Сварочные агрегаты</a>
+									<a href="#" class="item__link">Инвертор сварочный MMA160A, ПВ30%, +TIG DC Lift, 220В, IGBT KIRK</a>
+									<div class="article">Артикул: 245577</div>
 									<div class="item__text js-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga laboriosam, et dicta voluptas nesciunt dolores sed? Suscipit, et unde. Nobis.</div>
+								</div>
+								<div class="item__price">53 201 700 руб</div>
+								<div class="item__bot">
+									<!-- spiner -->
+									<div class="spiner js-spiner" data-max-number="10">
+										<button class="spiner__minus js-minus">&ndash;</button>
+										<input type="text" class="spiner__input" name="spiner-input" value="1" readonly="">
+										<button class="spiner__plus js-plus">+</button>
+										<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
+									</div>
 								</div>
 								<div class="item__open">
 									<a href="#" class="item__arr js-item-open"></a>
@@ -376,8 +529,19 @@
 							<div class="item">
 								<div class="item__in">
 									<a href="#" class="item__img"><img src="img/item-img-23.jpg" alt="img"></a>
-									<a href="#" class="item__link">Аргонодуговая сварка нержавеющей стали (TIG DC)</a>
+									<a href="#" class="item__link">Инвертор сварочный MMA160A, ПВ30%, +TIG DC Lift, кейс, 220В, IGBT, EW3500 HITACHI</a>
+									<div class="article">Артикул: 2055</div>
 									<div class="item__text js-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga laboriosam, et dicta voluptas nesciunt dolores sed? Suscipit, et unde. Nobis.</div>
+								</div>
+								<div class="item__price">47 201 700 руб</div>
+								<div class="item__bot">
+									<!-- spiner -->
+									<div class="spiner js-spiner" data-max-number="10">
+										<button class="spiner__minus js-minus">&ndash;</button>
+										<input type="text" class="spiner__input" name="spiner-input" value="1" readonly="">
+										<button class="spiner__plus js-plus">+</button>
+										<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
+									</div>
 								</div>
 								<div class="item__open">
 									<a href="#" class="item__arr js-item-open"></a>
@@ -386,8 +550,197 @@
 							<div class="item">
 								<div class="item__in">
 									<a href="#" class="item__img"><img src="img/item-img-24.jpg" alt="img"></a>
-									<a href="#" class="item__link">Полуавтоматичес-кая сварка (MIG/MAG)</a>
+									<a href="#" class="item__link">Инвертор сварочный MMA180A, ПВ30%, +TIG DC Lift, 220В, IGBT KIRK</a>
+									<div class="article">Артикул: 5744564</div>
+								</div>
+								<div class="item__price">55 180 200 руб</div>
+								<div class="item__text js-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga laboriosam, et dicta voluptas nesciunt dolores sed? Suscipit, et unde. Nobis.</div>
+								<div class="item__bot">
+									<!-- spiner -->
+									<div class="spiner js-spiner" data-max-number="10">
+										<button class="spiner__minus js-minus">&ndash;</button>
+										<input type="text" class="spiner__input" name="spiner-input" value="1" readonly="">
+										<button class="spiner__plus js-plus">+</button>
+										<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
+									</div>
+								</div>
+								<div class="item__open">
+									<a href="#" class="item__arr js-item-open"></a>
+								</div>
+							</div>
+						</div>
+						<div class="items__row">
+							<div class="item">
+								<div class="item__in">
+									<a href="#" class="item__img">
+										<div class="badge badge_red">Акция</div>
+										<img src="img/item-img-21.jpg" alt="img">
+									</a>
+									<a href="#" class="item__link">Инвертор сварочный MMA130A, ПВ20%, кейс, 220В, IGBT, EW2800 HITACHI</a>
+									<div class="article">Артикул: 20455555</div>
 									<div class="item__text js-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga laboriosam, et dicta voluptas nesciunt dolores sed? Suscipit, et unde. Nobis.</div>
+								</div>
+								<div class="item__price">43 201 700 руб</div>
+								<div class="item__bot">
+									<!-- spiner -->
+									<div class="spiner js-spiner" data-max-number="10">
+										<button class="spiner__minus js-minus">&ndash;</button>
+										<input type="text" class="spiner__input" name="spiner-input" value="1" readonly="">
+										<button class="spiner__plus js-plus">+</button>
+										<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
+									</div>
+								</div>
+								<div class="item__open">
+									<a href="#" class="item__arr js-item-open"></a>
+								</div>
+							</div>
+							<div class="item">
+								<div class="item__in">
+									<a href="#" class="item__img"><img src="img/item-img-22.jpg" alt="img"></a>
+									<a href="#" class="item__link">Инвертор сварочный MMA160A, ПВ30%, +TIG DC Lift, 220В, IGBT KIRK</a>
+									<div class="article">Артикул: 245577</div>
+									<div class="item__text js-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga laboriosam, et dicta voluptas nesciunt dolores sed? Suscipit, et unde. Nobis.</div>
+								</div>
+								<div class="item__price">53 201 700 руб</div>
+								<div class="item__bot">
+									<!-- spiner -->
+									<div class="spiner js-spiner" data-max-number="10">
+										<button class="spiner__minus js-minus">&ndash;</button>
+										<input type="text" class="spiner__input" name="spiner-input" value="1" readonly="">
+										<button class="spiner__plus js-plus">+</button>
+										<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
+									</div>
+								</div>
+								<div class="item__open">
+									<a href="#" class="item__arr js-item-open"></a>
+								</div>
+							</div>
+							<div class="item">
+								<div class="item__in">
+									<a href="#" class="item__img"><img src="img/item-img-23.jpg" alt="img"></a>
+									<a href="#" class="item__link">Инвертор сварочный MMA160A, ПВ30%, +TIG DC Lift, кейс, 220В, IGBT, EW3500 HITACHI</a>
+									<div class="article">Артикул: 2055</div>
+									<div class="item__text js-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga laboriosam, et dicta voluptas nesciunt dolores sed? Suscipit, et unde. Nobis.</div>
+								</div>
+								<div class="item__price">47 201 700 руб</div>
+								<div class="item__bot">
+									<!-- spiner -->
+									<div class="spiner js-spiner" data-max-number="10">
+										<button class="spiner__minus js-minus">&ndash;</button>
+										<input type="text" class="spiner__input" name="spiner-input" value="1" readonly="">
+										<button class="spiner__plus js-plus">+</button>
+										<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
+									</div>
+								</div>
+								<div class="item__open">
+									<a href="#" class="item__arr js-item-open"></a>
+								</div>
+							</div>
+							<div class="item">
+								<div class="item__in">
+									<a href="#" class="item__img"><img src="img/item-img-24.jpg" alt="img"></a>
+									<a href="#" class="item__link">Инвертор сварочный MMA180A, ПВ30%, +TIG DC Lift, 220В, IGBT KIRK</a>
+									<div class="article">Артикул: 5744564</div>
+									<div class="item__text js-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga laboriosam, et dicta voluptas nesciunt dolores sed? Suscipit, et unde. Nobis.</div>
+								</div>
+								<div class="item__price">55 180 200 руб</div>
+								<div class="item__bot">
+									<!-- spiner -->
+									<div class="spiner js-spiner" data-max-number="10">
+										<button class="spiner__minus js-minus">&ndash;</button>
+										<input type="text" class="spiner__input" name="spiner-input" value="1" readonly="">
+										<button class="spiner__plus js-plus">+</button>
+										<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
+									</div>
+								</div>
+								<div class="item__open">
+									<a href="#" class="item__arr js-item-open"></a>
+								</div>
+							</div>
+						</div>
+						<div class="items__row">
+							<div class="item">
+								<div class="item__in">
+									<a href="#" class="item__img">
+										<div class="badge badge_red">Акция</div>
+										<img src="img/item-img-21.jpg" alt="img">
+									</a>
+									<a href="#" class="item__link">Инвертор сварочный MMA130A, ПВ20%, кейс, 220В, IGBT, EW2800 HITACHI</a>
+									<div class="article">Артикул: 20455555</div>
+									<div class="item__text js-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga laboriosam, et dicta voluptas nesciunt dolores sed? Suscipit, et unde. Nobis.</div>
+								</div>
+								<div class="item__price">43 201 700 руб</div>
+								<div class="item__bot">
+									<!-- spiner -->
+									<div class="spiner js-spiner" data-max-number="10">
+										<button class="spiner__minus js-minus">&ndash;</button>
+										<input type="text" class="spiner__input" name="spiner-input" value="1" readonly="">
+										<button class="spiner__plus js-plus">+</button>
+										<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
+									</div>
+								</div>
+								<div class="item__open">
+									<a href="#" class="item__arr js-item-open"></a>
+								</div>
+							</div>
+							<div class="item">
+								<div class="item__in">
+									<a href="#" class="item__img"><img src="img/item-img-22.jpg" alt="img"></a>
+									<a href="#" class="item__link">Инвертор сварочный MMA160A, ПВ30%, +TIG DC Lift, 220В, IGBT KIRK</a>
+									<div class="article">Артикул: 245577</div>
+									<div class="item__text js-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga laboriosam, et dicta voluptas nesciunt dolores sed? Suscipit, et unde. Nobis.</div>
+								</div>
+								<div class="item__price">53 201 700 руб</div>
+								<div class="item__bot">
+									<!-- spiner -->
+									<div class="spiner js-spiner" data-max-number="10">
+										<button class="spiner__minus js-minus">&ndash;</button>
+										<input type="text" class="spiner__input" name="spiner-input" value="1" readonly="">
+										<button class="spiner__plus js-plus">+</button>
+										<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
+									</div>
+								</div>
+								<div class="item__open">
+									<a href="#" class="item__arr js-item-open"></a>
+								</div>
+							</div>
+							<div class="item">
+								<div class="item__in">
+									<a href="#" class="item__img"><img src="img/item-img-23.jpg" alt="img"></a>
+									<a href="#" class="item__link">Инвертор сварочный MMA160A, ПВ30%, +TIG DC Lift, кейс, 220В, IGBT, EW3500 HITACHI</a>
+									<div class="article">Артикул: 2055</div>
+									<div class="item__text js-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga laboriosam, et dicta voluptas nesciunt dolores sed? Suscipit, et unde. Nobis.</div>
+								</div>
+								<div class="item__price">47 201 700 руб</div>
+								<div class="item__bot">
+									<!-- spiner -->
+									<div class="spiner js-spiner" data-max-number="10">
+										<button class="spiner__minus js-minus">&ndash;</button>
+										<input type="text" class="spiner__input" name="spiner-input" value="1" readonly="">
+										<button class="spiner__plus js-plus">+</button>
+										<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
+									</div>
+								</div>
+								<div class="item__open">
+									<a href="#" class="item__arr js-item-open"></a>
+								</div>
+							</div>
+							<div class="item">
+								<div class="item__in">
+									<a href="#" class="item__img"><img src="img/item-img-24.jpg" alt="img"></a>
+									<a href="#" class="item__link">Инвертор сварочный MMA180A, ПВ30%, +TIG DC Lift, 220В, IGBT KIRK</a>
+									<div class="article">Артикул: 5744564</div>
+									<div class="item__text js-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga laboriosam, et dicta voluptas nesciunt dolores sed? Suscipit, et unde. Nobis.</div>
+								</div>
+								<div class="item__price">55 180 200 руб</div>
+								<div class="item__bot">
+									<!-- spiner -->
+									<div class="spiner js-spiner" data-max-number="10">
+										<button class="spiner__minus js-minus">&ndash;</button>
+										<input type="text" class="spiner__input" name="spiner-input" value="1" readonly="">
+										<button class="spiner__plus js-plus">+</button>
+										<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
+									</div>
 								</div>
 								<div class="item__open">
 									<a href="#" class="item__arr js-item-open"></a>
@@ -395,6 +748,16 @@
 							</div>
 						</div>
 					</div>
+					<!-- pagination -->
+					<ul class="pagin">
+						<li class="pagin__item"><a href="#"><i>&#8249;</i> Назад</a></li>
+						<li class="pagin__item"><a href="#">1</a></li>
+						<li class="pagin__item"><a href="#" class="is-active">2</a></li>
+						<li class="pagin__item"><a href="#">3</a></li>
+						<li class="pagin__item"><span>...</span></li>
+						<li class="pagin__item"><a href="#">24</a></li>
+						<li class="pagin__item"><a href="#">Вперед <i>&#8250;</i></a></li>
+					</ul>
 					<div class="title-h2">Преимущества работы с нами</div>
 					<!-- advantages -->
 					<div class="advantages">
@@ -424,18 +787,6 @@
 									<h3 class="title-green">Долговечность</h3>
 									<p>Количество компаний в отрасли стало увеличиваться в прогрессии.</p>
 								</div>
-							</div>
-						</div>
-					</div>
-					<!-- information -->
-					<div class="information">
-						<div class="row">
-							<div class="col-md-4">
-								<div class="title-h3">Огромный ассортимент различного оборудования</div>
-							</div>
-							<div class="col-md-8">
-								<p>В этот период, строительный рынок Беларуси рос экспоненциальными темпами. Рынок, который традиционно был устойчив к изменениям, начал демонстрировать стремительные витки роста.</p>
-								<p>Количество компаний в отрасли стало увеличиваться в прогрессии. В то время, как большинство новых компаний были ориентированы исключительно на получение сиюминутной прибыли, молодая компания ЕКТ оставалась верна традициям профессионализма. </p>
 							</div>
 						</div>
 					</div>

@@ -95,6 +95,7 @@
 
 // filter
 .filter
+	position: relative
 	margin-bottom: 30px
 	padding-bottom: 35px
 	border-bottom: 1px solid $border-filter
@@ -109,14 +110,34 @@
 	.filter__text
 		vertical-align: top
 		display: inline-block
-	.view
-		margin-left: 50px
-	.checkbox
-		margin-top: 4px
 	.filter__text
 		margin: 4px 8px 0 0
 		font-size: 16px
 		+f700
+	.filter__bot
+		position: absolute
+		right: 0
+		bottom: -12px
+		padding-left: 18px
+		background: #fff
+	.filter__all
+		font-size: 12px
+		text-decoration: none
+		letter-spacing: -0.2px
+		border-bottom: 1px dotted #000
+		background: #fff
+		+transition(color .3s, border-color .3s)
+		&:hover
+			color: $second_h
+			border-color: transparent
+	.filter__row
+		+clr
+	.filter__block
+		display: none
+	.view
+		margin-left: 50px
+	.checkbox
+		margin-top: 4px
 
 // items
 .items
@@ -228,9 +249,18 @@
 		border-top: 1px solid transparent
 	&:before
 		border: 1px solid $border-item
-	&.is-actve
-		.item__text
-			display: block
+	&.is-active
+		// .item__text
+		// 	display: block 
+		.item__arr
+			&:before
+				top: -5px
+				left: -4px
+				+s($item-arr-active)
+			&:after
+				top: -3px
+				left: -4px
+				+s($item-arr-active-h)
 	+r(1180)
 		width: 50%
 	&.item_all
@@ -922,3 +952,45 @@
 			color: $second_h
 	.par__row
 		margin-top: 15px
+
+// sorting
+.sorting
+	margin: 15px 0 20px
+	text-align: right
+	font-size: 0
+	.sorting__item
+		position: relative
+		padding: 6px 20px 6px 10px
+		font-size: 12px
+		+f300
+		vertical-align: top
+		+transition(color .3s, background-color .3s)
+		border-radius: 3px
+		background: #fff
+		display: inline-block
+		&:before
+			position: absolute
+			content: ''
+			top: 50%
+			right: 10px
+			+translate(0,-50%)
+			+transition(border-color .3s, transform .3s)
+			+arr(5,4,#000,b)
+		&:hover
+			color: $red
+			&:before
+				+arr(5,4,$red,b)
+		&:disabled
+			opacity: .7
+			cursor: default
+			color: #000
+			&:before
+				opacity: .5
+				+arr(5,4,#000,b)
+		&.is-active,
+		&.is-active-top
+			background-color: #e6f5ec
+		&.is-active-top
+			&:before
+				margin-top: -1px
+				+rotate(180deg)
