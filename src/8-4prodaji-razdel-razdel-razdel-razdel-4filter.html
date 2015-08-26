@@ -354,29 +354,29 @@
 						<div class="filter__block js-filter-block">
 							<div class="filter__col">
 								<!-- accord -->
-								<div class="accord js-accord">
+								<div class="accord js-accord is-active">
 									<div class="accord__but js-accord-but">
 										<div class="accord__title">Стоимость</div>
 									</div>
 									<div class="accord__block js-accord-block">
 										<div class="form-item">
-											<input type="text" class="input">
-											<input type="text" class="input">
+											<input type="text" class="input" value="400 000">
+											<input type="text" class="input" value="80 000 000">
 										</div>
 										<span>бел.руб</span>
 									</div>
 								</div>
 								<!-- accord -->
-								<div class="accord js-accord">
+								<div class="accord js-accord is-active">
 									<div class="accord__but js-accord-but">
 										<div class="accord__title">Диаметр электрода (мин)</div>
 									</div>
 									<div class="accord__block js-accord-block">
 										<div class="form-item">
 											<select class="multiple-select js-filter-select" multiple="multiple">
-												<option value="" selected>от</option>
+												<option value="">от</option>
 												<option value="1">1</option>
-												<option value="2">2</option>
+												<option value="2" selected>2</option>
 												<option value="3">3</option>
 												<option value="4">4</option>
 											</select>
@@ -417,7 +417,7 @@
 									</div>
 								</div>
 								<!-- accord -->
-								<div class="accord js-accord">
+								<div class="accord js-accord is-active">
 									<div class="accord__but js-accord-but">
 										<div class="accord__title">Класс изоляции</div>
 									</div>
@@ -464,7 +464,7 @@
 							</div>
 							<div class="filter__col">
 								<!-- accord -->
-								<div class="accord js-accord">
+								<div class="accord js-accord is-active">
 									<div class="accord__but js-accord-but">
 										<div class="accord__title">Минимальный выходной ток</div>
 									</div>
@@ -519,7 +519,7 @@
 									</div>
 								</div>
 								<label class="checkbox">
-									<input type="checkbox">
+									<input type="checkbox" checked>
 									<span>Наличие осушителя</span>
 								</label>
 								<label class="checkbox">
@@ -529,13 +529,34 @@
 							</div>
 							<div class="filter__buttons">
 								<button class="btn" type="submit">Подобрать</button>
-								<button class="btn-clear" type="button" disabled><span>Сбросить фильтр</span></button>
+								<button class="btn-clear" type="button"><span>Сбросить фильтр</span></button>
 							</div>
 						</div>
 						<div class="filter__bot">
 							<button class="filter__all js-filter-all" type="button">Показать все фильтры</button>
 						</div>
 					</form>
+					<!-- tags -->
+					<div class="tags">
+						<div class="tags__in">
+							<div class="tally">
+								<span>Стоимость от 400 000 до 80 000 000 бел.руб</span>
+								<button class="tally__close"></button>
+							</div>
+							<div class="tally">
+								<span>Вес от 1 до 10 кг</span>
+								<button class="tally__close"></button>
+							</div>
+							<div class="tally">
+								<span>Наличие осушителя важно</span>
+								<button class="tally__close"></button>
+							</div>
+							<div class="tally">
+								<span>Диаметр электрода (мин) от 2 мм</span>
+								<button class="tally__close"></button>
+							</div>
+						</div>
+					</div>
 					<div class="title-h2">Ручная дуговая сварка покрытым электродом</div>
 					<!-- sorting -->
 					<div class="sorting js-sorting">
@@ -545,7 +566,7 @@
 						<button class="sorting__item js-sortin-item" type="button" disabled>Артикул</button>
 					</div>
 					<!-- items -->
-					<div class="items is-prod-cena">
+					<div class="items is-prod">
 						<div class="items__row">
 							<div class="item">
 								<div class="item__in">
@@ -557,7 +578,6 @@
 									<div class="article">Артикул: 20455555</div>
 									<div class="item__text js-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga laboriosam, et dicta voluptas nesciunt dolores sed? Suscipit, et unde. Nobis.</div>
 								</div>
-								<div class="item__price">43 201 700 руб</div>
 								<div class="item__bot">
 									<!-- spiner -->
 									<div class="spiner js-spiner" data-max-number="10">
@@ -578,7 +598,6 @@
 									<div class="article">Артикул: 245577</div>
 									<div class="item__text js-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga laboriosam, et dicta voluptas nesciunt dolores sed? Suscipit, et unde. Nobis.</div>
 								</div>
-								<div class="item__price">53 201 700 руб</div>
 								<div class="item__bot">
 									<!-- spiner -->
 									<div class="spiner js-spiner" data-max-number="10">
@@ -599,7 +618,6 @@
 									<div class="article">Артикул: 2055</div>
 									<div class="item__text js-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga laboriosam, et dicta voluptas nesciunt dolores sed? Suscipit, et unde. Nobis.</div>
 								</div>
-								<div class="item__price">47 201 700 руб</div>
 								<div class="item__bot">
 									<!-- spiner -->
 									<div class="spiner js-spiner" data-max-number="10">
@@ -619,7 +637,6 @@
 									<a href="#" class="item__link">Инвертор сварочный MMA180A, ПВ30%, +TIG DC Lift, 220В, IGBT KIRK</a>
 									<div class="article">Артикул: 5744564</div>
 								</div>
-								<div class="item__price">55 180 200 руб</div>
 								<div class="item__text js-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga laboriosam, et dicta voluptas nesciunt dolores sed? Suscipit, et unde. Nobis.</div>
 								<div class="item__bot">
 									<!-- spiner -->
@@ -646,7 +663,6 @@
 									<div class="article">Артикул: 20455555</div>
 									<div class="item__text js-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga laboriosam, et dicta voluptas nesciunt dolores sed? Suscipit, et unde. Nobis.</div>
 								</div>
-								<div class="item__price">43 201 700 руб</div>
 								<div class="item__bot">
 									<!-- spiner -->
 									<div class="spiner js-spiner" data-max-number="10">
@@ -667,7 +683,6 @@
 									<div class="article">Артикул: 245577</div>
 									<div class="item__text js-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga laboriosam, et dicta voluptas nesciunt dolores sed? Suscipit, et unde. Nobis.</div>
 								</div>
-								<div class="item__price">53 201 700 руб</div>
 								<div class="item__bot">
 									<!-- spiner -->
 									<div class="spiner js-spiner" data-max-number="10">
@@ -688,7 +703,6 @@
 									<div class="article">Артикул: 2055</div>
 									<div class="item__text js-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga laboriosam, et dicta voluptas nesciunt dolores sed? Suscipit, et unde. Nobis.</div>
 								</div>
-								<div class="item__price">47 201 700 руб</div>
 								<div class="item__bot">
 									<!-- spiner -->
 									<div class="spiner js-spiner" data-max-number="10">
@@ -709,7 +723,6 @@
 									<div class="article">Артикул: 5744564</div>
 									<div class="item__text js-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga laboriosam, et dicta voluptas nesciunt dolores sed? Suscipit, et unde. Nobis.</div>
 								</div>
-								<div class="item__price">55 180 200 руб</div>
 								<div class="item__bot">
 									<!-- spiner -->
 									<div class="spiner js-spiner" data-max-number="10">
@@ -735,7 +748,6 @@
 									<div class="article">Артикул: 20455555</div>
 									<div class="item__text js-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga laboriosam, et dicta voluptas nesciunt dolores sed? Suscipit, et unde. Nobis.</div>
 								</div>
-								<div class="item__price">43 201 700 руб</div>
 								<div class="item__bot">
 									<!-- spiner -->
 									<div class="spiner js-spiner" data-max-number="10">
@@ -756,7 +768,6 @@
 									<div class="article">Артикул: 245577</div>
 									<div class="item__text js-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga laboriosam, et dicta voluptas nesciunt dolores sed? Suscipit, et unde. Nobis.</div>
 								</div>
-								<div class="item__price">53 201 700 руб</div>
 								<div class="item__bot">
 									<!-- spiner -->
 									<div class="spiner js-spiner" data-max-number="10">
@@ -777,7 +788,6 @@
 									<div class="article">Артикул: 2055</div>
 									<div class="item__text js-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga laboriosam, et dicta voluptas nesciunt dolores sed? Suscipit, et unde. Nobis.</div>
 								</div>
-								<div class="item__price">47 201 700 руб</div>
 								<div class="item__bot">
 									<!-- spiner -->
 									<div class="spiner js-spiner" data-max-number="10">
@@ -798,7 +808,6 @@
 									<div class="article">Артикул: 5744564</div>
 									<div class="item__text js-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga laboriosam, et dicta voluptas nesciunt dolores sed? Suscipit, et unde. Nobis.</div>
 								</div>
-								<div class="item__price">55 180 200 руб</div>
 								<div class="item__bot">
 									<!-- spiner -->
 									<div class="spiner js-spiner" data-max-number="10">

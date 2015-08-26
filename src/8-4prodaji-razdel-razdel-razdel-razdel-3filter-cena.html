@@ -351,32 +351,32 @@
 								</ul>
 							</div>
 						</div>
-						<div class="filter__block js-filter-block">
+						<div class="filter__block js-filter-block" style="display: block;">
 							<div class="filter__col">
 								<!-- accord -->
-								<div class="accord js-accord">
+								<div class="accord js-accord is-active">
 									<div class="accord__but js-accord-but">
 										<div class="accord__title">Стоимость</div>
 									</div>
 									<div class="accord__block js-accord-block">
 										<div class="form-item">
-											<input type="text" class="input">
-											<input type="text" class="input">
+											<input type="text" class="input" value="400 000">
+											<input type="text" class="input" value="80 000 000">
 										</div>
 										<span>бел.руб</span>
 									</div>
 								</div>
 								<!-- accord -->
-								<div class="accord js-accord">
+								<div class="accord js-accord is-active">
 									<div class="accord__but js-accord-but">
 										<div class="accord__title">Диаметр электрода (мин)</div>
 									</div>
 									<div class="accord__block js-accord-block">
 										<div class="form-item">
 											<select class="multiple-select js-filter-select" multiple="multiple">
-												<option value="" selected>от</option>
+												<option value="">от</option>
 												<option value="1">1</option>
-												<option value="2">2</option>
+												<option value="2" selected>2</option>
 												<option value="3">3</option>
 												<option value="4">4</option>
 											</select>
@@ -417,7 +417,7 @@
 									</div>
 								</div>
 								<!-- accord -->
-								<div class="accord js-accord">
+								<div class="accord js-accord is-active">
 									<div class="accord__but js-accord-but">
 										<div class="accord__title">Класс изоляции</div>
 									</div>
@@ -464,7 +464,7 @@
 							</div>
 							<div class="filter__col">
 								<!-- accord -->
-								<div class="accord js-accord">
+								<div class="accord js-accord is-active">
 									<div class="accord__but js-accord-but">
 										<div class="accord__title">Минимальный выходной ток</div>
 									</div>
@@ -519,7 +519,7 @@
 									</div>
 								</div>
 								<label class="checkbox">
-									<input type="checkbox">
+									<input type="checkbox" checked>
 									<span>Наличие осушителя</span>
 								</label>
 								<label class="checkbox">
@@ -529,7 +529,7 @@
 							</div>
 							<div class="filter__buttons">
 								<button class="btn" type="submit">Подобрать</button>
-								<button class="btn-clear" type="button" disabled><span>Сбросить фильтр</span></button>
+								<button class="btn-clear" type="button"><span>Сбросить фильтр</span></button>
 							</div>
 						</div>
 						<div class="filter__bot">

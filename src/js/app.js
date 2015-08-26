@@ -158,16 +158,10 @@ $(document).ready( function() {
 		selectAll: false,
 		countSelected: 10,
 		minimumCountSelected: 10
-		// onClose: function() {
-		// 	$('.ms-choice').removeClass('is-active');
-		// }
 	});
 
 	$('.js-filter-select').multipleSelect({
 		single: true
-		// onClose: function() {
-		// 	$('.ms-choice').removeClass('is-active');
-		// }
 	});
 	function activeSel() {
 		var parent = $('.js-filter-select, .js-multiple-select'),
@@ -191,9 +185,6 @@ $(document).ready( function() {
 	}
 	activeSel();
 	
-	// $('.ms-choice, .ms-drop').on("click", function(event) {
-	// 	event.stopPropagation();
-	// });
 
 	// items add wrap
 	function itemWrap() {

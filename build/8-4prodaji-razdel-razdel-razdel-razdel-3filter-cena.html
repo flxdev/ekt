@@ -2,12 +2,60 @@
 <html>
 <head>
 	<title>8-1prodaji-razdel</title>
-	//= includes/head.html
+	<meta charset="utf-8">
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+	<meta name="viewport" content="width=1200">
+	<meta name="format-detection" content="telephone=no">
+	<!-- theme color for android 5.0 -->
+	<meta name="theme-color" content="#fff"> 
+	<link rel="stylesheet" media="all" href="css/screen.css" >
 </head>
 <body>
 <!-- BEGIN  out-->
 <div class="out">
-	//= includes/header_login.html
+	<!-- header -->
+	<header class="header">
+		<div class="header__left">
+			<button class="btm-menu" type="button">Весь сайт</button>
+		</div>
+		<!-- logo -->
+		<a href="#" class="logo"></a>
+		<!-- search -->
+		<div class="search">
+			<button class="search__btn" type="button"></button>
+		</div>
+		<!-- menu -->
+		<ul class="menu">
+			<li class="menu__item"><a href="#">Компания</a></li>
+			<li class="menu__item is-active">
+				<a href="#">Продажи</a>
+				<div class="menu__in">
+					<!-- cabinet -->
+					<a href="#" class="cabinet">
+						<div class="cabinet__name"></div>
+						<div class="cabinet__row">
+							<i class="ico ico_user"></i>
+							<span>Личный кабинет</span>
+						</div>
+					</a>
+					<!-- ul -->
+					<ul class="ul">
+						<li><a class="is-active" href="#">Каталог</a></li>
+						<li><a href="#">Акции и спецпредложения</a></li>
+						<li><a href="#">Где купить продукцию ЕКТ</a></li>
+						<li><a href="#">Проектировщику</a></li>
+						<li><a href="#">Сервисный центр</a></li>
+					</ul>
+				</div>
+			</li>
+			<li class="menu__item"><a href="#">Контакты</a></li>
+		</ul>
+		<!-- basket -->
+		<button class="basket" type="button">
+			<i class="ico ico_basket"></i>
+			<span>Заказ</span>
+		</button>
+	</header>
 	<div class="l-layout">
 		<!-- sidebar -->
 		<div class="sidebar">
@@ -351,32 +399,32 @@
 								</ul>
 							</div>
 						</div>
-						<div class="filter__block js-filter-block">
+						<div class="filter__block js-filter-block" style="display: block;">
 							<div class="filter__col">
 								<!-- accord -->
-								<div class="accord js-accord">
+								<div class="accord js-accord is-active">
 									<div class="accord__but js-accord-but">
 										<div class="accord__title">Стоимость</div>
 									</div>
 									<div class="accord__block js-accord-block">
 										<div class="form-item">
-											<input type="text" class="input">
-											<input type="text" class="input">
+											<input type="text" class="input" value="400 000">
+											<input type="text" class="input" value="80 000 000">
 										</div>
 										<span>бел.руб</span>
 									</div>
 								</div>
 								<!-- accord -->
-								<div class="accord js-accord">
+								<div class="accord js-accord is-active">
 									<div class="accord__but js-accord-but">
 										<div class="accord__title">Диаметр электрода (мин)</div>
 									</div>
 									<div class="accord__block js-accord-block">
 										<div class="form-item">
 											<select class="multiple-select js-filter-select" multiple="multiple">
-												<option value="" selected>от</option>
+												<option value="">от</option>
 												<option value="1">1</option>
-												<option value="2">2</option>
+												<option value="2" selected>2</option>
 												<option value="3">3</option>
 												<option value="4">4</option>
 											</select>
@@ -417,7 +465,7 @@
 									</div>
 								</div>
 								<!-- accord -->
-								<div class="accord js-accord">
+								<div class="accord js-accord is-active">
 									<div class="accord__but js-accord-but">
 										<div class="accord__title">Класс изоляции</div>
 									</div>
@@ -464,7 +512,7 @@
 							</div>
 							<div class="filter__col">
 								<!-- accord -->
-								<div class="accord js-accord">
+								<div class="accord js-accord is-active">
 									<div class="accord__but js-accord-but">
 										<div class="accord__title">Минимальный выходной ток</div>
 									</div>
@@ -519,7 +567,7 @@
 									</div>
 								</div>
 								<label class="checkbox">
-									<input type="checkbox">
+									<input type="checkbox" checked>
 									<span>Наличие осушителя</span>
 								</label>
 								<label class="checkbox">
@@ -529,7 +577,7 @@
 							</div>
 							<div class="filter__buttons">
 								<button class="btn" type="submit">Подобрать</button>
-								<button class="btn-clear" type="button" disabled><span>Сбросить фильтр</span></button>
+								<button class="btn-clear" type="button"><span>Сбросить фильтр</span></button>
 							</div>
 						</div>
 						<div class="filter__bot">
@@ -868,6 +916,16 @@
 	</div>
 </div>
 <!-- END out-->
-//= includes/footer.html
+<footer class="footer">
+	<div class="footer__in">
+		<!-- copy -->
+		<div class="copy">&copy; 2015 ЗАО "ЕКТ групп"</div>
+		<div class="footer__info">+375 (17) 269-74-74, <a href="mailto:info@ekt.by">info@ekt.by</a></div>
+		<!-- dev -->
+		<div class="dev">Разработка сайта: Flex Media</div>
+	</div>
+</footer>
+<!-- load scripts -->
+<script src="js/main.js"></script>
 </body>
 </html>

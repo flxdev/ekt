@@ -104,12 +104,6 @@
 		float: left
 	.filter__right
 		float: right
-	.checkbox,
-	.view,
-	.select,
-	.filter__text
-		vertical-align: top
-		display: inline-block
 	.filter__text
 		margin: 4px 8px 0 0
 		font-size: 16px
@@ -133,11 +127,94 @@
 	.filter__row
 		+clr
 	.filter__block
+		padding-top: 28px
 		display: none
+		+clr
+		.multiple-select
+			min-width: 239px
+		.checkbox
+			margin-top: 25px
+			display: block
+			&:first-child
+				margin-top: 0
+	.filter__col
+		float: left
+		width: 50%
+	.filter__buttons
+		float: left
+		width: 100%
+		.btn
+			margin-right: 30px
+	.checkbox,
+	.view,
+	.select,
+	.filter__text
+		vertical-align: top
+		display: inline-block
 	.view
 		margin-left: 50px
 	.checkbox
 		margin-top: 4px
+	.accord
+		margin: 25px 0
+		padding: 0
+		border: none
+		&:first-child
+			margin-top: 0
+		&.is-active	
+			.accord__title
+				border-bottom-color: $green
+				&:before
+					background: $green
+	.accord__but
+		padding-right: 25px
+		vertical-align: top
+		display: inline-block
+	.accord__title
+		color: #000
+		font-size: 16px
+		+f700
+		border-color: #000
+		&:before
+			position: absolute
+			content: ''
+			top: 6px
+			left: -15px
+			bottom: 5px
+			width: 5px
+			background: transparent
+			+transition(background .3s)
+	.accord__block
+		padding: 5px 0 0
+		line-height: 32px
+	.form-item	
+		margin-right: 5px
+		line-height: 1.4
+		.multiple-select,
+		input.input
+			min-width: 120px
+			width: 120px
+			font-size: 13px
+
+// form-item
+.form-item
+	vertical-align: top
+	display: inline-block
+	+clr
+	.multiple-select,
+	input.input
+		float: left
+		&:nth-child(2)
+			.ms-choice
+				border-right: none
+				border-radius: 3px 0 0 3px
+		.ms-choice
+			border-radius: 0 3px 3px 0
+	input.input
+		border-radius: 0 3px 3px 0
+		&:first-child
+			border-right: none
+			border-radius: 3px 0 0 3px
 
 // items
 .items
