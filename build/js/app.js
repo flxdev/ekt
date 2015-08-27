@@ -104,6 +104,9 @@ $(document).ready( function() {
 	spiner();
 
 	// slider
+	$('[class*="js-slider"], .js-galery').on('init', function(slick){
+		$(this).addClass('is-init');
+	});
 	$('.js-slider').slick({
 		dots: true,
 		arrows: true,
@@ -136,6 +139,21 @@ $(document).ready( function() {
 		autoplaySpeed: 3000,
 		fade: true,
 		cssEase: 'linear',
+	});
+	$('.js-slider-for').slick({
+		slidesToShow: 1,
+		slidesToScroll: 1,
+		arrows: false,
+		fade: true,
+		asNavFor: '.js-slider-nav'
+	});
+	$('.js-slider-nav').slick({
+		slidesToShow: 4,
+		slidesToScroll: 1,
+		asNavFor: '.js-slider-for',
+		dots: false,
+		arrows: false,
+		focusOnSelect: true
 	});
 
 	// dropdown
@@ -249,7 +267,7 @@ $(document).ready( function() {
 	
 	// item show info
 	function itemOpen() {
-		$('.item').each(function() {
+		$('.js-item').each(function() {
 			var this_ = $(this),
 				block = this_.find('.js-item-text');
 			if (this_.hasClass('is-active')) {
@@ -258,7 +276,7 @@ $(document).ready( function() {
 		});
 		$('.js-item-open').on('click', function() {
 			var this_ = $(this),
-				parent = this_.parents('.item')
+				parent = this_.parents('.js-item')
 				block = parent.find('.js-item-text');
 			if (!parent.hasClass('is-active')) {
 				parent.addClass('is-active')
@@ -288,5 +306,27 @@ $(document).ready( function() {
 			this_.text('Показать все фильтры');
 		}
 	});
+
+	// tab
+	function tab() {
+		$(".js-tab").each(function(){
+			var tab_link = $(this).find("a"),
+				tab_item = $(this).find("li"),
+				index = tab_link.attr("href"),
+				parents = $(this).parents(".js-tab-group"),
+				tab_cont = parents.find(".js-tab-cont");
+			tab_link.on("click", function() {
+				var index = $(this).attr("href");
+				$('.js-tab-item').removeClass("is-active");
+				$(this).parent().addClass("is-active");
+				tab_cont.fadeOut(500);
+				parents.find("."+index).fadeIn(500);
+				return false;
+			});
+			$(this).find('li:first').addClass("is-active");
+			parents.find("."+index).fadeIn(500);
+		});
+	}
+	tab();
 
 });

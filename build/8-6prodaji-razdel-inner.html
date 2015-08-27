@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>8-1prodaji-razdel-cena</title>
+	<title>8-1prodaji-razdel</title>
 	<meta charset="utf-8">
 	<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 	<meta name="viewport" content="width=1200">
@@ -32,7 +32,7 @@
 				<div class="menu__in">
 					<!-- cabinet -->
 					<a href="#" class="cabinet">
-						<div class="cabinet__name">Александр Петровский</div>
+						<div class="cabinet__name"></div>
 						<div class="cabinet__row">
 							<i class="ico ico_user"></i>
 							<span>Личный кабинет</span>
@@ -249,7 +249,24 @@
 					</div>
 					<!-- list-links -->
 					<ul class="list-links js-list-links">
-						<li><a href="#">Сварочное оборудование и материалы</a></li>
+						<li class="is-active">
+							<a href="#">Сварочное оборудование и материалы</a>
+							<ul>
+								<li class="is-active">
+									<a href="#">Оборудование для сварки и резки Mma, Tig, Mig, Plasma Cut</a>
+									<ul>
+										<li><a href="#" class="is-active">Ручная дуговая сварка (MMA)</a></li>
+										<li><a href="#">Маски Сварщика</a></li>
+										<li><a href="#">Аксессуары для оборудования сварки и резки</a></li>
+										<li><a href="#">Полуавтоматическая сварка</a></li>
+									</ul>
+								</li>
+								<li><a href="#">Сварочные Материалы</a></li>
+								<li><a href="#">Маски Сварщика</a></li>
+								<li><a href="#">Аксессуары для оборудования сварки и резки</a></li>
+								<li><a href="#">Краги сварщика</a></li>
+							</ul>
+						</li>
 						<li><a href="#">Компрессоры, пневмоинструмент и оснастка</a></li>
 						<li><a href="#">Генераторы</a></li>
 						<li><a href="#">Пуско-зарядные устройства</a></li>
@@ -319,24 +336,19 @@
 					</ul>
 				</li>
 			</ul>
-			<!-- promo -->
-			<div class="promo" style="background-image: url(img/banner-bg.png);">
-				<div class="badge badge_red">Акция</div>
-				<div class="promo__title">3 года</div>
-				<div class="promo__info">Гарантии на оборудование</div>
-				<div class="promo__text">На электроинструмент, бензоинструмент и строительное оборудование торговых марок: KIRK, HITACHI, Verto, Graphite.</div>
-				<a href="#" class="btn btn_white">подробнее</a>
-			</div>
 		</div>
 		<div class="main">
 			<div class="main__in">
 				<!-- topic -->
-				<div class="topic" style="background-image: url(img/topic-bg.jpg);">
+				<div class="topic">
 					<div class="topic__in">
 						<!-- breadcrumbs -->
 						<ul class="breadcrumbs">
 							<li><a href="#">Главная</a></li>
-							<li><span>Каталог</span></li>
+							<li><a href="#">Каталог</a></li>
+							<li><a href="#">Оборудование для промышленности и строительства</a></li>
+							<li><a href="#">Сварочное оборудование и материалы</a></li>
+							<li>Оборудование для сварки и резки Мма, Tig, Mig, Plasma Cut</li>
 						</ul>
 						<div class="topic__wrap">
 							<!-- drop -->
@@ -349,153 +361,233 @@
 									<li><a href="#"><i class="ico ico_m"></i>E-mail</a></li>
 								</ul>
 							</div>
-							<div class="topic__title">Оборудование для промышленности и строительства</div>
+							<div class="topic__title">Ручная дуговая сварка (ММА)</div>
 						</div>
-						<div class="topic__text">Без преувеличения – мы достигли успеха и нацелены на еще большие результаты, наша цель – лидерство в сфере крепежа и профессионального оборудования для промышленности.</div>
+						<div class="topic__text">Товаров с подробными описаниями и фотографиями от 66 производителей с ценами магазинов. Для выбора и покупки свародного оборудования.</div>
 					</div>
 				</div>
 				<!-- wrapper -->
 				<div class="wrapper">
-					<!-- filter -->
-					<div class="filter">
-						<div class="filter__left">
-							<span class="filter__text">Бренд:</span>
-							<select class="multiple-select js-multiple-select" multiple="multiple">
-								<option value="Все бренды" selected>Все бренды</option>
-								<option value="Станки">Станки</option>
-								<option value="Оборудование">Оборудование</option>
-								<option value="Машины">Машины</option>
-								<option value="Инструменты">Инструменты</option>
-							</select>
-						</div>
-						<div class="filter__right">
-							<label class="checkbox">
-								<input type="checkbox">
-								<span>Показать описание</span>
-							</label>
-							<ul class="view">
-								<li class="view__item is-active">
-									<a href="#"><i class="icon-ico-table"></i></a>
-								</li>
-								<li class="view__item">
-									<a href="#"><i class="icon-ico-cat"></i></a>
-								</li>
-								<li class="view__item">
-									<a href="#"><i class="icon-ico-list"></i></a>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="title-h2">Оборудование</div>
-					<!-- items -->
-					<div class="items">
-						<div class="items__row">
-							<div class="item js-item">
-								<div class="item__in">
-									<a href="#" class="item__img"><img src="img/item-img-1.jpg" alt="img"></a>
-									<a href="#" class="item__link">Сварочное оборудование <br>и материалы</a>
+					<!-- product -->
+					<div class="product">
+						<div class="product__slider">
+							<div class="slider-for js-slider-for">
+								<div class="slider-for__slide">
+									<img src="img/slider-for-1.png" alt="img">
+								</div>
+								<div class="slider-for__slide">
+									<img src="img/slider-nav-1.png" alt="img">
+								</div>
+								<div class="slider-for__slide">
+									<img src="img/slider-nav-2.png" alt="img">
+								</div>
+								<div class="slider-for__slide">
+									<img src="img/slider-nav-3.png" alt="img">
+								</div>
+								<div class="slider-for__slide">
+									<img src="img/slider-for-1.png" alt="img">
+								</div>
+								<div class="slider-nav__slide">
+									<img src="img/slider-nav-1.png" alt="img">
 								</div>
 							</div>
-							<div class="item js-item">
-								<div class="item__in">
-									<a href="#" class="item__img"><img src="img/item-img-2.jpg" alt="img"></a>
-									<a href="#" class="item__link">Компрессоры <br>и оснастка</a>
+							<div class="slider-nav js-slider-nav">
+								<div class="slider-nav__slide">
+									<img src="img/slider-for-1.png" alt="img">
 								</div>
-							</div>
-							<div class="item js-item">
-								<div class="item__in">
-									<a href="#" class="item__img"><img src="img/item-img-3.jpg" alt="img"></a>
-									<a href="#" class="item__link">Генераторы</a>
+								<div class="slider-nav__slide">
+									<img src="img/slider-nav-1.png" alt="img">
 								</div>
-							</div>
-							<div class="item js-item">
-								<div class="item__in">
-									<a href="#" class="item__img"><img src="img/item-img-4.jpg" alt="img"></a>
-									<a href="#" class="item__link">Пуско-зарядные приборы</a>
+								<div class="slider-nav__slide">
+									<img src="img/slider-nav-2.png" alt="img">
+								</div>
+								<div class="slider-nav__slide">
+									<img src="img/slider-nav-3.png" alt="img">
+								</div>
+								<div class="slider-nav__slide">
+									<img src="img/slider-for-1.png" alt="img">
+								</div>
+								<div class="slider-nav__slide">
+									<img src="img/slider-nav-1.png" alt="img">
 								</div>
 							</div>
 						</div>
-						<div class="items__row">
-							<div class="item js-item">
-								<div class="item__in">
-									<a href="#" class="item__img"><img src="img/item-img-5.jpg" alt="img"></a>
-									<a href="#" class="item__link">Нагреватели воздуха</a>
+						<div class="product__in">
+							<div class="product__right">
+								<div class="product__price">52 530 000 руб</div>
+								<div class="spiner js-spiner" data-max-number="10">
+									<button class="spiner__minus js-minus">&ndash;</button>
+									<input type="text" class="spiner__input" name="spiner-input" value="1" readonly="">
+									<button class="spiner__plus js-plus">+</button>
+									<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
 								</div>
 							</div>
-							<div class="item js-item">
-								<div class="item__in">
-									<a href="#" class="item__img"><img src="img/item-img-6.jpg" alt="img"></a>
-									<a href="#" class="item__link">Измерительные приборы</a>
-								</div>
-							</div>
-							<div class="item js-item">
-								<div class="item__in">
-									<a href="#" class="item__img"><img src="img/item-img-7.jpg" alt="img"></a>
-									<a href="#" class="item__link">Мотопомпы</a>
-								</div>
-							</div>
-							<div class="item js-item">
-								<div class="item__in">
-									<a href="#" class="item__img"><img src="img/item-img-8.jpg" alt="img"></a>
-									<a href="#" class="item__link">Бетоносмесители</a>
-								</div>
-							</div>
-						</div>
-						<div class="items__row">
-							<div class="item js-item">
-								<div class="item__in">
-									<a href="#" class="item__img"><img src="img/item-img-9.jpg" alt="img"></a>
-									<a href="#" class="item__link">Лестницы</a>
-								</div>
-							</div>
-							<div class="item js-item">
-								<div class="item__in">
-									<a href="#" class="item__img"><img src="img/item-img-10.jpg" alt="img"></a>
-									<a href="#" class="item__link">Тачки</a>
-								</div>
+							<div class="product__descr">
+								<h3 class="title-h3">Краткое описание</h3>
+								<div class="article">Артикул: H-214587</div>
+								<ul class="list">
+									<li>сварочный инвертор</li>
+									<li>типы сварки: ручная дуговая (MMA)</li>
+									<li>аргонодуговая (TIG)</li>
+									<li>макс. сварочный ток: 160 А (MMA)</li>
+									<li>диаметр электрода: 1.60-4 мм</li>
+									<li>антиприлипание</li>
+									<li>горячий старт</li>
+								</ul>
 							</div>
 						</div>
 					</div>
-					<div class="title-h2">Масла</div>
-					<!-- items -->
-					<div class="items is-prod-cena">
-						<div class="items__row">
-							<div class="item js-item">
-								<div class="item__in">
-									<a href="#" class="item__img">
-										<div class="badge badge_red">Акция</div>
-										<img src="img/item-img-11.jpg" alt="img">
-									</a>
-									<a href="#" class="item__link">Инвертор сварочный MMA130A, ПВ20%, кейс, 220В, IGBT, EW2800 HITACHI</a>
-									<div class="article">Артикул: 4557777</div>
-								</div>
-								<div class="item__price">521 700 руб</div>
-								<div class="item__bot">
-									<!-- spiner -->
-									<div class="spiner js-spiner" data-max-number="10">
-										<button class="spiner__minus js-minus">&ndash;</button>
-										<input type="text" class="spiner__input" name="spiner-input" value="1" readonly="">
-										<button class="spiner__plus js-plus">+</button>
-										<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
+					<!-- tab -->
+					<div class="tab js-tab-group">
+						<ul class="tab__list js-tab">
+							<li class="tab__item js-tab-item">
+								<a href="js-tab1" class="tab__link">Атрибуты</a>
+							</li>
+							<li class="tab__item js-tab-item">
+								<a href="js-tab2" class="tab__link">Технические документы</a>
+							</li>
+							<li class="tab__item js-tab-item">
+								<a href="js-tab3" class="tab__link">Технические рисунки</a>
+							</li>
+							<li class="tab__item js-tab-item">
+								<a href="js-tab4" class="tab__link">Область применения</a>
+							</li>
+						</ul>
+						<div class="tab__in">
+							<div class="tab__cont js-tab-cont js-tab1">
+								<table class="table">
+									<tr>
+										<td>Тип устройства</td>
+										<td>сварочный инвертор </td>
+									</tr>
+									<tr>
+										<td>Типы сварки</td>
+										<td>ручная дуговая сварка (MMA), аргонодуговая сварка (TIG) </td>
+									</tr>
+									<tr>
+										<td>Сварочный ток (MMA)</td>
+										<td>5-200 А </td>
+									</tr>
+									<tr>
+										<td>Напряжение на входе</td>
+										<td>240 В </td>
+									</tr>
+									<tr>
+										<td>Количество фаз питания</td>
+										<td>1</td>
+									</tr>
+									<tr>
+										<td>Напряжение холостого хода</td>
+										<td>63 В</td>
+									</tr>
+								</table>
+								<table class="table">
+									<tr>
+										<td>Антиприлипание</td>
+										<td>есть</td>
+									</tr>
+									<tr>
+										<td>Горячий старт</td>
+										<td>есть</td>
+									</tr>
+									<tr>
+										<td>Форсаж дуги</td>
+										<td>есть</td>
+									</tr>
+									<tr>
+										<td>Степень защиты</td>
+										<td>IP22S</td>
+									</tr>
+									<tr>
+										<td>Габариты, ДхШхВ</td>
+										<td>370х140х245 мм</td>
+									</tr>
+									<tr>
+										<td>Масса</td>
+										<td>6.9 кг</td>
+									</tr>
+								</table>
+							</div>
+							<div class="tab__cont js-tab-cont js-tab2">
+								<div class="dcts">
+									<div class="dcts__item">
+										<a href="#" class="dct-link">
+											<i class="ico ico_pdf"></i>
+											Руководство по эксплуатации (инструкция) HITACHI
+										</a>
+									</div>
+									<div class="dcts__item">
+										<a href="#" class="dct-link">
+											<i class="ico ico_pdf"></i>
+											Инструкция к сварочному аппарату MMA160 EW3500 HITACHI
+										</a>
+									</div>
+									<div class="dcts__item">
+										<a href="#" class="dct-link">
+											<i class="ico ico_pdf"></i>
+											Генераторы бензиновые Kirk
+										</a>
+									</div>
+									<div class="dcts__item">
+										<a href="#" class="dct-link">
+											<i class="ico ico_pdf"></i>
+											Инструкция пользователя
+										</a>
+									</div>
+									<div class="dcts__item">
+										<a href="#" class="dct-link">
+											<i class="ico ico_doc"></i>
+											Инструкция установки
+										</a>
 									</div>
 								</div>
 							</div>
-							<div class="item js-item">
-								<div class="item__in">
-									<a href="#" class="item__img"><img src="img/item-img-12.jpg" alt="img"></a>
-									<a href="#" class="item__link">Инвертор сварочный MMA160A, ПВ30%, +TIG DC Lift, 220В, IGBT KIRK</a>
-									<div class="article">Артикул: 27569888</div>
-								</div>
-								<div class="item__price">756 000 руб</div>
-								<div class="item__bot">
-									<!-- spiner -->
-									<div class="spiner js-spiner" data-max-number="10">
-										<button class="spiner__minus js-minus">&ndash;</button>
-										<input type="text" class="spiner__input" name="spiner-input" value="1" readonly="">
-										<button class="spiner__plus js-plus">+</button>
-										<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
+							<div class="tab__cont js-tab-cont js-tab3">
+								<div class="dcts">
+									<div class="dcts__item">
+										<a href="#" class="dct-link">
+											<i class="ico ico_pdf"></i>
+											Принципиальная электрическая схема сварочного инвертора
+										</a>
+									</div>
+									<div class="dcts__item">
+										<a href="#" class="dct-link">
+											<i class="ico ico_pdf"></i>
+											Функциональная схема аппаратат
+										</a>
+									</div>
+									<div class="dcts__item">
+										<a href="#" class="dct-link">
+											<i class="ico ico_pdf"></i>
+											Генераторы бензиновые Kirk
+										</a>
+									</div>
+									<div class="dcts__item">
+										<a href="#" class="dct-link">
+											<i class="ico ico_pdf"></i>
+											Схема подсоединения аппарата
+										</a>
+									</div>
+									<div class="dcts__item">
+										<a href="#" class="dct-link">
+											<i class="ico ico_doc"></i>
+											Схема ограничения напряжения на электрические сети
+										</a>
 									</div>
 								</div>
+							</div>
+							<div class="tab__cont js-tab-cont js-tab4">
+								<h3 class="title">Модель имеет широкую область применения</h3>
+								<ul class="list">
+									<l3>сварка любыми электродами, любых материалов </l3>
+									<l3>сварка на строительных площадках, сварка легких и средних металлоконструкций</l3>
+									<l3>сварочный аппарат для гаража, мастерской, домашнего мастера </l3>
+								</ul>
+								<ul>
+									<li>ремонтно-монтажные работы, в томv числе высотные, ремонт и монтаж канализационных систем, коммунальные работы</li>
+									<li>ремесленные и кузнечные работы, индивидуальное хозяйство</li>
+									<li>конструкции нефтедобывающей и перерабатывающей промышленности</li>
+								</ul>
 							</div>
 						</div>
 					</div>
@@ -528,18 +620,6 @@
 									<h3 class="title-green">Долговечность</h3>
 									<p>Количество компаний в отрасли стало увеличиваться в прогрессии.</p>
 								</div>
-							</div>
-						</div>
-					</div>
-					<!-- information -->
-					<div class="information">
-						<div class="row">
-							<div class="col-md-4">
-								<div class="title-h3">Огромный ассортимент различного оборудования</div>
-							</div>
-							<div class="col-md-8">
-								<p>В этот период, строительный рынок Беларуси рос экспоненциальными темпами. Рынок, который традиционно был устойчив к изменениям, начал демонстрировать стремительные витки роста.</p>
-								<p>Количество компаний в отрасли стало увеличиваться в прогрессии. В то время, как большинство новых компаний были ориентированы исключительно на получение сиюминутной прибыли, молодая компания ЕКТ оставалась верна традициям профессионализма. </p>
 							</div>
 						</div>
 					</div>

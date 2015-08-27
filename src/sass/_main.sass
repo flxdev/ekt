@@ -16,6 +16,7 @@
 	background-repeat: no-repeat
 	+font-smoothing(antialiased)
 	background-size: cover
+	background-color: $green
 	.topic__in
 		padding: 44px
 		background-color: rgba(26, 39, 31, 0.7)
@@ -36,7 +37,8 @@
 		opacity: .8
 		letter-spacing: 0.5px
 	.breadcrumbs
-		margin-bottom: 25px
+		padding-right: 124px
+		margin-bottom: 20px
 
 // view
 .view
@@ -151,6 +153,9 @@
 	.filter__text
 		vertical-align: top
 		display: inline-block
+	.multiple-select
+		min-width: 200px
+		width: 200px
 	.view
 		margin-left: 50px
 	.checkbox
@@ -226,7 +231,8 @@
 			+f300
 		.item__link
 			margin: 0
-			color: $green
+			&:link
+				color: $green
 	&.is-prod-cena
 		.item
 			padding-bottom: 105px
@@ -270,6 +276,26 @@
 			height: 245px
 		.item__link
 			text-decoration: none
+	&.is-list
+		.point
+			padding: 6px 10px 10px
+		.point__img
+			display: none
+		.point__info
+			padding: 0 45px 0 0
+		.point__text
+			margin-left: 90px
+		.point__price
+			margin-top: 8px
+		.article
+			float: left
+			width: 90px
+		.link-green
+			line-height: 18px
+			font-size: 12px
+			margin-left: 90px
+		.spiner
+			margin-top: 4px
 	.items__row,
 	.items__wrap
 		position: relative
@@ -294,7 +320,7 @@
 	+f700
 	+box
 	display: inline-block
-	+transition(border-color .3s, background-color .3s, color .1s linear)
+	+transition(border-color .3s, background-color .3s, color .1s)
 	&:link
 		color: #000
 	&:visited
@@ -304,7 +330,7 @@
 		text-decoration: none
 		&:before,
 		&:after
-			border-color: #0b9a42
+			border-color: $green
 			box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 0 8px rgba(11, 154, 66, 0.15)
 		.item__arr
 			opacity: 1
@@ -327,8 +353,6 @@
 	&:before
 		border: 1px solid $border-item
 	&.is-active
-		// .item__text
-		// 	display: block 
 		.item__arr
 			&:before
 				top: -5px
@@ -475,6 +499,101 @@
 			+s($item-arr-h)
 	.article
 		margin-top: 5px
+
+// point
+.point
+	position: relative
+	padding: 10px 16px 12px
+	border: 1px solid $border-item
+	+transition(border-color .3s, box-shadow .3s, z-index .3s)
+	+clr
+	&:hover
+		z-index: 1
+		border-color: $green
+		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 0 8px rgba(11, 154, 66, 0.15)
+		.point__arr
+			opacity: 1
+	&.is-active
+		.point__arr
+			&:before
+				top: -5px
+				left: -4px
+				+s($item-arr-active)
+			&:after
+				top: -3px
+				left: -4px
+				+s($item-arr-active-h)
+	& + .point
+		margin-top: -1px
+	.point__left
+		overflow: hidden
+		+clr
+	.point__right
+		float: right
+	.point__img
+		position: relative
+		float: left
+		width: 105px
+		img
+			display: block
+	.point__info
+		padding: 5px 33px 0 0
+	.point__price
+		margin-top: 28px
+		+f500
+		font-size: 13px
+		vertical-align: top
+		display: inline-block
+	.point__text
+		margin: 5px 0 0 105px
+		font-size: 13px
+		line-height: 24px
+		opacity: .5
+		+f300
+		overflow: hidden
+		display: none
+	.point__arr
+		position: absolute
+		right: 16px
+		bottom: 14px
+		height: 9px
+		width: 9px
+		z-index: 3
+		opacity: 0
+		+transition(opacity .3s)
+		display: inline-block
+		&:hover
+			&:before
+				opacity: 0
+			&:after
+				opacity: 1
+		&:before,
+		&:after
+			position: absolute
+			content: ''
+			right: 0
+			bottom: 0
+			+transition(opacity .3s)
+		&:before
+			top: 0
+			left: 0
+			+s($item-arr)
+		&:after
+			top: -1px
+			left: -1px
+			opacity: 0
+			+s($item-arr-h)
+	.link-green
+		font-size: 13px
+		+f500
+		letter-spacing: 0.35px
+		display: block
+	.spiner
+		margin: 24px 0 0 18px
+	.badge
+		position: absolute
+		top: 2px
+		right: 20px
 
 // article
 .article
@@ -635,6 +754,64 @@
 		margin-right: -1px
 		font-size: 0
 
+// slider-for
+.slider-for
+	height: 273px
+	width: 273px
+	border: 1px solid $border-item
+	border-bottom: none
+	.slider-for__slide
+		height: 272px
+
+// slider-nav
+.slider-nav
+	width: 273px
+	height: 69px
+	.slider-nav__slide
+		position: relative
+		height: 69px
+		width: 69px
+		cursor: pointer
+		border: 1px solid $border-item
+		+transition(border-color .3s)
+		&:before
+			position: absolute
+			content: ''
+			top: 0
+			left: 0
+			right: 0
+			bottom: 0
+			z-index: 1
+			+transition(background-color .3s)
+		& + .slider-nav__slide
+			margin-left: -1px
+		&.slick-current
+			border-color: $green
+			z-index: 1
+			box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12)
+			&:before
+				background-color: rgba(255, 255, 255, 0.5)
+		img
+			position: relative
+	.slick-list
+		height: 69px
+		border-right: 1px solid $border-item
+
+
+.slider-for,
+.slider-nav
+	.slider-for__slide,
+	.slider-nav__slide
+		overflow: hidden
+	img
+		position: absolute
+		top: 50%
+		left: 50%
+		+translate(-50%,-50%)
+		max-width: 100%
+		max-height: 100%
+		display: block
+
 // galery
 .galery
 	position: relative
@@ -652,7 +829,15 @@
 		right: 20px
 		+s($galery-arr-right)
 	
-
+.slider-for,
+.slider-nav,
+.galery,
+.slider
+	visibility: hidden
+	opacity: 0
+	&.is-init
+		visibility: visible
+		opacity: 1
 
 // banner
 .banner
@@ -693,8 +878,6 @@
 	a
 		color: #000
 		text-decoration: underline
-		&:link
-			color: #000
 		&:visited
 			color: $second_a
 		&:hover
@@ -1035,6 +1218,16 @@
 	margin: 15px 0 20px
 	text-align: right
 	font-size: 0
+	+clr
+	.sorting__left
+		float: left
+		text-align: left
+		.sorting__item
+			margin-right: 16px
+	.sorting__right
+		float: right
+		.sorting__item
+			margin-left: 55px
 	.sorting__item
 		position: relative
 		padding: 6px 20px 6px 10px
@@ -1071,3 +1264,36 @@
 			&:before
 				margin-top: -1px
 				+rotate(180deg)
+// product
+.product
+	+clr
+	.product__slider
+		float: left
+		margin-right: 54px
+	.product__in
+		overflow: hidden
+		margin-left: 327px
+		+clr
+	.product__descr
+		overflow: hidden
+		.title-h3
+			margin-top: -4px
+		.article
+			margin-top: 10px
+			font-size: 13px
+			+f500
+		.list
+			margin-top: 7px
+	.product__right
+		float: right
+		width: 215px
+		text-align: right
+	.product__price
+		margin-bottom: 15px
+		font-size: 24px
+		+f500
+
+// tab__cont
+.tab
+	.tab__cont
+		display: none
