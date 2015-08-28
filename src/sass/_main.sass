@@ -711,7 +711,8 @@
 		+s($slider-arr-left)
 	.slick-next
 		+s($slider-arr-right)
-	&.is-prod
+	&.is-prod,
+	&.is-prod-cena
 		.item
 			padding-bottom: 10px
 			min-height: 327px
@@ -721,6 +722,12 @@
 			color: $green
 			&:hover
 				color: $second_h
+	&.is-prod-cena
+		.item
+			padding-bottom: 105px
+		.item__price,
+		.item__bot
+			width: 100%
 	.slick-dots
 		position: absolute
 		left: 0
@@ -736,7 +743,7 @@
 		&:before,
 		&:after
 			width: 100%
-			left: 0
+			left: 1px
 			+translate(0,0)
 		.item__in
 			&:before
@@ -750,7 +757,7 @@
 				&:before
 					border-left: none
 	.slick-list
-		padding: 2px 2px 2px 1px
+		padding: 2px 1px 2px 1px
 		margin-right: -1px
 		font-size: 0
 
@@ -1266,16 +1273,16 @@
 				+rotate(180deg)
 // product
 .product
+	margin-bottom: 60px
 	+clr
 	.product__slider
 		float: left
 		margin-right: 54px
-	.product__in
-		overflow: hidden
-		margin-left: 327px
+	.product__left
 		+clr
 	.product__descr
 		overflow: hidden
+		min-width: 190px
 		.title-h3
 			margin-top: -4px
 		.article
@@ -1286,8 +1293,17 @@
 			margin-top: 7px
 	.product__right
 		float: right
+		margin-bottom: 18px
 		width: 215px
 		text-align: right
+		+r(1200)
+			text-align: left
+			width: calc(100% - 330px)
+		& > .btn
+			padding: 10px 16px 9px
+			min-width: 146px
+			text-transform: initial
+			+f300
 	.product__price
 		margin-bottom: 15px
 		font-size: 24px
@@ -1295,5 +1311,164 @@
 
 // tab__cont
 .tab
+	&.is-mod
+		.tab__in
+			min-height: 410px
+	.tab__list
+		width: 100%
+		display: table
+	.tab__item
+		position: relative
+		vertical-align: top
+		border: 1px solid $border-tab
+		border-bottom: 1px solid $green
+		background: #fff
+		display: table-cell
+		+transition(border-color .3s, box-shadow .3s)
+		&:hover
+			border-color: $green
+			box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 0 8px rgba(11, 154, 66, 0.15)
+			&:after
+				background: $green
+		&:before
+			position: absolute
+			content: ''
+			top: 0
+			left: -1px
+			right: -1px
+			bottom: -1px
+			border: 1px solid $green
+			border-bottom: none
+			background-color: #fff
+			opacity: 0
+			box-shadow: (inset 0 5px 0 #fff)
+			+transition(opacity .3s, top .3s, box-shadow .3s)
+		&:after
+			position: absolute
+			content: ''
+			top: -1px
+			left: -1px
+			bottom: -1px
+			width: 1px
+			background: transparent
+			z-index: 1
+			+transition(background .3s)
+		&:first-child
+			border-radius: 2px 0 0 0
+			&:before
+				border-radius: 2px 0 0 0
+		&:last-child
+			border-radius: 0 2px 0 0
+			&:before
+				border-radius: 0 2px 0 0
+		& + .tab__item
+			border-left: none
+		&.is-active
+			+f700
+			letter-spacing: -0.25px
+			border-color: $green
+			border-bottom-color: transparent
+			border-top-color: transparent 
+			&:hover
+				box-shadow: none
+			&:before
+				opacity: 1
+				top: -13px
+				box-shadow: (inset 0 2px 0 $green)
+	.tab__link
+		position: relative
+		padding: 0 40px
+		min-width: 80px
+		height: 32px
+		color: #000
+		font-size: 13px
+		line-height: 32px
+		text-align: center
+		z-index: 1
+		display: block
+		+r(1200)
+			padding: 0 16px
+	.tab__in
+		padding: 38px 20px 30px
+		border: 1px solid $green
+		border-top: none
+		+clr
+		.title-h4
+			line-height: 1
 	.tab__cont
 		display: none
+		float: left
+	.tab__row
+		+clr
+	.table
+		float: left
+		width: 49%
+		margin-left: 2%
+		&:first-child
+			margin-left: 0
+		td
+			width: 50%
+			+f500
+			&:first-child
+				+f300
+	.list
+		float: left
+		margin-top: 12px
+		width: 49%
+		margin-left: 8%
+		letter-spacing: .3px
+		vertical-align: top
+		display: inline-block
+		&:first-child
+			width: 43%
+			margin-left: 0
+
+.dcts
+	font-size: 0
+	.dcts__item
+		margin-bottom: 28px
+		padding-right: 35px
+		width: 33.3%
+		font-size: 13px
+		vertical-align: top
+		+box
+		display: inline-block
+
+// sheet
+.sheet
+	.sheet__top,
+	.sheet__in
+		+clr
+	.sheet__right
+		float: right
+		width: 291px
+		border-left: 1px solid $border-left
+	.sheet__top
+		border-bottom: 1px solid $border-td
+		.sheet__left,
+		.sheet__right
+			padding-bottom: 15px
+	.sheet__wrap
+		overflow: auto
+		max-height: 817px
+	.sorting
+		margin: 0
+.sheet__left
+	overflow: hidden
+	table
+		td
+			min-width: 100px
+			width: 100px
+			&:first-child
+				min-width: 76px
+			&:nth-child(2)
+				min-width: 70px
+			&:nth-child(3)
+				min-width: 82px
+			&:nth-child(4)
+				min-width: 102px
+			&:nth-child(5)
+				min-width: 98px
+			&:nth-child(6),
+			&:nth-child(7)
+				min-width: 100px

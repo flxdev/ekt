@@ -319,7 +319,7 @@ $(document).ready( function() {
 				var index = $(this).attr("href");
 				$('.js-tab-item').removeClass("is-active");
 				$(this).parent().addClass("is-active");
-				tab_cont.fadeOut(500);
+				tab_cont.fadeOut(0);
 				parents.find("."+index).fadeIn(500);
 				return false;
 			});

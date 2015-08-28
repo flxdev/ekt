@@ -605,6 +605,26 @@
 		color: $second_h
 		text-decoration: none
 
+// dct-link
+.dct-link
+	position: relative
+	padding: 3px 0 0 33px
+	line-height: 24px
+	color: #000
+	text-decoration: underline
+	+transition(color .2s)
+	vertical-align: top
+	display: inline-block
+	&:visited
+		color: $second_a
+	&:hover
+		color: $second_h
+		text-decoration: none
+	.ico
+		position: absolute
+		top: 0
+		left: 0
+
 // drop
 .drop
 	position: relative
@@ -764,3 +784,12 @@
 		+translate(0,-50%)
 		background: transparent
 		+s($x-white)
+
+// table
+.table
+	tr
+		&:nth-child(odd)
+			background: $light-gray
+	td
+		padding: 10px 15px 10px 18px
+		line-height: 24px
