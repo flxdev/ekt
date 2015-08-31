@@ -22,6 +22,9 @@
                 height: 1px
                 background: #000 
     .btn
+        margin-top: 35px
+        padding-left: 18px
+        padding-right: 18px
         display: block              
 .btn_fill
     background: transparent
@@ -56,9 +59,7 @@
         width: 100%  
 .is-blocked
     opacity: 0.3
-    pointer-events: none 
-.form-error
-    display: none               
+    pointer-events: none             
 .input
     +clr
     display: block
@@ -80,12 +81,35 @@
         padding: 0 12px
         +f300
         font-size: 14px
+        +transition(border-color .3s, box-shadow .3s)
         &::placeholder
-            color: rgba(#000, 0.5)   
+            color: rgba(#000, 0.5)
+        &:hover
+            border-color: $green
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 0 8px rgba(11, 154, 66, 0.15)
         &.error
-            border-color: red
+            border-color: $red
+            &:hover,
+            &:focus
+                box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 0 8px rgba(248, 52, 52, 0.15)
         &.valid
-            border-color: #0ca948
+            border-color: $green
+    .input__left
+        float: right
+        width: 70%
+        line-height: 32px
+        min-height: 32px
+        .radiobutton
+            display: inline-block
+    .form-error
+        padding-left: 30%
+
+.form-error
+    color: $red
+    font-size: 12px
+    +f300
+    display: block
+    
 input.input
     height: 32px
     border-radius: 3px
@@ -96,6 +120,13 @@ input.input
     width: 100%
     &::placeholder
         color: rgba(#000, 0.5)
+    &:hover
+        border-color: $green
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 0 8px rgba(11, 154, 66, 0.15)
+    &.error
+        border-color: red
+    &.valid
+        border-color: $green
 .forgot-pass
     float: right
     font-size: 12px 

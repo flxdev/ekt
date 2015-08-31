@@ -437,8 +437,8 @@ $(document).ready( function() {
 				form : form_this,
 				borderColorOnError : false,
         		scrollToTopOnError : false,
-        		modules : 'toggleDisabled',
-        		showErrorDialogs : false
+        		modules : 'toggleDisabled'
+        		// showErrorDialogs : false
 			});
 		});
 	};

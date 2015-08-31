@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>8-0prodaji-rascruto</title>
+	<title>9-1register-fizicheskoe</title>
 	<meta charset="utf-8">
 	<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 	<meta name="viewport" content="width=1200">
@@ -337,7 +337,7 @@
 						<li><span>Главная</span></li>
 					</ul>
 					<div class="topic__wrap">
-						<div class="topic__title">Личный кабинет</div>
+						<div class="topic__title">Регистрация</div>
 					</div>
 				</div>
 			</div>
@@ -346,31 +346,62 @@
 				<!-- cabinet -->
 				<div class="cab">
 					<div class="login">
-						<!-- recovery window -->
-						<div class="recovery">
-							<button type="button" class="recovery__close"></button>
-							<div class="login__title">Восстановление пароля</div>
+						<div class="login__title">Регистрация пользователя</div>
+						<div class="form">
 							<form action="#" class="js-validate">
 								<label class="form__row">
 									<div class="input">
-										<p>Введите ваш e-mail<span>*</span></p>
-										<input type="text" data-validation="email" placeholder="info@hmail.com"  data-validation-error-msg="Неправильный логин">
+										<p>Тип<span>*</span></p>
+										<div class="input__left">
+											<label class="radiobutton">
+												<input type="radio" name="type">
+												<span>Организация</span>
+											</label>
+											<label class="radiobutton">
+												<input type="radio" name="type" checked>
+												<span>Физическое лицо</span>
+											</label>
+										</div>
+									</div>
+									<div class="input">
+										<p>ФИО*<span>*</span></p>
+										<input type="text" data-validation="email" placeholder="Иванов Иван Иванович" data-validation-error-msg="Незаполненное поле">
+									</div>
+								</label>
+								<label class="form__row">
+									<div class="input">
+										<p>Телефон<span>*</span></p>
+										<input type="text" data-validation="required" placeholder="+375 29 000-00-00" data-validation-error-msg="Незаполненное поле">
+									</div>
+								</label>
+								<label class="form__row">
+									<div class="input">
+										<p>E-mail (логин)<span>*</span></p>
+										<input type="text" data-validation="email" placeholder="info@hmail.com" data-validation-error-msg="Неправильный логин">
+									</div>
+								</label>
+								<label class="form__row">
+									<div class="input">
+										<p>Пароль<span>*</span></p>
+										<input type="text" data-validation="email" placeholder="info@hmail.com" data-validation-error-msg="Неправильный пароль">
+									</div>
+								</label>
+								<label class="form__row">
+									<div class="input">
+										<p>Повторите пароль<span>*</span></p>
+										<input type="password" data-validation="email" placeholder="info@hmail.com" data-validation-error-msg="Неправильный пароль">
 									</div>
 								</label>
 								<div class="form__submit">
-									<input type="submit" class="btn" value="Отправить Пароль">
+									<input type="submit" class="btn" value="Войти">
 								</div>	
 							</form>
 						</div>
 					</div>	
 					<div class="alt">
-						<div class="title-h3">Ещё нет личного кабинета?</div>
-						<p>Зарегистрируйтесь, и пользуйтесь всеми преимуществами наших партнёров!</p>
-						<ul>
-							<li>Просматривайте цены</li>
-							<li>Используйте Сервисный центр</li>
-						</ul>
-						<a href="#" class="btn btn_fill">Зарегистрироваться</a>
+						<div class="title-h3">Есть учетная запись?</div>
+						<p>Войдите в личный кабинет для просмотра профильной информации</p>
+						<a href="#" class="btn btn_fill">Войти</a>
 					</div>
 				</div>
 			</div>
