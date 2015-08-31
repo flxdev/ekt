@@ -429,12 +429,15 @@
 	line-height: 24px
 	.title-h2
 		margin: 40px 0 22px
+		&:first-child
+			margin-top: 0
 	.wrapper__top
 		position: relative
 		.checkbox
 			position: absolute
 			top: 12px
 			right: 0
+
 .list
 	margin: 20px 0
 	li
@@ -555,7 +558,14 @@
 	color: $green
 	line-height: 24px
 	text-decoration: underline
-	+transition(color .1s)
+	+transition(color .1s, border-color .1s)
+	&.is-dot
+		text-decoration: none
+		border-bottom: 1px dotted $green
+		&:visited
+			border-color: $second_a
+		&:hover
+			border-color: transparent
 	&:visited
 		color: $second_a
 	&:hover

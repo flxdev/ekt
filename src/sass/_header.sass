@@ -151,6 +151,16 @@
 	height: 83px
 	line-height: 28px
 	font-size: 14px
+	&.is-active
+		&:before
+			position: absolute
+			content: ''
+			left: 0
+			right: 2px
+			bottom: 0
+			height: 2px
+			background: #000
+
 	+r(1200)
 		margin-left: 20px
 	.cabinet__row

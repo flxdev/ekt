@@ -1028,6 +1028,8 @@
 // sections
 .sections
 	margin: 45px 0
+	&.is-mod
+		margin: 14px 0 -25px
 	.section
 		margin-top: 18px
 		&:first-child
@@ -1060,6 +1062,8 @@
 		bottom: 0
 		width: 400px
 		overflow: hidden
+		&.is-mod
+			width: 480px
 		img
 			position: absolute
 			top: 50%
@@ -1557,15 +1561,6 @@
 		vertical-align: middle
 	.spiner
 		vertical-align: middle
-	.jspHorizontalBar,
-	.jspTrack
-		height: 13px
-		background: $scroll-bg
-	.jspDrag
-		background: $border-td
-		+transition(background .3s)
-		&:hover
-			background: $scroll-h
 .sheet__left
 	overflow: hidden
 	border-right: 1px solid $border-left

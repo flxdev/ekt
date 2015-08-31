@@ -5,10 +5,11 @@
 //= ../../bower_components/jQuery-Form-Validator/form-validator/toggleDisabled.js
 
 
-
-//= app.js
 //= validation.js
 //= jquery.multiple.select.js
 //= jquery.mousewheel.js
 //= jquery.jscrollpane.js
 //= jquery.fancybox.js
+//= jquery.maskedinput.min.js
+
+//= app.js

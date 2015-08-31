@@ -1,5 +1,11 @@
 .cab
     +clr
+    .cab__inf
+        width: 550px
+        p
+            letter-spacing: -.4px
+    .cab__buttons
+        margin-top: 30px
 .alt
     float: right
     width: 38%
@@ -56,7 +62,13 @@
 .form__submit
     margin-top: 25px
     .btn
-        width: 100%  
+        width: 100% 
+.form__in
+    margin-bottom: 32px
+    padding-bottom: 10px
+    border-bottom: 1px solid $border-debr
+    & + .form__submit
+        margin-top: 50px
 .is-blocked
     opacity: 0.3
     pointer-events: none             
@@ -94,16 +106,30 @@
                 box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 0 8px rgba(248, 52, 52, 0.15)
         &.valid
             border-color: $green
-    .input__left
+    .input__right
         float: right
         width: 70%
         line-height: 32px
         min-height: 32px
+        +clr
         .radiobutton
+            margin-right: 30px
             display: inline-block
-    .form-error
+            &:last-child
+                margin-right: 0
+        input.input
+            width: 150px
+            vertical-align: top
+            display: inline-block
+    .captcha
+        float: right
+        margin-left: 16px
+        vertical-align: top
+        display: inline-block
+    & > .form-error
         padding-left: 30%
 
+// form-error
 .form-error
     color: $red
     font-size: 12px
@@ -144,6 +170,24 @@ input.input
         background: transparent 
         +s($close)
 
+// captcha
+.captcha
+    position: relative
+    padding-right: 25px
+    vertical-align: top
+    display: inline-block
+    img
+        display: block
+    .captcha__code
+        line-height: 1
+        border: 1px solid #000
+    .captcha__upd
+        position: absolute
+        top: 50%
+        right: 0
+        +translate(0, -50%)
+        background-color: transparent
+        +s($captcha-upd)
 
 
 

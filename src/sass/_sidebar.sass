@@ -101,7 +101,20 @@
 
 // list-links
 .list-links
+	position: relative
 	padding: 13px 0 26px
+	&.is-disabled
+		opacity: 0.5
+		&:before
+			position: absolute
+			content: ''
+			top: 0
+			left: 0
+			right: 0
+			bottom: 0
+			z-index: 1
+		a
+			border-color: $border-nav
 	li
 		padding: 12px 25px 12px 20px
 		&.is-active 
@@ -189,6 +202,8 @@
 	padding: 40px 45px 30px 30px
 	font-size: 24px
 	+f500
+	.page-name__in
+		margin-right: -20px
 
 // btn-search
 .btn-search

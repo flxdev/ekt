@@ -380,5 +380,45 @@ $(document).ready( function() {
 		prevEffect  : 'fade',
 		padding		: 30
 	});
-	
+
+	// popup
+	$('.js-popup').each(function() {
+		var popup 	= $(this),
+			parent 	= popup.parents('.js-popup-par'),
+			wrap 	= popup.find('.popup__in'),
+			btn 	= $('.js-open-popup'),
+			close 	= parent.find('.js-close-popup'),
+			scroll 	= popup.find('.js-p-scroll'),
+			body 	= $('body');
+		btn.on('click', function() {
+			if(!parent.hasClass('is-open')) {
+				parent.addClass('is-open');
+				popup.fadeIn(300);
+				body.addClass('is-hidden');
+				scroll.addClass('is-active');
+				scroll.jScrollPane();
+			}
+			return false;
+		});
+		close.on('click', function() {
+			parent.removeClass('is-open');
+			popup.fadeOut(300);
+		});
+		popup.on('click', function() {
+			parent.removeClass('is-open');
+			popup.fadeOut(300);
+		});
+		wrap.on('click',function(event) {
+		    event.stopPropagation();
+		});
+	});
+	function popupScroll() {
+		$('.js-p-scroll').each(function() {
+			var this_ = $(this);
+			if (this_.hasClass('is-active')) {
+				this_.jScrollPane();
+			}
+		})
+		
+	} popupScroll();
 });
