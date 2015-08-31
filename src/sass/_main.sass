@@ -605,9 +605,43 @@
 	position: relative
 	border-radius: 3px
 	font-size: 0
+	line-height: 1
 	border: 1px solid $border-item
 	vertical-align: top
+	+transition(border-color .3s, box-shadow .3s)
 	display: inline-block
+	background: #fff
+	&:hover
+		border-color: $green
+		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 0 8px rgba(11, 154, 66, 0.15)
+		.spiner__block
+			visibility: visible
+			opacity: 1
+			z-index: 2
+			height: auto
+			margin-top: 9px
+	.spiner__block
+		position: absolute
+		top: 100%
+		left: 0
+		right: 0
+		height: 0
+		padding: 10px
+		text-align: left
+		font-size: 12px
+		line-height: 20px
+		+f300
+		visibility: hidden
+		opacity: 0
+		overflow: hidden
+		box-shadow: 0 2px 7px rgba(0, 0, 0, 0.23)
+		background: #fff
+		+transition(opacity .3s)
+	.spiner__text
+		color: #000
+		opacity: 0.5
+		p
+			margin: 0
 	.spiner__minus,
 	.spiner__plus,
 	.spiner__input
@@ -621,6 +655,9 @@
 	.spiner__plus
 		width: 25px
 		background: transparent
+		+transition(color .3s)
+		&:hover
+			color: $red
 	.spiner__input
 		padding: 0 10px
 		width: 53px
@@ -630,6 +667,7 @@
 		top: -1px
 		right: -1px
 		height: 32px
+		min-width: 0
 		margin-bottom: -2px
 		border-radius: 0 3px 3px 0
 
@@ -712,7 +750,8 @@
 	.slick-next
 		+s($slider-arr-right)
 	&.is-prod,
-	&.is-prod-cena
+	&.is-prod-cena,
+	&.is-login
 		.item
 			padding-bottom: 10px
 			min-height: 327px
@@ -722,12 +761,21 @@
 			color: $green
 			&:hover
 				color: $second_h
-	&.is-prod-cena
-		.item
-			padding-bottom: 105px
 		.item__price,
 		.item__bot
 			width: 100%
+	&.is-prod-cena
+		.item
+			padding-bottom: 105px
+	&.is-login
+		.item
+			padding-bottom: 75px
+		.btn
+			padding: 9px 16px
+			min-width: 144px
+			font-size: 12px
+			text-transform: initial
+			+f300
 	.slick-dots
 		position: absolute
 		left: 0
@@ -1299,7 +1347,7 @@
 		+r(1200)
 			text-align: left
 			width: calc(100% - 330px)
-		& > .btn
+		& > .btn_add
 			padding: 10px 16px 9px
 			min-width: 146px
 			text-transform: initial
@@ -1436,31 +1484,99 @@
 
 // sheet
 .sheet
+	margin: 50px 0 30px
 	.sheet__top,
 	.sheet__in
 		+clr
+	.sheet__in
+		max-height: 822px
+		overflow-y: auto
+		border-bottom: 1px solid $border-td
+		td
+			border-top: 1px solid $border-td
+			padding-left: 10px
+			height: 52px !important
+			line-height: 52px
+		tr
+			+transition(background .3s)
+			&:first-child
+				td
+					padding-top: 13px
+			&:last-child
+				td
+					padding-bottom: 13px
+				.spiner
+					&:hover
+						.spiner__block
+							margin: 0 0 9px 0
+					.spiner__block
+						top: auto
+						bottom: 100%
+			&.is-hover
+				background: $sheet-h
+			&.is-added
+				background: $sheet-added
+		.btn_small
+			min-width: 148px
+		.jspContainer
+			width: 100% !important
+			.jspPane
+				width: 100% !important
+			.sheet__right
+				padding-right: 13px
 	.sheet__right
 		float: right
+		text-align: right
 		width: 291px
-		border-left: 1px solid $border-left
+		td
+			padding-right: 17px
+			&:nth-child(2)
+				min-width: 175px
+				width: 100px
+		.sorting
+			text-align: right
 	.sheet__top
-		border-bottom: 1px solid $border-td
-		.sheet__left,
-		.sheet__right
-			padding-bottom: 15px
+		position: relative
+		bottom: -14px
+		z-index: 1
+		.sheet__wrap
+			height: 70px
+			padding-bottom: 30px
 	.sheet__wrap
-		overflow: auto
-		max-height: 817px
+		overflow-x: auto
+	.sheet__price
+		+f500
+		font-size: 13px
 	.sorting
 		margin: 0
+		text-align: left
+		.sorting__item
+			text-align: left
+	.badge
+		margin-top: -3px
+		font-size: 9px
+		vertical-align: middle
+	.spiner
+		vertical-align: middle
+	.jspHorizontalBar,
+	.jspTrack
+		height: 13px
+		background: $scroll-bg
+	.jspDrag
+		background: $border-td
+		+transition(background .3s)
+		&:hover
+			background: $scroll-h
 .sheet__left
 	overflow: hidden
+	border-right: 1px solid $border-left
 	table
 		td
 			min-width: 100px
+			min-width: 70px
 			width: 100px
 			&:first-child
-				min-width: 76px
+				min-width: 77px
 			&:nth-child(2)
 				min-width: 70px
 			&:nth-child(3)
@@ -1472,3 +1588,8 @@
 			&:nth-child(6),
 			&:nth-child(7)
 				min-width: 100px
+	.jspScrollable, .jspPane, .jspContainer
+		width: 100% !important
+
+.fancybox-image
+	display: block !important

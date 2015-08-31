@@ -39,6 +39,411 @@ void 0===c?d&&"get"in d&&null!==(e=d.get(a,b))?e:(e=n.find.attr(a,b),null==e?voi
 (function($){"use strict";var $window=$(window),_getInputParentContainer=function($elem){if($elem.valAttr("error-msg-container")){return $($elem.valAttr("error-msg-container"))}else{var $parent=$elem.parent();if(!$parent.hasClass("form-group")&&!$parent.closest("form").hasClass("form-horizontal")){var $formGroup=$parent.closest(".form-group");if($formGroup.length){return $formGroup.eq(0)}}return $parent}},_applyErrorStyle=function($elem,conf){$elem.addClass(conf.errorElementClass).removeClass("valid");_getInputParentContainer($elem).addClass(conf.inputParentClassOnError).removeClass(conf.inputParentClassOnSuccess);if(conf.borderColorOnError!==""){$elem.css("border-color",conf.borderColorOnError)}},_removeErrorStyle=function($elem,conf){$elem.each(function(){var $this=$(this);_setInlineErrorMessage($this,"",conf,conf.errorMessagePosition);$this.removeClass("valid").removeClass(conf.errorElementClass).css("border-color","");_getInputParentContainer($this).removeClass(conf.inputParentClassOnError).removeClass(conf.inputParentClassOnSuccess).find("."+conf.errorMessageClass).remove()})},_setInlineErrorMessage=function($input,mess,conf,$messageContainer){var custom=document.getElementById($input.attr("name")+"_err_msg"),setErrorMessage=function($elem){$window.trigger("validationErrorDisplay",[$input,$elem]);$elem.html(mess)};if(custom){setErrorMessage($(custom))}else if(typeof $messageContainer=="object"){var $found=false;$messageContainer.find("."+conf.errorMessageClass).each(function(){if(this.inputReferer==$input[0]){$found=$(this);return false}});if($found){if(!mess){$found.remove()}else{setErrorMessage($found)}}else{var $mess=$('<div class="'+conf.errorMessageClass+'"></div>');setErrorMessage($mess);$mess[0].inputReferer=$input[0];$messageContainer.prepend($mess)}}else{var $parent=_getInputParentContainer($input),$mess=$parent.find("."+conf.errorMessageClass+".help-block");if($mess.length==0){$mess=$("<span></span>").addClass("help-block").addClass(conf.errorMessageClass);$mess.appendTo($parent)}setErrorMessage($mess)}},_templateMessage=function($form,title,errorMessages,conf){var messages=conf.errorMessageTemplate.messages.replace(/\{errorTitle\}/g,title),fields=[],container;$.each(errorMessages,function(i,msg){fields.push(conf.errorMessageTemplate.field.replace(/\{msg\}/g,msg))});messages=messages.replace(/\{fields\}/g,fields.join(""));container=conf.errorMessageTemplate.container.replace(/\{errorMessageClass\}/g,conf.errorMessageClass);container=container.replace(/\{messages\}/g,messages);$form.children().eq(0).before(container)};$.fn.validateOnBlur=function(language,conf){this.find("*[data-validation]").bind("blur.validation",function(){$(this).validateInputOnBlur(language,conf,true,"blur")});if(conf.validateCheckboxRadioOnClick){this.find("input[type=checkbox][data-validation],input[type=radio][data-validation]").bind("click.validation",function(){$(this).validateInputOnBlur(language,conf,true,"click")})}return this};$.fn.validateOnEvent=function(language,settings){this.find("*[data-validation-event]").each(function(){var $el=$(this),etype=$el.valAttr("event");if(etype){$el.unbind(etype+".validation").bind(etype+".validation",function(){$(this).validateInputOnBlur(language,settings,true,etype)})}});return this};$.fn.showHelpOnFocus=function(attrName){if(!attrName){attrName="data-validation-help"}this.find(".has-help-txt").valAttr("has-keyup-event",false).removeClass("has-help-txt");this.find("textarea,input").each(function(){var $elem=$(this),className="jquery_form_help_"+($elem.attr("name")||"").replace(/(:|\.|\[|\])/g,""),help=$elem.attr(attrName);if(help){$elem.addClass("has-help-txt").unbind("focus.help").bind("focus.help",function(){var $help=$elem.parent().find("."+className);if($help.length==0){$help=$("<span />").addClass(className).addClass("help").addClass("help-block").text(help).hide();$elem.after($help)}$help.fadeIn()}).unbind("blur.help").bind("blur.help",function(){$(this).parent().find("."+className).fadeOut("slow")})}});return this};$.fn.validateInputOnBlur=function(language,conf,attachKeyupEvent,eventType){$.formUtils.eventType=eventType;if((this.valAttr("suggestion-nr")||this.valAttr("postpone")||this.hasClass("hasDatepicker"))&&!window.postponedValidation){var _self=this,postponeTime=this.valAttr("postpone")||200;window.postponedValidation=function(){_self.validateInputOnBlur(language,conf,attachKeyupEvent,eventType);window.postponedValidation=false};setTimeout(function(){if(window.postponedValidation){window.postponedValidation()}},postponeTime);return this}language=$.extend({},$.formUtils.LANG,language||{});_removeErrorStyle(this,conf);var $elem=this,$form=$elem.closest("form"),validationRule=$elem.attr(conf.validationRuleAttribute),result=$.formUtils.validateInput($elem,language,conf,$form,eventType);if(result.isValid){if(result.shouldChangeDisplay){$elem.addClass("valid");_getInputParentContainer($elem).addClass(conf.inputParentClassOnSuccess)}}else if(!result.isValid){_applyErrorStyle($elem,conf);_setInlineErrorMessage($elem,result.errorMsg,conf,conf.errorMessagePosition);if(attachKeyupEvent){$elem.unbind("keyup.validation").bind("keyup.validation",function(){$(this).validateInputOnBlur(language,conf,false,"keyup")})}}return this};$.fn.valAttr=function(name,val){if(val===undefined){return this.attr("data-validation-"+name)}else if(val===false||val===null){return this.removeAttr("data-validation-"+name)}else{if(name.length>0)name="-"+name;return this.attr("data-validation"+name,val)}};$.fn.isValid=function(language,conf,displayError){if($.formUtils.isLoadingModules){var $self=this;setTimeout(function(){$self.isValid(language,conf,displayError)},200);return null}conf=$.extend({},$.formUtils.defaultConfig(),conf||{});language=$.extend({},$.formUtils.LANG,language||{});displayError=displayError!==false;if($.formUtils.errorDisplayPreventedWhenHalted){delete $.formUtils.errorDisplayPreventedWhenHalted;displayError=false}$.formUtils.isValidatingEntireForm=true;$.formUtils.haltValidation=false;var addErrorMessage=function(mess,$elem){if($.inArray(mess,errorMessages)<0){errorMessages.push(mess)}errorInputs.push($elem);$elem.attr("current-error",mess);if(displayError)_applyErrorStyle($elem,conf)},checkedInputs=[],errorMessages=[],errorInputs=[],$form=this,ignoreInput=function(name,type){if(type==="submit"||type==="button"||type=="reset"){return true}return $.inArray(name,conf.ignore||[])>-1};if(displayError){$form.find("."+conf.errorMessageClass+".alert").remove();_removeErrorStyle($form.find("."+conf.errorElementClass+",.valid"),conf)}$form.find("input,textarea,select").filter(':not([type="submit"],[type="button"])').each(function(){var $elem=$(this),elementType=$elem.attr("type"),isCheckboxOrRadioBtn=elementType=="radio"||elementType=="checkbox",elementName=$elem.attr("name");if(!ignoreInput(elementName,elementType)&&(!isCheckboxOrRadioBtn||$.inArray(elementName,checkedInputs)<0)){if(isCheckboxOrRadioBtn)checkedInputs.push(elementName);var result=$.formUtils.validateInput($elem,language,conf,$form,"submit");if(result.shouldChangeDisplay){if(!result.isValid){addErrorMessage(result.errorMsg,$elem)}else if(result.isValid){$elem.valAttr("current-error",false).addClass("valid");_getInputParentContainer($elem).addClass(conf.inputParentClassOnSuccess)}}}});if(typeof conf.onValidate=="function"){var errors=conf.onValidate($form);if($.isArray(errors)){$.each(errors,function(i,err){addErrorMessage(err.message,err.element)})}else if(errors&&errors.element&&errors.message){addErrorMessage(errors.message,errors.element)}}$.formUtils.isValidatingEntireForm=false;if(!$.formUtils.haltValidation&&errorInputs.length>0){if(displayError){if(conf.errorMessagePosition==="top"){_templateMessage($form,language.errorTitle,errorMessages,conf)}else if(conf.errorMessagePosition==="custom"){if(typeof conf.errorMessageCustom==="function"){conf.errorMessageCustom($form,language.errorTitle,errorMessages,conf)}}else{$.each(errorInputs,function(i,$input){_setInlineErrorMessage($input,$input.attr("current-error"),conf,conf.errorMessagePosition)})}if(conf.scrollToTopOnError){$window.scrollTop($form.offset().top-20)}}return false}if(!displayError&&$.formUtils.haltValidation){$.formUtils.errorDisplayPreventedWhenHalted=true}return!$.formUtils.haltValidation};$.fn.validateForm=function(language,conf){if(window.console&&typeof window.console.warn=="function"){window.console.warn("Use of deprecated function $.validateForm, use $.isValid instead")}return this.isValid(language,conf,true)};$.fn.restrictLength=function(maxLengthElement){new $.formUtils.lengthRestriction(this,maxLengthElement);return this};$.fn.addSuggestions=function(settings){var sugs=false;this.find("input").each(function(){var $field=$(this);sugs=$.split($field.attr("data-suggestions"));if(sugs.length>0&&!$field.hasClass("has-suggestions")){$.formUtils.suggest($field,sugs,settings);$field.addClass("has-suggestions")}});return this};$.split=function(val,callback){if(typeof callback!="function"){if(!val)return[];var values=[];$.each(val.split(callback?callback:/[,|\-\s]\s*/g),function(i,str){str=$.trim(str);if(str.length)values.push(str)});return values}else if(val){$.each(val.split(/[,|\-\s]\s*/g),function(i,str){str=$.trim(str);if(str.length)return callback(str,i)})}};$.validate=function(conf){var defaultConf=$.extend($.formUtils.defaultConfig(),{form:"form",validateOnEvent:false,validateOnBlur:true,validateCheckboxRadioOnClick:true,showHelpOnFocus:true,addSuggestions:true,modules:"",onModulesLoaded:null,language:false,onSuccess:false,onError:false,onElementValidate:false});conf=$.extend(defaultConf,conf||{});if(conf.lang&&conf.lang!="en"){var langModule="lang/"+conf.lang+".js";conf.modules+=conf.modules.length?","+langModule:langModule}$(conf.form).each(function(i,form){var $form=$(form);$window.trigger("formValidationSetup",[$form,conf]);$form.find(".has-help-txt").unbind("focus.validation").unbind("blur.validation");$form.removeClass("has-validation-callback").unbind("submit.validation").unbind("reset.validation").find("input[data-validation],textarea[data-validation]").unbind("blur.validation");$form.bind("submit.validation",function(){var $form=$(this);if($.formUtils.haltValidation){return false}if($.formUtils.isLoadingModules){setTimeout(function(){$form.trigger("submit.validation")},200);return false}var valid=$form.isValid(conf.language,conf);if($.formUtils.haltValidation){return false}else{if(valid&&typeof conf.onSuccess=="function"){var callbackResponse=conf.onSuccess($form);if(callbackResponse===false){return false}}else if(!valid&&typeof conf.onError=="function"){conf.onError($form);return false}else{return valid}}}).bind("reset.validation",function(){$(this).find("."+conf.errorMessageClass+".alert").remove();_removeErrorStyle($(this).find("."+conf.errorElementClass+",.valid"),conf)}).addClass("has-validation-callback");if(conf.showHelpOnFocus){$form.showHelpOnFocus()}if(conf.addSuggestions){$form.addSuggestions()}if(conf.validateOnBlur){$form.validateOnBlur(conf.language,conf);$form.bind("html5ValidationAttrsFound",function(){$form.validateOnBlur(conf.language,conf)})}if(conf.validateOnEvent){$form.validateOnEvent(conf.language,conf)}});if(conf.modules!=""){$.formUtils.loadModules(conf.modules,false,function(){if(typeof conf.onModulesLoaded=="function"){conf.onModulesLoaded()}$window.trigger("validatorsLoaded",[typeof conf.form=="string"?$(conf.form):conf.form,conf])})}};$.formUtils={defaultConfig:function(){return{ignore:[],errorElementClass:"error",borderColorOnError:"#b94a48",errorMessageClass:"form-error",validationRuleAttribute:"data-validation",validationErrorMsgAttribute:"data-validation-error-msg",errorMessagePosition:"element",errorMessageTemplate:{container:'<div class="{errorMessageClass} alert alert-danger">{messages}</div>',messages:"<strong>{errorTitle}</strong><ul>{fields}</ul>",field:"<li>{msg}</li>"},errorMessageCustom:_templateMessage,scrollToTopOnError:true,dateFormat:"yyyy-mm-dd",addValidClassOnAll:false,decimalSeparator:".",inputParentClassOnError:"has-error",inputParentClassOnSuccess:"has-success"}},validators:{},_events:{load:[],valid:[],invalid:[]},haltValidation:false,isValidatingEntireForm:false,addValidator:function(validator){var name=validator.name.indexOf("validate_")===0?validator.name:"validate_"+validator.name;if(validator.validateOnKeyUp===undefined)validator.validateOnKeyUp=true;this.validators[name]=validator},isLoadingModules:false,loadedModules:{},loadModules:function(modules,path,fireEvent){if(fireEvent===undefined)fireEvent=true;if($.formUtils.isLoadingModules){setTimeout(function(){$.formUtils.loadModules(modules,path,fireEvent)});return}var hasLoadedAnyModule=false,loadModuleScripts=function(modules,path){var moduleList=$.split(modules),numModules=moduleList.length,moduleLoadedCallback=function(){numModules--;if(numModules==0){$.formUtils.isLoadingModules=false;if(fireEvent&&hasLoadedAnyModule){if(typeof fireEvent=="function"){fireEvent()}else{$window.trigger("validatorsLoaded")}}}};if(numModules>0){$.formUtils.isLoadingModules=true}var cacheSuffix="?_="+(new Date).getTime(),appendToElement=document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0];$.each(moduleList,function(i,modName){modName=$.trim(modName);if(modName.length==0){moduleLoadedCallback()}else{var scriptUrl=path+modName+(modName.slice(-3)==".js"?"":".js"),script=document.createElement("SCRIPT");if(scriptUrl in $.formUtils.loadedModules){moduleLoadedCallback()}else{$.formUtils.loadedModules[scriptUrl]=1;hasLoadedAnyModule=true;script.type="text/javascript";script.onload=moduleLoadedCallback;script.src=scriptUrl+(scriptUrl.slice(-7)==".dev.js"?cacheSuffix:"");script.onerror=function(){if("console"in window&&window.console.log){window.console.log("Unable to load form validation module "+scriptUrl)}};script.onreadystatechange=function(){if(this.readyState=="complete"||this.readyState=="loaded"){moduleLoadedCallback();this.onload=null;this.onreadystatechange=null}};appendToElement.appendChild(script)}}})};if(path){loadModuleScripts(modules,path)}else{var findScriptPathAndLoadModules=function(){var foundPath=false;$('script[src*="form-validator"]').each(function(){foundPath=this.src.substr(0,this.src.lastIndexOf("/"))+"/";if(foundPath=="/")foundPath="";return false});if(foundPath!==false){loadModuleScripts(modules,foundPath);return true}return false};if(!findScriptPathAndLoadModules()){$(findScriptPathAndLoadModules)}}},validateInput:function($elem,language,conf,$form,eventContext){$elem.trigger("beforeValidation");conf=conf||$.formUtils.defaultConfig();language=language||$.formUtils.LANG;var value=$elem.val()||"",result={isValid:true,shouldChangeDisplay:true,errorMsg:""},optional=$elem.valAttr("optional"),validationDependsOnCheckedInput=false,validationDependentInputIsChecked=false,validateIfCheckedElement=false,validateIfCheckedElementName=$elem.valAttr("if-checked");if($elem.attr("disabled")){result.shouldChangeDisplay=false;return result}if(validateIfCheckedElementName!=null){validationDependsOnCheckedInput=true;validateIfCheckedElement=$form.find('input[name="'+validateIfCheckedElementName+'"]');if(validateIfCheckedElement.prop("checked")){validationDependentInputIsChecked=true}}var isInvalidNumberInput=!value&&$elem[0].type=="number";if(!value&&optional==="true"&&!isInvalidNumberInput||validationDependsOnCheckedInput&&!validationDependentInputIsChecked){result.shouldChangeDisplay=conf.addValidClassOnAll;return result}var validationRules=$elem.attr(conf.validationRuleAttribute),validationErrorMsg=true;if(!validationRules){result.shouldChangeDisplay=conf.addValidClassOnAll;return result}$.split(validationRules,function(rule){if(rule.indexOf("validate_")!==0){rule="validate_"+rule}var validator=$.formUtils.validators[rule];if(validator&&typeof validator["validatorFunction"]=="function"){if(rule=="validate_checkbox_group"){$elem=$form.find("[name='"+$elem.attr("name")+"']:eq(0)")}var isValid=null;if(eventContext!="keyup"||validator.validateOnKeyUp){isValid=validator.validatorFunction(value,$elem,conf,language,$form)}if(!isValid){validationErrorMsg=null;if(isValid!==null){validationErrorMsg=$elem.attr(conf.validationErrorMsgAttribute+"-"+rule.replace("validate_",""));if(!validationErrorMsg){validationErrorMsg=$elem.attr(conf.validationErrorMsgAttribute);if(!validationErrorMsg){validationErrorMsg=language[validator.errorMessageKey];if(!validationErrorMsg)validationErrorMsg=validator.errorMessage}}}return false}}else{throw new Error('Using undefined validator "'+rule+'"')}}," ");if(typeof validationErrorMsg=="string"){$elem.trigger("validation",false);result.errorMsg=validationErrorMsg;result.isValid=false;result.shouldChangeDisplay=true}else if(validationErrorMsg===null){result.shouldChangeDisplay=conf.addValidClassOnAll}else{$elem.trigger("validation",true);result.shouldChangeDisplay=true}if(typeof conf.onElementValidate=="function"&&result!==null){conf.onElementValidate(result.isValid,$elem,$form,validationErrorMsg)}return result},parseDate:function(val,dateFormat){var divider=dateFormat.replace(/[a-zA-Z]/gi,"").substring(0,1),regexp="^",formatParts=dateFormat.split(divider||null),matches,day,month,year;$.each(formatParts,function(i,part){regexp+=(i>0?"\\"+divider:"")+"(\\d{"+part.length+"})"});regexp+="$";matches=val.match(new RegExp(regexp));if(matches===null){return false}var findDateUnit=function(unit,formatParts,matches){for(var i=0;i<formatParts.length;i++){if(formatParts[i].substring(0,1)===unit){return $.formUtils.parseDateInt(matches[i+1])}}return-1};month=findDateUnit("m",formatParts,matches);day=findDateUnit("d",formatParts,matches);year=findDateUnit("y",formatParts,matches);if(month===2&&day>28&&(year%4!==0||year%100===0&&year%400!==0)||month===2&&day>29&&(year%4===0||year%100!==0&&year%400===0)||month>12||month===0){return false}if(this.isShortMonth(month)&&day>30||!this.isShortMonth(month)&&day>31||day===0){return false}return[year,month,day]},parseDateInt:function(val){if(val.indexOf("0")===0){val=val.replace("0","")}return parseInt(val,10)},isShortMonth:function(m){return m%2===0&&m<7||m%2!==0&&m>7},lengthRestriction:function($inputElement,$maxLengthElement){var maxChars=parseInt($maxLengthElement.text(),10),charsLeft=0,countCharacters=function(){var numChars=$inputElement.val().length;if(numChars>maxChars){var currScrollTopPos=$inputElement.scrollTop();$inputElement.val($inputElement.val().substring(0,maxChars));$inputElement.scrollTop(currScrollTopPos)}charsLeft=maxChars-numChars;if(charsLeft<0)charsLeft=0;$maxLengthElement.text(charsLeft)};$($inputElement).bind("keydown keyup keypress focus blur",countCharacters).bind("cut paste",function(){setTimeout(countCharacters,100)});$(document).bind("ready",countCharacters)},numericRangeCheck:function(value,rangeAllowed){var range=$.split(rangeAllowed),minmax=parseInt(rangeAllowed.substr(3),10);if(range.length==1&&rangeAllowed.indexOf("min")==-1&&rangeAllowed.indexOf("max")==-1){range=[rangeAllowed,rangeAllowed]}if(range.length==2&&(value<parseInt(range[0],10)||value>parseInt(range[1],10))){return["out",range[0],range[1]]}else if(rangeAllowed.indexOf("min")===0&&value<minmax){return["min",minmax]}else if(rangeAllowed.indexOf("max")===0&&value>minmax){return["max",minmax]}return["ok"]},_numSuggestionElements:0,_selectedSuggestion:null,_previousTypedVal:null,suggest:function($elem,suggestions,settings){var conf={css:{maxHeight:"150px",background:"#FFF",lineHeight:"150%",textDecoration:"underline",overflowX:"hidden",overflowY:"auto",border:"#CCC solid 1px",borderTop:"none",cursor:"pointer"},activeSuggestionCSS:{background:"#E9E9E9"}},setSuggsetionPosition=function($suggestionContainer,$input){var offset=$input.offset();$suggestionContainer.css({width:$input.outerWidth(),left:offset.left+"px",top:offset.top+$input.outerHeight()+"px"})};if(settings)$.extend(conf,settings);conf.css["position"]="absolute";conf.css["z-index"]=9999;$elem.attr("autocomplete","off");if(this._numSuggestionElements===0){$window.bind("resize",function(){$(".jquery-form-suggestions").each(function(){var $container=$(this),suggestID=$container.attr("data-suggest-container");setSuggsetionPosition($container,$(".suggestions-"+suggestID).eq(0))})})}this._numSuggestionElements++;var onSelectSuggestion=function($el){var suggestionId=$el.valAttr("suggestion-nr");$.formUtils._selectedSuggestion=null;$.formUtils._previousTypedVal=null;$(".jquery-form-suggestion-"+suggestionId).fadeOut("fast")};$elem.data("suggestions",suggestions).valAttr("suggestion-nr",this._numSuggestionElements).unbind("focus.suggest").bind("focus.suggest",function(){$(this).trigger("keyup");$.formUtils._selectedSuggestion=null}).unbind("keyup.suggest").bind("keyup.suggest",function(){var $input=$(this),foundSuggestions=[],val=$.trim($input.val()).toLocaleLowerCase();if(val==$.formUtils._previousTypedVal){return}else{$.formUtils._previousTypedVal=val}var hasTypedSuggestion=false,suggestionId=$input.valAttr("suggestion-nr"),$suggestionContainer=$(".jquery-form-suggestion-"+suggestionId);$suggestionContainer.scrollTop(0);if(val!=""){var findPartial=val.length>2;$.each($input.data("suggestions"),function(i,suggestion){var lowerCaseVal=suggestion.toLocaleLowerCase();if(lowerCaseVal==val){foundSuggestions.push("<strong>"+suggestion+"</strong>");hasTypedSuggestion=true;return false}else if(lowerCaseVal.indexOf(val)===0||findPartial&&lowerCaseVal.indexOf(val)>-1){foundSuggestions.push(suggestion.replace(new RegExp(val,"gi"),"<strong>$&</strong>"))}})}if(hasTypedSuggestion||foundSuggestions.length==0&&$suggestionContainer.length>0){$suggestionContainer.hide()}else if(foundSuggestions.length>0&&$suggestionContainer.length==0){$suggestionContainer=$("<div></div>").css(conf.css).appendTo("body");$elem.addClass("suggestions-"+suggestionId);$suggestionContainer.attr("data-suggest-container",suggestionId).addClass("jquery-form-suggestions").addClass("jquery-form-suggestion-"+suggestionId)}else if(foundSuggestions.length>0&&!$suggestionContainer.is(":visible")){$suggestionContainer.show()}if(foundSuggestions.length>0&&val.length!=foundSuggestions[0].length){setSuggsetionPosition($suggestionContainer,$input);$suggestionContainer.html("");$.each(foundSuggestions,function(i,text){$("<div></div>").append(text).css({overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",padding:"5px"}).addClass("form-suggest-element").appendTo($suggestionContainer).click(function(){$input.focus();$input.val($(this).text());onSelectSuggestion($input)})})}}).unbind("keydown.validation").bind("keydown.validation",function(e){var code=e.keyCode?e.keyCode:e.which,suggestionId,$suggestionContainer,$input=$(this);if(code==13&&$.formUtils._selectedSuggestion!==null){suggestionId=$input.valAttr("suggestion-nr");$suggestionContainer=$(".jquery-form-suggestion-"+suggestionId);if($suggestionContainer.length>0){var newText=$suggestionContainer.find("div").eq($.formUtils._selectedSuggestion).text();$input.val(newText);onSelectSuggestion($input);e.preventDefault()}}else{suggestionId=$input.valAttr("suggestion-nr");$suggestionContainer=$(".jquery-form-suggestion-"+suggestionId);var $suggestions=$suggestionContainer.children();if($suggestions.length>0&&$.inArray(code,[38,40])>-1){if(code==38){if($.formUtils._selectedSuggestion===null)$.formUtils._selectedSuggestion=$suggestions.length-1;else $.formUtils._selectedSuggestion--;if($.formUtils._selectedSuggestion<0)$.formUtils._selectedSuggestion=$suggestions.length-1}else if(code==40){if($.formUtils._selectedSuggestion===null)$.formUtils._selectedSuggestion=0;else $.formUtils._selectedSuggestion++;if($.formUtils._selectedSuggestion>$suggestions.length-1)$.formUtils._selectedSuggestion=0}var containerInnerHeight=$suggestionContainer.innerHeight(),containerScrollTop=$suggestionContainer.scrollTop(),suggestionHeight=$suggestionContainer.children().eq(0).outerHeight(),activeSuggestionPosY=suggestionHeight*$.formUtils._selectedSuggestion;if(activeSuggestionPosY<containerScrollTop||activeSuggestionPosY>containerScrollTop+containerInnerHeight){$suggestionContainer.scrollTop(activeSuggestionPosY)}$suggestions.removeClass("active-suggestion").css("background","none").eq($.formUtils._selectedSuggestion).addClass("active-suggestion").css(conf.activeSuggestionCSS);e.preventDefault();return false}}}).unbind("blur.suggest").bind("blur.suggest",function(){onSelectSuggestion($(this))});return $elem},LANG:{errorTitle:"Form submission failed!",requiredFields:"You have not answered all required fields",badTime:"You have not given a correct time",badEmail:"You have not given a correct e-mail address",badTelephone:"You have not given a correct phone number",badSecurityAnswer:"You have not given a correct answer to the security question",badDate:"You have not given a correct date",lengthBadStart:"The input value must be between ",lengthBadEnd:" characters",lengthTooLongStart:"The input value is longer than ",lengthTooShortStart:"The input value is shorter than ",notConfirmed:"Input values could not be confirmed",badDomain:"Incorrect domain value",badUrl:"The input value is not a correct URL",badCustomVal:"The input value is incorrect",andSpaces:" and spaces ",badInt:"The input value was not a correct number",badSecurityNumber:"Your social security number was incorrect",badUKVatAnswer:"Incorrect UK VAT Number",badStrength:"The password isn't strong enough",badNumberOfSelectedOptionsStart:"You have to choose at least ",badNumberOfSelectedOptionsEnd:" answers",badAlphaNumeric:"The input value can only contain alphanumeric characters ",badAlphaNumericExtra:" and ",wrongFileSize:"The file you are trying to upload is too large (max %s)",wrongFileType:"Only files of type %s is allowed",groupCheckedRangeStart:"Please choose between ",groupCheckedTooFewStart:"Please choose at least ",groupCheckedTooManyStart:"Please choose a maximum of ",groupCheckedEnd:" item(s)",badCreditCard:"The credit card number is not correct",badCVV:"The CVV number was not correct",wrongFileDim:"Incorrect image dimensions,",imageTooTall:"the image can not be taller than",imageTooWide:"the image can not be wider than",imageTooSmall:"the image was too small",min:"min",max:"max",imageRatioNotAccepted:"Image ratio is not be accepted"}};$.formUtils.addValidator({name:"email",validatorFunction:function(email){var emailParts=email.toLowerCase().split("@");if(emailParts.length==2){return $.formUtils.validators.validate_domain.validatorFunction(emailParts[1])&&!/[^\w\+\.\-]/.test(emailParts[0])&&emailParts[0].length>0}return false},errorMessage:"",errorMessageKey:"badEmail"});$.formUtils.addValidator({name:"domain",validatorFunction:function(val){return val.length>0&&val.length<=253&&!/[^a-zA-Z0-9]/.test(val.slice(-2))&&!/[^a-zA-Z0-9]/.test(val.substr(0,1))&&!/[^a-zA-Z0-9\.\-]/.test(val)&&val.split("..").length==1&&val.split(".").length>1},errorMessage:"",errorMessageKey:"badDomain"});$.formUtils.addValidator({name:"required",validatorFunction:function(val,$el,config,language,$form){switch($el.attr("type")){case"checkbox":return $el.is(":checked");case"radio":return $form.find('input[name="'+$el.attr("name")+'"]').filter(":checked").length>0;default:return $.trim(val)!==""}},errorMessage:"",errorMessageKey:"requiredFields"});$.formUtils.addValidator({name:"length",validatorFunction:function(val,$el,conf,lang){var lengthAllowed=$el.valAttr("length"),type=$el.attr("type");if(lengthAllowed==undefined){alert('Please add attribute "data-validation-length" to '+$el[0].nodeName+" named "+$el.attr("name"));return true}var len=type=="file"&&$el.get(0).files!==undefined?$el.get(0).files.length:val.length,lengthCheckResults=$.formUtils.numericRangeCheck(len,lengthAllowed),checkResult;switch(lengthCheckResults[0]){case"out":this.errorMessage=lang.lengthBadStart+lengthAllowed+lang.lengthBadEnd;checkResult=false;break;case"min":this.errorMessage=lang.lengthTooShortStart+lengthCheckResults[1]+lang.lengthBadEnd;checkResult=false;break;case"max":this.errorMessage=lang.lengthTooLongStart+lengthCheckResults[1]+lang.lengthBadEnd;checkResult=false;break;default:checkResult=true}return checkResult},errorMessage:"",errorMessageKey:""});$.formUtils.addValidator({name:"url",validatorFunction:function(url){var urlFilter=/^(https?|ftp):\/\/((((\w|-|\.|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])(\w|-|\.|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])(\w|-|\.|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/(((\w|-|\.|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/((\w|-|\.|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|\[|\]|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#(((\w|-|\.|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;if(urlFilter.test(url)){var domain=url.split("://")[1],domainSlashPos=domain.indexOf("/");if(domainSlashPos>-1)domain=domain.substr(0,domainSlashPos);return $.formUtils.validators.validate_domain.validatorFunction(domain)}return false},errorMessage:"",errorMessageKey:"badUrl"});$.formUtils.addValidator({name:"number",validatorFunction:function(val,$el,conf){if(val!==""){var allowing=$el.valAttr("allowing")||"",decimalSeparator=$el.valAttr("decimal-separator")||conf.decimalSeparator,allowsRange=false,begin,end,steps=$el.valAttr("step")||"",allowsSteps=false;if(allowing.indexOf("number")==-1)allowing+=",number";if(allowing.indexOf("negative")==-1&&val.indexOf("-")===0){return false}if(allowing.indexOf("range")>-1){begin=parseFloat(allowing.substring(allowing.indexOf("[")+1,allowing.indexOf(";")));end=parseFloat(allowing.substring(allowing.indexOf(";")+1,allowing.indexOf("]")));allowsRange=true}if(steps!="")allowsSteps=true;if(decimalSeparator==","){if(val.indexOf(".")>-1){return false}val=val.replace(",",".")}if(allowing.indexOf("number")>-1&&val.replace(/[0-9-]/g,"")===""&&(!allowsRange||val>=begin&&val<=end)&&(!allowsSteps||val%steps==0)){return true}if(allowing.indexOf("float")>-1&&val.match(new RegExp("^([0-9-]+)\\.([0-9]+)$"))!==null&&(!allowsRange||val>=begin&&val<=end)&&(!allowsSteps||val%steps==0)){return true}}return false},errorMessage:"",errorMessageKey:"badInt"});$.formUtils.addValidator({name:"alphanumeric",validatorFunction:function(val,$el,conf,language){var patternStart="^([a-zA-Z0-9",patternEnd="]+)$",additionalChars=$el.valAttr("allowing"),pattern="";if(additionalChars){pattern=patternStart+additionalChars+patternEnd;var extra=additionalChars.replace(/\\/g,"");if(extra.indexOf(" ")>-1){extra=extra.replace(" ","");extra+=language.andSpaces||$.formUtils.LANG.andSpaces}this.errorMessage=language.badAlphaNumeric+language.badAlphaNumericExtra+extra}else{pattern=patternStart+patternEnd;this.errorMessage=language.badAlphaNumeric}return new RegExp(pattern).test(val)},errorMessage:"",errorMessageKey:""});$.formUtils.addValidator({name:"custom",validatorFunction:function(val,$el,conf){var regexp=new RegExp($el.valAttr("regexp"));return regexp.test(val)},errorMessage:"",errorMessageKey:"badCustomVal"});$.formUtils.addValidator({name:"date",validatorFunction:function(date,$el,conf){var dateFormat=$el.valAttr("format")||conf.dateFormat||"yyyy-mm-dd";return $.formUtils.parseDate(date,dateFormat)!==false},errorMessage:"",errorMessageKey:"badDate"});$.formUtils.addValidator({name:"checkbox_group",validatorFunction:function(val,$el,conf,lang,$form){var isValid=true,elname=$el.attr("name"),$checkBoxes=$("input[type=checkbox][name^='"+elname+"']",$form),checkedCount=$checkBoxes.filter(":checked").length,qtyAllowed=$el.valAttr("qty");
 if(qtyAllowed==undefined){var elementType=$el.get(0).nodeName;alert('Attribute "data-validation-qty" is missing from '+elementType+" named "+$el.attr("name"))}var qtyCheckResults=$.formUtils.numericRangeCheck(checkedCount,qtyAllowed);switch(qtyCheckResults[0]){case"out":this.errorMessage=lang.groupCheckedRangeStart+qtyAllowed+lang.groupCheckedEnd;isValid=false;break;case"min":this.errorMessage=lang.groupCheckedTooFewStart+qtyCheckResults[1]+lang.groupCheckedEnd;isValid=false;break;case"max":this.errorMessage=lang.groupCheckedTooManyStart+qtyCheckResults[1]+lang.groupCheckedEnd;isValid=false;break;default:isValid=true}if(!isValid){var _triggerOnBlur=function(){$checkBoxes.unbind("click",_triggerOnBlur);$checkBoxes.filter("*[data-validation]").validateInputOnBlur(lang,conf,false,"blur")};$checkBoxes.bind("click",_triggerOnBlur)}return isValid}})})(jQuery);
 (function($,window,undefined){"use strict";var toggleFormState=function($form,state){if(state=="disabled"){$form.find('*[type="submit"]').addClass("disabled").attr("disabled","disabled")}else{$form.find('*[type="submit"]').removeClass("disabled").removeAttr("disabled")}},isCheckingIfFormValid=false;$(window).bind("validatorsLoaded formValidationSetup",function(evt,$forms,conf){var $formsToDisable=conf.disabledFormFilter?$forms.filter(conf.disabledFormFilter):$forms,showErrorDialogs=conf.showErrorDialogs===undefined||conf.showErrorDialogs;$formsToDisable.addClass(showErrorDialogs?"disabled-with-errors":"disabled-without-errors").find("*[data-validation]").attr("data-validation-event","keyup").on("validation",function(evt,valid){if(!isCheckingIfFormValid){isCheckingIfFormValid=true;var $form=$(this).closest("form");if(valid&&$form.isValid(conf,conf.language,false)){toggleFormState($form,"enabled")}else{toggleFormState($form,"disabled")}isCheckingIfFormValid=false}});toggleFormState($formsToDisable,"disabled");$formsToDisable.validateOnEvent(conf.language,conf)}).on("validationErrorDisplay",function(evt,$input,$elem){if($input.closest("form").hasClass("disabled-without-errors"))$elem.hide()})})(jQuery,window);
+
+
+
+$(document).ready( function() {
+
+	 $(document).click(function() {
+	        $(".js-select").removeClass("is-active");
+		    $(".js-select-list").slideUp(100);
+		    $('.js-drop').removeClass('is-active');
+		    $('.js-drop-list').fadeOut();
+			// $('.ms-choice').removeClass('is-active');
+	    });
+	    
+	    // select list
+	      $("body").on("click",".js-select",function(event) {
+	          event.stopPropagation();
+	      });
+	      $("body").on("click",".js-select-text",function(event) {
+	      	var select = $(this).parents(".js-select");
+	          if (select.hasClass("is-active")) {
+	              $(".js-select").removeClass("is-active");
+	              $(".js-select-list").slideUp(100);
+	          }
+	          else {
+	              $(".js-select").removeClass("is-active");
+	              $(".js-select-list").slideUp(100);
+	              select.toggleClass("is-active").find(".js-select-list").slideToggle(100);
+	          }
+	         
+	      });
+
+	      $("body").on("click",".js-select-list li",function() {
+	          var val = $(this).attr("data-val");
+	          var text = $(this).text();
+	          var select = $(this).parents(".js-select");
+	          var selectList = $(this).parents(".js-select-list");
+	          select.find(".js-select-text").text(text);
+	          select.find("option").removeAttr("selected");
+	          select.find('option[value="'+val+'"]').attr("selected", "selected");
+	          selectList.find("li").removeClass("is-active");
+	          $(this).addClass("is-active");
+	          select.removeClass("is-active");
+	          selectList.slideUp(100);
+	          return false;
+	          
+	      });
+
+
+	// open nav
+	function navOpen() {
+		$('.js-list-links').each(function() {
+			if ($(this).parent().hasClass('is-active')) {
+				$(this).show();
+			}
+		});
+		$('.js-nav-item').on('click', function() {
+			var this_ = $(this).parent(),
+				item = $('.js-nav-item').parent(),
+				thisList = this_.find('.js-list-links'),
+				list = $('.js-list-links');
+			if (!this_.hasClass('is-active')) {
+				item.removeClass('is-active');
+				list.slideUp(500);
+				this_.addClass('is-active');
+				thisList.slideDown(500);
+			}
+			else {
+				this_.removeClass('is-active');
+				list.slideUp(500);
+			}
+			return false;
+		});
+	}
+	navOpen();
+
+	// spiner
+	function spiner() {
+		var number = $('.js-spiner');
+		number.each(function(){
+			var max_number = +($(this).attr('data-max-number'));
+			var input = $(this).find('input');
+			var plus = $(this).find('.js-plus');
+			var minus = $(this).find('.js-minus');
+			plus.on('click', function(){
+				var val = +(input.val());
+				if (val >= max_number) {
+					return false;
+				}
+				else {
+					val += 1;
+					input.val(val);
+				}
+			});
+			minus.on('click', function(){
+				var val = +(input.val());
+				if (val > 1) {
+					val -= 1;
+					input.val(val);
+				}
+				else {
+					input.val('1');
+					return false;
+				}
+			});
+		});
+	}
+	spiner();
+
+	// slider
+	$('[class*="js-slider"], .js-galery').on('init', function(slick){
+		$(this).addClass('is-init');
+	});
+	$('.js-slider').slick({
+		dots: true,
+		arrows: true,
+		infinite: false,
+		adaptiveHeight: true,
+		speed: 500,
+		slidesToShow: 4,
+		slidesToScroll: 4,
+		cssEase: 'linear',
+		responsive: [
+			{
+				breakpoint: 1180,
+				settings: {
+					slidesToShow: 3,
+					slidesToScroll: 3,
+					infinite: false,
+					dots: true
+				}
+			}
+		]
+	});
+	$('.js-galery').slick({
+		dots: true,
+		arrows: true,
+		infinite: true,
+		slidesToShow: 1,
+		slidesToScroll: 1,
+		autoplay: true,
+		speed: 700,
+		autoplaySpeed: 3000,
+		fade: true,
+		cssEase: 'linear',
+	});
+	$('.js-slider-for').slick({
+		slidesToShow: 1,
+		slidesToScroll: 1,
+		arrows: false,
+		fade: true,
+		asNavFor: '.js-slider-nav'
+	});
+	$('.js-slider-nav').slick({
+		slidesToShow: 4,
+		slidesToScroll: 1,
+		asNavFor: '.js-slider-for',
+		dots: false,
+		arrows: false,
+		focusOnSelect: true
+	});
+
+	// dropdown
+	$('.js-open-drop').on('click', function(event) {
+		var this_ = $(this).parents('.js-drop'),
+			list = this_.find('.js-drop-list');
+		if (this_.hasClass('is-active')) {
+			this_.removeClass('is-active');
+			list.fadeOut();
+		}
+		else {
+			this_.addClass('is-active');
+			list.fadeIn();
+		}
+		event.stopPropagation();
+	});
+
+	// multiple-select
+	$('.js-multiple-select').multipleSelect({
+		selectAll: false,
+		countSelected: 10,
+		minimumCountSelected: 10
+	});
+
+	$('.js-filter-select').multipleSelect({
+		single: true
+	});
+	function activeSel() {
+		var parent = $('.js-filter-select, .js-multiple-select'),
+			item = parent.find('> button'),
+			li = parent.find('.ms-drop li');
+		item.on('click', function () {
+			var this_ = $(this),
+				div = this_.find('> div');
+			if (div.hasClass('open')) {
+				$('.ms-choice').removeClass('is-active');
+				div.parents('.ms-choice').addClass('is-active');
+			}
+			else {
+				div.parents('.ms-choice').removeClass('is-active');
+			}
+		});
+		li.on('click', function() {
+			var parent = $(this).parents('.js-filter-select, .js-multiple-select');
+			parent.find('.ms-choice').removeClass('is-active');
+		});
+	}
+	activeSel();
+	
+
+	// items add wrap
+	function itemWrap() {
+		function addWrap() {
+			var row = $('.items__row'),
+				item = $('.items__wrap').find('.item');
+			if ($(window).width() < 1166) {
+				while(row.children('.item:not(.items__wrap)').length)
+					row.children('.item:not(.items__wrap):lt(2)').wrapAll('<div class="items__wrap">');
+			}
+			else {
+				item.unwrap();
+			};
+		}
+		window.onload = function() {
+			addWrap();
+		};
+		$(window).resize(function() {
+			addWrap();
+		});
+	} itemWrap();
+
+	// accordion
+	function accord() {
+		$('.js-accord').each(function() {
+			var this_ = $(this),
+				block = this_.find('.js-accord-block');
+			if (this_.hasClass('is-active')) {
+				block.show();
+			}
+		});
+		$('.js-accord-but').on('click', function() {
+			var this_ = $(this),
+				parent = this_.parents('.js-accord'),
+				block = parent.find('.js-accord-block');
+			if (!parent.hasClass('is-active')) {
+				parent.addClass('is-active')
+				block.slideDown(400);
+			}
+			else {
+				parent.removeClass('is-active');
+				block.slideUp(400);
+			}
+			return false;
+		});
+	} accord();
+
+	$('.js-sortin-item').on('click', function() {
+		var this_ = $(this),
+			parent = this_.parents('.js-sorting'),
+			item = parent.find('.js-sortin-item'),
+			active = ('is-active'),
+			activeTop = ('is-active-top');
+			if (!this_.hasClass(active)) {
+				item.removeClass(active).removeClass(activeTop);
+				this_.addClass(active);
+			}
+			else if (!this_.hasClass(activeTop)) {
+				this_.removeClass(active).toggleClass(activeTop);
+			}
+	});
+	
+	// item show info
+	function itemOpen() {
+		$('.js-item').each(function() {
+			var this_ = $(this),
+				block = this_.find('.js-item-text');
+			if (this_.hasClass('is-active')) {
+				block.show();
+			}
+		});
+		$('.js-item-open').on('click', function() {
+			var this_ = $(this),
+				parent = this_.parents('.js-item')
+				block = parent.find('.js-item-text');
+			if (!parent.hasClass('is-active')) {
+				parent.addClass('is-active')
+				block.slideDown(400);
+			}
+			else {
+				parent.removeClass('is-active');
+				block.slideUp(400);
+			}
+			return false;
+		});
+	} itemOpen();
+	
+	// filter
+	$('.js-filter-all').on('click', function() {
+		var this_ = $(this),
+			parent = this_.parents('.filter'),
+			block = parent.find('.js-filter-block');
+		if (!parent.hasClass('is-active')) {
+			parent.toggleClass('is-active');
+			block.slideDown(400);
+			this_.text('Свернуть все фильтры');
+		}
+		else {
+			parent.removeClass('is-active');
+			block.slideUp(400);
+			this_.text('Показать все фильтры');
+		}
+	});
+
+	// tab
+	function tab() {
+		$(".js-tab").each(function(){
+			var tab_link = $(this).find("a"),
+				tab_item = $(this).find("li"),
+				index = tab_link.attr("href"),
+				parents = $(this).parents(".js-tab-group"),
+				tab_cont = parents.find(".js-tab-cont");
+			tab_link.on("click", function() {
+				var index = $(this).attr("href");
+				$('.js-tab-item').removeClass("is-active");
+				$(this).parent().addClass("is-active");
+				tab_cont.fadeOut(0);
+				parents.find("."+index).fadeIn(500);
+				return false;
+			});
+			$(this).find('li:first').addClass("is-active");
+			parents.find("."+index).fadeIn(500);
+		});
+	}
+	tab();
+
+	// ScrollPane
+	$('.js-scroll').each(function(){
+		$(this).jScrollPane();
+	});
+	$('.js-scroll-h').each(function(){
+		var this_ = $(this),
+			table = $(this).find('table');
+		if ( table.height() > 822 ) {
+			$(this).jScrollPane();
+		}
+	});
+	$('[class*="js-scroll"]').each(function() {
+		var api = $(this).data('jsp'),
+			throttleTimeout;
+		$(window).bind('resize', function() {
+			if (!throttleTimeout) {
+				throttleTimeout = setTimeout(function() {
+					api.reinitialise();
+					throttleTimeout = null;
+				},50);
+			}
+		});
+	});
+
+	// table
+	$('[class*="js-sheet"] tr').hover(function () {
+		var trR = $('.js-sheet-r tr'),
+			trL = $('.js-sheet-l tr'),
+			thisIndex = $(this).index(),
+		 	thisEq = trR.eq(thisIndex),
+		 	lEq = trL.eq(thisIndex);
+		$('[class*="js-sheet"] tr').removeClass('is-hover');
+		$(this).addClass('is-hover');
+		thisEq.addClass('is-hover');
+		lEq.addClass('is-hover');
+	});
+	
+	// fansybox
+	$("[rel='js-fansybox']").fancybox({
+		helpers : {
+			title: {
+				type	: 'inside',
+				position: 'top'
+			}
+		},
+		openEffect  : 'fade',
+		closeEffect : 'fade',
+		nextEffect  : 'fade',
+		prevEffect  : 'fade',
+		padding		: 30
+	});
+	
+});
+$(document).ready( function() {
+
+	// form validation
+	var form_validate = $('.js-validate');
+	if (form_validate.length) {
+		form_validate.each(function () {
+			var form_this = $(this);
+			$.validate({
+				form : form_this,
+				borderColorOnError : false,
+        		scrollToTopOnError : false,
+        		modules : 'toggleDisabled',
+        		showErrorDialogs : false
+			});
+		});
+	};
+
+});
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
  * @version 1.1.0
@@ -635,356 +1040,3718 @@ if(qtyAllowed==undefined){var elementType=$el.get(0).nodeName;alert('Attribute "
         }
     };
 })(jQuery);
+/*!
+ * jQuery Mousewheel 3.1.12
+ *
+ * Copyright 2014 jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ */
+
+(function (factory) {
+    if ( typeof define === 'function' && define.amd ) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    } else if (typeof exports === 'object') {
+        // Node/CommonJS style for Browserify
+        module.exports = factory;
+    } else {
+        // Browser globals
+        factory(jQuery);
+    }
+}(function ($) {
+
+    var toFix  = ['wheel', 'mousewheel', 'DOMMouseScroll', 'MozMousePixelScroll'],
+        toBind = ( 'onwheel' in document || document.documentMode >= 9 ) ?
+                    ['wheel'] : ['mousewheel', 'DomMouseScroll', 'MozMousePixelScroll'],
+        slice  = Array.prototype.slice,
+        nullLowestDeltaTimeout, lowestDelta;
+
+    if ( $.event.fixHooks ) {
+        for ( var i = toFix.length; i; ) {
+            $.event.fixHooks[ toFix[--i] ] = $.event.mouseHooks;
+        }
+    }
+
+    var special = $.event.special.mousewheel = {
+        version: '3.1.12',
+
+        setup: function() {
+            if ( this.addEventListener ) {
+                for ( var i = toBind.length; i; ) {
+                    this.addEventListener( toBind[--i], handler, false );
+                }
+            } else {
+                this.onmousewheel = handler;
+            }
+            // Store the line height and page height for this particular element
+            $.data(this, 'mousewheel-line-height', special.getLineHeight(this));
+            $.data(this, 'mousewheel-page-height', special.getPageHeight(this));
+        },
+
+        teardown: function() {
+            if ( this.removeEventListener ) {
+                for ( var i = toBind.length; i; ) {
+                    this.removeEventListener( toBind[--i], handler, false );
+                }
+            } else {
+                this.onmousewheel = null;
+            }
+            // Clean up the data we added to the element
+            $.removeData(this, 'mousewheel-line-height');
+            $.removeData(this, 'mousewheel-page-height');
+        },
+
+        getLineHeight: function(elem) {
+            var $elem = $(elem),
+                $parent = $elem['offsetParent' in $.fn ? 'offsetParent' : 'parent']();
+            if (!$parent.length) {
+                $parent = $('body');
+            }
+            return parseInt($parent.css('fontSize'), 10) || parseInt($elem.css('fontSize'), 10) || 16;
+        },
+
+        getPageHeight: function(elem) {
+            return $(elem).height();
+        },
+
+        settings: {
+            adjustOldDeltas: true, // see shouldAdjustOldDeltas() below
+            normalizeOffset: true  // calls getBoundingClientRect for each event
+        }
+    };
+
+    $.fn.extend({
+        mousewheel: function(fn) {
+            return fn ? this.bind('mousewheel', fn) : this.trigger('mousewheel');
+        },
+
+        unmousewheel: function(fn) {
+            return this.unbind('mousewheel', fn);
+        }
+    });
 
 
+    function handler(event) {
+        var orgEvent   = event || window.event,
+            args       = slice.call(arguments, 1),
+            delta      = 0,
+            deltaX     = 0,
+            deltaY     = 0,
+            absDelta   = 0,
+            offsetX    = 0,
+            offsetY    = 0;
+        event = $.event.fix(orgEvent);
+        event.type = 'mousewheel';
 
-$(document).ready( function() {
+        // Old school scrollwheel delta
+        if ( 'detail'      in orgEvent ) { deltaY = orgEvent.detail * -1;      }
+        if ( 'wheelDelta'  in orgEvent ) { deltaY = orgEvent.wheelDelta;       }
+        if ( 'wheelDeltaY' in orgEvent ) { deltaY = orgEvent.wheelDeltaY;      }
+        if ( 'wheelDeltaX' in orgEvent ) { deltaX = orgEvent.wheelDeltaX * -1; }
 
-	 $(document).click(function() {
-	        $(".js-select").removeClass("is-active");
-		    $(".js-select-list").slideUp(100);
-		    $('.js-drop').removeClass('is-active');
-		    $('.js-drop-list').fadeOut();
-			// $('.ms-choice').removeClass('is-active');
-	    });
-	    
-	    // select list
-	      $("body").on("click",".js-select",function(event) {
-	          event.stopPropagation();
-	      });
-	      $("body").on("click",".js-select-text",function(event) {
-	      	var select = $(this).parents(".js-select");
-	          if (select.hasClass("is-active")) {
-	              $(".js-select").removeClass("is-active");
-	              $(".js-select-list").slideUp(100);
-	          }
-	          else {
-	              $(".js-select").removeClass("is-active");
-	              $(".js-select-list").slideUp(100);
-	              select.toggleClass("is-active").find(".js-select-list").slideToggle(100);
-	          }
-	         
-	      });
+        // Firefox < 17 horizontal scrolling related to DOMMouseScroll event
+        if ( 'axis' in orgEvent && orgEvent.axis === orgEvent.HORIZONTAL_AXIS ) {
+            deltaX = deltaY * -1;
+            deltaY = 0;
+        }
 
-	      $("body").on("click",".js-select-list li",function() {
-	          var val = $(this).attr("data-val");
-	          var text = $(this).text();
-	          var select = $(this).parents(".js-select");
-	          var selectList = $(this).parents(".js-select-list");
-	          select.find(".js-select-text").text(text);
-	          select.find("option").removeAttr("selected");
-	          select.find('option[value="'+val+'"]').attr("selected", "selected");
-	          selectList.find("li").removeClass("is-active");
-	          $(this).addClass("is-active");
-	          select.removeClass("is-active");
-	          selectList.slideUp(100);
-	          return false;
-	          
-	      });
+        // Set delta to be deltaY or deltaX if deltaY is 0 for backwards compatabilitiy
+        delta = deltaY === 0 ? deltaX : deltaY;
 
+        // New school wheel delta (wheel event)
+        if ( 'deltaY' in orgEvent ) {
+            deltaY = orgEvent.deltaY * -1;
+            delta  = deltaY;
+        }
+        if ( 'deltaX' in orgEvent ) {
+            deltaX = orgEvent.deltaX;
+            if ( deltaY === 0 ) { delta  = deltaX * -1; }
+        }
 
-	// open nav
-	function navOpen() {
-		$('.js-list-links').each(function() {
-			if ($(this).parent().hasClass('is-active')) {
-				$(this).show();
+        // No change actually happened, no reason to go any further
+        if ( deltaY === 0 && deltaX === 0 ) { return; }
+
+        // Need to convert lines and pages to pixels if we aren't already in pixels
+        // There are three delta modes:
+        //   * deltaMode 0 is by pixels, nothing to do
+        //   * deltaMode 1 is by lines
+        //   * deltaMode 2 is by pages
+        if ( orgEvent.deltaMode === 1 ) {
+            var lineHeight = $.data(this, 'mousewheel-line-height');
+            delta  *= lineHeight;
+            deltaY *= lineHeight;
+            deltaX *= lineHeight;
+        } else if ( orgEvent.deltaMode === 2 ) {
+            var pageHeight = $.data(this, 'mousewheel-page-height');
+            delta  *= pageHeight;
+            deltaY *= pageHeight;
+            deltaX *= pageHeight;
+        }
+
+        // Store lowest absolute delta to normalize the delta values
+        absDelta = Math.max( Math.abs(deltaY), Math.abs(deltaX) );
+
+        if ( !lowestDelta || absDelta < lowestDelta ) {
+            lowestDelta = absDelta;
+
+            // Adjust older deltas if necessary
+            if ( shouldAdjustOldDeltas(orgEvent, absDelta) ) {
+                lowestDelta /= 40;
+            }
+        }
+
+        // Adjust older deltas if necessary
+        if ( shouldAdjustOldDeltas(orgEvent, absDelta) ) {
+            // Divide all the things by 40!
+            delta  /= 40;
+            deltaX /= 40;
+            deltaY /= 40;
+        }
+
+        // Get a whole, normalized value for the deltas
+        delta  = Math[ delta  >= 1 ? 'floor' : 'ceil' ](delta  / lowestDelta);
+        deltaX = Math[ deltaX >= 1 ? 'floor' : 'ceil' ](deltaX / lowestDelta);
+        deltaY = Math[ deltaY >= 1 ? 'floor' : 'ceil' ](deltaY / lowestDelta);
+
+        // Normalise offsetX and offsetY properties
+        if ( special.settings.normalizeOffset && this.getBoundingClientRect ) {
+            var boundingRect = this.getBoundingClientRect();
+            offsetX = event.clientX - boundingRect.left;
+            offsetY = event.clientY - boundingRect.top;
+        }
+
+        // Add information to the event object
+        event.deltaX = deltaX;
+        event.deltaY = deltaY;
+        event.deltaFactor = lowestDelta;
+        event.offsetX = offsetX;
+        event.offsetY = offsetY;
+        // Go ahead and set deltaMode to 0 since we converted to pixels
+        // Although this is a little odd since we overwrite the deltaX/Y
+        // properties with normalized deltas.
+        event.deltaMode = 0;
+
+        // Add event and delta to the front of the arguments
+        args.unshift(event, delta, deltaX, deltaY);
+
+        // Clearout lowestDelta after sometime to better
+        // handle multiple device types that give different
+        // a different lowestDelta
+        // Ex: trackpad = 3 and mouse wheel = 120
+        if (nullLowestDeltaTimeout) { clearTimeout(nullLowestDeltaTimeout); }
+        nullLowestDeltaTimeout = setTimeout(nullLowestDelta, 200);
+
+        return ($.event.dispatch || $.event.handle).apply(this, args);
+    }
+
+    function nullLowestDelta() {
+        lowestDelta = null;
+    }
+
+    function shouldAdjustOldDeltas(orgEvent, absDelta) {
+        // If this is an older event and the delta is divisable by 120,
+        // then we are assuming that the browser is treating this as an
+        // older mouse wheel event and that we should divide the deltas
+        // by 40 to try and get a more usable deltaFactor.
+        // Side note, this actually impacts the reported scroll distance
+        // in older browsers and can cause scrolling to be slower than native.
+        // Turn this off by setting $.event.special.mousewheel.settings.adjustOldDeltas to false.
+        return special.settings.adjustOldDeltas && orgEvent.type === 'mousewheel' && absDelta % 120 === 0;
+    }
+
+}));
+/*!
+ * jScrollPane - v2.0.22 - 2015-04-25
+ * http://jscrollpane.kelvinluck.com/
+ *
+ * Copyright (c) 2014 Kelvin Luck
+ * Dual licensed under the MIT or GPL licenses.
+ */
+
+// Script: jScrollPane - cross browser customisable scrollbars
+//
+// *Version: 2.0.22, Last updated: 2015-04-25*
+//
+// Project Home - http://jscrollpane.kelvinluck.com/
+// GitHub       - http://github.com/vitch/jScrollPane
+// Source       - http://github.com/vitch/jScrollPane/raw/master/script/jquery.jscrollpane.js
+// (Minified)   - http://github.com/vitch/jScrollPane/raw/master/script/jquery.jscrollpane.min.js
+//
+// About: License
+//
+// Copyright (c) 2014 Kelvin Luck
+// Dual licensed under the MIT or GPL Version 2 licenses.
+// http://jscrollpane.kelvinluck.com/MIT-LICENSE.txt
+// http://jscrollpane.kelvinluck.com/GPL-LICENSE.txt
+//
+// About: Examples
+//
+// All examples and demos are available through the jScrollPane example site at:
+// http://jscrollpane.kelvinluck.com/
+//
+// About: Support and Testing
+//
+// This plugin is tested on the browsers below and has been found to work reliably on them. If you run
+// into a problem on one of the supported browsers then please visit the support section on the jScrollPane
+// website (http://jscrollpane.kelvinluck.com/) for more information on getting support. You are also
+// welcome to fork the project on GitHub if you can contribute a fix for a given issue.
+//
+// jQuery Versions - tested in 1.4.2+ - reported to work in 1.3.x
+// Browsers Tested - Firefox 3.6.8, Safari 5, Opera 10.6, Chrome 5.0, IE 6, 7, 8
+//
+// About: Release History
+//
+// 2.0.22 - (2015-04-25) Resolve a memory leak due to an event handler that isn't cleaned up in destroy (thanks @timjnh)
+// 2.0.21 - (2015-02-24) Simplify UMD pattern: fixes browserify when loading jQuery outside of bundle
+// 2.0.20 - (2014-10-23) Adds AMD support (thanks @carlosrberto) and support for overflow-x/overflow-y (thanks @darimpulso)
+// 2.0.19 - (2013-11-16) Changes for more reliable scroll amount with latest mousewheel plugin (thanks @brandonaaron)
+// 2.0.18 - (2013-10-23) Fix for issue with gutters and scrollToElement (thanks @Dubiy)
+// 2.0.17 - (2013-08-17) Working correctly when box-sizing is set to border-box (thanks @pieht)
+// 2.0.16 - (2013-07-30) Resetting left position when scroll is removed. Fixes #189
+// 2.0.15 - (2013-07-29) Fixed issue with scrollToElement where the destX and destY are undefined.
+// 2.0.14 - (2013-05-01) Updated to most recent mouse wheel plugin (see #106) and related changes for sensible scroll speed
+// 2.0.13 - (2013-05-01) Switched to semver compatible version name
+// 2.0.0beta12 - (2012-09-27) fix for jQuery 1.8+
+// 2.0.0beta11 - (2012-05-14)
+// 2.0.0beta10 - (2011-04-17) cleaner required size calculation, improved keyboard support, stickToBottom/Left, other small fixes
+// 2.0.0beta9 - (2011-01-31) new API methods, bug fixes and correct keyboard support for FF/OSX
+// 2.0.0beta8 - (2011-01-29) touchscreen support, improved keyboard support
+// 2.0.0beta7 - (2011-01-23) scroll speed consistent (thanks Aivo Paas)
+// 2.0.0beta6 - (2010-12-07) scrollToElement horizontal support
+// 2.0.0beta5 - (2010-10-18) jQuery 1.4.3 support, various bug fixes
+// 2.0.0beta4 - (2010-09-17) clickOnTrack support, bug fixes
+// 2.0.0beta3 - (2010-08-27) Horizontal mousewheel, mwheelIntent, keyboard support, bug fixes
+// 2.0.0beta2 - (2010-08-21) Bug fixes
+// 2.0.0beta1 - (2010-08-17) Rewrite to follow modern best practices and enable horizontal scrolling, initially hidden
+//							 elements and dynamically sized elements.
+// 1.x - (2006-12-31 - 2010-07-31) Initial version, hosted at googlecode, deprecated
+
+(function (factory) {
+  if ( typeof define === 'function' && define.amd ) {
+      // AMD. Register as an anonymous module.
+      define(['jquery'], factory);
+  } else if (typeof exports === 'object') {
+      // Node/CommonJS style for Browserify
+      module.exports = factory(require('jquery'));
+  } else {
+      // Browser globals
+      factory(jQuery);
+  }
+}(function($){
+
+	$.fn.jScrollPane = function(settings)
+	{
+		// JScrollPane "class" - public methods are available through $('selector').data('jsp')
+		function JScrollPane(elem, s)
+		{
+			var settings, jsp = this, pane, paneWidth, paneHeight, container, contentWidth, contentHeight,
+				percentInViewH, percentInViewV, isScrollableV, isScrollableH, verticalDrag, dragMaxY,
+				verticalDragPosition, horizontalDrag, dragMaxX, horizontalDragPosition,
+				verticalBar, verticalTrack, scrollbarWidth, verticalTrackHeight, verticalDragHeight, arrowUp, arrowDown,
+				horizontalBar, horizontalTrack, horizontalTrackWidth, horizontalDragWidth, arrowLeft, arrowRight,
+				reinitialiseInterval, originalPadding, originalPaddingTotalWidth, previousContentWidth,
+				wasAtTop = true, wasAtLeft = true, wasAtBottom = false, wasAtRight = false,
+				originalElement = elem.clone(false, false).empty(),
+				mwEvent = $.fn.mwheelIntent ? 'mwheelIntent.jsp' : 'mousewheel.jsp';
+
+			if (elem.css('box-sizing') === 'border-box') {
+				originalPadding = 0;
+				originalPaddingTotalWidth = 0;
+			} else {
+				originalPadding = elem.css('paddingTop') + ' ' +
+									elem.css('paddingRight') + ' ' +
+									elem.css('paddingBottom') + ' ' +
+									elem.css('paddingLeft');
+				originalPaddingTotalWidth = (parseInt(elem.css('paddingLeft'), 10) || 0) +
+											(parseInt(elem.css('paddingRight'), 10) || 0);
 			}
-		});
-		$('.js-nav-item').on('click', function() {
-			var this_ = $(this).parent(),
-				item = $('.js-nav-item').parent(),
-				thisList = this_.find('.js-list-links'),
-				list = $('.js-list-links');
-			if (!this_.hasClass('is-active')) {
-				item.removeClass('is-active');
-				list.slideUp(500);
-				this_.addClass('is-active');
-				thisList.slideDown(500);
-			}
-			else {
-				this_.removeClass('is-active');
-				list.slideUp(500);
-			}
-			return false;
-		});
-	}
-	navOpen();
 
-	// spiner
-	function spiner() {
-		var number = $('.js-spiner');
-		number.each(function(){
-			var max_number = +($(this).attr('data-max-number'));
-			var input = $(this).find('input');
-			var plus = $(this).find('.js-plus');
-			var minus = $(this).find('.js-minus');
-			plus.on('click', function(){
-				var val = +(input.val());
-				if (val >= max_number) {
-					return false;
-				}
-				else {
-					val += 1;
-					input.val(val);
-				}
-			});
-			minus.on('click', function(){
-				var val = +(input.val());
-				if (val > 1) {
-					val -= 1;
-					input.val(val);
-				}
-				else {
-					input.val('1');
-					return false;
-				}
-			});
-		});
-	}
-	spiner();
-
-	// slider
-	$('[class*="js-slider"], .js-galery').on('init', function(slick){
-		$(this).addClass('is-init');
-	});
-	$('.js-slider').slick({
-		dots: true,
-		arrows: true,
-		infinite: false,
-		adaptiveHeight: true,
-		speed: 500,
-		slidesToShow: 4,
-		slidesToScroll: 4,
-		cssEase: 'linear',
-		responsive: [
+			function initialise(s)
 			{
-				breakpoint: 1180,
-				settings: {
-					slidesToShow: 3,
-					slidesToScroll: 3,
-					infinite: false,
-					dots: true
+
+				var /*firstChild, lastChild, */isMaintainingPositon, lastContentX, lastContentY,
+						hasContainingSpaceChanged, originalScrollTop, originalScrollLeft,
+						maintainAtBottom = false, maintainAtRight = false;
+
+				settings = s;
+
+				if (pane === undefined) {
+					originalScrollTop = elem.scrollTop();
+					originalScrollLeft = elem.scrollLeft();
+
+					elem.css(
+						{
+							overflow: 'hidden',
+							padding: 0
+						}
+					);
+					// TODO: Deal with where width/ height is 0 as it probably means the element is hidden and we should
+					// come back to it later and check once it is unhidden...
+					paneWidth = elem.innerWidth() + originalPaddingTotalWidth;
+					paneHeight = elem.innerHeight();
+
+					elem.width(paneWidth);
+
+					pane = $('<div class="jspPane" />').css('padding', originalPadding).append(elem.children());
+					container = $('<div class="jspContainer" />')
+						.css({
+							'width': paneWidth + 'px',
+							'height': paneHeight + 'px'
+						}
+					).append(pane).appendTo(elem);
+
+					/*
+					// Move any margins from the first and last children up to the container so they can still
+					// collapse with neighbouring elements as they would before jScrollPane
+					firstChild = pane.find(':first-child');
+					lastChild = pane.find(':last-child');
+					elem.css(
+						{
+							'margin-top': firstChild.css('margin-top'),
+							'margin-bottom': lastChild.css('margin-bottom')
+						}
+					);
+					firstChild.css('margin-top', 0);
+					lastChild.css('margin-bottom', 0);
+					*/
+				} else {
+					elem.css('width', '');
+
+					maintainAtBottom = settings.stickToBottom && isCloseToBottom();
+					maintainAtRight  = settings.stickToRight  && isCloseToRight();
+
+					hasContainingSpaceChanged = elem.innerWidth() + originalPaddingTotalWidth != paneWidth || elem.outerHeight() != paneHeight;
+
+					if (hasContainingSpaceChanged) {
+						paneWidth = elem.innerWidth() + originalPaddingTotalWidth;
+						paneHeight = elem.innerHeight();
+						container.css({
+							width: paneWidth + 'px',
+							height: paneHeight + 'px'
+						});
+					}
+
+					// If nothing changed since last check...
+					if (!hasContainingSpaceChanged && previousContentWidth == contentWidth && pane.outerHeight() == contentHeight) {
+						elem.width(paneWidth);
+						return;
+					}
+					previousContentWidth = contentWidth;
+
+					pane.css('width', '');
+					elem.width(paneWidth);
+
+					container.find('>.jspVerticalBar,>.jspHorizontalBar').remove().end();
+				}
+
+				pane.css('overflow', 'auto');
+				if (s.contentWidth) {
+					contentWidth = s.contentWidth;
+				} else {
+					contentWidth = pane[0].scrollWidth;
+				}
+				contentHeight = pane[0].scrollHeight;
+				pane.css('overflow', '');
+
+				percentInViewH = contentWidth / paneWidth;
+				percentInViewV = contentHeight / paneHeight;
+				isScrollableV = percentInViewV > 1;
+
+				isScrollableH = percentInViewH > 1;
+
+				//console.log(paneWidth, paneHeight, contentWidth, contentHeight, percentInViewH, percentInViewV, isScrollableH, isScrollableV);
+
+				if (!(isScrollableH || isScrollableV)) {
+					elem.removeClass('jspScrollable');
+					pane.css({
+            top: 0,
+            left: 0,
+						width: container.width() - originalPaddingTotalWidth
+					});
+					removeMousewheel();
+					removeFocusHandler();
+					removeKeyboardNav();
+					removeClickOnTrack();
+				} else {
+					elem.addClass('jspScrollable');
+
+					isMaintainingPositon = settings.maintainPosition && (verticalDragPosition || horizontalDragPosition);
+					if (isMaintainingPositon) {
+						lastContentX = contentPositionX();
+						lastContentY = contentPositionY();
+					}
+
+					initialiseVerticalScroll();
+					initialiseHorizontalScroll();
+					resizeScrollbars();
+
+					if (isMaintainingPositon) {
+						scrollToX(maintainAtRight  ? (contentWidth  - paneWidth ) : lastContentX, false);
+						scrollToY(maintainAtBottom ? (contentHeight - paneHeight) : lastContentY, false);
+					}
+
+					initFocusHandler();
+					initMousewheel();
+					initTouch();
+
+					if (settings.enableKeyboardNavigation) {
+						initKeyboardNav();
+					}
+					if (settings.clickOnTrack) {
+						initClickOnTrack();
+					}
+
+					observeHash();
+					if (settings.hijackInternalLinks) {
+						hijackInternalLinks();
+					}
+				}
+
+				if (settings.autoReinitialise && !reinitialiseInterval) {
+					reinitialiseInterval = setInterval(
+						function()
+						{
+							initialise(settings);
+						},
+						settings.autoReinitialiseDelay
+					);
+				} else if (!settings.autoReinitialise && reinitialiseInterval) {
+					clearInterval(reinitialiseInterval);
+				}
+
+				originalScrollTop && elem.scrollTop(0) && scrollToY(originalScrollTop, false);
+				originalScrollLeft && elem.scrollLeft(0) && scrollToX(originalScrollLeft, false);
+
+				elem.trigger('jsp-initialised', [isScrollableH || isScrollableV]);
+			}
+
+			function initialiseVerticalScroll()
+			{
+				if (isScrollableV) {
+
+					container.append(
+						$('<div class="jspVerticalBar" />').append(
+							$('<div class="jspCap jspCapTop" />'),
+							$('<div class="jspTrack" />').append(
+								$('<div class="jspDrag" />').append(
+									$('<div class="jspDragTop" />'),
+									$('<div class="jspDragBottom" />')
+								)
+							),
+							$('<div class="jspCap jspCapBottom" />')
+						)
+					);
+
+					verticalBar = container.find('>.jspVerticalBar');
+					verticalTrack = verticalBar.find('>.jspTrack');
+					verticalDrag = verticalTrack.find('>.jspDrag');
+
+					if (settings.showArrows) {
+						arrowUp = $('<a class="jspArrow jspArrowUp" />').bind(
+							'mousedown.jsp', getArrowScroll(0, -1)
+						).bind('click.jsp', nil);
+						arrowDown = $('<a class="jspArrow jspArrowDown" />').bind(
+							'mousedown.jsp', getArrowScroll(0, 1)
+						).bind('click.jsp', nil);
+						if (settings.arrowScrollOnHover) {
+							arrowUp.bind('mouseover.jsp', getArrowScroll(0, -1, arrowUp));
+							arrowDown.bind('mouseover.jsp', getArrowScroll(0, 1, arrowDown));
+						}
+
+						appendArrows(verticalTrack, settings.verticalArrowPositions, arrowUp, arrowDown);
+					}
+
+					verticalTrackHeight = paneHeight;
+					container.find('>.jspVerticalBar>.jspCap:visible,>.jspVerticalBar>.jspArrow').each(
+						function()
+						{
+							verticalTrackHeight -= $(this).outerHeight();
+						}
+					);
+
+
+					verticalDrag.hover(
+						function()
+						{
+							verticalDrag.addClass('jspHover');
+						},
+						function()
+						{
+							verticalDrag.removeClass('jspHover');
+						}
+					).bind(
+						'mousedown.jsp',
+						function(e)
+						{
+							// Stop IE from allowing text selection
+							$('html').bind('dragstart.jsp selectstart.jsp', nil);
+
+							verticalDrag.addClass('jspActive');
+
+							var startY = e.pageY - verticalDrag.position().top;
+
+							$('html').bind(
+								'mousemove.jsp',
+								function(e)
+								{
+									positionDragY(e.pageY - startY, false);
+								}
+							).bind('mouseup.jsp mouseleave.jsp', cancelDrag);
+							return false;
+						}
+					);
+					sizeVerticalScrollbar();
 				}
 			}
-		]
-	});
-	$('.js-galery').slick({
-		dots: true,
-		arrows: true,
-		infinite: true,
-		slidesToShow: 1,
-		slidesToScroll: 1,
-		autoplay: true,
-		speed: 700,
-		autoplaySpeed: 3000,
-		fade: true,
-		cssEase: 'linear',
-	});
-	$('.js-slider-for').slick({
-		slidesToShow: 1,
-		slidesToScroll: 1,
-		arrows: false,
-		fade: true,
-		asNavFor: '.js-slider-nav'
-	});
-	$('.js-slider-nav').slick({
-		slidesToShow: 4,
-		slidesToScroll: 1,
-		asNavFor: '.js-slider-for',
-		dots: false,
-		arrows: false,
-		focusOnSelect: true
-	});
 
-	// dropdown
-	$('.js-open-drop').on('click', function(event) {
-		var this_ = $(this).parents('.js-drop'),
-			list = this_.find('.js-drop-list');
-		if (this_.hasClass('is-active')) {
-			this_.removeClass('is-active');
-			list.fadeOut();
-		}
-		else {
-			this_.addClass('is-active');
-			list.fadeIn();
-		}
-		event.stopPropagation();
-	});
+			function sizeVerticalScrollbar()
+			{
+				verticalTrack.height(verticalTrackHeight + 'px');
+				verticalDragPosition = 0;
+				scrollbarWidth = settings.verticalGutter + verticalTrack.outerWidth();
 
-	// multiple-select
-	$('.js-multiple-select').multipleSelect({
-		selectAll: false,
-		countSelected: 10,
-		minimumCountSelected: 10
-	});
+				// Make the pane thinner to allow for the vertical scrollbar
+				pane.width(paneWidth - scrollbarWidth - originalPaddingTotalWidth);
 
-	$('.js-filter-select').multipleSelect({
-		single: true
-	});
-	function activeSel() {
-		var parent = $('.js-filter-select, .js-multiple-select'),
-			item = parent.find('> button'),
-			li = parent.find('.ms-drop li');
-		item.on('click', function () {
-			var this_ = $(this),
-				div = this_.find('> div');
-			if (div.hasClass('open')) {
-				$('.ms-choice').removeClass('is-active');
-				div.parents('.ms-choice').addClass('is-active');
+				// Add margin to the left of the pane if scrollbars are on that side (to position
+				// the scrollbar on the left or right set it's left or right property in CSS)
+				try {
+					if (verticalBar.position().left === 0) {
+						pane.css('margin-left', scrollbarWidth + 'px');
+					}
+				} catch (err) {
+				}
 			}
-			else {
-				div.parents('.ms-choice').removeClass('is-active');
-			}
-		});
-		li.on('click', function() {
-			var parent = $(this).parents('.js-filter-select, .js-multiple-select');
-			parent.find('.ms-choice').removeClass('is-active');
-		});
-	}
-	activeSel();
-	
 
-	// items add wrap
-	function itemWrap() {
-		function addWrap() {
-			var row = $('.items__row'),
-				item = $('.items__wrap').find('.item');
-			if ($(window).width() < 1166) {
-				while(row.children('.item:not(.items__wrap)').length)
-					row.children('.item:not(.items__wrap):lt(2)').wrapAll('<div class="items__wrap">');
-			}
-			else {
-				item.unwrap();
-			};
-		}
-		window.onload = function() {
-			addWrap();
-		};
-		$(window).resize(function() {
-			addWrap();
-		});
-	} itemWrap();
+			function initialiseHorizontalScroll()
+			{
+				if (isScrollableH) {
 
-	// accordion
-	function accord() {
-		$('.js-accord').each(function() {
-			var this_ = $(this),
-				block = this_.find('.js-accord-block');
-			if (this_.hasClass('is-active')) {
-				block.show();
-			}
-		});
-		$('.js-accord-but').on('click', function() {
-			var this_ = $(this),
-				parent = this_.parents('.js-accord'),
-				block = parent.find('.js-accord-block');
-			if (!parent.hasClass('is-active')) {
-				parent.addClass('is-active')
-				block.slideDown(400);
-			}
-			else {
-				parent.removeClass('is-active');
-				block.slideUp(400);
-			}
-			return false;
-		});
-	} accord();
+					container.append(
+						$('<div class="jspHorizontalBar" />').append(
+							$('<div class="jspCap jspCapLeft" />'),
+							$('<div class="jspTrack" />').append(
+								$('<div class="jspDrag" />').append(
+									$('<div class="jspDragLeft" />'),
+									$('<div class="jspDragRight" />')
+								)
+							),
+							$('<div class="jspCap jspCapRight" />')
+						)
+					);
 
-	$('.js-sortin-item').on('click', function() {
-		var this_ = $(this),
-			parent = this_.parents('.js-sorting'),
-			item = parent.find('.js-sortin-item'),
-			active = ('is-active'),
-			activeTop = ('is-active-top');
-			if (!this_.hasClass(active)) {
-				item.removeClass(active).removeClass(activeTop);
-				this_.addClass(active);
-			}
-			else if (!this_.hasClass(activeTop)) {
-				this_.removeClass(active).toggleClass(activeTop);
-			}
-	});
-	
-	// item show info
-	function itemOpen() {
-		$('.js-item').each(function() {
-			var this_ = $(this),
-				block = this_.find('.js-item-text');
-			if (this_.hasClass('is-active')) {
-				block.show();
-			}
-		});
-		$('.js-item-open').on('click', function() {
-			var this_ = $(this),
-				parent = this_.parents('.js-item')
-				block = parent.find('.js-item-text');
-			if (!parent.hasClass('is-active')) {
-				parent.addClass('is-active')
-				block.slideDown(400);
-			}
-			else {
-				parent.removeClass('is-active');
-				block.slideUp(400);
-			}
-			return false;
-		});
-	} itemOpen();
-	
-	// filter
-	$('.js-filter-all').on('click', function() {
-		var this_ = $(this),
-			parent = this_.parents('.filter'),
-			block = parent.find('.js-filter-block');
-		if (!parent.hasClass('is-active')) {
-			parent.toggleClass('is-active');
-			block.slideDown(400);
-			this_.text('Свернуть все фильтры');
-		}
-		else {
-			parent.removeClass('is-active');
-			block.slideUp(400);
-			this_.text('Показать все фильтры');
-		}
-	});
+					horizontalBar = container.find('>.jspHorizontalBar');
+					horizontalTrack = horizontalBar.find('>.jspTrack');
+					horizontalDrag = horizontalTrack.find('>.jspDrag');
 
-	// tab
-	function tab() {
-		$(".js-tab").each(function(){
-			var tab_link = $(this).find("a"),
-				tab_item = $(this).find("li"),
-				index = tab_link.attr("href"),
-				parents = $(this).parents(".js-tab-group"),
-				tab_cont = parents.find(".js-tab-cont");
-			tab_link.on("click", function() {
-				var index = $(this).attr("href");
-				$('.js-tab-item').removeClass("is-active");
-				$(this).parent().addClass("is-active");
-				tab_cont.fadeOut(0);
-				parents.find("."+index).fadeIn(500);
+					if (settings.showArrows) {
+						arrowLeft = $('<a class="jspArrow jspArrowLeft" />').bind(
+							'mousedown.jsp', getArrowScroll(-1, 0)
+						).bind('click.jsp', nil);
+						arrowRight = $('<a class="jspArrow jspArrowRight" />').bind(
+							'mousedown.jsp', getArrowScroll(1, 0)
+						).bind('click.jsp', nil);
+						if (settings.arrowScrollOnHover) {
+							arrowLeft.bind('mouseover.jsp', getArrowScroll(-1, 0, arrowLeft));
+							arrowRight.bind('mouseover.jsp', getArrowScroll(1, 0, arrowRight));
+						}
+						appendArrows(horizontalTrack, settings.horizontalArrowPositions, arrowLeft, arrowRight);
+					}
+
+					horizontalDrag.hover(
+						function()
+						{
+							horizontalDrag.addClass('jspHover');
+						},
+						function()
+						{
+							horizontalDrag.removeClass('jspHover');
+						}
+					).bind(
+						'mousedown.jsp',
+						function(e)
+						{
+							// Stop IE from allowing text selection
+							$('html').bind('dragstart.jsp selectstart.jsp', nil);
+
+							horizontalDrag.addClass('jspActive');
+
+							var startX = e.pageX - horizontalDrag.position().left;
+
+							$('html').bind(
+								'mousemove.jsp',
+								function(e)
+								{
+									positionDragX(e.pageX - startX, false);
+								}
+							).bind('mouseup.jsp mouseleave.jsp', cancelDrag);
+							return false;
+						}
+					);
+					horizontalTrackWidth = container.innerWidth();
+					sizeHorizontalScrollbar();
+				}
+			}
+
+			function sizeHorizontalScrollbar()
+			{
+				container.find('>.jspHorizontalBar>.jspCap:visible,>.jspHorizontalBar>.jspArrow').each(
+					function()
+					{
+						horizontalTrackWidth -= $(this).outerWidth();
+					}
+				);
+
+				horizontalTrack.width(horizontalTrackWidth + 'px');
+				horizontalDragPosition = 0;
+			}
+
+			function resizeScrollbars()
+			{
+				if (isScrollableH && isScrollableV) {
+					var horizontalTrackHeight = horizontalTrack.outerHeight(),
+						verticalTrackWidth = verticalTrack.outerWidth();
+					verticalTrackHeight -= horizontalTrackHeight;
+					$(horizontalBar).find('>.jspCap:visible,>.jspArrow').each(
+						function()
+						{
+							horizontalTrackWidth += $(this).outerWidth();
+						}
+					);
+					horizontalTrackWidth -= verticalTrackWidth;
+					paneHeight -= verticalTrackWidth;
+					paneWidth -= horizontalTrackHeight;
+					horizontalTrack.parent().append(
+						$('<div class="jspCorner" />').css('width', horizontalTrackHeight + 'px')
+					);
+					sizeVerticalScrollbar();
+					sizeHorizontalScrollbar();
+				}
+				// reflow content
+				if (isScrollableH) {
+					pane.width((container.outerWidth() - originalPaddingTotalWidth) + 'px');
+				}
+				contentHeight = pane.outerHeight();
+				percentInViewV = contentHeight / paneHeight;
+
+				if (isScrollableH) {
+					horizontalDragWidth = Math.ceil(1 / percentInViewH * horizontalTrackWidth);
+					if (horizontalDragWidth > settings.horizontalDragMaxWidth) {
+						horizontalDragWidth = settings.horizontalDragMaxWidth;
+					} else if (horizontalDragWidth < settings.horizontalDragMinWidth) {
+						horizontalDragWidth = settings.horizontalDragMinWidth;
+					}
+					horizontalDrag.width(horizontalDragWidth + 'px');
+					dragMaxX = horizontalTrackWidth - horizontalDragWidth;
+					_positionDragX(horizontalDragPosition); // To update the state for the arrow buttons
+				}
+				if (isScrollableV) {
+					verticalDragHeight = Math.ceil(1 / percentInViewV * verticalTrackHeight);
+					if (verticalDragHeight > settings.verticalDragMaxHeight) {
+						verticalDragHeight = settings.verticalDragMaxHeight;
+					} else if (verticalDragHeight < settings.verticalDragMinHeight) {
+						verticalDragHeight = settings.verticalDragMinHeight;
+					}
+					verticalDrag.height(verticalDragHeight + 'px');
+					dragMaxY = verticalTrackHeight - verticalDragHeight;
+					_positionDragY(verticalDragPosition); // To update the state for the arrow buttons
+				}
+			}
+
+			function appendArrows(ele, p, a1, a2)
+			{
+				var p1 = "before", p2 = "after", aTemp;
+
+				// Sniff for mac... Is there a better way to determine whether the arrows would naturally appear
+				// at the top or the bottom of the bar?
+				if (p == "os") {
+					p = /Mac/.test(navigator.platform) ? "after" : "split";
+				}
+				if (p == p1) {
+					p2 = p;
+				} else if (p == p2) {
+					p1 = p;
+					aTemp = a1;
+					a1 = a2;
+					a2 = aTemp;
+				}
+
+				ele[p1](a1)[p2](a2);
+			}
+
+			function getArrowScroll(dirX, dirY, ele)
+			{
+				return function()
+				{
+					arrowScroll(dirX, dirY, this, ele);
+					this.blur();
+					return false;
+				};
+			}
+
+			function arrowScroll(dirX, dirY, arrow, ele)
+			{
+				arrow = $(arrow).addClass('jspActive');
+
+				var eve,
+					scrollTimeout,
+					isFirst = true,
+					doScroll = function()
+					{
+						if (dirX !== 0) {
+							jsp.scrollByX(dirX * settings.arrowButtonSpeed);
+						}
+						if (dirY !== 0) {
+							jsp.scrollByY(dirY * settings.arrowButtonSpeed);
+						}
+						scrollTimeout = setTimeout(doScroll, isFirst ? settings.initialDelay : settings.arrowRepeatFreq);
+						isFirst = false;
+					};
+
+				doScroll();
+
+				eve = ele ? 'mouseout.jsp' : 'mouseup.jsp';
+				ele = ele || $('html');
+				ele.bind(
+					eve,
+					function()
+					{
+						arrow.removeClass('jspActive');
+						scrollTimeout && clearTimeout(scrollTimeout);
+						scrollTimeout = null;
+						ele.unbind(eve);
+					}
+				);
+			}
+
+			function initClickOnTrack()
+			{
+				removeClickOnTrack();
+				if (isScrollableV) {
+					verticalTrack.bind(
+						'mousedown.jsp',
+						function(e)
+						{
+							if (e.originalTarget === undefined || e.originalTarget == e.currentTarget) {
+								var clickedTrack = $(this),
+									offset = clickedTrack.offset(),
+									direction = e.pageY - offset.top - verticalDragPosition,
+									scrollTimeout,
+									isFirst = true,
+									doScroll = function()
+									{
+										var offset = clickedTrack.offset(),
+											pos = e.pageY - offset.top - verticalDragHeight / 2,
+											contentDragY = paneHeight * settings.scrollPagePercent,
+											dragY = dragMaxY * contentDragY / (contentHeight - paneHeight);
+										if (direction < 0) {
+											if (verticalDragPosition - dragY > pos) {
+												jsp.scrollByY(-contentDragY);
+											} else {
+												positionDragY(pos);
+											}
+										} else if (direction > 0) {
+											if (verticalDragPosition + dragY < pos) {
+												jsp.scrollByY(contentDragY);
+											} else {
+												positionDragY(pos);
+											}
+										} else {
+											cancelClick();
+											return;
+										}
+										scrollTimeout = setTimeout(doScroll, isFirst ? settings.initialDelay : settings.trackClickRepeatFreq);
+										isFirst = false;
+									},
+									cancelClick = function()
+									{
+										scrollTimeout && clearTimeout(scrollTimeout);
+										scrollTimeout = null;
+										$(document).unbind('mouseup.jsp', cancelClick);
+									};
+								doScroll();
+								$(document).bind('mouseup.jsp', cancelClick);
+								return false;
+							}
+						}
+					);
+				}
+
+				if (isScrollableH) {
+					horizontalTrack.bind(
+						'mousedown.jsp',
+						function(e)
+						{
+							if (e.originalTarget === undefined || e.originalTarget == e.currentTarget) {
+								var clickedTrack = $(this),
+									offset = clickedTrack.offset(),
+									direction = e.pageX - offset.left - horizontalDragPosition,
+									scrollTimeout,
+									isFirst = true,
+									doScroll = function()
+									{
+										var offset = clickedTrack.offset(),
+											pos = e.pageX - offset.left - horizontalDragWidth / 2,
+											contentDragX = paneWidth * settings.scrollPagePercent,
+											dragX = dragMaxX * contentDragX / (contentWidth - paneWidth);
+										if (direction < 0) {
+											if (horizontalDragPosition - dragX > pos) {
+												jsp.scrollByX(-contentDragX);
+											} else {
+												positionDragX(pos);
+											}
+										} else if (direction > 0) {
+											if (horizontalDragPosition + dragX < pos) {
+												jsp.scrollByX(contentDragX);
+											} else {
+												positionDragX(pos);
+											}
+										} else {
+											cancelClick();
+											return;
+										}
+										scrollTimeout = setTimeout(doScroll, isFirst ? settings.initialDelay : settings.trackClickRepeatFreq);
+										isFirst = false;
+									},
+									cancelClick = function()
+									{
+										scrollTimeout && clearTimeout(scrollTimeout);
+										scrollTimeout = null;
+										$(document).unbind('mouseup.jsp', cancelClick);
+									};
+								doScroll();
+								$(document).bind('mouseup.jsp', cancelClick);
+								return false;
+							}
+						}
+					);
+				}
+			}
+
+			function removeClickOnTrack()
+			{
+				if (horizontalTrack) {
+					horizontalTrack.unbind('mousedown.jsp');
+				}
+				if (verticalTrack) {
+					verticalTrack.unbind('mousedown.jsp');
+				}
+			}
+
+			function cancelDrag()
+			{
+				$('html').unbind('dragstart.jsp selectstart.jsp mousemove.jsp mouseup.jsp mouseleave.jsp');
+
+				if (verticalDrag) {
+					verticalDrag.removeClass('jspActive');
+				}
+				if (horizontalDrag) {
+					horizontalDrag.removeClass('jspActive');
+				}
+			}
+
+			function positionDragY(destY, animate)
+			{
+				if (!isScrollableV) {
+					return;
+				}
+				if (destY < 0) {
+					destY = 0;
+				} else if (destY > dragMaxY) {
+					destY = dragMaxY;
+				}
+
+				// can't just check if(animate) because false is a valid value that could be passed in...
+				if (animate === undefined) {
+					animate = settings.animateScroll;
+				}
+				if (animate) {
+					jsp.animate(verticalDrag, 'top', destY,	_positionDragY);
+				} else {
+					verticalDrag.css('top', destY);
+					_positionDragY(destY);
+				}
+
+			}
+
+			function _positionDragY(destY)
+			{
+				if (destY === undefined) {
+					destY = verticalDrag.position().top;
+				}
+
+				container.scrollTop(0);
+				verticalDragPosition = destY || 0;
+
+				var isAtTop = verticalDragPosition === 0,
+					isAtBottom = verticalDragPosition == dragMaxY,
+					percentScrolled = destY/ dragMaxY,
+					destTop = -percentScrolled * (contentHeight - paneHeight);
+
+				if (wasAtTop != isAtTop || wasAtBottom != isAtBottom) {
+					wasAtTop = isAtTop;
+					wasAtBottom = isAtBottom;
+					elem.trigger('jsp-arrow-change', [wasAtTop, wasAtBottom, wasAtLeft, wasAtRight]);
+				}
+
+				updateVerticalArrows(isAtTop, isAtBottom);
+				pane.css('top', destTop);
+				elem.trigger('jsp-scroll-y', [-destTop, isAtTop, isAtBottom]).trigger('scroll');
+			}
+
+			function positionDragX(destX, animate)
+			{
+				if (!isScrollableH) {
+					return;
+				}
+				if (destX < 0) {
+					destX = 0;
+				} else if (destX > dragMaxX) {
+					destX = dragMaxX;
+				}
+
+				if (animate === undefined) {
+					animate = settings.animateScroll;
+				}
+				if (animate) {
+					jsp.animate(horizontalDrag, 'left', destX,	_positionDragX);
+				} else {
+					horizontalDrag.css('left', destX);
+					_positionDragX(destX);
+				}
+			}
+
+			function _positionDragX(destX)
+			{
+				if (destX === undefined) {
+					destX = horizontalDrag.position().left;
+				}
+
+				container.scrollTop(0);
+				horizontalDragPosition = destX ||0;
+
+				var isAtLeft = horizontalDragPosition === 0,
+					isAtRight = horizontalDragPosition == dragMaxX,
+					percentScrolled = destX / dragMaxX,
+					destLeft = -percentScrolled * (contentWidth - paneWidth);
+
+				if (wasAtLeft != isAtLeft || wasAtRight != isAtRight) {
+					wasAtLeft = isAtLeft;
+					wasAtRight = isAtRight;
+					elem.trigger('jsp-arrow-change', [wasAtTop, wasAtBottom, wasAtLeft, wasAtRight]);
+				}
+
+				updateHorizontalArrows(isAtLeft, isAtRight);
+				pane.css('left', destLeft);
+				elem.trigger('jsp-scroll-x', [-destLeft, isAtLeft, isAtRight]).trigger('scroll');
+			}
+
+			function updateVerticalArrows(isAtTop, isAtBottom)
+			{
+				if (settings.showArrows) {
+					arrowUp[isAtTop ? 'addClass' : 'removeClass']('jspDisabled');
+					arrowDown[isAtBottom ? 'addClass' : 'removeClass']('jspDisabled');
+				}
+			}
+
+			function updateHorizontalArrows(isAtLeft, isAtRight)
+			{
+				if (settings.showArrows) {
+					arrowLeft[isAtLeft ? 'addClass' : 'removeClass']('jspDisabled');
+					arrowRight[isAtRight ? 'addClass' : 'removeClass']('jspDisabled');
+				}
+			}
+
+			function scrollToY(destY, animate)
+			{
+				var percentScrolled = destY / (contentHeight - paneHeight);
+				positionDragY(percentScrolled * dragMaxY, animate);
+			}
+
+			function scrollToX(destX, animate)
+			{
+				var percentScrolled = destX / (contentWidth - paneWidth);
+				positionDragX(percentScrolled * dragMaxX, animate);
+			}
+
+			function scrollToElement(ele, stickToTop, animate)
+			{
+				var e, eleHeight, eleWidth, eleTop = 0, eleLeft = 0, viewportTop, viewportLeft, maxVisibleEleTop, maxVisibleEleLeft, destY, destX;
+
+				// Legal hash values aren't necessarily legal jQuery selectors so we need to catch any
+				// errors from the lookup...
+				try {
+					e = $(ele);
+				} catch (err) {
+					return;
+				}
+				eleHeight = e.outerHeight();
+				eleWidth= e.outerWidth();
+
+				container.scrollTop(0);
+				container.scrollLeft(0);
+
+				// loop through parents adding the offset top of any elements that are relatively positioned between
+				// the focused element and the jspPane so we can get the true distance from the top
+				// of the focused element to the top of the scrollpane...
+				while (!e.is('.jspPane')) {
+					eleTop += e.position().top;
+					eleLeft += e.position().left;
+					e = e.offsetParent();
+					if (/^body|html$/i.test(e[0].nodeName)) {
+						// we ended up too high in the document structure. Quit!
+						return;
+					}
+				}
+
+				viewportTop = contentPositionY();
+				maxVisibleEleTop = viewportTop + paneHeight;
+				if (eleTop < viewportTop || stickToTop) { // element is above viewport
+					destY = eleTop - settings.horizontalGutter;
+				} else if (eleTop + eleHeight > maxVisibleEleTop) { // element is below viewport
+					destY = eleTop - paneHeight + eleHeight + settings.horizontalGutter;
+				}
+				if (!isNaN(destY)) {
+					scrollToY(destY, animate);
+				}
+
+				viewportLeft = contentPositionX();
+	            maxVisibleEleLeft = viewportLeft + paneWidth;
+	            if (eleLeft < viewportLeft || stickToTop) { // element is to the left of viewport
+	                destX = eleLeft - settings.horizontalGutter;
+	            } else if (eleLeft + eleWidth > maxVisibleEleLeft) { // element is to the right viewport
+	                destX = eleLeft - paneWidth + eleWidth + settings.horizontalGutter;
+	            }
+	            if (!isNaN(destX)) {
+	                scrollToX(destX, animate);
+	            }
+
+			}
+
+			function contentPositionX()
+			{
+				return -pane.position().left;
+			}
+
+			function contentPositionY()
+			{
+				return -pane.position().top;
+			}
+
+			function isCloseToBottom()
+			{
+				var scrollableHeight = contentHeight - paneHeight;
+				return (scrollableHeight > 20) && (scrollableHeight - contentPositionY() < 10);
+			}
+
+			function isCloseToRight()
+			{
+				var scrollableWidth = contentWidth - paneWidth;
+				return (scrollableWidth > 20) && (scrollableWidth - contentPositionX() < 10);
+			}
+
+			function initMousewheel()
+			{
+				container.unbind(mwEvent).bind(
+					mwEvent,
+					function (event, delta, deltaX, deltaY) {
+
+                        if (!horizontalDragPosition) horizontalDragPosition = 0;
+                        if (!verticalDragPosition) verticalDragPosition = 0;
+
+						var dX = horizontalDragPosition, dY = verticalDragPosition, factor = event.deltaFactor || settings.mouseWheelSpeed;
+						jsp.scrollBy(deltaX * factor, -deltaY * factor, false);
+						// return true if there was no movement so rest of screen can scroll
+						return dX == horizontalDragPosition && dY == verticalDragPosition;
+					}
+				);
+			}
+
+			function removeMousewheel()
+			{
+				container.unbind(mwEvent);
+			}
+
+			function nil()
+			{
 				return false;
-			});
-			$(this).find('li:first').addClass("is-active");
-			parents.find("."+index).fadeIn(500);
-		});
-	}
-	tab();
+			}
 
-});
-$(document).ready( function() {
+			function initFocusHandler()
+			{
+				pane.find(':input,a').unbind('focus.jsp').bind(
+					'focus.jsp',
+					function(e)
+					{
+						scrollToElement(e.target, false);
+					}
+				);
+			}
 
-	// form validation
-	var form_validate = $('.js-validate');
-	if (form_validate.length) {
-		form_validate.each(function () {
-			var form_this = $(this);
-			$.validate({
-				form : form_this,
-				borderColorOnError : false,
-        		scrollToTopOnError : false,
-        		modules : 'toggleDisabled',
-        		showErrorDialogs : false
-			});
+			function removeFocusHandler()
+			{
+				pane.find(':input,a').unbind('focus.jsp');
+			}
+
+			function initKeyboardNav()
+			{
+				var keyDown, elementHasScrolled, validParents = [];
+				isScrollableH && validParents.push(horizontalBar[0]);
+				isScrollableV && validParents.push(verticalBar[0]);
+
+				// IE also focuses elements that don't have tabindex set.
+				pane.bind(
+					'focus.jsp',
+					function()
+					{
+						elem.focus();
+					}
+				);
+
+				elem.attr('tabindex', 0)
+					.unbind('keydown.jsp keypress.jsp')
+					.bind(
+						'keydown.jsp',
+						function(e)
+						{
+							if (e.target !== this && !(validParents.length && $(e.target).closest(validParents).length)){
+								return;
+							}
+							var dX = horizontalDragPosition, dY = verticalDragPosition;
+							switch(e.keyCode) {
+								case 40: // down
+								case 38: // up
+								case 34: // page down
+								case 32: // space
+								case 33: // page up
+								case 39: // right
+								case 37: // left
+									keyDown = e.keyCode;
+									keyDownHandler();
+									break;
+								case 35: // end
+									scrollToY(contentHeight - paneHeight);
+									keyDown = null;
+									break;
+								case 36: // home
+									scrollToY(0);
+									keyDown = null;
+									break;
+							}
+
+							elementHasScrolled = e.keyCode == keyDown && dX != horizontalDragPosition || dY != verticalDragPosition;
+							return !elementHasScrolled;
+						}
+					).bind(
+						'keypress.jsp', // For FF/ OSX so that we can cancel the repeat key presses if the JSP scrolls...
+						function(e)
+						{
+							if (e.keyCode == keyDown) {
+								keyDownHandler();
+							}
+							// If the keypress is not related to the area, ignore it. Fixes problem with inputs inside scrolled area. Copied from line 955.
+							if (e.target !== this && !(validParents.length && $(e.target).closest(validParents).length)){
+								return;
+							}
+							return !elementHasScrolled;
+						}
+					);
+
+				if (settings.hideFocus) {
+					elem.css('outline', 'none');
+					if ('hideFocus' in container[0]){
+						elem.attr('hideFocus', true);
+					}
+				} else {
+					elem.css('outline', '');
+					if ('hideFocus' in container[0]){
+						elem.attr('hideFocus', false);
+					}
+				}
+
+				function keyDownHandler()
+				{
+					var dX = horizontalDragPosition, dY = verticalDragPosition;
+					switch(keyDown) {
+						case 40: // down
+							jsp.scrollByY(settings.keyboardSpeed, false);
+							break;
+						case 38: // up
+							jsp.scrollByY(-settings.keyboardSpeed, false);
+							break;
+						case 34: // page down
+						case 32: // space
+							jsp.scrollByY(paneHeight * settings.scrollPagePercent, false);
+							break;
+						case 33: // page up
+							jsp.scrollByY(-paneHeight * settings.scrollPagePercent, false);
+							break;
+						case 39: // right
+							jsp.scrollByX(settings.keyboardSpeed, false);
+							break;
+						case 37: // left
+							jsp.scrollByX(-settings.keyboardSpeed, false);
+							break;
+					}
+
+					elementHasScrolled = dX != horizontalDragPosition || dY != verticalDragPosition;
+					return elementHasScrolled;
+				}
+			}
+
+			function removeKeyboardNav()
+			{
+				elem.attr('tabindex', '-1')
+					.removeAttr('tabindex')
+					.unbind('keydown.jsp keypress.jsp');
+
+				pane.unbind('.jsp');
+			}
+
+			function observeHash()
+			{
+				if (location.hash && location.hash.length > 1) {
+					var e,
+						retryInt,
+						hash = escape(location.hash.substr(1)) // hash must be escaped to prevent XSS
+						;
+					try {
+						e = $('#' + hash + ', a[name="' + hash + '"]');
+					} catch (err) {
+						return;
+					}
+
+					if (e.length && pane.find(hash)) {
+						// nasty workaround but it appears to take a little while before the hash has done its thing
+						// to the rendered page so we just wait until the container's scrollTop has been messed up.
+						if (container.scrollTop() === 0) {
+							retryInt = setInterval(
+								function()
+								{
+									if (container.scrollTop() > 0) {
+										scrollToElement(e, true);
+										$(document).scrollTop(container.position().top);
+										clearInterval(retryInt);
+									}
+								},
+								50
+							);
+						} else {
+							scrollToElement(e, true);
+							$(document).scrollTop(container.position().top);
+						}
+					}
+				}
+			}
+
+			function hijackInternalLinks()
+			{
+				// only register the link handler once
+				if ($(document.body).data('jspHijack')) {
+					return;
+				}
+
+				// remember that the handler was bound
+				$(document.body).data('jspHijack', true);
+
+				// use live handler to also capture newly created links
+				$(document.body).delegate('a[href*=#]', 'click', function(event) {
+					// does the link point to the same page?
+					// this also takes care of cases with a <base>-Tag or Links not starting with the hash #
+					// e.g. <a href="index.html#test"> when the current url already is index.html
+					var href = this.href.substr(0, this.href.indexOf('#')),
+						locationHref = location.href,
+						hash,
+						element,
+						container,
+						jsp,
+						scrollTop,
+						elementTop;
+					if (location.href.indexOf('#') !== -1) {
+						locationHref = location.href.substr(0, location.href.indexOf('#'));
+					}
+					if (href !== locationHref) {
+						// the link points to another page
+						return;
+					}
+
+					// check if jScrollPane should handle this click event
+					hash = escape(this.href.substr(this.href.indexOf('#') + 1));
+
+					// find the element on the page
+					element;
+					try {
+						element = $('#' + hash + ', a[name="' + hash + '"]');
+					} catch (e) {
+						// hash is not a valid jQuery identifier
+						return;
+					}
+
+					if (!element.length) {
+						// this link does not point to an element on this page
+						return;
+					}
+
+					container = element.closest('.jspScrollable');
+					jsp = container.data('jsp');
+
+					// jsp might be another jsp instance than the one, that bound this event
+					// remember: this event is only bound once for all instances.
+					jsp.scrollToElement(element, true);
+
+					if (container[0].scrollIntoView) {
+						// also scroll to the top of the container (if it is not visible)
+						scrollTop = $(window).scrollTop();
+						elementTop = element.offset().top;
+						if (elementTop < scrollTop || elementTop > scrollTop + $(window).height()) {
+							container[0].scrollIntoView();
+						}
+					}
+
+					// jsp handled this event, prevent the browser default (scrolling :P)
+					event.preventDefault();
+				});
+			}
+
+			// Init touch on iPad, iPhone, iPod, Android
+			function initTouch()
+			{
+				var startX,
+					startY,
+					touchStartX,
+					touchStartY,
+					moved,
+					moving = false;
+
+				container.unbind('touchstart.jsp touchmove.jsp touchend.jsp click.jsp-touchclick').bind(
+					'touchstart.jsp',
+					function(e)
+					{
+						var touch = e.originalEvent.touches[0];
+						startX = contentPositionX();
+						startY = contentPositionY();
+						touchStartX = touch.pageX;
+						touchStartY = touch.pageY;
+						moved = false;
+						moving = true;
+					}
+				).bind(
+					'touchmove.jsp',
+					function(ev)
+					{
+						if(!moving) {
+							return;
+						}
+
+						var touchPos = ev.originalEvent.touches[0],
+							dX = horizontalDragPosition, dY = verticalDragPosition;
+
+						jsp.scrollTo(startX + touchStartX - touchPos.pageX, startY + touchStartY - touchPos.pageY);
+
+						moved = moved || Math.abs(touchStartX - touchPos.pageX) > 5 || Math.abs(touchStartY - touchPos.pageY) > 5;
+
+						// return true if there was no movement so rest of screen can scroll
+						return dX == horizontalDragPosition && dY == verticalDragPosition;
+					}
+				).bind(
+					'touchend.jsp',
+					function(e)
+					{
+						moving = false;
+						/*if(moved) {
+							return false;
+						}*/
+					}
+				).bind(
+					'click.jsp-touchclick',
+					function(e)
+					{
+						if(moved) {
+							moved = false;
+							return false;
+						}
+					}
+				);
+			}
+
+			function destroy(){
+				var currentY = contentPositionY(),
+					currentX = contentPositionX();
+				elem.removeClass('jspScrollable').unbind('.jsp');
+				pane.unbind('.jsp');
+				elem.replaceWith(originalElement.append(pane.children()));
+				originalElement.scrollTop(currentY);
+				originalElement.scrollLeft(currentX);
+
+				// clear reinitialize timer if active
+				if (reinitialiseInterval) {
+					clearInterval(reinitialiseInterval);
+				}
+			}
+
+			// Public API
+			$.extend(
+				jsp,
+				{
+					// Reinitialises the scroll pane (if it's internal dimensions have changed since the last time it
+					// was initialised). The settings object which is passed in will override any settings from the
+					// previous time it was initialised - if you don't pass any settings then the ones from the previous
+					// initialisation will be used.
+					reinitialise: function(s)
+					{
+						s = $.extend({}, settings, s);
+						initialise(s);
+					},
+					// Scrolls the specified element (a jQuery object, DOM node or jQuery selector string) into view so
+					// that it can be seen within the viewport. If stickToTop is true then the element will appear at
+					// the top of the viewport, if it is false then the viewport will scroll as little as possible to
+					// show the element. You can also specify if you want animation to occur. If you don't provide this
+					// argument then the animateScroll value from the settings object is used instead.
+					scrollToElement: function(ele, stickToTop, animate)
+					{
+						scrollToElement(ele, stickToTop, animate);
+					},
+					// Scrolls the pane so that the specified co-ordinates within the content are at the top left
+					// of the viewport. animate is optional and if not passed then the value of animateScroll from
+					// the settings object this jScrollPane was initialised with is used.
+					scrollTo: function(destX, destY, animate)
+					{
+						scrollToX(destX, animate);
+						scrollToY(destY, animate);
+					},
+					// Scrolls the pane so that the specified co-ordinate within the content is at the left of the
+					// viewport. animate is optional and if not passed then the value of animateScroll from the settings
+					// object this jScrollPane was initialised with is used.
+					scrollToX: function(destX, animate)
+					{
+						scrollToX(destX, animate);
+					},
+					// Scrolls the pane so that the specified co-ordinate within the content is at the top of the
+					// viewport. animate is optional and if not passed then the value of animateScroll from the settings
+					// object this jScrollPane was initialised with is used.
+					scrollToY: function(destY, animate)
+					{
+						scrollToY(destY, animate);
+					},
+					// Scrolls the pane to the specified percentage of its maximum horizontal scroll position. animate
+					// is optional and if not passed then the value of animateScroll from the settings object this
+					// jScrollPane was initialised with is used.
+					scrollToPercentX: function(destPercentX, animate)
+					{
+						scrollToX(destPercentX * (contentWidth - paneWidth), animate);
+					},
+					// Scrolls the pane to the specified percentage of its maximum vertical scroll position. animate
+					// is optional and if not passed then the value of animateScroll from the settings object this
+					// jScrollPane was initialised with is used.
+					scrollToPercentY: function(destPercentY, animate)
+					{
+						scrollToY(destPercentY * (contentHeight - paneHeight), animate);
+					},
+					// Scrolls the pane by the specified amount of pixels. animate is optional and if not passed then
+					// the value of animateScroll from the settings object this jScrollPane was initialised with is used.
+					scrollBy: function(deltaX, deltaY, animate)
+					{
+						jsp.scrollByX(deltaX, animate);
+						jsp.scrollByY(deltaY, animate);
+					},
+					// Scrolls the pane by the specified amount of pixels. animate is optional and if not passed then
+					// the value of animateScroll from the settings object this jScrollPane was initialised with is used.
+					scrollByX: function(deltaX, animate)
+					{
+						var destX = contentPositionX() + Math[deltaX<0 ? 'floor' : 'ceil'](deltaX),
+							percentScrolled = destX / (contentWidth - paneWidth);
+						positionDragX(percentScrolled * dragMaxX, animate);
+					},
+					// Scrolls the pane by the specified amount of pixels. animate is optional and if not passed then
+					// the value of animateScroll from the settings object this jScrollPane was initialised with is used.
+					scrollByY: function(deltaY, animate)
+					{
+						var destY = contentPositionY() + Math[deltaY<0 ? 'floor' : 'ceil'](deltaY),
+							percentScrolled = destY / (contentHeight - paneHeight);
+						positionDragY(percentScrolled * dragMaxY, animate);
+					},
+					// Positions the horizontal drag at the specified x position (and updates the viewport to reflect
+					// this). animate is optional and if not passed then the value of animateScroll from the settings
+					// object this jScrollPane was initialised with is used.
+					positionDragX: function(x, animate)
+					{
+						positionDragX(x, animate);
+					},
+					// Positions the vertical drag at the specified y position (and updates the viewport to reflect
+					// this). animate is optional and if not passed then the value of animateScroll from the settings
+					// object this jScrollPane was initialised with is used.
+					positionDragY: function(y, animate)
+					{
+						positionDragY(y, animate);
+					},
+					// This method is called when jScrollPane is trying to animate to a new position. You can override
+					// it if you want to provide advanced animation functionality. It is passed the following arguments:
+					//  * ele          - the element whose position is being animated
+					//  * prop         - the property that is being animated
+					//  * value        - the value it's being animated to
+					//  * stepCallback - a function that you must execute each time you update the value of the property
+					// You can use the default implementation (below) as a starting point for your own implementation.
+					animate: function(ele, prop, value, stepCallback)
+					{
+						var params = {};
+						params[prop] = value;
+						ele.animate(
+							params,
+							{
+								'duration'	: settings.animateDuration,
+								'easing'	: settings.animateEase,
+								'queue'		: false,
+								'step'		: stepCallback
+							}
+						);
+					},
+					// Returns the current x position of the viewport with regards to the content pane.
+					getContentPositionX: function()
+					{
+						return contentPositionX();
+					},
+					// Returns the current y position of the viewport with regards to the content pane.
+					getContentPositionY: function()
+					{
+						return contentPositionY();
+					},
+					// Returns the width of the content within the scroll pane.
+					getContentWidth: function()
+					{
+						return contentWidth;
+					},
+					// Returns the height of the content within the scroll pane.
+					getContentHeight: function()
+					{
+						return contentHeight;
+					},
+					// Returns the horizontal position of the viewport within the pane content.
+					getPercentScrolledX: function()
+					{
+						return contentPositionX() / (contentWidth - paneWidth);
+					},
+					// Returns the vertical position of the viewport within the pane content.
+					getPercentScrolledY: function()
+					{
+						return contentPositionY() / (contentHeight - paneHeight);
+					},
+					// Returns whether or not this scrollpane has a horizontal scrollbar.
+					getIsScrollableH: function()
+					{
+						return isScrollableH;
+					},
+					// Returns whether or not this scrollpane has a vertical scrollbar.
+					getIsScrollableV: function()
+					{
+						return isScrollableV;
+					},
+					// Gets a reference to the content pane. It is important that you use this method if you want to
+					// edit the content of your jScrollPane as if you access the element directly then you may have some
+					// problems (as your original element has had additional elements for the scrollbars etc added into
+					// it).
+					getContentPane: function()
+					{
+						return pane;
+					},
+					// Scrolls this jScrollPane down as far as it can currently scroll. If animate isn't passed then the
+					// animateScroll value from settings is used instead.
+					scrollToBottom: function(animate)
+					{
+						positionDragY(dragMaxY, animate);
+					},
+					// Hijacks the links on the page which link to content inside the scrollpane. If you have changed
+					// the content of your page (e.g. via AJAX) and want to make sure any new anchor links to the
+					// contents of your scroll pane will work then call this function.
+					hijackInternalLinks: $.noop,
+					// Removes the jScrollPane and returns the page to the state it was in before jScrollPane was
+					// initialised.
+					destroy: function()
+					{
+							destroy();
+					}
+				}
+			);
+
+			initialise(s);
+		}
+
+		// Pluginifying code...
+		settings = $.extend({}, $.fn.jScrollPane.defaults, settings);
+
+		// Apply default speed
+		$.each(['arrowButtonSpeed', 'trackClickSpeed', 'keyboardSpeed'], function() {
+			settings[this] = settings[this] || settings.speed;
 		});
+
+		return this.each(
+			function()
+			{
+				var elem = $(this), jspApi = elem.data('jsp');
+				if (jspApi) {
+					jspApi.reinitialise(settings);
+				} else {
+					$("script",elem).filter('[type="text/javascript"],:not([type])').remove();
+					jspApi = new JScrollPane(elem, settings);
+					elem.data('jsp', jspApi);
+				}
+			}
+		);
 	};
 
-});
+	$.fn.jScrollPane.defaults = {
+		showArrows					: false,
+		maintainPosition			: true,
+		stickToBottom				: false,
+		stickToRight				: false,
+		clickOnTrack				: true,
+		autoReinitialise			: false,
+		autoReinitialiseDelay		: 500,
+		verticalDragMinHeight		: 0,
+		verticalDragMaxHeight		: 99999,
+		horizontalDragMinWidth		: 0,
+		horizontalDragMaxWidth		: 99999,
+		contentWidth				: undefined,
+		animateScroll				: false,
+		animateDuration				: 300,
+		animateEase					: 'linear',
+		hijackInternalLinks			: false,
+		verticalGutter				: 4,
+		horizontalGutter			: 4,
+		mouseWheelSpeed				: 3,
+		arrowButtonSpeed			: 0,
+		arrowRepeatFreq				: 50,
+		arrowScrollOnHover			: false,
+		trackClickSpeed				: 0,
+		trackClickRepeatFreq		: 70,
+		verticalArrowPositions		: 'split',
+		horizontalArrowPositions	: 'split',
+		enableKeyboardNavigation	: true,
+		hideFocus					: false,
+		keyboardSpeed				: 0,
+		initialDelay                : 300,        // Delay before starting repeating
+		speed						: 30,		// Default speed when others falsey
+		scrollPagePercent			: .8		// Percent of visible area scrolled when pageUp/Down or track area pressed
+	};
+
+}));
+/*!
+ * fancyBox - jQuery Plugin
+ * version: 2.1.5 (Fri, 14 Jun 2013)
+ * @requires jQuery v1.6 or later
+ *
+ * Examples at http://fancyapps.com/fancybox/
+ * License: www.fancyapps.com/fancybox/#license
+ *
+ * Copyright 2012 Janis Skarnelis - janis@fancyapps.com
+ *
+ */
+
+(function (window, document, $, undefined) {
+	"use strict";
+
+	var H = $("html"),
+		W = $(window),
+		D = $(document),
+		F = $.fancybox = function () {
+			F.open.apply( this, arguments );
+		},
+		IE =  navigator.userAgent.match(/msie/i),
+		didUpdate	= null,
+		isTouch		= document.createTouch !== undefined,
+
+		isQuery	= function(obj) {
+			return obj && obj.hasOwnProperty && obj instanceof $;
+		},
+		isString = function(str) {
+			return str && $.type(str) === "string";
+		},
+		isPercentage = function(str) {
+			return isString(str) && str.indexOf('%') > 0;
+		},
+		isScrollable = function(el) {
+			return (el && !(el.style.overflow && el.style.overflow === 'hidden') && ((el.clientWidth && el.scrollWidth > el.clientWidth) || (el.clientHeight && el.scrollHeight > el.clientHeight)));
+		},
+		getScalar = function(orig, dim) {
+			var value = parseInt(orig, 10) || 0;
+
+			if (dim && isPercentage(orig)) {
+				value = F.getViewport()[ dim ] / 100 * value;
+			}
+
+			return Math.ceil(value);
+		},
+		getValue = function(value, dim) {
+			return getScalar(value, dim) + 'px';
+		};
+
+	$.extend(F, {
+		// The current version of fancyBox
+		version: '2.1.5',
+
+		defaults: {
+			padding : 15,
+			margin  : 20,
+
+			width     : 800,
+			height    : 600,
+			minWidth  : 100,
+			minHeight : 100,
+			maxWidth  : 9999,
+			maxHeight : 9999,
+			pixelRatio: 1, // Set to 2 for retina display support
+
+			autoSize   : true,
+			autoHeight : false,
+			autoWidth  : false,
+
+			autoResize  : true,
+			autoCenter  : !isTouch,
+			fitToView   : true,
+			aspectRatio : false,
+			topRatio    : 0.5,
+			leftRatio   : 0.5,
+
+			scrolling : 'auto', // 'auto', 'yes' or 'no'
+			wrapCSS   : '',
+
+			arrows     : true,
+			closeBtn   : true,
+			closeClick : false,
+			nextClick  : false,
+			mouseWheel : true,
+			autoPlay   : false,
+			playSpeed  : 3000,
+			preload    : 3,
+			modal      : false,
+			loop       : true,
+
+			ajax  : {
+				dataType : 'html',
+				headers  : { 'X-fancyBox': true }
+			},
+			iframe : {
+				scrolling : 'auto',
+				preload   : true
+			},
+			swf : {
+				wmode: 'transparent',
+				allowfullscreen   : 'true',
+				allowscriptaccess : 'always'
+			},
+
+			keys  : {
+				next : {
+					13 : 'left', // enter
+					34 : 'up',   // page down
+					39 : 'left', // right arrow
+					40 : 'up'    // down arrow
+				},
+				prev : {
+					8  : 'right',  // backspace
+					33 : 'down',   // page up
+					37 : 'right',  // left arrow
+					38 : 'down'    // up arrow
+				},
+				close  : [27], // escape key
+				play   : [32], // space - start/stop slideshow
+				toggle : [70]  // letter "f" - toggle fullscreen
+			},
+
+			direction : {
+				next : 'left',
+				prev : 'right'
+			},
+
+			scrollOutside  : true,
+
+			// Override some properties
+			index   : 0,
+			type    : null,
+			href    : null,
+			content : null,
+			title   : null,
+
+			// HTML templates
+			tpl: {
+				wrap     : '<div class="fancybox-wrap" tabIndex="-1"><div class="fancybox-skin"><div class="fancybox-outer"><div class="fancybox-inner"></div></div></div></div>',
+				image    : '<img class="fancybox-image" src="{href}" alt="" />',
+				iframe   : '<iframe id="fancybox-frame{rnd}" name="fancybox-frame{rnd}" class="fancybox-iframe" frameborder="0" vspace="0" hspace="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen' + (IE ? ' allowtransparency="true"' : '') + '></iframe>',
+				error    : '<p class="fancybox-error">The requested content cannot be loaded.<br/>Please try again later.</p>',
+				closeBtn : '<a title="Close" class="fancybox-item fancybox-close" href="javascript:;"></a>',
+				next     : '<a title="Next" class="fancybox-nav fancybox-next" href="javascript:;"><span></span></a>',
+				prev     : '<a title="Previous" class="fancybox-nav fancybox-prev" href="javascript:;"><span></span></a>'
+			},
+
+			// Properties for each animation type
+			// Opening fancyBox
+			openEffect  : 'fade', // 'elastic', 'fade' or 'none'
+			openSpeed   : 250,
+			openEasing  : 'swing',
+			openOpacity : true,
+			openMethod  : 'zoomIn',
+
+			// Closing fancyBox
+			closeEffect  : 'fade', // 'elastic', 'fade' or 'none'
+			closeSpeed   : 250,
+			closeEasing  : 'swing',
+			closeOpacity : true,
+			closeMethod  : 'zoomOut',
+
+			// Changing next gallery item
+			nextEffect : 'elastic', // 'elastic', 'fade' or 'none'
+			nextSpeed  : 250,
+			nextEasing : 'swing',
+			nextMethod : 'changeIn',
+
+			// Changing previous gallery item
+			prevEffect : 'elastic', // 'elastic', 'fade' or 'none'
+			prevSpeed  : 250,
+			prevEasing : 'swing',
+			prevMethod : 'changeOut',
+
+			// Enable default helpers
+			helpers : {
+				overlay : true,
+				title   : true
+			},
+
+			// Callbacks
+			onCancel     : $.noop, // If canceling
+			beforeLoad   : $.noop, // Before loading
+			afterLoad    : $.noop, // After loading
+			beforeShow   : $.noop, // Before changing in current item
+			afterShow    : $.noop, // After opening
+			beforeChange : $.noop, // Before changing gallery item
+			beforeClose  : $.noop, // Before closing
+			afterClose   : $.noop  // After closing
+		},
+
+		//Current state
+		group    : {}, // Selected group
+		opts     : {}, // Group options
+		previous : null,  // Previous element
+		coming   : null,  // Element being loaded
+		current  : null,  // Currently loaded element
+		isActive : false, // Is activated
+		isOpen   : false, // Is currently open
+		isOpened : false, // Have been fully opened at least once
+
+		wrap  : null,
+		skin  : null,
+		outer : null,
+		inner : null,
+
+		player : {
+			timer    : null,
+			isActive : false
+		},
+
+		// Loaders
+		ajaxLoad   : null,
+		imgPreload : null,
+
+		// Some collections
+		transitions : {},
+		helpers     : {},
+
+		/*
+		 *	Static methods
+		 */
+
+		open: function (group, opts) {
+			if (!group) {
+				return;
+			}
+
+			if (!$.isPlainObject(opts)) {
+				opts = {};
+			}
+
+			// Close if already active
+			if (false === F.close(true)) {
+				return;
+			}
+
+			// Normalize group
+			if (!$.isArray(group)) {
+				group = isQuery(group) ? $(group).get() : [group];
+			}
+
+			// Recheck if the type of each element is `object` and set content type (image, ajax, etc)
+			$.each(group, function(i, element) {
+				var obj = {},
+					href,
+					title,
+					content,
+					type,
+					rez,
+					hrefParts,
+					selector;
+
+				if ($.type(element) === "object") {
+					// Check if is DOM element
+					if (element.nodeType) {
+						element = $(element);
+					}
+
+					if (isQuery(element)) {
+						obj = {
+							href    : element.data('fancybox-href') || element.attr('href'),
+							title   : element.data('fancybox-title') || element.attr('title'),
+							isDom   : true,
+							element : element
+						};
+
+						if ($.metadata) {
+							$.extend(true, obj, element.metadata());
+						}
+
+					} else {
+						obj = element;
+					}
+				}
+
+				href  = opts.href  || obj.href || (isString(element) ? element : null);
+				title = opts.title !== undefined ? opts.title : obj.title || '';
+
+				content = opts.content || obj.content;
+				type    = content ? 'html' : (opts.type  || obj.type);
+
+				if (!type && obj.isDom) {
+					type = element.data('fancybox-type');
+
+					if (!type) {
+						rez  = element.prop('class').match(/fancybox\.(\w+)/);
+						type = rez ? rez[1] : null;
+					}
+				}
+
+				if (isString(href)) {
+					// Try to guess the content type
+					if (!type) {
+						if (F.isImage(href)) {
+							type = 'image';
+
+						} else if (F.isSWF(href)) {
+							type = 'swf';
+
+						} else if (href.charAt(0) === '#') {
+							type = 'inline';
+
+						} else if (isString(element)) {
+							type    = 'html';
+							content = element;
+						}
+					}
+
+					// Split url into two pieces with source url and content selector, e.g,
+					// "/mypage.html #my_id" will load "/mypage.html" and display element having id "my_id"
+					if (type === 'ajax') {
+						hrefParts = href.split(/\s+/, 2);
+						href      = hrefParts.shift();
+						selector  = hrefParts.shift();
+					}
+				}
+
+				if (!content) {
+					if (type === 'inline') {
+						if (href) {
+							content = $( isString(href) ? href.replace(/.*(?=#[^\s]+$)/, '') : href ); //strip for ie7
+
+						} else if (obj.isDom) {
+							content = element;
+						}
+
+					} else if (type === 'html') {
+						content = href;
+
+					} else if (!type && !href && obj.isDom) {
+						type    = 'inline';
+						content = element;
+					}
+				}
+
+				$.extend(obj, {
+					href     : href,
+					type     : type,
+					content  : content,
+					title    : title,
+					selector : selector
+				});
+
+				group[ i ] = obj;
+			});
+
+			// Extend the defaults
+			F.opts = $.extend(true, {}, F.defaults, opts);
+
+			// All options are merged recursive except keys
+			if (opts.keys !== undefined) {
+				F.opts.keys = opts.keys ? $.extend({}, F.defaults.keys, opts.keys) : false;
+			}
+
+			F.group = group;
+
+			return F._start(F.opts.index);
+		},
+
+		// Cancel image loading or abort ajax request
+		cancel: function () {
+			var coming = F.coming;
+
+			if (!coming || false === F.trigger('onCancel')) {
+				return;
+			}
+
+			F.hideLoading();
+
+			if (F.ajaxLoad) {
+				F.ajaxLoad.abort();
+			}
+
+			F.ajaxLoad = null;
+
+			if (F.imgPreload) {
+				F.imgPreload.onload = F.imgPreload.onerror = null;
+			}
+
+			if (coming.wrap) {
+				coming.wrap.stop(true, true).trigger('onReset').remove();
+			}
+
+			F.coming = null;
+
+			// If the first item has been canceled, then clear everything
+			if (!F.current) {
+				F._afterZoomOut( coming );
+			}
+		},
+
+		// Start closing animation if is open; remove immediately if opening/closing
+		close: function (event) {
+			F.cancel();
+
+			if (false === F.trigger('beforeClose')) {
+				return;
+			}
+
+			F.unbindEvents();
+
+			if (!F.isActive) {
+				return;
+			}
+
+			if (!F.isOpen || event === true) {
+				$('.fancybox-wrap').stop(true).trigger('onReset').remove();
+
+				F._afterZoomOut();
+
+			} else {
+				F.isOpen = F.isOpened = false;
+				F.isClosing = true;
+
+				$('.fancybox-item, .fancybox-nav').remove();
+
+				F.wrap.stop(true, true).removeClass('fancybox-opened');
+
+				F.transitions[ F.current.closeMethod ]();
+			}
+		},
+
+		// Manage slideshow:
+		//   $.fancybox.play(); - toggle slideshow
+		//   $.fancybox.play( true ); - start
+		//   $.fancybox.play( false ); - stop
+		play: function ( action ) {
+			var clear = function () {
+					clearTimeout(F.player.timer);
+				},
+				set = function () {
+					clear();
+
+					if (F.current && F.player.isActive) {
+						F.player.timer = setTimeout(F.next, F.current.playSpeed);
+					}
+				},
+				stop = function () {
+					clear();
+
+					D.unbind('.player');
+
+					F.player.isActive = false;
+
+					F.trigger('onPlayEnd');
+				},
+				start = function () {
+					if (F.current && (F.current.loop || F.current.index < F.group.length - 1)) {
+						F.player.isActive = true;
+
+						D.bind({
+							'onCancel.player beforeClose.player' : stop,
+							'onUpdate.player'   : set,
+							'beforeLoad.player' : clear
+						});
+
+						set();
+
+						F.trigger('onPlayStart');
+					}
+				};
+
+			if (action === true || (!F.player.isActive && action !== false)) {
+				start();
+			} else {
+				stop();
+			}
+		},
+
+		// Navigate to next gallery item
+		next: function ( direction ) {
+			var current = F.current;
+
+			if (current) {
+				if (!isString(direction)) {
+					direction = current.direction.next;
+				}
+
+				F.jumpto(current.index + 1, direction, 'next');
+			}
+		},
+
+		// Navigate to previous gallery item
+		prev: function ( direction ) {
+			var current = F.current;
+
+			if (current) {
+				if (!isString(direction)) {
+					direction = current.direction.prev;
+				}
+
+				F.jumpto(current.index - 1, direction, 'prev');
+			}
+		},
+
+		// Navigate to gallery item by index
+		jumpto: function ( index, direction, router ) {
+			var current = F.current;
+
+			if (!current) {
+				return;
+			}
+
+			index = getScalar(index);
+
+			F.direction = direction || current.direction[ (index >= current.index ? 'next' : 'prev') ];
+			F.router    = router || 'jumpto';
+
+			if (current.loop) {
+				if (index < 0) {
+					index = current.group.length + (index % current.group.length);
+				}
+
+				index = index % current.group.length;
+			}
+
+			if (current.group[ index ] !== undefined) {
+				F.cancel();
+
+				F._start(index);
+			}
+		},
+
+		// Center inside viewport and toggle position type to fixed or absolute if needed
+		reposition: function (e, onlyAbsolute) {
+			var current = F.current,
+				wrap    = current ? current.wrap : null,
+				pos;
+
+			if (wrap) {
+				pos = F._getPosition(onlyAbsolute);
+
+				if (e && e.type === 'scroll') {
+					delete pos.position;
+
+					wrap.stop(true, true).animate(pos, 200);
+
+				} else {
+					wrap.css(pos);
+
+					current.pos = $.extend({}, current.dim, pos);
+				}
+			}
+		},
+
+		update: function (e) {
+			var type = (e && e.type),
+				anyway = !type || type === 'orientationchange';
+
+			if (anyway) {
+				clearTimeout(didUpdate);
+
+				didUpdate = null;
+			}
+
+			if (!F.isOpen || didUpdate) {
+				return;
+			}
+
+			didUpdate = setTimeout(function() {
+				var current = F.current;
+
+				if (!current || F.isClosing) {
+					return;
+				}
+
+				F.wrap.removeClass('fancybox-tmp');
+
+				if (anyway || type === 'load' || (type === 'resize' && current.autoResize)) {
+					F._setDimension();
+				}
+
+				if (!(type === 'scroll' && current.canShrink)) {
+					F.reposition(e);
+				}
+
+				F.trigger('onUpdate');
+
+				didUpdate = null;
+
+			}, (anyway && !isTouch ? 0 : 300));
+		},
+
+		// Shrink content to fit inside viewport or restore if resized
+		toggle: function ( action ) {
+			if (F.isOpen) {
+				F.current.fitToView = $.type(action) === "boolean" ? action : !F.current.fitToView;
+
+				// Help browser to restore document dimensions
+				if (isTouch) {
+					F.wrap.removeAttr('style').addClass('fancybox-tmp');
+
+					F.trigger('onUpdate');
+				}
+
+				F.update();
+			}
+		},
+
+		hideLoading: function () {
+			D.unbind('.loading');
+
+			$('#fancybox-loading').remove();
+		},
+
+		showLoading: function () {
+			var el, viewport;
+
+			F.hideLoading();
+
+			el = $('<div id="fancybox-loading"><div></div></div>').click(F.cancel).appendTo('body');
+
+			// If user will press the escape-button, the request will be canceled
+			D.bind('keydown.loading', function(e) {
+				if ((e.which || e.keyCode) === 27) {
+					e.preventDefault();
+
+					F.cancel();
+				}
+			});
+
+			if (!F.defaults.fixed) {
+				viewport = F.getViewport();
+
+				el.css({
+					position : 'absolute',
+					top  : (viewport.h * 0.5) + viewport.y,
+					left : (viewport.w * 0.5) + viewport.x
+				});
+			}
+		},
+
+		getViewport: function () {
+			var locked = (F.current && F.current.locked) || false,
+				rez    = {
+					x: W.scrollLeft(),
+					y: W.scrollTop()
+				};
+
+			if (locked) {
+				rez.w = locked[0].clientWidth;
+				rez.h = locked[0].clientHeight;
+
+			} else {
+				// See http://bugs.jquery.com/ticket/6724
+				rez.w = isTouch && window.innerWidth  ? window.innerWidth  : W.width();
+				rez.h = isTouch && window.innerHeight ? window.innerHeight : W.height();
+			}
+
+			return rez;
+		},
+
+		// Unbind the keyboard / clicking actions
+		unbindEvents: function () {
+			if (F.wrap && isQuery(F.wrap)) {
+				F.wrap.unbind('.fb');
+			}
+
+			D.unbind('.fb');
+			W.unbind('.fb');
+		},
+
+		bindEvents: function () {
+			var current = F.current,
+				keys;
+
+			if (!current) {
+				return;
+			}
+
+			// Changing document height on iOS devices triggers a 'resize' event,
+			// that can change document height... repeating infinitely
+			W.bind('orientationchange.fb' + (isTouch ? '' : ' resize.fb') + (current.autoCenter && !current.locked ? ' scroll.fb' : ''), F.update);
+
+			keys = current.keys;
+
+			if (keys) {
+				D.bind('keydown.fb', function (e) {
+					var code   = e.which || e.keyCode,
+						target = e.target || e.srcElement;
+
+					// Skip esc key if loading, because showLoading will cancel preloading
+					if (code === 27 && F.coming) {
+						return false;
+					}
+
+					// Ignore key combinations and key events within form elements
+					if (!e.ctrlKey && !e.altKey && !e.shiftKey && !e.metaKey && !(target && (target.type || $(target).is('[contenteditable]')))) {
+						$.each(keys, function(i, val) {
+							if (current.group.length > 1 && val[ code ] !== undefined) {
+								F[ i ]( val[ code ] );
+
+								e.preventDefault();
+								return false;
+							}
+
+							if ($.inArray(code, val) > -1) {
+								F[ i ] ();
+
+								e.preventDefault();
+								return false;
+							}
+						});
+					}
+				});
+			}
+
+			if ($.fn.mousewheel && current.mouseWheel) {
+				F.wrap.bind('mousewheel.fb', function (e, delta, deltaX, deltaY) {
+					var target = e.target || null,
+						parent = $(target),
+						canScroll = false;
+
+					while (parent.length) {
+						if (canScroll || parent.is('.fancybox-skin') || parent.is('.fancybox-wrap')) {
+							break;
+						}
+
+						canScroll = isScrollable( parent[0] );
+						parent    = $(parent).parent();
+					}
+
+					if (delta !== 0 && !canScroll) {
+						if (F.group.length > 1 && !current.canShrink) {
+							if (deltaY > 0 || deltaX > 0) {
+								F.prev( deltaY > 0 ? 'down' : 'left' );
+
+							} else if (deltaY < 0 || deltaX < 0) {
+								F.next( deltaY < 0 ? 'up' : 'right' );
+							}
+
+							e.preventDefault();
+						}
+					}
+				});
+			}
+		},
+
+		trigger: function (event, o) {
+			var ret, obj = o || F.coming || F.current;
+
+			if (!obj) {
+				return;
+			}
+
+			if ($.isFunction( obj[event] )) {
+				ret = obj[event].apply(obj, Array.prototype.slice.call(arguments, 1));
+			}
+
+			if (ret === false) {
+				return false;
+			}
+
+			if (obj.helpers) {
+				$.each(obj.helpers, function (helper, opts) {
+					if (opts && F.helpers[helper] && $.isFunction(F.helpers[helper][event])) {
+						F.helpers[helper][event]($.extend(true, {}, F.helpers[helper].defaults, opts), obj);
+					}
+				});
+			}
+
+			D.trigger(event);
+		},
+
+		isImage: function (str) {
+			return isString(str) && str.match(/(^data:image\/.*,)|(\.(jp(e|g|eg)|gif|png|bmp|webp|svg)((\?|#).*)?$)/i);
+		},
+
+		isSWF: function (str) {
+			return isString(str) && str.match(/\.(swf)((\?|#).*)?$/i);
+		},
+
+		_start: function (index) {
+			var coming = {},
+				obj,
+				href,
+				type,
+				margin,
+				padding;
+
+			index = getScalar( index );
+			obj   = F.group[ index ] || null;
+
+			if (!obj) {
+				return false;
+			}
+
+			coming = $.extend(true, {}, F.opts, obj);
+
+			// Convert margin and padding properties to array - top, right, bottom, left
+			margin  = coming.margin;
+			padding = coming.padding;
+
+			if ($.type(margin) === 'number') {
+				coming.margin = [margin, margin, margin, margin];
+			}
+
+			if ($.type(padding) === 'number') {
+				coming.padding = [padding, padding, padding, padding];
+			}
+
+			// 'modal' propery is just a shortcut
+			if (coming.modal) {
+				$.extend(true, coming, {
+					closeBtn   : false,
+					closeClick : false,
+					nextClick  : false,
+					arrows     : false,
+					mouseWheel : false,
+					keys       : null,
+					helpers: {
+						overlay : {
+							closeClick : false
+						}
+					}
+				});
+			}
+
+			// 'autoSize' property is a shortcut, too
+			if (coming.autoSize) {
+				coming.autoWidth = coming.autoHeight = true;
+			}
+
+			if (coming.width === 'auto') {
+				coming.autoWidth = true;
+			}
+
+			if (coming.height === 'auto') {
+				coming.autoHeight = true;
+			}
+
+			/*
+			 * Add reference to the group, so it`s possible to access from callbacks, example:
+			 * afterLoad : function() {
+			 *     this.title = 'Image ' + (this.index + 1) + ' of ' + this.group.length + (this.title ? ' - ' + this.title : '');
+			 * }
+			 */
+
+			coming.group  = F.group;
+			coming.index  = index;
+
+			// Give a chance for callback or helpers to update coming item (type, title, etc)
+			F.coming = coming;
+
+			if (false === F.trigger('beforeLoad')) {
+				F.coming = null;
+
+				return;
+			}
+
+			type = coming.type;
+			href = coming.href;
+
+			if (!type) {
+				F.coming = null;
+
+				//If we can not determine content type then drop silently or display next/prev item if looping through gallery
+				if (F.current && F.router && F.router !== 'jumpto') {
+					F.current.index = index;
+
+					return F[ F.router ]( F.direction );
+				}
+
+				return false;
+			}
+
+			F.isActive = true;
+
+			if (type === 'image' || type === 'swf') {
+				coming.autoHeight = coming.autoWidth = false;
+				coming.scrolling  = 'visible';
+			}
+
+			if (type === 'image') {
+				coming.aspectRatio = true;
+			}
+
+			if (type === 'iframe' && isTouch) {
+				coming.scrolling = 'scroll';
+			}
+
+			// Build the neccessary markup
+			coming.wrap = $(coming.tpl.wrap).addClass('fancybox-' + (isTouch ? 'mobile' : 'desktop') + ' fancybox-type-' + type + ' fancybox-tmp ' + coming.wrapCSS).appendTo( coming.parent || 'body' );
+
+			$.extend(coming, {
+				skin  : $('.fancybox-skin',  coming.wrap),
+				outer : $('.fancybox-outer', coming.wrap),
+				inner : $('.fancybox-inner', coming.wrap)
+			});
+
+			$.each(["Top", "Right", "Bottom", "Left"], function(i, v) {
+				coming.skin.css('padding' + v, getValue(coming.padding[ i ]));
+			});
+
+			F.trigger('onReady');
+
+			// Check before try to load; 'inline' and 'html' types need content, others - href
+			if (type === 'inline' || type === 'html') {
+				if (!coming.content || !coming.content.length) {
+					return F._error( 'content' );
+				}
+
+			} else if (!href) {
+				return F._error( 'href' );
+			}
+
+			if (type === 'image') {
+				F._loadImage();
+
+			} else if (type === 'ajax') {
+				F._loadAjax();
+
+			} else if (type === 'iframe') {
+				F._loadIframe();
+
+			} else {
+				F._afterLoad();
+			}
+		},
+
+		_error: function ( type ) {
+			$.extend(F.coming, {
+				type       : 'html',
+				autoWidth  : true,
+				autoHeight : true,
+				minWidth   : 0,
+				minHeight  : 0,
+				scrolling  : 'no',
+				hasError   : type,
+				content    : F.coming.tpl.error
+			});
+
+			F._afterLoad();
+		},
+
+		_loadImage: function () {
+			// Reset preload image so it is later possible to check "complete" property
+			var img = F.imgPreload = new Image();
+
+			img.onload = function () {
+				this.onload = this.onerror = null;
+
+				F.coming.width  = this.width / F.opts.pixelRatio;
+				F.coming.height = this.height / F.opts.pixelRatio;
+
+				F._afterLoad();
+			};
+
+			img.onerror = function () {
+				this.onload = this.onerror = null;
+
+				F._error( 'image' );
+			};
+
+			img.src = F.coming.href;
+
+			if (img.complete !== true) {
+				F.showLoading();
+			}
+		},
+
+		_loadAjax: function () {
+			var coming = F.coming;
+
+			F.showLoading();
+
+			F.ajaxLoad = $.ajax($.extend({}, coming.ajax, {
+				url: coming.href,
+				error: function (jqXHR, textStatus) {
+					if (F.coming && textStatus !== 'abort') {
+						F._error( 'ajax', jqXHR );
+
+					} else {
+						F.hideLoading();
+					}
+				},
+				success: function (data, textStatus) {
+					if (textStatus === 'success') {
+						coming.content = data;
+
+						F._afterLoad();
+					}
+				}
+			}));
+		},
+
+		_loadIframe: function() {
+			var coming = F.coming,
+				iframe = $(coming.tpl.iframe.replace(/\{rnd\}/g, new Date().getTime()))
+					.attr('scrolling', isTouch ? 'auto' : coming.iframe.scrolling)
+					.attr('src', coming.href);
+
+			// This helps IE
+			$(coming.wrap).bind('onReset', function () {
+				try {
+					$(this).find('iframe').hide().attr('src', '//about:blank').end().empty();
+				} catch (e) {}
+			});
+
+			if (coming.iframe.preload) {
+				F.showLoading();
+
+				iframe.one('load', function() {
+					$(this).data('ready', 1);
+
+					// iOS will lose scrolling if we resize
+					if (!isTouch) {
+						$(this).bind('load.fb', F.update);
+					}
+
+					// Without this trick:
+					//   - iframe won't scroll on iOS devices
+					//   - IE7 sometimes displays empty iframe
+					$(this).parents('.fancybox-wrap').width('100%').removeClass('fancybox-tmp').show();
+
+					F._afterLoad();
+				});
+			}
+
+			coming.content = iframe.appendTo( coming.inner );
+
+			if (!coming.iframe.preload) {
+				F._afterLoad();
+			}
+		},
+
+		_preloadImages: function() {
+			var group   = F.group,
+				current = F.current,
+				len     = group.length,
+				cnt     = current.preload ? Math.min(current.preload, len - 1) : 0,
+				item,
+				i;
+
+			for (i = 1; i <= cnt; i += 1) {
+				item = group[ (current.index + i ) % len ];
+
+				if (item.type === 'image' && item.href) {
+					new Image().src = item.href;
+				}
+			}
+		},
+
+		_afterLoad: function () {
+			var coming   = F.coming,
+				previous = F.current,
+				placeholder = 'fancybox-placeholder',
+				current,
+				content,
+				type,
+				scrolling,
+				href,
+				embed;
+
+			F.hideLoading();
+
+			if (!coming || F.isActive === false) {
+				return;
+			}
+
+			if (false === F.trigger('afterLoad', coming, previous)) {
+				coming.wrap.stop(true).trigger('onReset').remove();
+
+				F.coming = null;
+
+				return;
+			}
+
+			if (previous) {
+				F.trigger('beforeChange', previous);
+
+				previous.wrap.stop(true).removeClass('fancybox-opened')
+					.find('.fancybox-item, .fancybox-nav')
+					.remove();
+			}
+
+			F.unbindEvents();
+
+			current   = coming;
+			content   = coming.content;
+			type      = coming.type;
+			scrolling = coming.scrolling;
+
+			$.extend(F, {
+				wrap  : current.wrap,
+				skin  : current.skin,
+				outer : current.outer,
+				inner : current.inner,
+				current  : current,
+				previous : previous
+			});
+
+			href = current.href;
+
+			switch (type) {
+				case 'inline':
+				case 'ajax':
+				case 'html':
+					if (current.selector) {
+						content = $('<div>').html(content).find(current.selector);
+
+					} else if (isQuery(content)) {
+						if (!content.data(placeholder)) {
+							content.data(placeholder, $('<div class="' + placeholder + '"></div>').insertAfter( content ).hide() );
+						}
+
+						content = content.show().detach();
+
+						current.wrap.bind('onReset', function () {
+							if ($(this).find(content).length) {
+								content.hide().replaceAll( content.data(placeholder) ).data(placeholder, false);
+							}
+						});
+					}
+				break;
+
+				case 'image':
+					content = current.tpl.image.replace('{href}', href);
+				break;
+
+				case 'swf':
+					content = '<object id="fancybox-swf" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="100%" height="100%"><param name="movie" value="' + href + '"></param>';
+					embed   = '';
+
+					$.each(current.swf, function(name, val) {
+						content += '<param name="' + name + '" value="' + val + '"></param>';
+						embed   += ' ' + name + '="' + val + '"';
+					});
+
+					content += '<embed src="' + href + '" type="application/x-shockwave-flash" width="100%" height="100%"' + embed + '></embed></object>';
+				break;
+			}
+
+			if (!(isQuery(content) && content.parent().is(current.inner))) {
+				current.inner.append( content );
+			}
+
+			// Give a chance for helpers or callbacks to update elements
+			F.trigger('beforeShow');
+
+			// Set scrolling before calculating dimensions
+			current.inner.css('overflow', scrolling === 'yes' ? 'scroll' : (scrolling === 'no' ? 'hidden' : scrolling));
+
+			// Set initial dimensions and start position
+			F._setDimension();
+
+			F.reposition();
+
+			F.isOpen = false;
+			F.coming = null;
+
+			F.bindEvents();
+
+			if (!F.isOpened) {
+				$('.fancybox-wrap').not( current.wrap ).stop(true).trigger('onReset').remove();
+
+			} else if (previous.prevMethod) {
+				F.transitions[ previous.prevMethod ]();
+			}
+
+			F.transitions[ F.isOpened ? current.nextMethod : current.openMethod ]();
+
+			F._preloadImages();
+		},
+
+		_setDimension: function () {
+			var viewport   = F.getViewport(),
+				steps      = 0,
+				canShrink  = false,
+				canExpand  = false,
+				wrap       = F.wrap,
+				skin       = F.skin,
+				inner      = F.inner,
+				current    = F.current,
+				width      = current.width,
+				height     = current.height,
+				minWidth   = current.minWidth,
+				minHeight  = current.minHeight,
+				maxWidth   = current.maxWidth,
+				maxHeight  = current.maxHeight,
+				scrolling  = current.scrolling,
+				scrollOut  = current.scrollOutside ? current.scrollbarWidth : 0,
+				margin     = current.margin,
+				wMargin    = getScalar(margin[1] + margin[3]),
+				hMargin    = getScalar(margin[0] + margin[2]),
+				wPadding,
+				hPadding,
+				wSpace,
+				hSpace,
+				origWidth,
+				origHeight,
+				origMaxWidth,
+				origMaxHeight,
+				ratio,
+				width_,
+				height_,
+				maxWidth_,
+				maxHeight_,
+				iframe,
+				body;
+
+			// Reset dimensions so we could re-check actual size
+			wrap.add(skin).add(inner).width('auto').height('auto').removeClass('fancybox-tmp');
+
+			wPadding = getScalar(skin.outerWidth(true)  - skin.width());
+			hPadding = getScalar(skin.outerHeight(true) - skin.height());
+
+			// Any space between content and viewport (margin, padding, border, title)
+			wSpace = wMargin + wPadding;
+			hSpace = hMargin + hPadding;
+
+			origWidth  = isPercentage(width)  ? (viewport.w - wSpace) * getScalar(width)  / 100 : width;
+			origHeight = isPercentage(height) ? (viewport.h - hSpace) * getScalar(height) / 100 : height;
+
+			if (current.type === 'iframe') {
+				iframe = current.content;
+
+				if (current.autoHeight && iframe.data('ready') === 1) {
+					try {
+						if (iframe[0].contentWindow.document.location) {
+							inner.width( origWidth ).height(9999);
+
+							body = iframe.contents().find('body');
+
+							if (scrollOut) {
+								body.css('overflow-x', 'hidden');
+							}
+
+							origHeight = body.outerHeight(true);
+						}
+
+					} catch (e) {}
+				}
+
+			} else if (current.autoWidth || current.autoHeight) {
+				inner.addClass( 'fancybox-tmp' );
+
+				// Set width or height in case we need to calculate only one dimension
+				if (!current.autoWidth) {
+					inner.width( origWidth );
+				}
+
+				if (!current.autoHeight) {
+					inner.height( origHeight );
+				}
+
+				if (current.autoWidth) {
+					origWidth = inner.width();
+				}
+
+				if (current.autoHeight) {
+					origHeight = inner.height();
+				}
+
+				inner.removeClass( 'fancybox-tmp' );
+			}
+
+			width  = getScalar( origWidth );
+			height = getScalar( origHeight );
+
+			ratio  = origWidth / origHeight;
+
+			// Calculations for the content
+			minWidth  = getScalar(isPercentage(minWidth) ? getScalar(minWidth, 'w') - wSpace : minWidth);
+			maxWidth  = getScalar(isPercentage(maxWidth) ? getScalar(maxWidth, 'w') - wSpace : maxWidth);
+
+			minHeight = getScalar(isPercentage(minHeight) ? getScalar(minHeight, 'h') - hSpace : minHeight);
+			maxHeight = getScalar(isPercentage(maxHeight) ? getScalar(maxHeight, 'h') - hSpace : maxHeight);
+
+			// These will be used to determine if wrap can fit in the viewport
+			origMaxWidth  = maxWidth;
+			origMaxHeight = maxHeight;
+
+			if (current.fitToView) {
+				maxWidth  = Math.min(viewport.w - wSpace, maxWidth);
+				maxHeight = Math.min(viewport.h - hSpace, maxHeight);
+			}
+
+			maxWidth_  = viewport.w - wMargin;
+			maxHeight_ = viewport.h - hMargin;
+
+			if (current.aspectRatio) {
+				if (width > maxWidth) {
+					width  = maxWidth;
+					height = getScalar(width / ratio);
+				}
+
+				if (height > maxHeight) {
+					height = maxHeight;
+					width  = getScalar(height * ratio);
+				}
+
+				if (width < minWidth) {
+					width  = minWidth;
+					height = getScalar(width / ratio);
+				}
+
+				if (height < minHeight) {
+					height = minHeight;
+					width  = getScalar(height * ratio);
+				}
+
+			} else {
+				width = Math.max(minWidth, Math.min(width, maxWidth));
+
+				if (current.autoHeight && current.type !== 'iframe') {
+					inner.width( width );
+
+					height = inner.height();
+				}
+
+				height = Math.max(minHeight, Math.min(height, maxHeight));
+			}
+
+			// Try to fit inside viewport (including the title)
+			if (current.fitToView) {
+				inner.width( width ).height( height );
+
+				wrap.width( width + wPadding );
+
+				// Real wrap dimensions
+				width_  = wrap.width();
+				height_ = wrap.height();
+
+				if (current.aspectRatio) {
+					while ((width_ > maxWidth_ || height_ > maxHeight_) && width > minWidth && height > minHeight) {
+						if (steps++ > 19) {
+							break;
+						}
+
+						height = Math.max(minHeight, Math.min(maxHeight, height - 10));
+						width  = getScalar(height * ratio);
+
+						if (width < minWidth) {
+							width  = minWidth;
+							height = getScalar(width / ratio);
+						}
+
+						if (width > maxWidth) {
+							width  = maxWidth;
+							height = getScalar(width / ratio);
+						}
+
+						inner.width( width ).height( height );
+
+						wrap.width( width + wPadding );
+
+						width_  = wrap.width();
+						height_ = wrap.height();
+					}
+
+				} else {
+					width  = Math.max(minWidth,  Math.min(width,  width  - (width_  - maxWidth_)));
+					height = Math.max(minHeight, Math.min(height, height - (height_ - maxHeight_)));
+				}
+			}
+
+			if (scrollOut && scrolling === 'auto' && height < origHeight && (width + wPadding + scrollOut) < maxWidth_) {
+				width += scrollOut;
+			}
+
+			inner.width( width ).height( height );
+
+			wrap.width( width + wPadding );
+
+			width_  = wrap.width();
+			height_ = wrap.height();
+
+			canShrink = (width_ > maxWidth_ || height_ > maxHeight_) && width > minWidth && height > minHeight;
+			canExpand = current.aspectRatio ? (width < origMaxWidth && height < origMaxHeight && width < origWidth && height < origHeight) : ((width < origMaxWidth || height < origMaxHeight) && (width < origWidth || height < origHeight));
+
+			$.extend(current, {
+				dim : {
+					width	: getValue( width_ ),
+					height	: getValue( height_ )
+				},
+				origWidth  : origWidth,
+				origHeight : origHeight,
+				canShrink  : canShrink,
+				canExpand  : canExpand,
+				wPadding   : wPadding,
+				hPadding   : hPadding,
+				wrapSpace  : height_ - skin.outerHeight(true),
+				skinSpace  : skin.height() - height
+			});
+
+			if (!iframe && current.autoHeight && height > minHeight && height < maxHeight && !canExpand) {
+				inner.height('auto');
+			}
+		},
+
+		_getPosition: function (onlyAbsolute) {
+			var current  = F.current,
+				viewport = F.getViewport(),
+				margin   = current.margin,
+				width    = F.wrap.width()  + margin[1] + margin[3],
+				height   = F.wrap.height() + margin[0] + margin[2],
+				rez      = {
+					position: 'absolute',
+					top  : margin[0],
+					left : margin[3]
+				};
+
+			if (current.autoCenter && current.fixed && !onlyAbsolute && height <= viewport.h && width <= viewport.w) {
+				rez.position = 'fixed';
+
+			} else if (!current.locked) {
+				rez.top  += viewport.y;
+				rez.left += viewport.x;
+			}
+
+			rez.top  = getValue(Math.max(rez.top,  rez.top  + ((viewport.h - height) * current.topRatio)));
+			rez.left = getValue(Math.max(rez.left, rez.left + ((viewport.w - width)  * current.leftRatio)));
+
+			return rez;
+		},
+
+		_afterZoomIn: function () {
+			var current = F.current;
+
+			if (!current) {
+				return;
+			}
+
+			F.isOpen = F.isOpened = true;
+
+			F.wrap.css('overflow', 'visible').addClass('fancybox-opened');
+
+			F.update();
+
+			// Assign a click event
+			if ( current.closeClick || (current.nextClick && F.group.length > 1) ) {
+				F.inner.css('cursor', 'pointer').bind('click.fb', function(e) {
+					if (!$(e.target).is('a') && !$(e.target).parent().is('a')) {
+						e.preventDefault();
+
+						F[ current.closeClick ? 'close' : 'next' ]();
+					}
+				});
+			}
+
+			// Create a close button
+			if (current.closeBtn) {
+				$(current.tpl.closeBtn).appendTo(F.skin).bind('click.fb', function(e) {
+					e.preventDefault();
+
+					F.close();
+				});
+			}
+
+			// Create navigation arrows
+			if (current.arrows && F.group.length > 1) {
+				if (current.loop || current.index > 0) {
+					$(current.tpl.prev).appendTo(F.outer).bind('click.fb', F.prev);
+				}
+
+				if (current.loop || current.index < F.group.length - 1) {
+					$(current.tpl.next).appendTo(F.outer).bind('click.fb', F.next);
+				}
+			}
+
+			F.trigger('afterShow');
+
+			// Stop the slideshow if this is the last item
+			if (!current.loop && current.index === current.group.length - 1) {
+				F.play( false );
+
+			} else if (F.opts.autoPlay && !F.player.isActive) {
+				F.opts.autoPlay = false;
+
+				F.play();
+			}
+		},
+
+		_afterZoomOut: function ( obj ) {
+			obj = obj || F.current;
+
+			$('.fancybox-wrap').trigger('onReset').remove();
+
+			$.extend(F, {
+				group  : {},
+				opts   : {},
+				router : false,
+				current   : null,
+				isActive  : false,
+				isOpened  : false,
+				isOpen    : false,
+				isClosing : false,
+				wrap   : null,
+				skin   : null,
+				outer  : null,
+				inner  : null
+			});
+
+			F.trigger('afterClose', obj);
+		}
+	});
+
+	/*
+	 *	Default transitions
+	 */
+
+	F.transitions = {
+		getOrigPosition: function () {
+			var current  = F.current,
+				element  = current.element,
+				orig     = current.orig,
+				pos      = {},
+				width    = 50,
+				height   = 50,
+				hPadding = current.hPadding,
+				wPadding = current.wPadding,
+				viewport = F.getViewport();
+
+			if (!orig && current.isDom && element.is(':visible')) {
+				orig = element.find('img:first');
+
+				if (!orig.length) {
+					orig = element;
+				}
+			}
+
+			if (isQuery(orig)) {
+				pos = orig.offset();
+
+				if (orig.is('img')) {
+					width  = orig.outerWidth();
+					height = orig.outerHeight();
+				}
+
+			} else {
+				pos.top  = viewport.y + (viewport.h - height) * current.topRatio;
+				pos.left = viewport.x + (viewport.w - width)  * current.leftRatio;
+			}
+
+			if (F.wrap.css('position') === 'fixed' || current.locked) {
+				pos.top  -= viewport.y;
+				pos.left -= viewport.x;
+			}
+
+			pos = {
+				top     : getValue(pos.top  - hPadding * current.topRatio),
+				left    : getValue(pos.left - wPadding * current.leftRatio),
+				width   : getValue(width  + wPadding),
+				height  : getValue(height + hPadding)
+			};
+
+			return pos;
+		},
+
+		step: function (now, fx) {
+			var ratio,
+				padding,
+				value,
+				prop       = fx.prop,
+				current    = F.current,
+				wrapSpace  = current.wrapSpace,
+				skinSpace  = current.skinSpace;
+
+			if (prop === 'width' || prop === 'height') {
+				ratio = fx.end === fx.start ? 1 : (now - fx.start) / (fx.end - fx.start);
+
+				if (F.isClosing) {
+					ratio = 1 - ratio;
+				}
+
+				padding = prop === 'width' ? current.wPadding : current.hPadding;
+				value   = now - padding;
+
+				F.skin[ prop ](  getScalar( prop === 'width' ?  value : value - (wrapSpace * ratio) ) );
+				F.inner[ prop ]( getScalar( prop === 'width' ?  value : value - (wrapSpace * ratio) - (skinSpace * ratio) ) );
+			}
+		},
+
+		zoomIn: function () {
+			var current  = F.current,
+				startPos = current.pos,
+				effect   = current.openEffect,
+				elastic  = effect === 'elastic',
+				endPos   = $.extend({opacity : 1}, startPos);
+
+			// Remove "position" property that breaks older IE
+			delete endPos.position;
+
+			if (elastic) {
+				startPos = this.getOrigPosition();
+
+				if (current.openOpacity) {
+					startPos.opacity = 0.1;
+				}
+
+			} else if (effect === 'fade') {
+				startPos.opacity = 0.1;
+			}
+
+			F.wrap.css(startPos).animate(endPos, {
+				duration : effect === 'none' ? 0 : current.openSpeed,
+				easing   : current.openEasing,
+				step     : elastic ? this.step : null,
+				complete : F._afterZoomIn
+			});
+		},
+
+		zoomOut: function () {
+			var current  = F.current,
+				effect   = current.closeEffect,
+				elastic  = effect === 'elastic',
+				endPos   = {opacity : 0.1};
+
+			if (elastic) {
+				endPos = this.getOrigPosition();
+
+				if (current.closeOpacity) {
+					endPos.opacity = 0.1;
+				}
+			}
+
+			F.wrap.animate(endPos, {
+				duration : effect === 'none' ? 0 : current.closeSpeed,
+				easing   : current.closeEasing,
+				step     : elastic ? this.step : null,
+				complete : F._afterZoomOut
+			});
+		},
+
+		changeIn: function () {
+			var current   = F.current,
+				effect    = current.nextEffect,
+				startPos  = current.pos,
+				endPos    = { opacity : 1 },
+				direction = F.direction,
+				distance  = 200,
+				field;
+
+			startPos.opacity = 0.1;
+
+			if (effect === 'elastic') {
+				field = direction === 'down' || direction === 'up' ? 'top' : 'left';
+
+				if (direction === 'down' || direction === 'right') {
+					startPos[ field ] = getValue(getScalar(startPos[ field ]) - distance);
+					endPos[ field ]   = '+=' + distance + 'px';
+
+				} else {
+					startPos[ field ] = getValue(getScalar(startPos[ field ]) + distance);
+					endPos[ field ]   = '-=' + distance + 'px';
+				}
+			}
+
+			// Workaround for http://bugs.jquery.com/ticket/12273
+			if (effect === 'none') {
+				F._afterZoomIn();
+
+			} else {
+				F.wrap.css(startPos).animate(endPos, {
+					duration : current.nextSpeed,
+					easing   : current.nextEasing,
+					complete : F._afterZoomIn
+				});
+			}
+		},
+
+		changeOut: function () {
+			var previous  = F.previous,
+				effect    = previous.prevEffect,
+				endPos    = { opacity : 0.1 },
+				direction = F.direction,
+				distance  = 200;
+
+			if (effect === 'elastic') {
+				endPos[ direction === 'down' || direction === 'up' ? 'top' : 'left' ] = ( direction === 'up' || direction === 'left' ? '-' : '+' ) + '=' + distance + 'px';
+			}
+
+			previous.wrap.animate(endPos, {
+				duration : effect === 'none' ? 0 : previous.prevSpeed,
+				easing   : previous.prevEasing,
+				complete : function () {
+					$(this).trigger('onReset').remove();
+				}
+			});
+		}
+	};
+
+	/*
+	 *	Overlay helper
+	 */
+
+	F.helpers.overlay = {
+		defaults : {
+			closeClick : true,      // if true, fancyBox will be closed when user clicks on the overlay
+			speedOut   : 200,       // duration of fadeOut animation
+			showEarly  : true,      // indicates if should be opened immediately or wait until the content is ready
+			css        : {},        // custom CSS properties
+			locked     : !isTouch,  // if true, the content will be locked into overlay
+			fixed      : true       // if false, the overlay CSS position property will not be set to "fixed"
+		},
+
+		overlay : null,      // current handle
+		fixed   : false,     // indicates if the overlay has position "fixed"
+		el      : $('html'), // element that contains "the lock"
+
+		// Public methods
+		create : function(opts) {
+			opts = $.extend({}, this.defaults, opts);
+
+			if (this.overlay) {
+				this.close();
+			}
+
+			this.overlay = $('<div class="fancybox-overlay"></div>').appendTo( F.coming ? F.coming.parent : opts.parent );
+			this.fixed   = false;
+
+			if (opts.fixed && F.defaults.fixed) {
+				this.overlay.addClass('fancybox-overlay-fixed');
+
+				this.fixed = true;
+			}
+		},
+
+		open : function(opts) {
+			var that = this;
+
+			opts = $.extend({}, this.defaults, opts);
+
+			if (this.overlay) {
+				this.overlay.unbind('.overlay').width('auto').height('auto');
+
+			} else {
+				this.create(opts);
+			}
+
+			if (!this.fixed) {
+				W.bind('resize.overlay', $.proxy( this.update, this) );
+
+				this.update();
+			}
+
+			if (opts.closeClick) {
+				this.overlay.bind('click.overlay', function(e) {
+					if ($(e.target).hasClass('fancybox-overlay')) {
+						if (F.isActive) {
+							F.close();
+						} else {
+							that.close();
+						}
+
+						return false;
+					}
+				});
+			}
+
+			this.overlay.css( opts.css ).show();
+		},
+
+		close : function() {
+			var scrollV, scrollH;
+
+			W.unbind('resize.overlay');
+
+			if (this.el.hasClass('fancybox-lock')) {
+				$('.fancybox-margin').removeClass('fancybox-margin');
+
+				scrollV = W.scrollTop();
+				scrollH = W.scrollLeft();
+
+				this.el.removeClass('fancybox-lock');
+
+				W.scrollTop( scrollV ).scrollLeft( scrollH );
+			}
+
+			$('.fancybox-overlay').remove().hide();
+
+			$.extend(this, {
+				overlay : null,
+				fixed   : false
+			});
+		},
+
+		// Private, callbacks
+
+		update : function () {
+			var width = '100%', offsetWidth;
+
+			// Reset width/height so it will not mess
+			this.overlay.width(width).height('100%');
+
+			// jQuery does not return reliable result for IE
+			if (IE) {
+				offsetWidth = Math.max(document.documentElement.offsetWidth, document.body.offsetWidth);
+
+				if (D.width() > offsetWidth) {
+					width = D.width();
+				}
+
+			} else if (D.width() > W.width()) {
+				width = D.width();
+			}
+
+			this.overlay.width(width).height(D.height());
+		},
+
+		// This is where we can manipulate DOM, because later it would cause iframes to reload
+		onReady : function (opts, obj) {
+			var overlay = this.overlay;
+
+			$('.fancybox-overlay').stop(true, true);
+
+			if (!overlay) {
+				this.create(opts);
+			}
+
+			if (opts.locked && this.fixed && obj.fixed) {
+				if (!overlay) {
+					this.margin = D.height() > W.height() ? $('html').css('margin-right').replace("px", "") : false;
+				}
+
+				obj.locked = this.overlay.append( obj.wrap );
+				obj.fixed  = false;
+			}
+
+			if (opts.showEarly === true) {
+				this.beforeShow.apply(this, arguments);
+			}
+		},
+
+		beforeShow : function(opts, obj) {
+			var scrollV, scrollH;
+
+			if (obj.locked) {
+				if (this.margin !== false) {
+					$('*').filter(function(){
+						return ($(this).css('position') === 'fixed' && !$(this).hasClass("fancybox-overlay") && !$(this).hasClass("fancybox-wrap") );
+					}).addClass('fancybox-margin');
+
+					this.el.addClass('fancybox-margin');
+				}
+
+				scrollV = W.scrollTop();
+				scrollH = W.scrollLeft();
+
+				this.el.addClass('fancybox-lock');
+
+				W.scrollTop( scrollV ).scrollLeft( scrollH );
+			}
+
+			this.open(opts);
+		},
+
+		onUpdate : function() {
+			if (!this.fixed) {
+				this.update();
+			}
+		},
+
+		afterClose: function (opts) {
+			// Remove overlay if exists and fancyBox is not opening
+			// (e.g., it is not being open using afterClose callback)
+			//if (this.overlay && !F.isActive) {
+			if (this.overlay && !F.coming) {
+				this.overlay.fadeOut(opts.speedOut, $.proxy( this.close, this ));
+			}
+		}
+	};
+
+	/*
+	 *	Title helper
+	 */
+
+	F.helpers.title = {
+		defaults : {
+			type     : 'float', // 'float', 'inside', 'outside' or 'over',
+			position : 'bottom' // 'top' or 'bottom'
+		},
+
+		beforeShow: function (opts) {
+			var current = F.current,
+				text    = current.title,
+				type    = opts.type,
+				title,
+				target;
+
+			if ($.isFunction(text)) {
+				text = text.call(current.element, current);
+			}
+
+			if (!isString(text) || $.trim(text) === '') {
+				return;
+			}
+
+			title = $('<div class="fancybox-title fancybox-title-' + type + '-wrap">' + text + '</div>');
+
+			switch (type) {
+				case 'inside':
+					target = F.skin;
+				break;
+
+				case 'outside':
+					target = F.wrap;
+				break;
+
+				case 'over':
+					target = F.inner;
+				break;
+
+				default: // 'float'
+					target = F.skin;
+
+					title.appendTo('body');
+
+					if (IE) {
+						title.width( title.width() );
+					}
+
+					title.wrapInner('<span class="child"></span>');
+
+					//Increase bottom margin so this title will also fit into viewport
+					F.current.margin[2] += Math.abs( getScalar(title.css('margin-bottom')) );
+				break;
+			}
+
+			title[ (opts.position === 'top' ? 'prependTo'  : 'appendTo') ](target);
+		}
+	};
+
+	// jQuery plugin initialization
+	$.fn.fancybox = function (options) {
+		var index,
+			that     = $(this),
+			selector = this.selector || '',
+			run      = function(e) {
+				var what = $(this).blur(), idx = index, relType, relVal;
+
+				if (!(e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) && !what.is('.fancybox-wrap')) {
+					relType = options.groupAttr || 'data-fancybox-group';
+					relVal  = what.attr(relType);
+
+					if (!relVal) {
+						relType = 'rel';
+						relVal  = what.get(0)[ relType ];
+					}
+
+					if (relVal && relVal !== '' && relVal !== 'nofollow') {
+						what = selector.length ? $(selector) : that;
+						what = what.filter('[' + relType + '="' + relVal + '"]');
+						idx  = what.index(this);
+					}
+
+					options.index = idx;
+
+					// Stop an event from bubbling if everything is fine
+					if (F.open(what, options) !== false) {
+						e.preventDefault();
+					}
+				}
+			};
+
+		options = options || {};
+		index   = options.index || 0;
+
+		if (!selector || options.live === false) {
+			that.unbind('click.fb-start').bind('click.fb-start', run);
+
+		} else {
+			D.undelegate(selector, 'click.fb-start').delegate(selector + ":not('.fancybox-item, .fancybox-nav')", 'click.fb-start', run);
+		}
+
+		this.filter('[data-fancybox-start=1]').trigger('click');
+
+		return this;
+	};
+
+	// Tests that need a body at doc ready
+	D.ready(function() {
+		var w1, w2;
+
+		if ( $.scrollbarWidth === undefined ) {
+			// http://benalman.com/projects/jquery-misc-plugins/#scrollbarwidth
+			$.scrollbarWidth = function() {
+				var parent = $('<div style="width:50px;height:50px;overflow:auto"><div/></div>').appendTo('body'),
+					child  = parent.children(),
+					width  = child.innerWidth() - child.height( 99 ).innerWidth();
+
+				parent.remove();
+
+				return width;
+			};
+		}
+
+		if ( $.support.fixedPosition === undefined ) {
+			$.support.fixedPosition = (function() {
+				var elem  = $('<div style="position:fixed;top:20px;"></div>').appendTo('body'),
+					fixed = ( elem[0].offsetTop === 20 || elem[0].offsetTop === 15 );
+
+				elem.remove();
+
+				return fixed;
+			}());
+		}
+
+		$.extend(F.defaults, {
+			scrollbarWidth : $.scrollbarWidth(),
+			fixed  : $.support.fixedPosition,
+			parent : $('body')
+		});
+
+		//Get real width of page scroll-bar
+		w1 = $(window).width();
+
+		H.addClass('fancybox-lock-test');
+
+		w2 = $(window).width();
+
+		H.removeClass('fancybox-lock-test');
+
+		$("<style type='text/css'>.fancybox-margin{margin-right:" + (w2 - w1) + "px;}</style>").appendTo("head");
+	});
+
+}(window, document, jQuery));

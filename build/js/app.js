@@ -329,4 +329,56 @@ $(document).ready( function() {
 	}
 	tab();
 
+	// ScrollPane
+	$('.js-scroll').each(function(){
+		$(this).jScrollPane();
+	});
+	$('.js-scroll-h').each(function(){
+		var this_ = $(this),
+			table = $(this).find('table');
+		if ( table.height() > 822 ) {
+			$(this).jScrollPane();
+		}
+	});
+	$('[class*="js-scroll"]').each(function() {
+		var api = $(this).data('jsp'),
+			throttleTimeout;
+		$(window).bind('resize', function() {
+			if (!throttleTimeout) {
+				throttleTimeout = setTimeout(function() {
+					api.reinitialise();
+					throttleTimeout = null;
+				},50);
+			}
+		});
+	});
+
+	// table
+	$('[class*="js-sheet"] tr').hover(function () {
+		var trR = $('.js-sheet-r tr'),
+			trL = $('.js-sheet-l tr'),
+			thisIndex = $(this).index(),
+		 	thisEq = trR.eq(thisIndex),
+		 	lEq = trL.eq(thisIndex);
+		$('[class*="js-sheet"] tr').removeClass('is-hover');
+		$(this).addClass('is-hover');
+		thisEq.addClass('is-hover');
+		lEq.addClass('is-hover');
+	});
+	
+	// fansybox
+	$("[rel='js-fansybox']").fancybox({
+		helpers : {
+			title: {
+				type	: 'inside',
+				position: 'top'
+			}
+		},
+		openEffect  : 'fade',
+		closeEffect : 'fade',
+		nextEffect  : 'fade',
+		prevEffect  : 'fade',
+		padding		: 30
+	});
+	
 });
