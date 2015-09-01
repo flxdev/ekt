@@ -1,0 +1,57 @@
+// popup
+.popup
+	position: fixed
+	top: 0
+	left: 0
+	right: 0
+	bottom: 0
+	z-index: 100
+	cursor: pointer
+	background: rgba($green, .97)
+	display: none
+	+vertical
+	.popup__in
+		position: relative
+		padding: 52px
+		width: 900px
+		text-align: left
+		font-size: 13px
+		cursor: default
+		vertical-align: middle
+		box-shadow: (0 0 8px rgba(11, 154, 66, 0.15))
+		background-color: #fff
+		display: inline-block
+	.popup__close
+		position: absolute
+		top: 20px
+		right: 20px
+		background-color: transparent
+		+s($close)
+	.popup__title
+		margin-bottom: 35px
+		padding-bottom: 10px
+		font-size: 24px
+		line-height: 36px
+		border-bottom: 1px solid $border-debr
+	.popup__wrap
+		position: relative
+		margin: 0 -52px -52px 0
+		max-height: 463px
+		overflow-x: auto
+		&:before
+			position: absolute
+			content: ''
+			left: 0
+			bottom: 0
+			right: 0
+			height: 41px
+			z-index: 1
+			box-shadow: (0 -7px 21px white)
+			background-color: #fff
+		p
+			&:first-child
+				margin-top: 0
+	.jspVerticalBar
+		z-index: 2
+	.title-h3
+		margin: 20px 0

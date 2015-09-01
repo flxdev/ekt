@@ -331,7 +331,9 @@ $(document).ready( function() {
 
 	// ScrollPane
 	$('.js-scroll').each(function(){
-		$(this).jScrollPane();
+		$(this).jScrollPane({
+			autoReinitialise: true
+		});
 	});
 	$('.js-scroll-h').each(function(){
 		var this_ = $(this),
@@ -340,18 +342,18 @@ $(document).ready( function() {
 			$(this).jScrollPane();
 		}
 	});
-	$('[class*="js-scroll"]').each(function() {
-		var api = $(this).data('jsp'),
-			throttleTimeout;
-		$(window).bind('resize', function() {
-			if (!throttleTimeout) {
-				throttleTimeout = setTimeout(function() {
-					api.reinitialise();
-					throttleTimeout = null;
-				},50);
-			}
-		});
-	});
+	// $('[class*="js-scroll"]').each(function() {
+	// 	var api = $(this).data('jsp'),
+	// 		throttleTimeout;
+	// 	$(window).bind('resize', function() {
+	// 		if (!throttleTimeout) {
+	// 			throttleTimeout = setTimeout(function() {
+	// 				api.reinitialise();
+	// 				throttleTimeout = null;
+	// 			},50);
+	// 		}
+	// 	});
+	// });
 
 	// table
 	$('[class*="js-sheet"] tr').hover(function () {
@@ -401,10 +403,12 @@ $(document).ready( function() {
 			return false;
 		});
 		close.on('click', function() {
+			body.removeClass('is-hidden');
 			parent.removeClass('is-open');
 			popup.fadeOut(300);
 		});
 		popup.on('click', function() {
+			body.removeClass('is-hidden');
 			parent.removeClass('is-open');
 			popup.fadeOut(300);
 		});
@@ -421,4 +425,18 @@ $(document).ready( function() {
 		})
 		
 	} popupScroll();
+
+	$('.js-add-rig').on('click', function() {
+		var this_ 	= $(this),
+			parents = this_.parents('.js-form')
+			parent 	= this_.parent(),
+			block 	= parents.find('form > .js-form-add:first')
+			block_all 	= parents.find('.js-form-add');
+		block.clone().insertBefore(parent);
+		block_all.addClass('form__in');
+		parent.prev(block_all).removeClass('form__in');
+		return false;
+	});
+
+
 });

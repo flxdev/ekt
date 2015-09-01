@@ -13,6 +13,7 @@
 	color: #fff
 	+tr(background .3s)
 	&:hover
+		text-decoration: none
 		background: $primary_h
 	&:active
 		background: $primary_a
@@ -72,6 +73,29 @@
 	&:after
 		opacity: 0
 		+s($ico-share-hov)
+.btn_topic
+	@extend .btn_share
+	padding-left: 48px
+	&:hover
+		.ico
+			&:before,
+				opacity: 0
+			&:after
+				opacity: 1
+	&:before,
+	&:after
+		display: none
+	.ico
+		position: absolute
+		content: ''
+		top: 50%
+		left: 10px
+		+translate(0,-50%)
+		&:before,
+		&:after
+			+transition(opacity .3s)
+		&:after
+			opacity: 0
 .btn_basket
 	padding: 7px 12px
 	min-width: auto
@@ -119,6 +143,16 @@
 	span
 		border-bottom: 1px dotted #000
 		+transition(border-color .3s)
+
+.btn_ico
+	text-transform: initial
+	font-size: 13px
+	min-width: 150px
+	+f300
+	.ico
+		margin-top: -3px
+		margin-right: 8px
+		vertical-align: middle
 
 .l-layout
 	display: table

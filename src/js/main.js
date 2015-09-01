@@ -11,5 +11,8 @@
 //= jquery.jscrollpane.js
 //= jquery.fancybox.js
 //= jquery.maskedinput.min.js
+//= uikit.js
+//= form-select.js
+//= datepicker.js
 
 //= app.js

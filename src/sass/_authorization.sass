@@ -6,6 +6,72 @@
             letter-spacing: -.4px
     .cab__buttons
         margin-top: 30px
+    .cab__print
+        margin: 34px 0 15px
+        text-align: right
+    .info-brown
+        margin-top: 52px
+    table
+        +r(1200)
+            font-size: 12px
+        tr
+            border-bottom: 1px solid $border-td
+            &:first-child
+                text-align: left
+        th
+            padding: 7px 10px 19px 0
+            font-weight: normal
+        th,
+        td
+            min-width: 62px
+            width: 12%
+            vertical-align: top
+            &:nth-child(2)
+                width: 7%
+            &:nth-child(3)
+                padding-right: 15px
+                min-width: 163px
+                width: 32%
+                letter-spacing: 0.9px
+            &:nth-child(4)
+                width: 13%
+        td
+            padding: 16px 0 23px
+            &.is-yellow
+                color: $yellow-table
+            &.is-red
+                color: $red
+        a
+            display: inline-block
+        img
+            margin-top: 4px
+            display: block
+        .sorting__item
+            margin: 0 10px 0 -10px
+            text-align: left
+            line-height: 20px
+            &:before
+                bottom: 14px
+        .article
+            font-size: 12px
+
+// repair
+.repair
+    overflow-x: auto
+    overflow-y: visible
+    width: 100%
+    .jspContainer
+        height: 100% !important
+        width: 100% !important
+    .jspPane
+        position: relative !important
+        height: 100% !important
+    table
+        td
+            width: 9%
+            &:first-child
+                padding-right: 5px
+
 .alt
     float: right
     width: 38%
@@ -52,7 +118,29 @@
         border-bottom: 1px solid #dfdfdf  
         font-size: 24px
         +f500
-        
+
+// reg
+.reg
+    width: 610px
+    padding: 43px 30px
+    border: 1px solid #c5c5c5
+    border-radius: 1px
+    .reg__title
+        margin-bottom: 32px
+        padding-bottom: 20px
+        border-bottom: 1px solid #dfdfdf  
+        font-size: 24px
+        +f500
+    .input
+        & > p
+            width: 38% 
+        & > input
+            width: 58%
+        .input__right
+            width: 58%
+        & > .form-error
+            padding-left: 42%
+
 .form
     position: relative
 .form__row
@@ -69,6 +157,32 @@
     border-bottom: 1px solid $border-debr
     & + .form__submit
         margin-top: 50px
+.form__add
+    margin: 20px 0
+    text-align: right
+.add__rig
+    position: relative
+    padding-left: 14px
+    color: #000
+    font-size: 12px
+    +f300
+    +transition(color .3s, border-color .3s)
+    &:hover
+        color: $second_h
+        text-decoration: none
+        span
+            border-color: $second_h
+    &:before
+        position: absolute
+        content: '+'
+        top: 50%
+        font-size: 13px
+        left: 0
+        +f700
+        +translate(0,-50%)
+    span
+        border-bottom: 1px dotted #000
+        +transition(border-color .3s)
 .is-blocked
     opacity: 0.3
     pointer-events: none             
@@ -90,7 +204,7 @@
         height: 32px
         border-radius: 3px
         border: 1px solid #c5c5c5
-        padding: 0 12px
+        padding: 0 8px
         +f300
         font-size: 14px
         +transition(border-color .3s, box-shadow .3s)
@@ -121,6 +235,12 @@
             width: 150px
             vertical-align: top
             display: inline-block
+        .datepicker
+            width: 121px
+            input
+                width: 100%
+        .multiple-select
+            width: 100%
     .captcha
         float: right
         margin-left: 16px
@@ -140,10 +260,11 @@ input.input
     height: 32px
     border-radius: 3px
     border: 1px solid #c5c5c5
-    padding: 0 12px
+    padding: 0 8px
     +f300
     font-size: 14px
     width: 100%
+    +transition(border-color .3s, box-shadow .3s)
     &::placeholder
         color: rgba(#000, 0.5)
     &:hover
@@ -189,7 +310,18 @@ input.input
         background-color: transparent
         +s($captcha-upd)
 
-
+.datepicker
+    position: relative
+    display: block
+    &:before
+        position: absolute
+        content: ''
+        top: 8px
+        right: 10px
+        cursor: pointer
+        +s($ico-datepicker)
+    input
+        width: 100%
 
 
 

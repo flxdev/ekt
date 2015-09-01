@@ -1,0 +1,91 @@
+.uk-datepicker
+  padding: 12px
+  z-index: 1050
+  width: auto
+  font-family: Arial
+  -webkit-animation: uk-fade 0.2s ease-in-out
+  animation: uk-fade 0.2s ease-in-out
+  -webkit-transform-origin: 0 0
+  transform-origin: 0 0
+  background-color: white
+  +box-shadow(0 2px 7px rgba(0, 0, 0, 0.23))
+
+.uk-datepicker-nav
+  margin-bottom: 10px
+  text-align: center
+  line-height: 20px
+  &:before
+    content: ""
+    display: table
+  &:after
+    content: ""
+    display: table
+    clear: both
+  a
+    position: relative
+    height: 20px
+    width: 20px
+    color: #444444
+    text-decoration: none
+    &:hover
+      color: #444444
+    &:before
+      position: absolute
+      content: ''
+      top: 50%
+      +translate(0,-50%)
+
+.uk-datepicker-previous
+  float: left
+  &:before
+    left: 0
+    +arr(4,8,#c5c5c5,l)
+
+.uk-datepicker-next
+  float: right
+  &:before
+    right: 0
+    +arr(4,8,#c5c5c5,r)
+
+.uk-datepicker-previous:after, .uk-datepicker-next:after
+  width: 20px
+  font-family: FontAwesome
+
+.uk-datepicker-table
+  width: 100%
+  th, td
+    padding: 4px 2px
+    font-size: 10px
+    font-weight: normal
+  td
+    font-size: 12px
+    &:last-child,
+    &:nth-child(6)
+      a
+        color: $red
+        &.uk-datepicker-table-muted
+          color: #000
+          opacity: .5
+  a
+    display: block
+    width: 22px
+    line-height: 17px
+    text-align: center
+    color: #444444
+    text-decoration: none
+
+a.uk-datepicker-table-muted
+  color: #000
+  opacity: .5
+
+.uk-datepicker-table a
+  &:hover, &:focus
+    background-color: #dddddd
+    color: #444444
+    outline: none
+  &:active
+    background-color: #cccccc
+    color: #444444
+  &.uk-active
+    background: $green
+    color: #ffffff

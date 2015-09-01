@@ -673,16 +673,25 @@
 
 // advantages
 .advantages
+	[class^="col-md-"], [class*=" col-md-"]
+		&:first-child
+			+r(980)
+				.title-green
+					margin-top: 0
 	.advantages__item
 		margin-top: 30px
 		padding-right: 35px
 		+box
+		+r(980)
+			margin-top: 0
 		&:first-child
 			margin-top: 0
 		p
 			margin-top: 0
 	.title-green
 		margin-bottom: 20px
+		+r(980)
+			margin-top: 20px
 
 // information
 .information
@@ -1297,29 +1306,31 @@
 		border-radius: 3px
 		background: #fff
 		display: inline-block
-		&:before
-			position: absolute
+		&:after
 			content: ''
-			bottom: 11px
-			right: 10px
+			position: relative
+			bottom: 2px
+			margin-right: -10px
+			right: -7px
 			+transition(border-color .3s, transform .3s)
+			display: inline-block
 			+arr(5,4,#000,b)
 		&:hover
 			color: $red
-			&:before
+			&:after
 				+arr(5,4,$red,b)
 		&:disabled
 			opacity: .7
 			cursor: default
 			color: #000
-			&:before
+			&:after
 				opacity: .5
 				+arr(5,4,#000,b)
 		&.is-active,
 		&.is-active-top
 			background-color: #e6f5ec
 		&.is-active-top
-			&:before
+			&:after
 				margin-top: -1px
 				+rotate(180deg)
 // product
