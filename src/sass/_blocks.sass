@@ -736,10 +736,77 @@
 .news
 	margin: 45px 0 30px
 
+.accordions
+	&.is-mod
+		.accord
+			padding: 0
+			&:before
+				position: absolute
+				content: ''
+				top: -1px
+				left: 0
+				right: 0
+				height: 1px
+				z-index: 1
+				background: transparent
+				+transition(background .3s)
+			&:first-child
+				border-top: 1px solid $border
+			&.is-active
+				border-color: $green
+				&:before
+					background: $green
+		.accord__but
+			padding: 10px 44px 10px 22px
+			+transition(background .3s)
+			&:before,
+			&:after
+				right: 15px
+			&:hover
+				background: $accord-bg-h
+			table
+				overflow: hidden
+			.price
+				+f500
+		.accord__block
+			padding: 6px 44px 10px 20px
+			table
+				td
+					position: relative
+					padding: 10px 0
+					line-height: 20px
+					&:first-child
+						width: 87px
+					&:last-child
+						width: 195px
+				.price
+					position: absolute
+					right: 0
+					bottom: 10px
+					opacity: .5
+		.accord__left
+			overflow: hidden
+		.accord__right
+			float: right
+			width: 175px
+			margin-left: 15px
+		.btn_ico
+			min-width: 175px
+		table
+			tr
+				border-top: 1px solid $border-debr
+				&:first-child
+					border-top: none
+			td
+				line-height: 32px
+				&:first-child
+					width: 160px
+
 // accord
 .accord
 	padding: 20px 0 28px
 	border-bottom: 1px solid $border
+	+transition(border-color .3s)
 	&.is-active
 		.accord__title
 			color: #000
@@ -793,6 +860,8 @@
 	.accord__block
 		padding-top: 20px
 		display: none
+	.accord__wrap
+		+clr
 	.list
 		margin: 3px 0 16px
 		padding-right: 270px

@@ -250,19 +250,34 @@ $(document).ready( function() {
 		});
 	} accord();
 
+	$('.js-accord-but .btn').on('click',function(event) {
+		event.stopPropagation();
+	});
+
+	$('.js-histoy').each(function() {
+		var this_ 	= $(this),
+			btn 	= this_.find('.js-history-op');
+		btn.on('click', function() {
+			$(this).toggleClass('is-active');
+			$('.js-accord-but').trigger('click');
+			return false;
+		});
+	});
+	
+	// sortin
 	$('.js-sortin-item').on('click', function() {
 		var this_ = $(this),
 			parent = this_.parents('.js-sorting'),
 			item = parent.find('.js-sortin-item'),
 			active = ('is-active'),
 			activeTop = ('is-active-top');
-			if (!this_.hasClass(active)) {
-				item.removeClass(active).removeClass(activeTop);
-				this_.addClass(active);
-			}
-			else if (!this_.hasClass(activeTop)) {
-				this_.removeClass(active).toggleClass(activeTop);
-			}
+		if (!this_.hasClass(active)) {
+			item.removeClass(active).removeClass(activeTop);
+			this_.addClass(active);
+		}
+		else if (!this_.hasClass(activeTop)) {
+			this_.removeClass(active).toggleClass(activeTop);
+		}
 	});
 	
 	// item show info
@@ -413,7 +428,7 @@ $(document).ready( function() {
 			popup.fadeOut(300);
 		});
 		wrap.on('click',function(event) {
-		    event.stopPropagation();
+			event.stopPropagation();
 		});
 	});
 	function popupScroll() {

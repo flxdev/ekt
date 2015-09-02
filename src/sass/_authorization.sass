@@ -60,6 +60,23 @@
     overflow-x: auto
     overflow-y: visible
     width: 100%
+    &.is-doing
+        table
+            td, th
+                min-width: 62px
+                &:first-child
+                    width: 20%
+                &:nth-child(2)
+                    width: 22%
+                &:nth-child(3)
+                    width: 5%
+                &:nth-child(4)
+                    width: 40%
+                &:nth-child(5)
+                    width: 13%
+            td
+                &:nth-child(4)
+                    padding-right: 55px
     .jspContainer
         height: 100% !important
         width: 100% !important
@@ -323,6 +340,82 @@ input.input
     input
         width: 100%
 
+// history
+.history
+    .history__but
+        margin-bottom: 30px
+        text-align: right
+    .history__open
+        position: relative
+        padding-right: 16px
+        color: #000
+        +transition(color .3s)
+        vertical-align: top
+        display: inline-block
+        &:before,
+        &:after
+            position: absolute
+            content: ''
+            top: 50%
+            right: 0
+            +translate(0,-50%)
+            +transition(opacity .3s)
+        &.is-active
+            &:hover
+                &:after
+                    opacity: 0
+                span
+                    &:after
+                        opacity: 1
+                    &:before
+                        opacity: 0 
+            &:after
+                opacity: 1
+            &:before
+                opacity: 0
+        &:before
+            +s($accord-arr)
+        &:after
+            opacity: 0
+            +s($accord-arr-op)
+        &:hover
+            color: $second_h
+            &:before
+                opacity: 0
+            span
+                border-color: $second_h
+                &:before
+                    opacity: 1
+        span
+            border-bottom: 1px dotted #000
+            +transition(border-color .3s)
+            &:before,
+            &:after
+                position: absolute
+                content: ''
+                top: 50%
+                right: 0
+                z-index: 1
+                +translate(0,-50%)
+                +transition(opacity .3s)
+            &:before
+                opacity: 0
+                +s($accord-arr-h)
+            &:after
+                opacity: 0
+                +s($accord-arr-h-op)
+    .history__filter
+        margin-bottom: 20px
+        padding: 0 234px 0 10px
+    .sorting
+        text-align: left
+    table
+        td
+            vertical-align: top
+            &:first-child
+                width: 160px
+            &:last-child
+                text-align: right
 
 
 
