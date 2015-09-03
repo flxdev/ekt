@@ -22,7 +22,8 @@
 		background-color: rgba(26, 39, 31, 0.7)
 	.topic__wrap
 		+clr
-		.drop
+		.drop,
+		.view
 			float: right
 			margin-top: 9px
 	.topic__title
@@ -43,6 +44,8 @@
 // view
 .view
 	font-size: 0
+	border-radius: 3px
+	background: #fff
 	.view__item
 		position: relative
 		vertical-align: top
@@ -623,8 +626,8 @@
 	.spiner__block
 		position: absolute
 		top: 100%
-		left: 0
-		right: 0
+		left: -1px
+		right: -1px
 		height: 0
 		padding: 10px
 		text-align: left
@@ -1055,11 +1058,25 @@
 	+f500
 	border: 1px solid $border-item
 	+transition(border-color .3s, box-shadow .3s, color .3s)
+	background-size: cover
 	display: block
 	&:hover
 		color: $second_h
 		border-color: $green
 		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 0 8px rgba(11, 154, 66, 0.15)
+	&.section_w
+		color: #fff
+		&:before
+			position: absolute
+			content: ''
+			top: 0
+			left: 0
+			right: 0
+			bottom: 0
+			background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%)
+		.section__text
+			position: relative
+			z-index: 1
 	.section__text
 		line-height: 36px
 		vertical-align: bottom
@@ -1519,6 +1536,8 @@
 			&:last-child
 				td
 					padding-bottom: 13px
+			&:last-child,
+			&:nth-last-child(2)
 				.spiner
 					&:hover
 						.spiner__block
@@ -1596,5 +1615,147 @@
 	.jspScrollable, .jspPane, .jspContainer
 		width: 100% !important
 
-.fancybox-image
-	display: block !important
+// card
+.card
+	&.is-open
+		margin-bottom: -70px
+		.products.is-delete
+			display: block
+	.card__ind
+		margin: 10px 0 25px
+	.card__bot
+		padding: 34px 0 0 14.5%
+		+clr
+		+r(1170)
+			padding-left: 118px
+	.card__left
+		overflow: hidden
+	.card__right
+		float: right
+	.card__total
+		margin-top: 6px
+		font-size: 24px
+		+f700
+		+r(1170)
+			font-size: 22px
+	.products.is-delete
+		display: none
+	table
+		tr
+		td
+			position: relative
+			text-align: right
+			vertical-align: top
+			&:first-child
+				min-width: 95px
+				width: 11.5%
+				text-align: left
+			&:nth-child(2)
+				width: 28%
+				text-align: left
+			&:nth-child(3)
+				width: 12%
+			&:nth-child(4)
+				width: 12%
+			&:nth-child(5)
+				width: 3%
+				text-align: left
+			&:nth-child(6)
+				width: 13.5%
+		img
+			display: block
+		.badge
+			position: absolute
+			top: -8px
+			right: 15px
+
+// products
+.products
+	&.is-delete
+		display: none
+	.products__item	
+		padding: 20px 0
+		min-width: 800px
+		border-bottom: 1px solid $border-debr
+		&:first-child
+			border-top: 1px solid $border-debr
+		&:last-child
+			.spiner__block
+				top: auto
+				bottom: 100%
+				margin: 0 0 9px
+		img
+			margin-top: -10px
+	.products__wrap
+		padding-bottom: 70px
+		display: none
+	.products__sum
+		+f700
+	.products__open
+		margin: 30px -45px 0
+		padding: 20px 45px
+		line-height: 1
+		+transition(background .3s)
+		background: $yeloow-card
+		&:hover
+			background: $yeloow-card-h
+	.products__price,
+	.products__sum
+		margin-top: 25px
+	.link-green
+		vertical-align: top
+		display: inline-block
+	.spiner
+		margin-top: 20px
+	.btn-delete,
+	.btn-reest
+		margin: 30px 0 0 8px
+		vertical-align: top
+	.btn-reest
+		color: $border-filter
+		&:hover
+			color: $second_h
+	.title-h2
+		margin: 20px 0
+		&:first-child
+			margin-top: 20px
+		.btn-open
+			float: right
+			margin-top: 17px
+			&:before,
+			&:after,
+			span:before,
+			span:after
+				display: none
+// clause
+.clause
+	padding: 10px 0
+	font-size: 12px
+	border-top: 1px solid $border-debr
+	&:first-child
+		border-top: none
+	.clause__title
+		padding-right: 20px
+		line-height: 20px
+		+f500
+	.clause__row
+		margin-top: 7px
+		line-height: 1.4
+		+clr
+	.article
+		float: left
+	.clause__price
+		float: right
+		opacity: .5
+
+// in-total
+.in-total
+	.price
+		padding: 30px 0 15px
+		font-size: 16px
+		+f700
+	span
+		&:first-child
+			margin-right: 10px
+	.btn
+		width: 100%

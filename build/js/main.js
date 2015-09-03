@@ -11596,6 +11596,7 @@ $(document).ready( function() {
 		
 	} popupScroll();
 
+	// add form
 	$('.js-add-rig').on('click', function() {
 		var this_ 	= $(this),
 			parents = this_.parents('.js-form')
@@ -11608,5 +11609,53 @@ $(document).ready( function() {
 		return false;
 	});
 
+	// delete products
+	$('.js-products').each(function() {
+		var this_  	= $(this),
+			btn 	= this_.find('.js-delete'),
+			open 	= this_.find('.js-open'),
+			reest 	= this_.find('.js-reest'),
+			wrap 	= this_.find('.js-prod-wrap');
+		btn.on('click', function() {
+			// removal imitation
+			var parent 	= $(this).parents('.js-products-item');
+			parent.remove();
+			// scroll height
+			setInterval(function() {
+				var pane 		= this_.find('.jspPane'),
+					paneHeight 	= pane.height(),
+					cont 		= this_.find('.jspContainer');
+				cont.css('height', paneHeight);
+			}, 1);
+		});
+		open.on('click', function() {
+			this_.toggleClass('is-active');
+			$(this).toggleClass('is-active');
+			if (this_.hasClass('is-active')) {
+				wrap.slideDown(300);
+					setInterval(function() {
+					var pane 		= this_.find('.jspPane'),
+						paneHeight 	= pane.height(),
+						cont 		= this_.find('.jspContainer');
+					cont.css('height', paneHeight);
+				}, 1);
+			}
+			else {
+				wrap.slideUp(300);
+			}
+		});
+		reest.on('click', function() {
+			// add imitation
+			var parent 	= $(this).parents('.js-products-item');
+			parent.remove();
+			// scroll height
+			setInterval(function() {
+				var pane 		= this_.find('.jspPane'),
+					paneHeight 	= pane.height(),
+					cont 		= this_.find('.jspContainer');
+				cont.css('height', paneHeight);
+			}, 1);
+		});
+	});
 
 });

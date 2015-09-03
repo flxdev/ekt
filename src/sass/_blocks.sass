@@ -147,12 +147,124 @@
 .btn_ico
 	text-transform: initial
 	font-size: 13px
-	min-width: 150px
+	min-width: 130px
 	+f300
+	&:hover
+		.ico
+			&:before
+				opacity: 0
+			&:after
+				opacity: 1
 	.ico
 		margin-top: -3px
 		margin-right: 8px
 		vertical-align: middle
+		+transition(opacity .3s)
+
+.btn-delete
+	position: relative
+	width: 11px
+	height: 12px
+	background: transparent
+	display: inline-block
+	&:hover
+		&:before
+			opacity: 0
+		&:after
+			opacity: 1
+	&:before,
+	&:after
+		position: absolute
+		content: ''
+		top: 0
+		left: 0
+		+transition(opacity .3s)
+	&:before
+		+s($ico-delete)
+	&:after
+		opacity: 0
+		+s($ico-delete-h)
+
+.btn-open
+	position: relative
+	padding-right: 16px
+	color: #000
+	font-size: 12px
+	+transition(color .3s)
+	vertical-align: top
+	display: inline-block
+	background: transparent
+	&:before,
+	&:after
+	    position: absolute
+	    content: ''
+	    top: 50%
+	    right: 0
+	    margin-top: -2px
+	    +transition(opacity .3s)
+	&:before
+		+s($accord-arr)
+	&:after
+	    opacity: 0
+	    +s($accord-arr-op)
+	&:hover
+	    color: $second_h
+	    &:before
+	        opacity: 0
+	    span
+	        border-color: $second_h
+	        &:before
+	            opacity: 1
+	&.is-active
+		color: $green
+		span
+			border-color: $green
+		&:hover
+			color: $second_h
+			&:after
+				opacity: 0
+			span
+				border-color: $second_h
+				&:before
+					opacity: 0 
+				&:after
+					opacity: 1
+		&:before
+			opacity: 0
+		&:after
+			opacity: 1
+	span
+	    border-bottom: 1px dotted #000
+	    +transition(border-color .3s)
+	    &:before,
+	    &:after
+	        position: absolute
+	        content: ''
+	        top: 50%
+	        right: 0
+	        z-index: 1
+	        margin-top: -2px
+	        +transition(opacity .3s)
+	    &:before
+	        opacity: 0
+	        +s($accord-arr-h)
+	    &:after
+	        opacity: 0
+	        +s($accord-arr-h-op)
+	.icon
+		position: absolute
+		top: 50%
+		right: 0
+		font-size: 13px
+		+translate(0,-50%)
+
+.btn-reest
+	font-size: 13px
+	+transition(color .3s)
+	background: transparent
+	display: inline-block
+	&:hover
+		color: $second_h
 
 .l-layout
 	display: table
@@ -190,14 +302,14 @@
 	font-weight: normal
 	+f700
 	a
-		color: $primary
+		color: $second
 		border-bottom: 1px solid
-		transition: color .3s, border .3s
+		+transition(color .2s, border-color .2s)
 		&:hover
-			color: $primary_h
+			color: $second_h
 			border-color: transparent
 		&:active
-			color: $primary_a
+			color: $second_a
 			border-color: transparent  
 .title-h4
 	line-height: 1.9
@@ -471,6 +583,10 @@
 			position: absolute
 			top: 12px
 			right: 0
+	.wrapper__left-t
+		padding-right: 305px
+		+r(1180)
+			padding-right: 0
 
 .list
 	margin: 20px 0
@@ -642,6 +758,7 @@
 	font-size: 13px
 	line-height: 36px
 	text-decoration: underline
+	+transition(color .2s)
 	+f300
 	&:link
 		color: #000
