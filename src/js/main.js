@@ -14,5 +14,6 @@
 //= uikit.js
 //= form-select.js
 //= datepicker.js
+//= map.js
 
 //= app.js

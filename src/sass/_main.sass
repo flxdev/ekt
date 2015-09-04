@@ -107,6 +107,8 @@
 	+clr
 	.filter__left
 		float: left
+		& + .filter__left
+			margin-left: 90px
 	.filter__right
 		float: right
 	.filter__text
@@ -142,6 +144,8 @@
 			display: block
 			&:first-child
 				margin-top: 0
+		.input
+			width: 240px
 	.filter__col
 		float: left
 		width: 50%
