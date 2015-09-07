@@ -235,16 +235,20 @@ $(document).ready( function() {
 			}
 		});
 		$('.js-accord-but').on('click', function() {
-			var this_ = $(this),
-				parent = this_.parents('.js-accord'),
-				block = parent.find('.js-accord-block');
+			var this_ 		= $(this),
+				parent 		= this_.parents('.js-accord'),
+				blockThis 	= parent.find('.js-accord-block'),
+				accord 		= $('.js-accord'),
+				block 		= accord.find('.js-accord-block');
 			if (!parent.hasClass('is-active')) {
-				parent.addClass('is-active')
-				block.slideDown(400);
+				accord.removeClass('is-active');
+				block.slideUp(400);
+				parent.addClass('is-active');
+				blockThis.slideDown(400);
 			}
 			else {
 				parent.removeClass('is-active');
-				block.slideUp(400);
+				blockThis.slideUp(400);
 			}
 			return false;
 		});
@@ -408,9 +412,16 @@ $(document).ready( function() {
 			scroll 	= popup.find('.js-p-scroll'),
 			body 	= $('body');
 		btn.on('click', function() {
-			if(!parent.hasClass('is-open')) {
-				parent.addClass('is-open');
-				popup.fadeIn(300);
+			var thisBtn 	= $(this),
+				parentThis 	= thisBtn.parents('.js-popup-par'),
+				popupThis 	= parentThis.find('.js-popup'),
+				parent 		= $('.js-popup-par'),
+				popup 		= $('.js-popup');
+			if (!parent.hasClass('is-open')) {
+				parent.removeClass('is-open');
+				popup.fadeOut(300);
+				parentThis.addClass('is-open');
+				popupThis.fadeIn(300);
 				body.addClass('is-hidden');
 				scroll.addClass('is-active');
 				scroll.jScrollPane();
@@ -440,6 +451,7 @@ $(document).ready( function() {
 		})
 		
 	} popupScroll();
+
 
 	// add form
 	$('.js-add-rig').on('click', function() {
@@ -502,5 +514,24 @@ $(document).ready( function() {
 			}, 1);
 		});
 	});
+
+	// open popup list
+	$('.js-p-list').each(function() {
+		var this_ 	= $(this),
+			openBtn = this_.find('.js-u-turn');
+		openBtn.on('click', function() {
+			var this_ 	= $(this),
+				parent 	= this_.parent(),
+				ul 		= parent.find(' > ul');
+			if (!ul.hasClass('is-active')) {
+				ul.addClass('is-active');
+				ul.slideDown(400);
+
+			}
+			else {
+				ul.removeClass('is-active');
+				ul.slideUp(400);			}
+		});
+	})
 
 });

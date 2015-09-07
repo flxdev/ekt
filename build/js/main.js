@@ -11156,7 +11156,7 @@ $(document).ready( function() {
 
 	if ($('#map').length) {
 		ymaps.ready(init);
-	}
+	};
 
 	function init () {
 		var myMap = new ymaps.Map('map', {
@@ -11234,9 +11234,9 @@ $(document).ready( function() {
 				iconImageHref: 'img/marker.png',
 				iconImageSize: [20, 27],
 				balloonShadow: false,
-           		balloonLayout: MyBalloonLayout,
-           		balloonContentLayout: MyBalloonContentLayout,
-           		balloonPanelMaxMapArea: 0
+				balloonLayout: MyBalloonLayout,
+				balloonContentLayout: MyBalloonContentLayout,
+				balloonPanelMaxMapArea: 0
 			});
 
 		ZoomLayout = ymaps.templateLayoutFactory.createClass(
@@ -11397,7 +11397,219 @@ $(document).ready( function() {
 			]
 		}
 		objectManager.add(data);
-	}
+	};
+
+	// map accord
+	if ($('#map-accord').length) {
+		ymaps.ready(initialize);
+	};
+	$('.accordions.is-address').each(function() {
+		var this_  	= $(this),
+			btn 	= this_.find('.js-accord-but');
+
+		btn.on('click', function () {
+			var this_ 		= $(this),
+				parent 		= this_.parents('.js-accord'),
+				wrapThis 	= parent.find('.js-map-wrap'),
+				wrap 		= $('.js-map-wrap'),
+				map 		= wrap.find('#map-accord'),
+				div 		= ('<div class="map" id="map-accord"></div>');
+
+			if (!parent.hasClass('is-active')) {
+				if (!map.length) {
+					wrapThis.append(div);
+					ymaps.ready(initialize);
+				}
+				else {
+					map.appendTo(wrapThis);
+				}
+			}
+		});
+	});
+
+	function initialize() {
+		var destinations = {
+			'Киев': [50.45466, 30.5238],
+			'Минск': [53.9, 27.56667],
+			'Одесса': [46.466444, 30.7058]
+		},
+		myMap = new ymaps.Map('map-accord', {
+			center: destinations['Киев'],
+			zoom: 18,
+			controls: []
+			}, {
+				searchControlProvider: 'yandex#search'
+			}),
+			myPlacemark = new ymaps.Placemark(myMap.getCenter());
+
+		myPlacemark.options.set({
+			iconLayout: 'default#image',
+			iconImageHref: 'img/marker.png',
+			iconImageSize: [20, 27]
+		});
+
+		myMap.geoObjects.add(myPlacemark);
+
+		ZoomLayout = ymaps.templateLayoutFactory.createClass(
+			"<div class='zoom-buttons'>" +
+				"<div id='zoom-plus' class='btn-plus'>+</div>" +
+				"<div id='zoom-minus' class='btn-minus'>-</div>" +
+			"</div>", {
+			build: function () {
+				ZoomLayout.superclass.build.call(this);
+
+				this.zoomInCallback = ymaps.util.bind(this.zoomIn, this);
+				this.zoomOutCallback = ymaps.util.bind(this.zoomOut, this);
+
+				$('#zoom-plus').bind('click', this.zoomInCallback);
+				$('#zoom-minus').bind('click', this.zoomOutCallback);
+			},
+			clear: function () {
+				$('#zoom-plus').unbind('click', this.zoomInCallback);
+				$('#zoom-minus').unbind('click', this.zoomOutCallback);
+
+				ZoomLayout.superclass.clear.call(this);
+			},
+			zoomIn: function () {
+				var map = this.getData().control.getMap();
+				this.events.fire('zoomchange', {
+					oldZoom: map.getZoom(),
+					newZoom: map.getZoom() + 1
+				});
+			},
+			zoomOut: function () {
+				var map = this.getData().control.getMap();
+				this.events.fire('zoomchange', {
+					oldZoom: map.getZoom(),
+					newZoom: map.getZoom() - 1
+				});
+			}
+		}),
+		zoomControl = new ymaps.control.ZoomControl({ 
+			options: { 
+				layout: ZoomLayout,
+				position: {
+					top: 28,
+					left: 17
+				}
+			} 
+		});
+
+		myMap.controls.add(zoomControl);
+
+		function clickGoto() {
+
+			var pos = $(this).data('address');
+			myMap.panTo(destinations[pos], {
+				flying: 1
+			});
+
+			return false;
+		}
+
+		var accord = $('.js-accord-but');
+		for (var i = 0, n = accord.length; i < n; ++i) {
+			accord[i].onclick = clickGoto;
+		}
+
+	};
+
+	$('.js-open-window').on('click', function() {
+		var this_  	= $(this),
+			parent 	= this_.parents('.js-window'),
+			block 	= parent.find('.js-window-block');
+		if (!this_.hasClass('is-active')) {
+			this_.addClass('is-active');
+			this_.text('Скрыть все товарные позиции');
+			block.slideDown(400);
+		}
+		else {
+			this_.removeClass('is-active');
+			this_.text('Показать все товарные позиции');
+			block.slideUp(400);
+		}
+		return false;
+	});
+
+	if ($('#map-contact').length) {
+		ymaps.ready(initMapContact);
+	};
+
+	function initMapContact() {
+		var myMap = new ymaps.Map('map-contact', {
+				center: [57.9, 27.56667],
+				zoom: 16,
+				controls: []
+			}, {
+				searchControlProvider: 'yandex#search'
+			}),
+	        myPlacemark = new ymaps.Placemark(myMap.getCenter(), {
+	            hintContent: 'Собственный значок метки'
+	        }, {
+	            // Опции.
+	            // Необходимо указать данный тип макета.
+	            iconLayout: 'default#image',
+	            // Своё изображение иконки метки.
+	            iconImageHref: 'img/map-contact.png',
+	            // Размеры метки.
+	            iconImageSize: [34, 48],
+	            // Смещение левого верхнего угла иконки относительно
+	            // её "ножки" (точки привязки).
+	            iconImageOffset: [-3, -42]
+	        });
+
+	    myMap.geoObjects.add(myPlacemark);
+
+		ZoomLayout = ymaps.templateLayoutFactory.createClass(
+			"<div class='zoom-buttons'>" +
+				"<div id='zoom-in' class='btn-plus'>+</div>" +
+				"<div id='zoom-out' class='btn-minus'>-</div>" +
+			"</div>", {
+			build: function () {
+				ZoomLayout.superclass.build.call(this);
+
+				this.zoomInCallback = ymaps.util.bind(this.zoomIn, this);
+				this.zoomOutCallback = ymaps.util.bind(this.zoomOut, this);
+
+				$('#zoom-in').bind('click', this.zoomInCallback);
+				$('#zoom-out').bind('click', this.zoomOutCallback);
+			},
+			clear: function () {
+				$('#zoom-in').unbind('click', this.zoomInCallback);
+				$('#zoom-out').unbind('click', this.zoomOutCallback);
+
+				ZoomLayout.superclass.clear.call(this);
+			},
+			zoomIn: function () {
+				var map = this.getData().control.getMap();
+				this.events.fire('zoomchange', {
+					oldZoom: map.getZoom(),
+					newZoom: map.getZoom() + 1
+				});
+			},
+			zoomOut: function () {
+				var map = this.getData().control.getMap();
+				this.events.fire('zoomchange', {
+					oldZoom: map.getZoom(),
+					newZoom: map.getZoom() - 1
+				});
+			}
+		}),
+		zoomControl = new ymaps.control.ZoomControl({ 
+			options: { 
+				layout: ZoomLayout,
+				position: {
+					top: 28,
+					left: 17
+				}
+			} 
+		});
+
+		myMap.controls.add(zoomControl);
+
+	};
+	
+	
 
 });
 
@@ -11638,16 +11850,20 @@ $(document).ready( function() {
 			}
 		});
 		$('.js-accord-but').on('click', function() {
-			var this_ = $(this),
-				parent = this_.parents('.js-accord'),
-				block = parent.find('.js-accord-block');
+			var this_ 		= $(this),
+				parent 		= this_.parents('.js-accord'),
+				blockThis 	= parent.find('.js-accord-block'),
+				accord 		= $('.js-accord'),
+				block 		= accord.find('.js-accord-block');
 			if (!parent.hasClass('is-active')) {
-				parent.addClass('is-active')
-				block.slideDown(400);
+				accord.removeClass('is-active');
+				block.slideUp(400);
+				parent.addClass('is-active');
+				blockThis.slideDown(400);
 			}
 			else {
 				parent.removeClass('is-active');
-				block.slideUp(400);
+				blockThis.slideUp(400);
 			}
 			return false;
 		});
@@ -11811,9 +12027,16 @@ $(document).ready( function() {
 			scroll 	= popup.find('.js-p-scroll'),
 			body 	= $('body');
 		btn.on('click', function() {
-			if(!parent.hasClass('is-open')) {
-				parent.addClass('is-open');
-				popup.fadeIn(300);
+			var thisBtn 	= $(this),
+				parentThis 	= thisBtn.parents('.js-popup-par'),
+				popupThis 	= parentThis.find('.js-popup'),
+				parent 		= $('.js-popup-par'),
+				popup 		= $('.js-popup');
+			if (!parent.hasClass('is-open')) {
+				parent.removeClass('is-open');
+				popup.fadeOut(300);
+				parentThis.addClass('is-open');
+				popupThis.fadeIn(300);
 				body.addClass('is-hidden');
 				scroll.addClass('is-active');
 				scroll.jScrollPane();
@@ -11843,6 +12066,7 @@ $(document).ready( function() {
 		})
 		
 	} popupScroll();
+
 
 	// add form
 	$('.js-add-rig').on('click', function() {
@@ -11905,5 +12129,24 @@ $(document).ready( function() {
 			}, 1);
 		});
 	});
+
+	// open popup list
+	$('.js-p-list').each(function() {
+		var this_ 	= $(this),
+			openBtn = this_.find('.js-u-turn');
+		openBtn.on('click', function() {
+			var this_ 	= $(this),
+				parent 	= this_.parent(),
+				ul 		= parent.find(' > ul');
+			if (!ul.hasClass('is-active')) {
+				ul.addClass('is-active');
+				ul.slideDown(400);
+
+			}
+			else {
+				ul.removeClass('is-active');
+				ul.slideUp(400);			}
+		});
+	})
 
 });

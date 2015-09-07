@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+<head>
+	<title>1-0ui-company</title>
+	//= includes/head.html
+</head>
+<body>
+<!-- BEGIN  out-->
+<div class="out">
+	//= includes/header_index.html
+	<div class="l-layout is-contact">
+		<div class="main">
+			<div class="main__in">
+				<!-- topic -->
+				<div class="topic" style="background-image: url(img/topic-bg-catalog.jpg);">
+					<div class="topic__in">
+						<!-- breadcrumbs -->
+						<ul class="breadcrumbs">
+							<li>Главная</li>
+						</ul>
+						<div class="topic__wrap">
+							<!-- drop -->
+							<div class="drop js-drop">
+								<button class="btn btn_share js-open-drop" type="button"></i>Поделиться</button>
+								<ul class="drop__list js-drop-list">
+									<li><a href="#"><i class="ico ico_f"></i>Fasebook</a></li>
+									<li><a href="#"><i class="ico ico_vk"></i>Vkontakte</a></li>
+									<li><a href="#"><i class="ico ico_tw"></i>Twitter</a></li>
+									<li><a href="#"><i class="ico ico_m"></i>E-mail</a></li>
+								</ul>
+							</div>
+
+							<div class="topic__title">Контактная информация</div>
+						</div>
+					</div>
+				</div>
+				<!-- wrapper -->
+				<div class="wrapper">
+					<h3 class="title-h2">Адрес офиса</h3>
+					<div class="row">
+						<div class="col-md-6"><address class="address">220053, г. Минск, ул. Будславская 29</address></div>
+						<div class="col-md-6">
+							<div class="schedule"><span>Пн–Пт:</span> 9<sup>00</sup>–20<sup>00</sup>, <span>Cб:</span> 10<sup>00</sup>–16<sup>00</sup></div>
+						</div>
+					</div>
+					<div class="wrapper__map">
+						<div class="map map_contact" id="map-contact"></div>
+					</div>
+					<div class="print-block">
+						<a href="#" class="print-link"><span>Распечатать схему проезда</span></a>
+					</div>
+					<h3 class="title-h2">Связь</h3>
+					<!-- advantages -->
+					<div class="advantages">
+						<div class="row">
+							<div class="col-md-4">
+								<div class="advantages__item">
+									<h3 class="title-green">Городской</h3>
+									<p>+375 (17) 269-74-74</p>
+								</div>
+								<div class="advantages__item">
+									<h3 class="title-green">Короткий номер</h3>
+									<p>7611</p>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="advantages__item">
+									<h3 class="title-green">МТС</h3>
+									<p>+375 (29) 700-77-55</p>
+								</div>
+								<div class="advantages__item">
+									<h3 class="title-green">Почта</h3>
+									<p><a href="@mailto:info@ekt.by" class="link-black">info@ekt.by</a></p>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="advantages__item">
+									<h3 class="title-green">Велком</h3>
+									<p>+375 (29) 110-44-70</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- requisites -->
+					<div class="requisites">
+						<h3 class="title-h2">Реквизиты</h3>
+						<div class="row">
+							<div class="col-md-4">Предприятие</div>
+							<div class="col-md-8">
+								<p>ЗАО "ЕКТ групп" </p>
+								<p>Код по ОКПО 37647363,</p>
+								<p>УНП 190557710</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">Банковские реквизиты</div>
+							<div class="col-md-8">Р/с 3012260391013 “Альфа-Банк” ЗАО, отделение “На Захарова”, код 270123, г. Минск, ул. Захарова, 50Д</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">Юридический и почтовый адрес</div>
+							<div class="col-md-8">220053 Республика Беларусь, г. Минск, ул. Будславская, д. 29</div>
+						</div>
+					</div>
+					<!-- accordions -->
+					<div class="accordions is-contact">
+						<div class="accord js-accord">
+							<div class="accord__but js-accord-but">
+								<div class="accord__title">Обратная связь</div>
+							</div>
+							<div class="accord__block js-accord-block">
+								<!-- cabinet -->
+								<div class="cab">
+									<div class="login">
+										<div class="form">
+											<form action="#" class="js-validate">
+												<label class="form__row">
+													<div class="input">
+														<p>ФИО<span>*</span></p>
+														<input type="text" data-validation="required" placeholder="Иванов Иван Иванович" data-validation-error-msg="Неправильный пароль">
+													</div>
+												</label>
+												<label class="form__row">
+													<div class="input">
+														<p>Телефон<span>*</span></p>
+														<input type="phone" data-validation="required" placeholder="+375 29 000-00-00" data-validation-error-msg="Неправильный пароль">
+													</div>
+												</label>
+												<label class="form__row">
+													<div class="input">
+														<p>E-mail (логин)<span>*</span></p>
+														<input type="text" data-validation="email" placeholder="info@hmail.com" data-validation-error-msg="Неправильный логин">
+													</div>
+												</label>
+												<label class="form__row">
+													<div class="input">
+														<p>Сообщение<span>*</span></p>
+														<textarea data-validation="required" placeholder="Введите ваше сообщение" data-validation-error-msg="Неправильный пароль"></textarea>
+													</div>
+												</label>
+												<div class="form__submit">
+													<input type="submit" class="btn" value="Войти">
+												</div>	
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="read-more" style="background-image: url(img/read-more-img-1.png);">
+					<div class="read-more__in">
+						<div class="read-more__text">Читать далее:</div><a href="#" class="link-right">Главная страница</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+		
+</div>
+<!-- END out-->
+//= includes/footer.html
+</body>
+</html>

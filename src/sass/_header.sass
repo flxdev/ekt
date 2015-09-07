@@ -9,6 +9,15 @@
 	.header__left
 		float: left
 		margin-top: 35px
+	.popup
+		vertical-align: top
+		.popup__in
+			padding: 0
+			vertical-align: top
+			background: transparent
+		.popup__close
+			top: 40px
+			right: 30px
 
 // btm-menu
 .btm-menu
@@ -211,6 +220,89 @@
 				opacity: 0
 			&:after
 				opacity: 1
+
+// search-form
+.search-form
+	position: relative
+	padding: 26px 70px 35px 30px
+	background: #fff
+	& > input
+		height: 60px
+		width: 100%
+		+f100
+		font-size: 36px
+		line-height: 60px
+		color: $green
+		text-shadow: 0px 0px 0px #000
+		-webkit-text-fill-color: transparent
+		display: block
+		&::placeholder
+			text-shadow: none
+			-webkit-text-fill-color: initial
+	.search-form__row
+		margin-top: 20px
+		+clr
+		.radiobutton
+			margin-left: 25px
+			vertical-align: top
+			display: inline-block
+			&:first-child
+				margin-left: 2px
+		.view
+			float: right
+
+// search-wrap
+.search-wrap
+	margin-top: 15px
+	background: #fff
+	&.is-list
+		.search-item
+			padding: 15px 28px
+		.items
+			.point
+				padding: 6px 28px 10px
+	.is-search
+		color: $red
+	.point
+		&:first-child
+			margin-top: -1px
+
+.search-item
+	padding: 28px
+	color: #000
+	border-bottom: 1px solid $border-item
+	display: block
+	+transition(background .3s)
+	&:hover
+		background: $accord-bg-h
+		.search-title
+			color: $red
+
+.search-title
+	color: $green
+	font-size: 18px
+	display: inline
+	+transition(color .3s)
+
+.search-text
+	padding: 28px
+	font-size: 16px
+
+.route
+	.route__item
+		margin-left: 15px
+		&:after
+			content: '/'
+			margin-left: 10px
+
+.search-loader
+	height: 120px
+	+vertical
+	.search-loader__img
+		vertical-align: middle
+		display: inline-block
+		img
+			display: block
 
 // basket
 .basket
