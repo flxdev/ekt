@@ -182,9 +182,24 @@ $(document).ready( function() {
 		single: true
 	});
 	function activeSel() {
-		var parent = $('.js-filter-select, .js-multiple-select'),
-			item = parent.find('> button'),
-			li = parent.find('.ms-drop li');
+		var parent 		= $('.js-filter-select, .js-multiple-select'),
+			item 		= parent.find('> button'),
+			li 			= parent.find('.ms-drop li'),
+			first 		= parent.find('.ms-drop li:first'),
+			nextAll 	= first.nextAll(),
+			nextCheck 	= nextAll.find('input[type="checkbox"]'),
+			firstCheck 	= first.find('input[type="checkbox"]');
+		
+		nextCheck.on('change', function() {
+			if ($(this).is(':checked')) {
+				firstCheck.removeAttr('checked');
+				first.removeClass('selected');
+			}
+			else {
+				nextCheck.removeAttr('checked');
+				nextAll.removeClass('selected');
+			}
+		});
 		item.on('click', function () {
 			var this_ = $(this),
 				div = this_.find('> div');

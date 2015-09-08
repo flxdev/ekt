@@ -816,16 +816,22 @@
 	padding-right: 12px
 	&:hover
 		&:after
+			position: relative
+			right: -2px
 			+s($ico-l-right-h)
 	&:after
 		margin-left: 4px
 		+s($ico-l-right)
+		+transition(right .3s)
 .link-left
 	margin-right: 5px
 	padding-left: 12px
 	&:hover
 		&:before
+			position: relative
+			left: -2px
 			+s($ico-l-left-h)
+			+transition(left .3s)
 	&:before
 		margin-right: 4px
 		+s($ico-l-left)

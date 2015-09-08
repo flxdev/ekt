@@ -8,7 +8,7 @@ var gulp = require('gulp'),
     spritesmith  = require('gulp.spritesmith'),
     sourcemaps = require('gulp-sourcemaps'),
     rigger = require('gulp-rigger'),
-    cssmin = require('gulp-minify-css'),
+    //cssmin = require('gulp-minify-css'),
     imagemin = require('gulp-imagemin'),
     pngquant = require('imagemin-pngquant'),
     rimraf = require('rimraf'),
@@ -20,7 +20,7 @@ var path = {
         html: 'build/',
         js: 'build/js/',
         jsLibs: 'build/js/partials',
-        css: 'build/css/',
+        css: 'build/css',
         img: 'build/img/',
         svg: 'build/img/svg',
         icons: 'build/img/icons',
@@ -29,6 +29,7 @@ var path = {
     src: {
         html: 'src/*.html',
         js: 'src/js/**/*.js',
+        css: 'src/css/*.*',
         sass: 'src/sass/screen.sass',
         img: 'src/img/**/*.*',
         svg: 'src/svg/*.svg',
@@ -38,7 +39,8 @@ var path = {
     watch: {
         html: 'src/**/*.html',
         js: 'src/js/**/*.js',
-        sass: 'src/sass/**/*.sass',
+        css: 'src/css/*.*',
+        sass: 'src/sass/**/*.*',
         img: 'src/img/**/*.*',
         svg: 'src/svg/*.svg',
         icons: 'src/img/icons/*.png',
@@ -51,11 +53,16 @@ var config = {
     server: {
         baseDir: "./build"
     },
-    //tunnel: true,
+    tunnel: false,
     host: 'localhost',
-    port: 9000,
+    port: 3000,
     logPrefix: "Frontend_Devil"
 };
+
+gulp.task('copycss', function() {
+    gulp.src(path.src.css)
+    .pipe(gulp.dest(path.build.css + 'css'));
+})
 
 gulp.task('webserver', function () {
     browserSync(config);
@@ -74,20 +81,17 @@ gulp.task('html:build', function () {
 
 gulp.task('js:build', function () {
     gulp.src(path.src.js) 
-        .pipe(rigger()) 
-        //.pipe(sourcemaps.init()) 
-        //.pipe(uglify()) 
-        //.pipe(sourcemaps.wborite()) 
+        .pipe(rigger())
         .pipe(gulp.dest(path.build.js))
         .pipe(reload({stream: true}));
 });
 
 gulp.task('sass:build', function () {
     gulp.src(path.src.sass) 
-        .pipe(sourcemaps.init())
+        //.pipe(sourcemaps.init())
         .pipe(sass({
             includePaths: ['src/sass/'],
-            outputStyle: 'expanded',
+            outputStyle: 'compressed',
             sourceMap: true,
             errLogToConsole: true,
             indentedSyntax: true
@@ -96,8 +100,8 @@ gulp.task('sass:build', function () {
             browsers: ['> 1%', 'last 3 versions', 'Opera 12.1', 'IE 9', 'IE 10'],
             cascade: false
         }))
-        .pipe(cssmin())
-        .pipe(sourcemaps.write())
+        //.pipe(cssmin())
+        //.pipe(sourcemaps.write())
         .pipe(gulp.dest(path.build.css))
         .pipe(reload({stream: true}));
 });
@@ -122,19 +126,19 @@ gulp.task('sprite:build', function() {
 
 gulp.task('image:build', function () {
     gulp.src(path.src.img) 
-        .pipe(imagemin({
-            progressive: true,
-            svgoPlugins: [{removeViewBox: false}],
-            use: [pngquant()],
-            interlaced: true
-        }))
-        .pipe(gulp.dest(path.build.img))
-        .pipe(reload({stream: true}));
+        // .pipe(imagemin({
+        //     progressive: true,
+        //     svgoPlugins: [{removeViewBox: false}],
+        //     use: [pngquant()],
+        //     interlaced: true
+        // }))
+        .pipe(gulp.dest(path.build.img));
+        // .pipe(reload({stream: true}));
 });
 gulp.task('svg:build', function () {
     gulp.src(path.src.svg) 
-        .pipe(gulp.dest(path.build.svg))
-        .pipe(reload({stream: true}));
+        .pipe(gulp.dest(path.build.svg));
+        // .pipe(reload({stream: true}));
 });
 
 gulp.task('fonts:build', function() {
@@ -155,7 +159,7 @@ gulp.task('build', [
 
 gulp.task('watch', function(){
     watch([path.watch.html], function(event, cb) {
-        gulp.start('html:build');
+       gulp.start('html:build');
     });
     watch([path.watch.sass], function(event, cb) {
         gulp.start('sass:build');
@@ -172,10 +176,11 @@ gulp.task('watch', function(){
     watch([path.watch.svg], function(event, cb) {
         gulp.start('svg:build');
     }); 
+
     watch([path.watch.fonts], function(event, cb) {
         gulp.start('fonts:build');
     });
 });
 
 
-gulp.task('default', ['build', 'webserver', 'watch']);
+gulp.task('default', ['build', 'webserver', 'watch', 'copycss']);

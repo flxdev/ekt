@@ -256,6 +256,9 @@
 				&:before,
 				&:after
 					z-index: 2
+				.item__text
+					span
+						border-color: transparent
 			.item__in
 				position: absolute
 				top: 50%
@@ -267,6 +270,12 @@
 				right: 0
 				width: auto
 				+translate(0,0)
+			.item__text
+				text-decoration: none
+				display: block
+				span
+					border-bottom: 1px solid #fff
+					+transition(border-color .3s)
 		.items__row,
 		.items__wrap
 			& + .items__row,
@@ -725,8 +734,8 @@
 				margin-left: 0
 			&.slick-active
 				button
-					width: 9px
-					height: 9px
+					width: 10px
+					height: 10px
 					background: $green
 					box-shadow: none
 		button
