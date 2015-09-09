@@ -30,28 +30,47 @@
 	vertical-align: top
 	background-color: transparent
 	display: block
-	+transition(color .2s linear)
+	+transition(color .3s linear)
 	&:hover
 		color: $second_h
-		&:before
-			opacity: 0
-			+s($ico-menu)
-		&:after
-			opacity: 1
-			+s($ico-menu-hov)
-	&:before,
-	&:after
+		.ico
+			background-color: $second_h
+			&:before,
+			&:after
+				background-color: $second_h
+			&:before
+				bottom: -7px
+			&:after
+				top: -7px
+	&:before
 		position: absolute
 		content: ''
+		top: -30px
+		left: -30px
+		right: -30px
+		bottom: -29px
+	.ico
+		position: absolute
 		left: 0
 		top: 50%
+		height: 2px
+		width: 17px
 		+translate(0, -50%)
-		+transition(opacity .2s linear)
-	&:before
-		+s($ico-menu)
-	&:after
-		opacity: 0
-		+s($ico-menu-hov)
+		background-color: $green
+		+transition(background-color .3s)
+		&:before,
+		&:after
+			position: absolute
+			content: ''
+			left: 0
+			height: 2px
+			width: 17px
+			background-color: $green
+			+transition(background-color .3s, bottom .3s, top .3s)
+		&:before
+			bottom: -4px
+		&:after
+			top: -4px
 
 // logo
 .logo
@@ -79,6 +98,7 @@
 			.menu__in
 				display: block
 		& > a
+			position: relative
 			height: 26px
 			line-height: 26px
 			font-size: 13px
@@ -100,6 +120,13 @@
 				height: 1px
 				background: $green
 				+transition(background, .2s linear)
+			&:after
+				position: absolute
+				content: ''
+				top: -30px
+				left: -22px
+				right: -22px
+				bottom: -27px
 	a
 		position: relative
 		color: #000
@@ -150,6 +177,13 @@
 			bottom: -1px
 			height: 2px
 			background: transparent
+		&:after
+			position: absolute
+			content: ''
+			top: 0
+			left: -22px
+			right: -22px
+			bottom: 0
 
 // cabinet
 .cabinet

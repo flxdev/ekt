@@ -340,8 +340,10 @@
 	& + p
 		margin-top: -10px
 	.link-black
+		margin-top: 14px
 		float: right
-		line-height: 45px
+		line-height: 1
+		text-decoration: none
 .title-h3
 	margin-bottom: 22px
 	font-size: 18px
@@ -729,9 +731,19 @@
 			color: rgba(#fff, .5)
 			+transition(color .3s)
 			&:hover
-				color: #fff
+				color: $second_h
 
 // read-more
+.read-more-wrap
+	+clr
+	.read-more
+		float: left
+		width: 50%
+		& + .read-more
+			margin-top: 0
+	& + .read-more
+		margin-top: 66px
+		
 .read-more
 	position: relative
 	height: 168px
@@ -741,7 +753,22 @@
 	+box
 	background-size: cover
 	background-repeat: no-repeat
+	display: block
 	+vertical
+	&:hover
+		&:after
+			background-color: rgba(0, 47, 18, 0.9)
+		.link-right,
+		.link-left
+				color: $second_h
+		.link-right
+			&:after
+				+translate(4px,0)
+				+s($ico-l-right-h)
+		.link-left
+			&:before
+				+translate(-4px,0)
+				+s($ico-l-left-h)
 	&:after
 		position: absolute
 		content: ''
@@ -750,6 +777,7 @@
 		right: 0
 		bottom: 0
 		background-color: rgba(0, 47, 18, 0.8)
+		+transition(background-color .2s)
 	& + .read-more
 		margin-top: 66px
 	.read-more__wrap
@@ -804,6 +832,7 @@
 	position: relative
 	color: $green
 	text-decoration: underline
+	+transition(color .2s)
 	&:hover
 		color: $second_h
 	&:after,
@@ -811,28 +840,27 @@
 		content: ''
 		margin-bottom: -2px
 		display: inline-block
+		+transition(transform .2s)
 .link-right
 	margin-left: 5px
 	padding-right: 12px
 	&:hover
 		&:after
-			position: relative
-			right: -2px
+			+translate(4px,0)
 			+s($ico-l-right-h)
 	&:after
+		position: relative
 		margin-left: 4px
 		+s($ico-l-right)
-		+transition(right .3s)
 .link-left
 	margin-right: 5px
 	padding-left: 12px
 	&:hover
 		&:before
-			position: relative
-			left: -2px
+			+translate(-4px,0)
 			+s($ico-l-left-h)
-			+transition(left .3s)
 	&:before
+		position: relative
 		margin-right: 4px
 		+s($ico-l-left)
 
@@ -958,7 +986,7 @@ a.address-link
 		left: 50%
 		+translate(-50%,0)
 		margin-top: 10px
-		padding: 2px 13px
+		padding: 7px 13px
 		min-width: 130px
 		font-size: 13px
 		z-index: 10
@@ -966,7 +994,7 @@ a.address-link
 		background: #fff
 		display: none
 		li
-			margin: 2px 0
+			margin: 3px 0
 		a
 			position: relative
 			padding: 3px 0 3px 25px
@@ -1174,6 +1202,10 @@ a.address-link
 	.accord__block
 		padding-top: 20px
 		display: none
+		.title-h4
+			margin: 13px 0 0px
+			&:first-child
+				margin-top: 0
 	.accord__wrap
 		+clr
 	.accord__table
@@ -1185,7 +1217,7 @@ a.address-link
 		li
 			line-height: 28px
 	.info-brown
-		margin: 0 0 10px
+		margin: 30px 0 10px
 // tags
 .tags
 	margin: 38px 0 30px

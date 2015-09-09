@@ -115,6 +115,15 @@
 			z-index: 1
 		a
 			border-color: $border-nav
+	& > li > a 
+		position: relative
+		&:before
+			position: absolute
+			content: ''
+			top: -13px
+			left: -30px
+			bottom: -13px
+			width: 250px
 	li
 		padding: 12px 25px 12px 20px
 		&.is-active 
@@ -207,6 +216,7 @@
 
 // promo
 .promo
+	position: relative
 	padding: 40px 30px 45px
 	color: #fff
 	font-size: 13px
@@ -215,6 +225,7 @@
 	.promo__title
 		margin: 25px 0 5px
 		line-height: 1
+		text-transform: uppercase
 		font-size: 50px
 		+f900
 	.promo__info
@@ -224,7 +235,15 @@
 	.promo__text
 		line-height: 24px
 	.btn
+		position: static
 		margin-top: 20px
+		&:before
+			position: absolute
+			content: ''
+			top: 0
+			left: 0
+			right: 0
+			bottom: 0
 
 // spec
 .spec
@@ -256,6 +275,7 @@
 		line-height: 30px
 	.radiobutton
 		margin: 10px 0
+		letter-spacing: .2px
 	.debr__row
 		margin-top: 17px
 	.debr__prog
@@ -275,6 +295,8 @@
 		line-height: 15px
 		+f700
 		color: $green
+	.btn
+		margin-top: 15px
 
 // pop-inf
 .pop-inf

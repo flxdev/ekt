@@ -97,6 +97,9 @@
 	[class^="icon-"], [class*=" icon-"]
 		vertical-align: middle
 		display: inline-block
+		font-size: 17px
+	.icon-ico-list
+		font-size: 18px
 
 // filter
 .filter
@@ -1152,6 +1155,7 @@
 		&.is-active
 			color: #fff
 			background: $green
+			+f700
 			&:before,
 			&:after
 				border-color: $green
@@ -1176,12 +1180,25 @@
 	left: 50%
 	+translate(-50%,0)
 	display: table
+	.pagin__item
+		&:first-child
+			&:hover
+				a
+					i
+						+translate(-2px,0)
+		&:last-child
+			&:hover
+				a
+					i
+						+translate(2px,0)
 	i
 		position: relative
 		top: 1px
 		font-style: normal
 		font-size: 18px
 		line-height: 1
+		display: inline-block
+		+transition(transform .3s)
 
 // units
 .units
@@ -1208,6 +1225,9 @@
 			opacity: 0
 		&:after
 			opacity: 1
+		.unit__name,
+		.unit__title
+			color: $second_h
 	&:before,
 	&:after
 		position: absolute
@@ -1294,7 +1314,11 @@
 .par
 	padding: 14px 0 16px
 	border-bottom: 1px solid $border
+	display: block
 	+clr
+	&:hover
+		.par__title
+			color: $second_h
 	img
 		float: left
 		margin-right: 25px
@@ -1305,11 +1329,8 @@
 		font-size: 18px
 		line-height: 30px
 		+font-smoothing(antialiased)
+		+transition(color .3s)
 		+f500
-		&:visited
-			color: $second_a
-		&:hover
-			color: $second_h
 	.par__row
 		margin-top: 15px
 

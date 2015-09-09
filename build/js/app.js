@@ -173,47 +173,40 @@ $(document).ready( function() {
 
 	// multiple-select
 	$('.js-multiple-select').multipleSelect({
-		selectAll: false,
+		selectAll: true,
 		countSelected: 10,
-		minimumCountSelected: 10
+		minimumCountSelected: 10,
+		selectAllText: "Все бренды",
+		selectAllDelimiter: ['',''],
+        onClose: function() {
+			$('.ms-choice').removeClass('is-active');
+		}
 	});
 
 	$('.js-filter-select').multipleSelect({
-		single: true
+		single: true,
+        onClose: function() {
+			$('.ms-choice').removeClass('is-active');
+		}
 	});
 	function activeSel() {
 		var parent 		= $('.js-filter-select, .js-multiple-select'),
 			item 		= parent.find('> button'),
-			li 			= parent.find('.ms-drop li'),
 			first 		= parent.find('.ms-drop li:first'),
-			nextAll 	= first.nextAll(),
-			nextCheck 	= nextAll.find('input[type="checkbox"]'),
 			firstCheck 	= first.find('input[type="checkbox"]');
-		
-		nextCheck.on('change', function() {
+		firstCheck.on('change', function() {
 			if ($(this).is(':checked')) {
-				firstCheck.removeAttr('checked');
-				first.removeClass('selected');
-			}
-			else {
-				nextCheck.removeAttr('checked');
-				nextAll.removeClass('selected');
+				$(this).parents('li').toggleClass('selected');
 			}
 		});
 		item.on('click', function () {
 			var this_ = $(this),
 				div = this_.find('> div');
 			if (div.hasClass('open')) {
-				$('.ms-choice').removeClass('is-active');
-				div.parents('.ms-choice').addClass('is-active');
+				setTimeout(function(){
+					div.parents('.ms-choice').addClass('is-active');
+				}, 1);
 			}
-			else {
-				div.parents('.ms-choice').removeClass('is-active');
-			}
-		});
-		li.on('click', function() {
-			var parent = $(this).parents('.js-filter-select, .js-multiple-select');
-			parent.find('.ms-choice').removeClass('is-active');
 		});
 	}
 	activeSel();
@@ -416,6 +409,19 @@ $(document).ready( function() {
 		prevEffect  : 'fade',
 		padding		: 30
 	});
+
+	// fansybox-iframe
+	// $().fancybox();
+	$('.js-fansy-item')
+		.attr('rel', 'gallery')
+		.fancybox({
+			padding		: 30,
+			openEffect  : 'fade',
+			closeEffect : 'fade',
+			maxWidth	: 800,
+			nextEffect  : 'fade',
+			prevEffect  : 'fade'
+		});
 
 	// popup
 	$('.js-popup').each(function() {
