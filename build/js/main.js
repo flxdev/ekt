@@ -11659,31 +11659,31 @@ $(document).ready( function() {
 
 
 	// open nav
-	function navOpen() {
-		$('.js-list-links').each(function() {
-			if ($(this).parent().hasClass('is-active')) {
-				$(this).show();
-			}
-		});
-		$('.js-nav-item').on('click', function() {
-			var this_ = $(this).parent(),
-				item = $('.js-nav-item').parent(),
-				thisList = this_.find('.js-list-links'),
-				list = $('.js-list-links');
-			if (!this_.hasClass('is-active')) {
-				item.removeClass('is-active');
-				list.slideUp(500);
-				this_.addClass('is-active');
-				thisList.slideDown(500);
-			}
-			else {
-				this_.removeClass('is-active');
-				list.slideUp(500);
-			}
-			return false;
-		});
-	}
-	navOpen();
+	// function navOpen() {
+	// 	$('.js-list-links').each(function() {
+	// 		if ($(this).parent().hasClass('is-active')) {
+	// 			$(this).show();
+	// 		}
+	// 	});
+	// 	$('.js-nav-item').on('click', function() {
+	// 		var this_ = $(this).parent(),
+	// 			item = $('.js-nav-item').parent(),
+	// 			thisList = this_.find('.js-list-links'),
+	// 			list = $('.js-list-links');
+	// 		if (!this_.hasClass('is-active')) {
+	// 			item.removeClass('is-active');
+	// 			list.slideUp(500);
+	// 			this_.addClass('is-active');
+	// 			thisList.slideDown(500);
+	// 		}
+	// 		else {
+	// 			this_.removeClass('is-active');
+	// 			list.slideUp(500);
+	// 		}
+	// 		return false;
+	// 	});
+	// }
+	// navOpen();
 
 	// spiner
 	function spiner() {
@@ -11865,13 +11865,13 @@ $(document).ready( function() {
 				block 		= accord.find('.js-accord-block');
 			if (!parent.hasClass('is-active')) {
 				accord.removeClass('is-active');
-				block.slideUp(400);
+				block.slideUp(500);
 				parent.addClass('is-active');
-				blockThis.slideDown(400);
+				blockThis.slideDown(500);
 			}
 			else {
 				parent.removeClass('is-active');
-				blockThis.slideUp(400);
+				blockThis.slideUp(500);
 			}
 			return false;
 		});
@@ -11918,7 +11918,7 @@ $(document).ready( function() {
 		});
 		$('.js-item-open').on('click', function() {
 			var this_ = $(this),
-				parent = this_.parents('.js-item')
+				parent = this_.parents('.js-items'),
 				block = parent.find('.js-item-text');
 			if (!parent.hasClass('is-active')) {
 				parent.addClass('is-active')
@@ -11929,6 +11929,19 @@ $(document).ready( function() {
 				block.slideUp(400);
 			}
 			return false;
+		});
+		$('.js-open-all-items').on('click', function() {
+			var this_ = $(this),
+				parent = $('.js-items'),
+				block = parent.find('.js-item-text');
+			if (this_.is(':checked')) {
+				parent.addClass('is-active')
+				block.slideDown(400);
+			}
+			else {
+				parent.removeClass('is-active');
+				block.slideUp(400);
+			}
 		});
 	} itemOpen();
 	

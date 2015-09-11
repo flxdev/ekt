@@ -99,12 +99,36 @@
 
 // btn-search
 .btn-search
-	position: absolute
+	position: absolute 
 	top: 46px
 	right: 24px
-	+s($ico-search-gray)
+	height: 19px
+	width: 19px
 	background-color: transparent
 	display: inline-block
+	&:before,
+	&:after
+		position: absolute
+		content: ''
+		top: 0
+		left: 0
+		+transition(opacity .2s linear)
+	&:before
+		+s($ico-search-gray)
+	&:after
+		opacity: 0
+		+s($ico-search-hov)
+	&:hover
+		&:before
+			opacity: 0
+		&:after
+			opacity: 1
+	span
+		position: absolute
+		top: -35px
+		left: -30px
+		right: -24px
+		bottom: -30px
 
 .btn-search-white
 	@extend .btn-search
@@ -118,6 +142,7 @@
 
 .btn-clear
 	position: relative
+	color: #000
 	margin-top: 10px
 	padding-left: 20px
 	font-size: 13px
@@ -1143,6 +1168,8 @@ a.address-link
 				&:before,
 				&:after
 					display: none
+	.accordions__wrap
+		margin-top: 35px
 
 // accord
 .accord
@@ -1154,19 +1181,17 @@ a.address-link
 			color: #000
 		.accord__but
 			&:before
-				opacity: 0
+				+rotate(135deg)
 			&:after
-				opacity: 1
-			&:hover
-				&:after
-					+s($accord-arr-h-op)
+				+rotate(-135deg)
 	.accord__but
 		position: relative
 		padding-right: 170px
 		cursor: pointer
 		&:hover
-			&:before
-				+s($accord-arr-h)
+			&:before,
+			&:after
+				background: $second_h
 			.accord__title
 				color: $second_h
 		&:before,
@@ -1175,13 +1200,16 @@ a.address-link
 			content: ''
 			top: 50%
 			right: 3px
+			height: 6px
+			width: 1px
+			background: #000
 			+translate(0,-50%)
-			+transition(opacity .3s)
+			+transition(background .3s, transform .3s)
 		&:before
-			+s($accord-arr)
+			+rotate(44deg)
 		&:after
-			opacity: 0
-			+s($accord-arr-op)
+			right: 7px
+			+rotate(-44deg)
 	.accord__title
 		color: $green
 		font-size: 18px

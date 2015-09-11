@@ -170,6 +170,8 @@
 		margin-left: 50px
 	.checkbox
 		margin-top: 4px
+		font-size: 16px
+		+f700
 	.accord
 		margin: 25px 0
 		padding: 0
@@ -221,10 +223,18 @@
 		float: left
 		&:nth-child(2)
 			.ms-choice
-				border-right: none
 				border-radius: 3px 0 0 3px
 		.ms-choice
+			position: relative
 			border-radius: 0 3px 3px 0
+			&.is-active
+				z-index: 1
+	select.multiple-select
+		&:first-child
+			& + div.multiple-select
+				margin-right: -1px
+				&:hover
+					z-index: 1
 	input.input
 		border-radius: 0 3px 3px 0
 		&:first-child
@@ -465,7 +475,7 @@
 		bottom: 26px
 		width: 25%
 		color: #000
-		z-index: 1
+		z-index: 2
 		+translate(-10px, 0)
 		+r(1180)
 			width: 50%
@@ -783,7 +793,7 @@
 	&.is-prod-cena,
 	&.is-login
 		.item
-			padding-bottom: 10px
+			padding-bottom: 25px
 			min-height: 327px
 			+f300
 		.item__link
@@ -931,9 +941,10 @@
 	padding: 62px 345px 32px 30px
 	font-size: 24px
 	color: #fff
+	+f500
 	background-size: cover
 	background-repeat: no-repeat
-	+f500
+	display: block
 	&:before
 		position: absolute
 		content: ''
@@ -942,9 +953,13 @@
 		right: 0
 		bottom: 0
 		background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%)
+	&:hover
+		.banner__text
+			color: $red
 	.banner__text
 		position: relative
 		z-index: 1
+		+transition(color .3s)
 
 // info-brown
 .info-brown
@@ -1146,6 +1161,7 @@
 		color: #000
 		display: block
 		+transition(color .3s, background .3s)
+	a
 		&:active
 			background: $years-active
 		&:hover
