@@ -299,11 +299,11 @@
 											<p>Тип<span>*</span></p>
 											<div class="input__right">
 												<label class="radiobutton">
-													<input type="radio" name="type">
+													<input type="radio" name="type" checked>
 													<span>Организация</span>
 												</label>
 												<label class="radiobutton">
-													<input type="radio" name="type" checked>
+													<input type="radio" name="type">
 													<span>Физическое лицо</span>
 												</label>
 											</div>
@@ -311,8 +311,14 @@
 									</label>
 									<label class="form__row">
 										<div class="input">
-											<p>ФИО*<span>*</span></p>
-											<input type="text" data-validation="required" placeholder="Иванов Иван Иванович" data-validation-error-msg="Незаполненное поле">
+											<p>Название оранизации<span>*</span></p>
+											<input type="text" data-validation="required" placeholder="Название оранизации" data-validation-error-msg="Незаполненное поле" value="ООО “Технологии и крепежи”">
+										</div>
+									</label>
+									<label class="form__row">
+										<div class="input">
+											<p>Контактное лицо<span>*</span></p>
+											<input type="text" data-validation="required" placeholder="Контактное лицо" data-validation-error-msg="Незаполненное поле" value="Иванов Иван Иванович">
 										</div>
 									</label>
 									<label class="form__row">
@@ -345,7 +351,7 @@
 										<div class="input input_cap">
 											<p>Проверочный код<span>*</span></p>
 											<div class="input__right">
-												<input class="input" type="text" data-validation="required" placeholder="***********" data-validation-error-msg="Неправильный код">
+												<input class="input" type="text" data-validation="required" placeholder="" data-validation-error-msg="Неправильный код">
 												<div class="captcha">
 													<div class="captcha__code">
 														<img src="img/captcha.png" alt="img">

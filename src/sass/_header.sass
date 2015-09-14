@@ -212,10 +212,22 @@
 		line-height: 21px
 		vertical-align: bottom
 		display: inline-block
+		+transition(color .3s)
+		&:hover
+			color: $red
+			.ico_user
+				&:before
+					opacity: 0
+				&:after
+					opacity: 1
+
 		.ico
 			position: absolute
 			left: -30px
 			top: 0
+			&:before,
+			&:after
+				+transition(opacity .3s)
 	.cabinet__name
 		width: 106px
 		font-size: 12px

@@ -58,7 +58,7 @@ $(document).ready( function() {
 		});
 	};
 
-	$('input[name="phone"]').mask("+999 99 999-99-99");
+	// $('input[name="phone"]').mask("+999 99 999-99-99");
 
 });
 /**
@@ -11863,15 +11863,27 @@ $(document).ready( function() {
 				blockThis 	= parent.find('.js-accord-block'),
 				accord 		= $('.js-accord'),
 				block 		= accord.find('.js-accord-block');
-			if (!parent.hasClass('is-active')) {
-				accord.removeClass('is-active');
-				block.slideUp(500);
-				parent.addClass('is-active');
-				blockThis.slideDown(500);
+			if (!parent.parents('.filter__block').hasClass('js-filter-block')) {
+				if (!parent.hasClass('is-active')) {
+					accord.removeClass('is-active');
+					block.slideUp(500);
+					parent.addClass('is-active');
+					blockThis.slideDown(500);
+				}
+				else {
+					parent.removeClass('is-active');
+					blockThis.slideUp(500);
+				}
 			}
 			else {
-				parent.removeClass('is-active');
-				blockThis.slideUp(500);
+				if (!parent.hasClass('is-active')) {
+					parent.addClass('is-active');
+					blockThis.slideDown(500);
+				}
+				else {
+					parent.removeClass('is-active');
+					blockThis.slideUp(500);
+				}
 			}
 			return false;
 		});
@@ -12182,5 +12194,32 @@ $(document).ready( function() {
 				ul.slideUp(400);			}
 		});
 	})
+
+	// scrollTop
+	// $(document).scroll(function() {    
+	// 	var scroll = $(this).scrollTop();
+	// 	var h_doc = $(document).height();
+	// 	var h_wind = $('.height').height();
+	// 	var h_footer = $('.footer').height();
+	// 	var scroll_position = h_doc - h_wind - h_footer;
+	// 	if (scroll > 0) {
+	// 		$(".scrolltop").fadeIn();
+	// 		if (scroll >= scroll_position) {
+	// 			$(".scrolltop").css({'position':'absolute'});
+	// 		}else{
+	// 			$(".scrolltop").css({'position':'fixed'});
+	// 		}
+	// 	}
+	// 	else{
+	// 		$(".scrolltop").fadeOut();
+	// 	}
+	// });
+	$(".js-add-button").on('click', function(){
+		var page = $(this).attr("href");
+		$('html, body').animate({
+			scrollTop: $(page).offset().top - 20
+		}, 800);
+		return false;
+	});
 
 });
