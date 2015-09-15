@@ -30,8 +30,10 @@
 	color: $primary 
 	&:hover
 		color: #fff
+		border-color: $primary_h
 	&:active
 		color: #fff 
+		border-color: $primary
 .btn_small
 	padding: 10px 20px
 	min-width: 175px
@@ -330,6 +332,7 @@
 .l-layout
 	display: table
 	width: 100%
+	min-height: 655px
 	table-layout: fixed
 	background: #fff 
 	&.is-contact
@@ -1380,3 +1383,11 @@ a.address-link
 .caption
 	font-size: 12px
 	line-height: 24px
+
+// js-hide
+.js-hide
+	position: relative
+	width: 0
+	height: 0
+	overflow: hidden
+	z-index: -1

@@ -1590,6 +1590,7 @@
 			height: 52px !important
 			line-height: 52px
 		tr
+			user-select: none
 			+transition(background .3s)
 			&:first-child
 				td
@@ -1607,6 +1608,7 @@
 						top: auto
 						bottom: 100%
 			&.is-hover
+				cursor: pointer
 				background: $sheet-h
 			&.is-added
 				background: $sheet-added
@@ -1820,3 +1822,18 @@
 			margin-right: 10px
 	.btn
 		width: 100%
+
+// scroll-top
+.scroll-top
+	position: fixed
+	left: 28px
+	bottom: -63px
+	opacity: .3
+	cursor: pointer
+	+transition(opacity .3s, bottom .5s)
+	+s($scrolltop)
+	display: none
+	&:hover
+		opacity: 1
+	&.is-active
+		bottom: 28px

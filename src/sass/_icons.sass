@@ -41,19 +41,40 @@
 	&_add
 		+s($arr-add-white)
 	&_logout
+		position: relative
 		margin-right: 3px
 		vertical-align: middle
-		+s($ico-logout)
+		width: 19px
+		height: 16px
+		&:before,
+		&:after
+			position: absolute
+			content: ''
+			top: 0
+			left: 0
+			+transition(opacity .3s)
+		&:before
+			+s($ico-logout)
+		&:after
+			opacity: 0
+			+s($exit-white)
 	&_reg
 		position: relative
 		width: 15px
 		height: 16px
-		&:before
+		&:before,
+		&:after
 			position: absolute
 			content: ''
 			left: 0
 			right: 0
+			+transition(opacity .3s)
+		&:before
 			+s($ico-reg)
+		&:after
+			opacity: 0
+			+s($add-white)
+
 	&_print
 		position: relative
 		width: 13px

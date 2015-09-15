@@ -394,6 +394,40 @@ $(document).ready( function() {
 			$(this).jScrollPane();
 		}
 	});
+	$('.sheet').each(function() {
+		var this_ 		= $(this),
+			scrollTop 	= this_.find('.js-sorting .js-scroll'),
+			apiTop 		= scrollTop.data('jsp'),
+			scrollBot 	= this_.find('.js-scroll-h .js-scroll'),
+			apiBot 		= scrollBot.data('jsp');
+		scrollTop.on('jsp-scroll-x', function(event, scrollPositionX) {
+			apiBot.scrollToX(scrollPositionX);
+		});
+		// scrollBot.on('jsp-scroll-x', function(event, scrollPositionX) {
+		// 	apiTop.scrollToX(scrollPositionX);
+		// });
+	});
+	setInterval(function() {
+		if ($('.sheet .jspScrollable').length) {
+			$('.sheet').each(function() {
+				var this_ 		= $(this),
+					dragTop 	= this_.find('.js-sorting .jspDrag'),
+					topPane 	= this_.find('.js-sorting .jspPane'),
+					dragBot 	= this_.find('.js-scroll-h .jspDrag'),
+					botPane 	= this_.find('.js-scroll-h .jspPane'),
+					posBotDrag 	= dragBot.position().left,
+					posBotPane 	= botPane.position().left;
+				dragTop.css('left', posBotDrag);
+				topPane.css('left', posBotPane);
+			});
+		}
+		else {
+			return false;
+		}
+		
+	}, 1 );
+	
+	
 	// $('[class*="js-scroll"]').each(function() {
 	// 	var api = $(this).data('jsp'),
 	// 		throttleTimeout;
@@ -409,11 +443,11 @@ $(document).ready( function() {
 
 	// table
 	$('[class*="js-sheet"] tr').hover(function () {
-		var trR = $('.js-sheet-r tr'),
-			trL = $('.js-sheet-l tr'),
-			thisIndex = $(this).index(),
-		 	thisEq = trR.eq(thisIndex),
-		 	lEq = trL.eq(thisIndex);
+		var trR 		= $('.js-sheet-r tr'),
+			trL 		= $('.js-sheet-l tr'),
+			thisIndex 	= $(this).index(),
+		 	thisEq 		= trR.eq(thisIndex),
+		 	lEq 		= trL.eq(thisIndex);
 		$('[class*="js-sheet"] tr').removeClass('is-hover');
 		$(this).addClass('is-hover');
 		thisEq.addClass('is-hover');
@@ -462,7 +496,8 @@ $(document).ready( function() {
 				parentThis 	= thisBtn.parents('.js-popup-par'),
 				popupThis 	= parentThis.find('.js-popup'),
 				parent 		= $('.js-popup-par'),
-				popup 		= $('.js-popup');
+				popup 		= $('.js-popup'),
+				scroll 	= popup.find('.js-p-scroll');
 			if (!parent.hasClass('is-open')) {
 				parent.removeClass('is-open');
 				popup.fadeOut(300);
@@ -501,10 +536,10 @@ $(document).ready( function() {
 
 	// add form
 	$('.js-add-rig').on('click', function() {
-		var this_ 	= $(this),
-			parents = this_.parents('.js-form')
-			parent 	= this_.parent(),
-			block 	= parents.find('form > .js-form-add:first')
+		var this_ 		= $(this),
+			parents 	= this_.parents('.js-form'),
+			parent 		= this_.parent(),
+			block 		= parents.find('.js-hide .form__in'),
 			block_all 	= parents.find('.js-form-add');
 		block.clone().insertBefore(parent);
 		block_all.addClass('form__in');
@@ -578,27 +613,26 @@ $(document).ready( function() {
 				ul.removeClass('is-active');
 				ul.slideUp(400);			}
 		});
-	})
+	});
 
 	// scrollTop
-	// $(document).scroll(function() {    
-	// 	var scroll = $(this).scrollTop();
-	// 	var h_doc = $(document).height();
-	// 	var h_wind = $('.height').height();
-	// 	var h_footer = $('.footer').height();
-	// 	var scroll_position = h_doc - h_wind - h_footer;
-	// 	if (scroll > 0) {
-	// 		$(".scrolltop").fadeIn();
-	// 		if (scroll >= scroll_position) {
-	// 			$(".scrolltop").css({'position':'absolute'});
-	// 		}else{
-	// 			$(".scrolltop").css({'position':'fixed'});
-	// 		}
-	// 	}
-	// 	else{
-	// 		$(".scrolltop").fadeOut();
-	// 	}
-	// });
+	$(document).scroll(function() {    
+		var scroll 		= $(this).scrollTop(),
+			scrolltop 	= $('.js-scroll-top');
+		if (scroll > 100) {
+			scrolltop.fadeIn(600);
+			scrolltop.addClass('is-active');
+		}
+		else{
+			scrolltop.fadeOut(600);
+			scrolltop.removeClass('is-active');
+		}
+	});
+	$('.js-scroll-top').on('click', function() {
+		$('html, body').animate({
+			scrollTop: 0
+		}, 800);
+	});
 	$(".js-add-button").on('click', function(){
 		var page = $(this).attr("href");
 		$('html, body').animate({

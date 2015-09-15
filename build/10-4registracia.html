@@ -532,7 +532,7 @@
 												<p>Дата покупки<span>*</span></p>
 												<div class="input__right">
 													<label class="datepicker">
-														<input type="text" class="input" placeholder="25.05.2015" data-uk-datepicker="{format:'YYYY-MM-DD',i18n:{months:['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],weekdays:['Вс','Вт','Ср','Чт','Пт','Сб','Пн']}, pos:'bottom'}">
+														<input type="text" class="input" placeholder="25.05.2015" data-uk-datepicker="{format:'DD.MM.YYYY',i18n:{months:['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],weekdays:['Вс','Пн','Вт','Ср','Чт','Пт','Сб']}, pos:'bottom'}">
 													</label>
 													
 												</div>
@@ -598,8 +598,83 @@
 									</div>
 									<div class="form__submit">
 										<input type="submit" class="btn" value="Войти">
-									</div>	
+									</div>
 								</form>
+								<div class="js-hide">
+									<div class="form__in">
+										<label class="form__row">
+											<div class="input">
+												<p>Серийный номер<span>*</span></p>
+												<input type="text" data-validation="required" placeholder="Заполняется латинскими символами" data-validation-error-msg="Неправильный номер">
+											</div>
+										</label>
+										<label class="form__row">
+											<div class="input">
+												<p>Дата покупки<span>*</span></p>
+												<div class="input__right">
+													<label class="datepicker">
+														<input type="text" class="input" placeholder="25.05.2015" data-uk-datepicker="{format:'DD.MM.YYYY',i18n:{months:['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],weekdays:['Вс','Пн','Вт','Ср','Чт','Пт','Сб']}, pos:'bottom'}">
+													</label>
+													
+												</div>
+											</div>
+										</label>
+										<label class="form__row">
+											<div class="input">
+												<p>Способ покупки<span>*</span></p>
+												<div class="input__right">
+													<select class="multiple-select js-filter-select" multiple="multiple">
+														<option value="1" selected>Магазин (при покупке по чеку)</option>
+														<option value="2">1</option>
+														<option value="3">2</option>
+														<option value="4">3</option>
+														<option value="5">4</option>
+													</select>
+												</div>
+											</div>
+										</label>
+										<label class="form__row">
+											<div class="input">
+												<p>Наименование продавца<span>*</span></p>
+												<input type="text" data-validation="required" placeholder="Название торговой точки/оргинизации" data-validation-error-msg="error">
+											</div>
+										</label>
+										<label class="form__row">
+											<div class="input">
+												<p>Номер ТТН/кассового чека<span>*</span></p>
+												<input type="text" data-validation="required" placeholder="Введите номер кассового чека или ТТН" data-validation-error-msg="error">
+											</div>
+										</label>
+										<label class="form__row">
+											<div class="input">
+												<p>Тип оборудования<span>*</span></p>
+												<div class="input__right">
+													<select class="multiple-select js-filter-select" multiple="multiple">
+														<option value="1" selected>УШМ</option>
+														<option value="2">1</option>
+														<option value="3">2</option>
+														<option value="4">3</option>
+														<option value="5">4</option>
+													</select>
+												</div>
+											</div>
+										</label>
+										<label class="form__row">
+											<div class="input">
+												<p>Производитель<span>*</span></p>
+												<div class="input__right">
+													<select class="multiple-select js-filter-select" multiple="multiple">
+														<option value="1" selected>HITACHI</option>
+														<option value="2">1</option>
+														<option value="3">2</option>
+														<option value="4">3</option>
+														<option value="5">4</option>
+													</select>
+												</div>
+											</div>
+										</label>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
