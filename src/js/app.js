@@ -5,7 +5,8 @@ $(document).ready( function() {
 		    $(".js-select-list").slideUp(100);
 		    $('.js-drop').removeClass('is-active');
 		    $('.js-drop-list').fadeOut();
-			// $('.ms-choice').removeClass('is-active');
+			$('.js-accordions-mod .js-accord').removeClass('is-active');
+			$('.js-accordions-mod .js-accord-block').slideUp(500);
 	    });
 	    
 	    // select list
@@ -274,16 +275,24 @@ $(document).ready( function() {
 		});
 	} accord();
 
-	$('.js-accord-but .btn').on('click',function(event) {
+	$('.js-accord-but .btn, .js-accord-block, .js-history-op').on('click',function(event) {
 		event.stopPropagation();
 	});
 
 	$('.js-histoy').each(function() {
 		var this_ 	= $(this),
-			btn 	= this_.find('.js-history-op');
+			btn 	= this_.find('.js-history-op')
+			accord 	= this_.find('.js-accord'),
+			block 	= accord.find('.js-accord-block');
 		btn.on('click', function() {
 			$(this).toggleClass('is-active');
-			$('.js-accord-but').trigger('click');
+			accord.toggleClass('is-active');
+			if (accord.hasClass('is-active')) {
+				block.slideDown(500);
+			}
+			else {
+				block.slideUp(500);
+			}
 			return false;
 		});
 	});
@@ -536,14 +545,26 @@ $(document).ready( function() {
 
 	// add form
 	$('.js-add-rig').on('click', function() {
-		var this_ 		= $(this),
-			parents 	= this_.parents('.js-form'),
-			parent 		= this_.parent(),
-			block 		= parents.find('.js-hide .form__in'),
-			block_all 	= parents.find('.js-form-add');
-		block.clone().insertBefore(parent);
-		block_all.addClass('form__in');
-		parent.prev(block_all).removeClass('form__in');
+		var this_ 	= $(this),
+			parents = this_.parents('.js-form'),
+			parent 	= this_.parent(),
+			block 	= parents.find('.is-hide .form__in'),
+			bFirst 	= parents.find('.js-form-add');
+		// console.log(bPrev.html());
+		block.clone().insertBefore(parent).addClass('js-form-add');
+		bFirst.addClass('form__in');
+		parent.prev('.form__in').removeClass('form__in');
+		setTimeout(function(){
+			var bPrev 	= parent.prev('div'),
+				select 	= bPrev.find('.multiple-select');
+			select.addClass('js-filter-select');
+			select.multipleSelect({
+				single: true,
+				onClose: function() {
+					$('.ms-choice').removeClass('is-active');
+				}
+			});
+		}, 1);
 		return false;
 	});
 
@@ -604,6 +625,7 @@ $(document).ready( function() {
 			var this_ 	= $(this),
 				parent 	= this_.parent(),
 				ul 		= parent.find(' > ul');
+			this_.toggleClass('is-active');
 			if (!ul.hasClass('is-active')) {
 				ul.addClass('is-active');
 				ul.slideDown(400);
@@ -611,7 +633,8 @@ $(document).ready( function() {
 			}
 			else {
 				ul.removeClass('is-active');
-				ul.slideUp(400);			}
+				ul.slideUp(400);
+			}
 		});
 	});
 
@@ -639,6 +662,10 @@ $(document).ready( function() {
 			scrollTop: $(page).offset().top - 20
 		}, 800);
 		return false;
+	});
+
+	$('.js-refresh-input').on('click', function() {
+		$('.js-search-input').val("");
 	});
 
 });

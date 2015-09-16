@@ -9,7 +9,7 @@
 	padding: 16px
 	overflow-y: scroll
 	cursor: pointer
-	background: rgba($green, .97)
+	background: rgba($green, .99)
 	display: none
 	+vertical
 	&.popup_menu
@@ -77,6 +77,7 @@
 			text-align: center
 			color: #fff
 			font-size: 13px
+			text-transform: uppercase
 			+f900
 			+transition(color .3s, background .3s)
 			display: block
@@ -124,10 +125,12 @@
 		margin: 20px 0
 	.title-h2 a
 		color: #fff
+		&:visited
+			border-color: #fff
 	.list
 		margin: 10px 0
 .p-list
-	padding-right: 95px
+	padding-right: 86px
 	line-height: 24px
 	&.p-list_mod
 		margin-top: 70px
@@ -144,21 +147,21 @@
 			li
 				padding: 5px 0
 			a
-				border-bottom: 1px solid #fff
+				border-bottom: 1px solid rgba(#fff, .8)
 		& > a
 			font-size: 18px
+			border-bottom: 1px solid transparent
 			+f500
+			&:hover
+				color: #fff
+				border-color: #fff
 	li
 		display: block
 	a
 		color: #fff
 		+transition(border-color .3s, color .3s)
-		&:visited
-			color: $second_a
-			border-color: $second_a
 		&:hover
-			color: $second_h
-			border-color: $second_h
+			border-color: transparent
 	.u-turn
 		margin-left: 8px
 

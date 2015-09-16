@@ -24,7 +24,7 @@
 				position: absolute
 				content: ''
 				top: 0
-				z-index: 600
+				z-index: 800
 			&:before
 				left: 0
 				+arr(90,315,#fff,tl)
@@ -101,6 +101,7 @@
 	+f300
 	.balloon__title
 		font-size: 14px
+		font-weight: normal
 		+f500
 	.balloon__content
 		margin-top: 7px
@@ -115,6 +116,10 @@
 			width: 134px
 	p
 		margin: 0
+		sup
+			font-size: 7px
+			line-height: 2.5
+			vertical-align: top
 
 // window
 .window
@@ -153,8 +158,7 @@
 				margin-top: 0
 		a
 			color: #fff
-			text-decoration: underline
-			+transition(color .1s)
+			border-bottom: 1px solid rgba(#fff, .8)
+			+transition(border-color .1s)
 			&:hover
-				color: $second_h
-				text-decoration: none
+				border-color: transparent

@@ -90,3 +90,23 @@
 		&:after
 			opacity: 0
 			+s($ico-print-h)
+	&_datepicker
+		width: 15px
+		height: 16px
+		&:hover
+			&:before
+				opacity: 0
+			&:after
+				opacity: 1
+		&:before,
+		&:after
+			position: absolute
+			content: ''
+			top: 0
+			left: 0
+			+transition(opacity .3s)
+		&:before
+			+s($ico-datepicker)
+		&:after
+			opacity: 0
+			+s($calendary-red)

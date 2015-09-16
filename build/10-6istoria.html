@@ -412,8 +412,8 @@
 			<div class="popup js-popup">
 				<div class="popup__in">
 					<div class="search-form">
-						<button class="popup__close js-close-popup" type="button"></button>
-						<input type="text" placeholder="Введите ваш запрос">
+						<button class="popup__close js-refresh-input" type="button"></button>
+						<input type="text" placeholder="Введите ваш запрос" class="js-search-input">
 						<div class="search-form__row">
 							<!-- radiobuttons -->
 							<label class="radiobutton">
@@ -526,7 +526,7 @@
 										<button class="sorting__item js-sortin-item" type="button">Код заказа</button>
 									</td>
 									<td>
-										<button class="sorting__item js-sortin-item" type="button">Дата</button>
+										<button class="sorting__item js-sortin-item is-active" type="button">Дата</button>
 									</td>
 									<td>
 										<button class="sorting__item js-sortin-item" type="button">Стоимость</button>
@@ -535,7 +535,7 @@
 							</table>
 						</div>
 						<!-- accordions -->
-						<div class="accordions is-mod">
+						<div class="accordions is-mod js-accordions-mod">
 							<!-- accord -->
 							<div class="accord js-accord">
 								<div class="accord__but js-accord-but">

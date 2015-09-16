@@ -153,8 +153,8 @@ $(document).ready( function() {
 									"<p>+375 29 200-00-00<p>" +
 								"</div>" +
 								"<div class='balloon__col'>" +
-									"<p>Пн–Пт: 900–2000,<p>" +
-									"<p>Сб: 1000–1600<p>" +
+									"<p>Пн–Пт: 9<sup>00</sup>–20<sup>00</sup>,<p>" +
+									"<p>Сб: 10<sup>00</sup>–16<sup>00</sup><p>" +
 								"</div>" +
 							"</div>" 
 						, 
@@ -179,8 +179,8 @@ $(document).ready( function() {
 									"<p>+375 29 200-00-00<p>" +
 								"</div>" +
 								"<div class='balloon__col'>" +
-									"<p>Пн–Пт: 900–2000,<p>" +
-									"<p>Сб: 1000–1600<p>" +
+									"<p>Пн–Пт: 9<sup>00</sup>–20<sup>00</sup>,<p>" +
+									"<p>Сб: 10<sup>00</sup>–16<sup>00</sup><p>" +
 								"</div>" +
 							"</div>" 
 						, 
@@ -205,8 +205,8 @@ $(document).ready( function() {
 									"<p>+375 29 200-00-00<p>" +
 								"</div>" +
 								"<div class='balloon__col'>" +
-									"<p>Пн–Пт: 900–2000,<p>" +
-									"<p>Сб: 1000–1600<p>" +
+									"<p>Пн–Пт: 9<sup>00</sup>–20<sup>00</sup>,<p>" +
+									"<p>Сб: 10<sup>00</sup>–16<sup>00</sup><p>" +
 								"</div>" +
 							"</div>" 
 						, 
@@ -231,8 +231,8 @@ $(document).ready( function() {
 									"<p>+375 29 200-00-00<p>" +
 								"</div>" +
 								"<div class='balloon__col'>" +
-									"<p>Пн–Пт: 900–2000,<p>" +
-									"<p>Сб: 1000–1600<p>" +
+									"<p>Пн–Пт: 9<sup>00</sup>–20<sup>00</sup>,<p>" +
+									"<p>Сб: 10<sup>00</sup>–16<sup>00</sup><p>" +
 								"</div>" +
 							"</div>" 
 						, 

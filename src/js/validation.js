@@ -15,6 +15,6 @@ $(document).ready( function() {
 		});
 	};
 
-	// $('input[name="phone"]').mask("+999 99 999-99-99");
+	$('input[name="phone"], input[type="phone"]').mask("+999 99 999 99 99",{placeholder:" "});
 
 });

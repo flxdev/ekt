@@ -146,7 +146,8 @@
 	@extend .btn-search
 	top: 35px
 	right: 0
-	+s($ico-search-white)
+	&:before
+		+s($ico-search-white)
 
 .btn_basket
 	padding: 7px 12px
@@ -239,71 +240,55 @@
 		+s($ico-delete-h)
 
 .btn-open
-	position: relative
-	padding-right: 16px
+	position: static
 	color: #000
 	font-size: 12px
 	+transition(color .3s)
 	vertical-align: top
 	display: inline-block
 	background: transparent
-	&:before,
-	&:after
-	    position: absolute
-	    content: ''
-	    top: 50%
-	    right: 0
-	    margin-top: -2px
-	    +transition(opacity .3s)
 	&:before
-		+s($accord-arr)
-	&:after
-	    opacity: 0
-	    +s($accord-arr-op)
+		position: absolute
+		content: ''
+		top: 0
+		left: 0
+		bottom: 0
+		right: 0
 	&:hover
-	    color: $second_h
-	    &:before
-	        opacity: 0
-	    span
-	        border-color: $second_h
-	        &:before
-	            opacity: 1
-	&.is-active
-		color: $green
+		color: $second_h
 		span
-			border-color: $green
+			border-color: $second_h
+			&:before,
+			&:after
+				background: $second_h
+	&.is-active
 		&:hover
 			color: $second_h
+		span
+			&:before
+				+rotate(135deg)
 			&:after
-				opacity: 0
-			span
-				border-color: $second_h
-				&:before
-					opacity: 0 
-				&:after
-					opacity: 1
-		&:before
-			opacity: 0
-		&:after
-			opacity: 1
+				+rotate(-135deg)
 	span
-	    border-bottom: 1px dotted #000
-	    +transition(border-color .3s)
-	    &:before,
-	    &:after
-	        position: absolute
-	        content: ''
-	        top: 50%
-	        right: 0
-	        z-index: 1
-	        margin-top: -2px
-	        +transition(opacity .3s)
-	    &:before
-	        opacity: 0
-	        +s($accord-arr-h)
-	    &:after
-	        opacity: 0
-	        +s($accord-arr-h-op)
+		position: relative
+		border-bottom: 1px dotted #000
+		+transition(border-color .3s)
+		&:before,
+		&:after
+			position: absolute
+			content: ''
+			top: 50%
+			right: -12px
+			height: 6px
+			width: 1px
+			background: #000
+			margin-top: -2px
+			+transition(background .3s, transform .3s)
+		&:before
+			+rotate(44deg)
+		&:after
+			right: -8px
+			+rotate(-44deg)
 	.icon
 		position: absolute
 		top: 50%
@@ -322,12 +307,14 @@
 .u-turn
 	vertical-align: middle
 	opacity: .5
-	+transition(opacity .3s)
+	+transition(opacity .3s, transform .3s)
 	background-color: transparent
 	+s($u-turn)
 	display: inline-block
 	&:hover
 		opacity: 1
+	&.is-active
+		+rotate(180deg)
 
 .l-layout
 	display: table
@@ -362,6 +349,8 @@
 	font-weight: normal
 	+f500
 	+clr
+	&.is-green
+		color: $green
 	a
 		color: $second
 		border-bottom: 1px solid
@@ -377,6 +366,8 @@
 			border-color: transparent  
 	& + p
 		margin-top: -10px
+	& + .wrapper__left-t
+		margin-top: -11px
 	.link-black
 		margin-top: 14px
 		float: right
@@ -1093,15 +1084,18 @@ a.address-link
 			&:first-child
 				border-top: 1px solid $border
 			&.is-active
+				position: relative
 				border-color: $green
+				z-index: 1
 				&:before
 					background: $green
 		.accord__but
 			padding: 10px 44px 10px 22px
 			+transition(background .3s)
-			&:before,
-			&:after
+			&:before
 				right: 15px
+			&:after
+				right: 19px
 			&:hover
 				background: $accord-bg-h
 			table
@@ -1141,6 +1135,12 @@ a.address-link
 				line-height: 32px
 				&:first-child
 					width: 160px
+	&.is-mod
+		.accord
+			&.is-active
+				.accord__but
+					&:hover
+						background: transparent
 	&.is-address
 		margin-bottom: 10px
 		.accord__block
@@ -1173,6 +1173,13 @@ a.address-link
 						opacity: 0
 					&:after
 						opacity: 1
+		.accord__hidden
+			position: absolute
+			top: 0
+			left: 0
+			right: 0
+			bottom: -68px
+			z-index: 1
 	&.is-contact
 		.accord 
 			padding-bottom: 0
@@ -1330,6 +1337,10 @@ a.address-link
 .timetable
 	&:before
 		+s($ico-timetable)
+	sup
+		font-size: 7px
+		line-height: 2.7
+		vertical-align: top
 .warning
 	color: $red
 	&:before
@@ -1365,29 +1376,42 @@ a.address-link
 		margin-top: 26px
 		&:first-child
 			margin-top: 0
+	.quote
+		line-height: 20px
 
 .page-404
 	width: 554px
 	.page-404__text
+		margin-left: -14px
 		font-size: 300px
 		+f700
-		line-height: 0.8
+		line-height: 0.9
+		letter-spacing: 8px
 		color: $border-comment
+	.quote
+		padding-right: 30px
+		letter-spacing: .5px
 
 // quote
 .quote
 	font-size: 16px
 	line-height: 30px
+	a
+		font-size: inherit
 
 // caption
 .caption
 	font-size: 12px
 	line-height: 24px
 
-// js-hide
-.js-hide
+// is-hide
+.is-hide
 	position: relative
 	width: 0
 	height: 0
 	overflow: hidden
 	z-index: -1
+
+// js-hide
+.js-hide
+	display: none

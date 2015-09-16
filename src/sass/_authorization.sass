@@ -358,6 +358,10 @@ textarea.textarea
 
 .input-border
     border-style: dotted !important
+    &:hover,
+    &:focus
+        border-color: #c5c5c5 !important
+        box-shadow: none !important
 
 .forgot-pass
     float: right
@@ -398,13 +402,11 @@ textarea.textarea
 .datepicker
     position: relative
     display: block
-    &:before
+    .ico
         position: absolute
-        content: ''
         top: 8px
         right: 10px
         cursor: pointer
-        +s($ico-datepicker)
     input
         width: 100%
 
