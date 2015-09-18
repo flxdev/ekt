@@ -1586,6 +1586,7 @@
 	.sheet__in
 		max-height: 822px
 		overflow-y: auto
+		cursor: default !important
 		border-bottom: 1px solid $border-td
 		td
 			border-top: 1px solid $border-td
@@ -1636,13 +1637,18 @@
 			text-align: right
 	.sheet__top
 		position: relative
-		bottom: -14px
+		bottom: -1px
 		z-index: 1
+		border-bottom: 1px solid $border-left
 		.sheet__wrap
-			height: 70px
-			padding-bottom: 30px
+			height: 50px
+			overflow: hidden
+		.sheet__left
+			.sorting
+				position: relative
 	.sheet__wrap
 		overflow-x: auto
+		cursor: default !important
 	.sheet__price
 		+f500
 		font-size: 13px

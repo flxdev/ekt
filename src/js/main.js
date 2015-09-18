@@ -15,5 +15,7 @@
 //= form-select.js
 //= datepicker.js
 //= map.js
+//= drag-on.js
+//= bar-on.js
 
 //= app.js

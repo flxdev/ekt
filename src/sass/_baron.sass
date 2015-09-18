@@ -1,0 +1,41 @@
+.rBarOn,
+.bBarOn 
+	z-index: 3
+	background-color: $border-td
+	cursor: pointer
+	+transition(background-color .3s)
+	// display: block !important
+	&:hover,
+	&:focus
+		background-color: $green
+		cursor: pointer !important
+
+.rBarOn 
+	width: 12px
+	&:before,
+	&:after
+		position: absolute
+		content: ''
+		left: 0
+		bottom: 100%
+		right: 0
+		height: 100%
+		background: $scroll-bg
+	&:after
+		bottom: auto
+		top: 100%
+
+.bBarOn 
+	height: 12px
+	&:before,
+	&:after
+		position: absolute
+		content: ''
+		top: 0
+		left: 100%
+		bottom: 0
+		width: 100%
+		background: $scroll-bg
+	&:after
+		left: auto
+		right: 100%

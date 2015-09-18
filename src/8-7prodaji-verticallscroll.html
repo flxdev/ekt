@@ -2,61 +2,12 @@
 <html>
 <head>
 	<title>8-1prodaji-razdel</title>
-	<meta charset="utf-8">
-	<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-	<meta name="viewport" content="width=1200">
-	<meta name="format-detection" content="telephone=no">
-	<!-- theme color for android 5.0 -->
-	<meta name="theme-color" content="#fff">
-	<link rel="stylesheet" media="all" href="css/lib/uikit.css" >
-	<link rel="stylesheet" media="all" href="css/screen.css" >
+	//= includes/head.html
 </head>
 <body>
 <!-- BEGIN  out-->
 <div class="out">
-	<!-- header -->
-	<header class="header">
-		<div class="header__left">
-			<button class="btm-menu" type="button">Весь сайт</button>
-		</div>
-		<!-- logo -->
-		<a href="#" class="logo"></a>
-		<!-- search -->
-		<div class="search">
-			<button class="search__btn" type="button"></button>
-		</div>
-		<!-- menu -->
-		<ul class="menu">
-			<li class="menu__item"><a href="#">Компания</a></li>
-			<li class="menu__item is-active">
-				<a href="#">Продажи</a>
-				<div class="menu__in">
-					<!-- cabinet -->
-					<a href="#" class="cabinet">
-						<div class="cabinet__name"></div>
-						<div class="cabinet__row">
-							<i class="ico ico_user"></i>
-							<span>Личный кабинет</span>
-						</div>
-					</a>
-					<!-- ul -->
-					<ul class="ul">
-						<li><a class="is-active" href="#">Каталог</a></li>
-						<li><a href="#">Акции и спецпредложения</a></li>
-						<li><a href="#">Где купить продукцию ЕКТ</a></li>
-						<li><a href="#">Проектировщику</a></li>
-						<li><a href="#">Сервисный центр</a></li>
-					</ul>
-				</div>
-			</li>
-			<li class="menu__item"><a href="#">Контакты</a></li>
-		</ul>
-		<!-- basket -->
-		<button class="basket" type="button">
-			<i class="ico ico_basket"></i>
-			<span>Заказ</span>
-		</button>
-	</header>
+	//= includes/header_login.html
 	<div class="l-layout">
 		<!-- sidebar -->
 		<div class="sidebar">
@@ -382,7 +333,7 @@
 				<!-- product -->
 				<div class="product">
 					<div class="product__right">
-						<button class="btn btn_add">Добавить в заказ</button>
+						<a href="#js-sheet" class="btn btn_add js-add-button">Добавить в заказ</a>
 					</div>
 					<div class="product__left">
 						<div class="product__slider">
@@ -582,7 +533,7 @@
 					</div>
 				</div>
 				<!-- sheet -->
-				<div class="sheet">
+				<div class="sheet" id="js-sheet">
 					<div class="sheet__top js-sorting">
 						<div class="sheet__right">
 							<table class="sorting">
@@ -597,8 +548,8 @@
 							</table>
 						</div>
 						<div class="sheet__left">
-							<div class="sheet__wrap js-scroll">
-								<table class="sorting">
+							<div class="sheet__wrap">
+								<table class="sorting js-wrap-sort">
 									<tr>
 										<td>
 											<button class="sorting__item js-sortin-item" type="button">Артикул</button>
@@ -626,7 +577,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="sheet__in js-scroll-h">
+					<div class="sheet__in js-drag dragon">
 						<div class="sheet__right">
 							<table class="js-sheet-r">
 								<tr>
@@ -680,6 +631,7 @@
 													<p>Кол-во метров</p>
 													<p>Кратность: 12</p>
 												</div>
+												<div class="and-that">И того 12000 шт</div>
 											</div>
 											<button class="spiner__plus js-plus">+</button>
 											<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
@@ -699,6 +651,7 @@
 													<p>Кол-во метров</p>
 													<p>Кратность: 12</p>
 												</div>
+												<div class="and-that">И того 12000 шт</div>
 											</div>
 											<button class="spiner__plus js-plus">+</button>
 											<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
@@ -718,6 +671,7 @@
 													<p>Кол-во метров</p>
 													<p>Кратность: 12</p>
 												</div>
+												<div class="and-that">И того 12000 шт</div>
 											</div>
 											<button class="spiner__plus js-plus">+</button>
 											<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
@@ -737,6 +691,7 @@
 													<p>Кол-во метров</p>
 													<p>Кратность: 12</p>
 												</div>
+												<div class="and-that">И того 12000 шт</div>
 											</div>
 											<button class="spiner__plus js-plus">+</button>
 											<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
@@ -756,6 +711,7 @@
 													<p>Кол-во метров</p>
 													<p>Кратность: 12</p>
 												</div>
+												<div class="and-that">И того 12000 шт</div>
 											</div>
 											<button class="spiner__plus js-plus">+</button>
 											<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
@@ -775,6 +731,7 @@
 													<p>Кол-во метров</p>
 													<p>Кратность: 12</p>
 												</div>
+												<div class="and-that">И того 12000 шт</div>
 											</div>
 											<button class="spiner__plus js-plus">+</button>
 											<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
@@ -794,6 +751,7 @@
 													<p>Кол-во метров</p>
 													<p>Кратность: 12</p>
 												</div>
+												<div class="and-that">И того 12000 шт</div>
 											</div>
 											<button class="spiner__plus js-plus">+</button>
 											<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
@@ -813,6 +771,7 @@
 													<p>Кол-во метров</p>
 													<p>Кратность: 12</p>
 												</div>
+												<div class="and-that">И того 12000 шт</div>
 											</div>
 											<button class="spiner__plus js-plus">+</button>
 											<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
@@ -832,6 +791,7 @@
 													<p>Кол-во метров</p>
 													<p>Кратность: 12</p>
 												</div>
+												<div class="and-that">И того 12000 шт</div>
 											</div>
 											<button class="spiner__plus js-plus">+</button>
 											<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
@@ -851,6 +811,7 @@
 													<p>Кол-во метров</p>
 													<p>Кратность: 12</p>
 												</div>
+												<div class="and-that">И того 12000 шт</div>
 											</div>
 											<button class="spiner__plus js-plus">+</button>
 											<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
@@ -870,6 +831,7 @@
 													<p>Кол-во метров</p>
 													<p>Кратность: 12</p>
 												</div>
+												<div class="and-that">И того 12000 шт</div>
 											</div>
 											<button class="spiner__plus js-plus">+</button>
 											<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
@@ -889,6 +851,7 @@
 													<p>Кол-во метров</p>
 													<p>Кратность: 12</p>
 												</div>
+												<div class="and-that">И того 12000 шт</div>
 											</div>
 											<button class="spiner__plus js-plus">+</button>
 											<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
@@ -908,6 +871,27 @@
 													<p>Кол-во метров</p>
 													<p>Кратность: 12</p>
 												</div>
+												<div class="and-that">И того 12000 шт</div>
+											</div>
+											<button class="spiner__plus js-plus">+</button>
+											<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span class="sheet__price">50 650 руб</span>
+									</td>
+									<td>
+										<div class="spiner js-spiner" data-max-number="10">
+											<button class="spiner__minus js-minus">–</button>
+											<input type="text" class="spiner__input" name="spiner-input" value="1" readonly="">
+											<div class="spiner__block">
+												<div class="spiner__text">
+													<p>Кол-во метров</p>
+													<p>Кратность: 12</p>
+												</div>
+												<div class="and-that">И того 12000 шт</div>
 											</div>
 											<button class="spiner__plus js-plus">+</button>
 											<button class="btn btn_basket" type="button"><i class="ico ico_basket-w"></i></button>
@@ -917,8 +901,19 @@
 							</table>
 						</div>
 						<div class="sheet__left">
-							<div class="sheet__wrap js-scroll">
+							<div class="sheet__wrap js-drag">
 								<table class="js-sheet-l">
+									<tr>
+										<td>84068</td>
+										<td>
+											<div class="badge badge_red">Акция</div>
+										</td>
+										<td>2.5x10</td>
+										<td>2.5</td>
+										<td>10</td>
+										<td>10</td>
+										<td>100</td>
+									</tr>
 									<tr>
 										<td>84068</td>
 										<td>
@@ -1319,18 +1314,6 @@
 	</div>
 </div>
 <!-- END out-->
-<footer class="footer">
-	<div class="footer__in">
-		<!-- copy -->
-		<div class="copy">&copy; 2015 ЗАО "ЕКТ групп"</div>
-		<div class="footer__info">+375 (17) 269-74-74, <a href="mailto:info@ekt.by">info@ekt.by</a></div>
-		<!-- dev -->
-		<div class="dev">Разработка сайта: Flex Media</div>
-	</div>
-</footer>
-<!-- load scripts -->
-<script src="//api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
-<script src="js/main.js"></script>
-<!-- popup -->
+//= includes/footer.html
 </body>
 </html>

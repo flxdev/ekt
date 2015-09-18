@@ -403,38 +403,31 @@ $(document).ready( function() {
 			$(this).jScrollPane();
 		}
 	});
-	$('.sheet').each(function() {
-		var this_ 		= $(this),
-			scrollTop 	= this_.find('.js-sorting .js-scroll'),
-			apiTop 		= scrollTop.data('jsp'),
-			scrollBot 	= this_.find('.js-scroll-h .js-scroll'),
-			apiBot 		= scrollBot.data('jsp');
-		scrollTop.on('jsp-scroll-x', function(event, scrollPositionX) {
-			apiBot.scrollToX(scrollPositionX);
-		});
+	// $('.sheet').each(function() {
+	// 	var this_ 		= $(this),
+	// 		scrollTop 	= this_.find('.js-sorting .js-scroll'),
+	// 		apiTop 		= scrollTop.data('jsp'),
+	// 		scrollBot 	= this_.find('.js-scroll-h .js-scroll'),
+	// 		apiBot 		= scrollBot.data('jsp');
+	// 	scrollTop.on('jsp-scroll-x', function(event, scrollPositionX) {
+	// 		apiBot.scrollToX(scrollPositionX);
+	// 	});
 		// scrollBot.on('jsp-scroll-x', function(event, scrollPositionX) {
 		// 	apiTop.scrollToX(scrollPositionX);
 		// });
+	// });
+	
+	$('.js-drag').on('scroll', function() {
+		var parent 		= $(this).parents('.js-drag'),
+			bBar 		= parent.find('.bBarOn'),
+			bBarPos 	= bBar.css('left'),
+			bTab 		= parent.find('.js-sheet-l'),
+			bTabWid	 	= bTab.width(),
+			diff		= (parseInt(bBarPos, 10) / 1.8) + 'px',
+			wSort 		= $('.js-wrap-sort');
+		wSort.css({'left': '-' + diff});
 	});
-	setInterval(function() {
-		if ($('.sheet .jspScrollable').length) {
-			$('.sheet').each(function() {
-				var this_ 		= $(this),
-					dragTop 	= this_.find('.js-sorting .jspDrag'),
-					topPane 	= this_.find('.js-sorting .jspPane'),
-					dragBot 	= this_.find('.js-scroll-h .jspDrag'),
-					botPane 	= this_.find('.js-scroll-h .jspPane'),
-					posBotDrag 	= dragBot.position().left,
-					posBotPane 	= botPane.position().left;
-				dragTop.css('left', posBotDrag);
-				topPane.css('left', posBotPane);
-			});
-		}
-		else {
-			return false;
-		}
-		
-	}, 1 );
+	
 	
 	
 	// $('[class*="js-scroll"]').each(function() {
@@ -667,5 +660,8 @@ $(document).ready( function() {
 	$('.js-refresh-input').on('click', function() {
 		$('.js-search-input').val("");
 	});
+
+	$('.js-drag').dragOn();
+	$('.js-drag').trigger('BarOn.toggle');
 
 });
