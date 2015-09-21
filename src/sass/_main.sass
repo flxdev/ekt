@@ -114,6 +114,8 @@
 			margin-left: 90px
 	.filter__right
 		float: right
+		& > .checkbox
+			+f300
 	.filter__text
 		margin: 4px 8px 0 0
 		font-size: 16px
@@ -178,7 +180,8 @@
 		border: none
 		&:first-child
 			margin-top: 0
-		&.is-active	
+		&.is-active,
+		&.is-chenge
 			.accord__title
 				border-bottom-color: $green
 				&:before
@@ -187,6 +190,9 @@
 		padding-right: 25px
 		vertical-align: top
 		display: inline-block
+		&:before,
+		&:after
+			margin-top: -2px
 	.accord__title
 		color: #000
 		font-size: 16px
@@ -251,6 +257,7 @@
 			+f300
 		.item__link
 			margin: 0
+			font-size: 13px
 			&:link
 				color: $green
 	&.is-prod-cena
@@ -305,6 +312,7 @@
 			height: 245px
 		.item__link
 			text-decoration: none
+			font-size: 13px
 	&.is-list
 		.point
 			padding: 6px 10px 10px
@@ -348,6 +356,7 @@
 	vertical-align: top
 	+f700
 	+box
+	+font-smoothing(antialiased)
 	display: inline-block
 	+transition(border-color .3s, background-color .3s, color .1s)
 	&:link
@@ -406,6 +415,8 @@
 				border-color: $border-item-all_h
 			.item__text
 				text-decoration: none
+				&:after
+					+translate(10px,0)
 		.item__text
 			position: relative
 			color: #fff
@@ -414,6 +425,7 @@
 			&:after
 				content: ''
 				margin: 0 0 -1px 10px
+				+transition(transform .3s)
 				display: inline-block 
 				+s($item-arr-w)
 	& + .item
@@ -460,6 +472,7 @@
 		line-height: 24px
 		text-decoration: underline
 		display: block
+		+f500
 		+transition(color .1s linear)
 		&:link
 			color: #000
@@ -490,7 +503,7 @@
 		margin: 5px -3px 0
 		font-size: 13px
 		color: #000
-		line-height: 24px
+		line-height: 23px
 		letter-spacing: 0.3px
 		+f300
 		opacity: .5
@@ -575,6 +588,7 @@
 		display: inline-block
 	.point__text
 		margin: 5px 0 0 105px
+		padding-bottom: 3px
 		font-size: 13px
 		line-height: 24px
 		opacity: .5
@@ -784,6 +798,11 @@
 	.slick-next
 		opacity: 0
 		+transition(opacity .3s)
+	.spiner
+		.spiner__block
+			top: auto
+			bottom: 100%
+			margin: 0 0 9px
 
 // slider
 .slider
@@ -792,7 +811,9 @@
 	padding-bottom: 37px
 	.slick-prev,
 	.slick-next
-		top: 116px
+		top: 50%
+		+translate(0,-50%)
+		margin-top: -18px
 	.slick-prev
 		+s($slider-arr-left)
 	.slick-next
@@ -824,6 +845,10 @@
 			font-size: 12px
 			text-transform: initial
 			+f300
+	&.is-prod,
+	&.is-prod-cena
+		.item__link
+			font-size: 13px
 	.slick-dots
 		position: absolute
 		left: 0
@@ -968,6 +993,7 @@
 	.banner__text
 		position: relative
 		z-index: 1
+		line-height: 36px
 		+transition(color .3s)
 
 // info-brown
@@ -979,6 +1005,9 @@
 	letter-spacing: 0.4px
 	text-align: center
 	background: $light-brown
+	&.info-brown_mod
+		padding-bottom: 40px
+		margin-bottom: 60px
 	.row
 		margin: 0 -20px
 		text-align: left
@@ -1044,7 +1073,7 @@
 	.staff__wrap
 		margin: 0 -2% -2% 0
 	.worker
-		margin: 0 2% 2% 0
+		margin: 0 2% 2.1% 0
 		width: 31.3%
 
 // worker
@@ -1840,6 +1869,7 @@
 	bottom: -63px
 	opacity: .3
 	cursor: pointer
+	z-index: 2
 	+transition(opacity .3s, bottom .5s)
 	+s($scrolltop)
 	display: none
@@ -1847,3 +1877,10 @@
 		opacity: 1
 	&.is-active
 		bottom: 28px
+	&.is-abs
+		bottom: 110px
+
+// articles
+.articles
+	margin-top: 55px
+	padding-right: 70px

@@ -19,7 +19,21 @@
 			opacity: 0
 			+s($user-red)
 	&_basket
-		+sr($basket)
+		width: 19px
+		height: 15px
+		+s($basket)
+		&:before,
+		&:after
+			position: absolute
+			content: ''
+			top: 0
+			left: 0
+			+transition(opacity .3s)
+		&:before
+			+s($basket)
+		&:after
+			opacity: 0
+			+s($basket-red)
 	&_basket-w
 		+s($basket-white)
 	&_search-gray

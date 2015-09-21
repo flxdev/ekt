@@ -12,6 +12,8 @@
     border: 0
     outline: none
     vertical-align: top
+.fancybox-wrap
+ top: 147px !important
 
 .fancybox-nav
   padding: 0
@@ -108,6 +110,13 @@
   cursor: pointer
   z-index: 8040
   +s($fansy-close)
+  &:before
+    position: absolute
+    content: ''
+    top: -20px
+    left: -20px
+    right: -20px
+    bottom: -10px
 
 .fancybox-nav
   position: absolute
@@ -186,6 +195,8 @@
   overflow-y: scroll
 
 .fancybox-title
+  padding: 15px
+  color: #000
   visibility: hidden
   font: normal 13px/20px "Helvetica Neue",Helvetica,Arial,sans-serif
   position: relative

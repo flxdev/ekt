@@ -194,6 +194,14 @@
 	height: 83px
 	line-height: 28px
 	font-size: 14px
+	&:hover
+		.cabinet__row
+			color: $red
+			.ico_user
+				&:before
+					opacity: 0
+				&:after
+					opacity: 1
 	&.is-active
 		&:before
 			position: absolute
@@ -213,13 +221,6 @@
 		vertical-align: bottom
 		display: inline-block
 		+transition(color .3s)
-		&:hover
-			color: $red
-			.ico_user
-				&:before
-					opacity: 0
-				&:after
-					opacity: 1
 
 		.ico
 			position: absolute
@@ -367,9 +368,17 @@
 	padding-left: 25px
 	font-size: 14px
 	background-color: transparent
+	+transition(color .3s)
 	+f700
+	&:hover
+		color: $red
+		.ico
+			&:before
+				opacity: 0.01
+			&:after
+				opacity: 1
 	.ico
 		position: absolute
 		left: 0
 		top: 50%
-		+translate(0,-50%)
+		margin-top: -8px

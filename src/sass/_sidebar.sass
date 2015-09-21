@@ -314,15 +314,24 @@
 	padding: 40px 28px 45px
 	.pop-inf__list
 		li
+			position: relative
 			margin-top: 10px
 			line-height: 24px
 			display: block
 			&:first-child
 				margin-top: 0
 		a
+			position: static
 			color: #000
 			text-decoration: underline
 			+transition(color .1s)
+			&:before
+				position: absolute
+				content: ''
+				left: -30px
+				top: -5px
+				right: -30px
+				bottom: -5px
 			&:visited
 				color: $second_a
 			&:hover

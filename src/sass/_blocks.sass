@@ -179,7 +179,7 @@
 		content: ''
 		top: 50%
 		left: 0
-		+translate(0,-50%)
+		margin-top: -6px
 		+transition(opacity .3s)
 	&:before
 		+s($x)
@@ -438,9 +438,9 @@
 		position: absolute
 		content: ''
 		left: 0
-		right: 0
 		bottom: 0
 		height: 3px
+		width: 136px
 		background: $green
 
 // select
@@ -732,6 +732,11 @@
 	&_green
 		background-color: $green
 
+a.badge
+	+transition(opacity .3s)
+	&:hover
+		opacity: 1
+
 // breadcrumbs
 .breadcrumbs
 	+f300
@@ -792,11 +797,11 @@
 				color: $second_h
 		.link-right
 			&:after
-				+translate(4px,0)
+				+translate(7px,0)
 				+s($ico-l-right-h)
 		.link-left
 			&:before
-				+translate(-4px,0)
+				+translate(-7px,0)
 				+s($ico-l-left-h)
 	&:after
 		position: absolute
@@ -876,11 +881,11 @@
 	&:hover
 		&:after
 			+translate(4px,0)
-			+s($ico-l-right-h)
+			+s($r-m-right-arr-red)
 	&:after
 		position: relative
 		margin-left: 4px
-		+s($ico-l-right)
+		+s($arr-green-right)
 .link-left
 	margin-right: 5px
 	padding-left: 12px
@@ -1292,9 +1297,13 @@ a.address-link
 		position: absolute
 		top: 50%
 		right: 11px
-		+translate(0,-50%)
+		opacity: .6
+		margin-top: -6px
+		+transition(opacity .3s)
 		background: transparent
 		+s($x-white)
+		&:hover
+			opacity: 1
 
 // table
 .table
