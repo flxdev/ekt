@@ -224,10 +224,13 @@
     margin: 20px 0
     text-align: right
 .form__chec
-    margin-bottom: 32px
+    margin-bottom: 40px
+    line-height: 20px
     .checkbox
         vertical-align: top
         display: inline-block
+        span
+            padding-left: 26px
 .add__rig
     position: relative
     padding-left: 14px
@@ -279,7 +282,8 @@
         +transition(border-color .3s, box-shadow .3s)
         &::placeholder
             color: rgba(#000, 0.5)
-        &:hover
+        &:hover,
+        &:focus
             border-color: $green
             box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 0 8px rgba(11, 154, 66, 0.15)
         &.error
@@ -344,7 +348,8 @@ textarea.textarea
     +transition(border-color .3s, box-shadow .3s)
     &::placeholder
         color: rgba(#000, 0.5)
-    &:hover
+    &:hover,
+    &:focus
         border-color: $green
         box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 0 8px rgba(11, 154, 66, 0.15)
     &.error
@@ -365,11 +370,15 @@ textarea.textarea
 
 .forgot-pass
     float: right
+    margin: 8px 0 13px
     font-size: 12px 
+    line-height: 1
     color: #000
-    text-decoration: underline
+    border-bottom: 1px solid rgba(#000, .7)
+    +transition(color .3s, border-color .3s)
     &:hover
-        text-decoration: none
+        color: $second_h
+        border-color: transparent
         
 .recovery
     position: relative
@@ -402,13 +411,25 @@ textarea.textarea
 .datepicker
     position: relative
     display: block
+    &.has-error
+        .ico
+            &:before
+                opacity: 0
+            &:after
+                opacity: 1
     .ico
         position: absolute
         top: 8px
         right: 10px
         cursor: pointer
+        &:hover
+            & + input
+                border-color: $green
+                box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 0 8px rgba(11, 154, 66, 0.15)
     input
         width: 100%
+    .help-block
+        white-space: nowrap
 
 // history
 .history
@@ -418,44 +439,39 @@ textarea.textarea
     .history__open
         position: relative
         padding-right: 16px
+        font-size: 12px
         color: #000
         +transition(color .3s)
         vertical-align: top
         display: inline-block
+        &:hover
+            color: $second_h
+            &:before,
+            &:after
+                background: $second_h
         &:before,
         &:after
             position: absolute
             content: ''
             top: 50%
-            right: 0
+            right: 3px
+            height: 6px
+            width: 1px
+            background: #000
             +translate(0,-50%)
-            +transition(opacity .3s)
+            margin-top: -2px
+            +transition(background .3s, transform .3s)
         &:before
-            +s($accord-arr)
+            +rotate(44deg)
         &:after
-            opacity: 0
-            +s($accord-arr-op)
-        &:hover
-            color: $second_h
-            &:before
-                opacity: 0
-            span
-                border-color: $second_h
-                &:before
-                    opacity: 1
+            right: 7px
+            +rotate(-44deg)
         &.is-active
-            &:hover
-                &:after
-                    opacity: 0
-                span
-                    &:after
-                        opacity: 1
-                    &:before
-                        opacity: 0 
-            &:after
-                opacity: 1
             &:before
-                opacity: 0
+                +rotate(135deg)
+            &:after
+                +rotate(-135deg)
+
         span
             border-bottom: 1px dotted #000
             +transition(border-color .3s)

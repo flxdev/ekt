@@ -685,7 +685,7 @@ $(document).ready( function() {
 			scrollTop: 0
 		}, 800);
 	});
-	$(".js-add-button").on('click', function(){
+	$(".js-add-button, .js-scroll-to").on('click', function(){
 		var page = $(this).attr("href");
 		$('html, body').animate({
 			scrollTop: $(page).offset().top - 20
@@ -712,5 +712,24 @@ $(document).ready( function() {
 			parents.remove();
 		}
 	})
+
+	$('.js-open-org').on('change', function() {
+		if ($(this).is(':checked')) {
+			$(this).parents('li').toggleClass('selected');
+		}
+	});
+
+	$('.js-open-fiz').on('change', function() {
+		if ($(this).is(':checked')) {
+			$('.js-org').hide();
+			$('.js-fiz').fadeIn(500);
+		}
+	});
+	$('.js-open-org').on('change', function() {
+		if ($(this).is(':checked')) {
+			$('.js-fiz').hide();
+			$('.js-org').fadeIn(500);
+		}
+	});
 
 });

@@ -108,6 +108,8 @@
 			+transition(opacity .3s)
 		&:after
 			opacity: 0
+.btn_dark
+	color: #000
 
 // btn-search
 .btn-search
@@ -319,7 +321,7 @@
 .l-layout
 	display: table
 	width: 100%
-	min-height: 655px
+	min-height: 675px
 	table-layout: fixed
 	background: #fff 
 	&.is-contact
@@ -686,15 +688,19 @@
 		.map
 			z-index: 1
 	.debr
-		padding-bottom: 45px
+		padding: 10px 0 46px 0
 		border-top: none
+		& + .debr
+			margin-top: 22px
 		.title-h4
 			&:first-child
 				margin-top: 0
 		.btn
-			margin-top: 18px
+			margin-top: 13px
 		[class^="col-md"], [class*=" col-md"]
-			padding-right: 30px
+			padding-right: 27px
+		.radiobutton
+			margin: 8px 0
 
 .list
 	margin: 20px 0
@@ -930,14 +936,26 @@ a.badge
 		opacity: 1
 	&.is-active
 		&:before
-			+rotate(180deg)
-	&:before
+			+rotate(135deg)
+		&:after
+			+rotate(-135deg)
+	&:before,
+	&:after
 		position: absolute
 		content: ''
 		top: 50%
-		right: -15px
+		right: -13px
+		height: 6px
+		width: 1px
+		background: #fff
+		margin-top: -2px
 		+translate(0,-50%)
-		+s($arr-b-white)
+		+transition(transform .3s)
+	&:before
+		+rotate(44deg)
+	&:after
+		right: -9px
+		+rotate(-44deg)
 
 // dct-link
 .dct-link
@@ -992,6 +1010,7 @@ a.address-link
 	position: relative
 	padding-left: 20px
 	color: $green
+	+transition(color .3s)
 	&:before
 		position: absolute
 		content: ''
@@ -999,7 +1018,15 @@ a.address-link
 		left: 0
 		+translate(0,-50%)
 		+s($ico-print)
+	&:after
+		position: absolute
+		content: ''
+		top: -20px
+		left: -20px
+		right: -20px
+		bottom: -20px
 	&:hover
+		color: $second_h
 		span
 			border-color: transparent
 	span
@@ -1094,8 +1121,10 @@ a.address-link
 				z-index: 1
 				&:before
 					background: $green
+			.accord__table
+				margin-top: -7px
 		.accord__but
-			padding: 10px 44px 10px 22px
+			padding: 18px 44px 18px 22px
 			+transition(background .3s)
 			&:before
 				right: 15px
@@ -1161,6 +1190,10 @@ a.address-link
 			vertical-align: top
 			&:first-child
 				padding-left: 0
+			&:nth-child(2)
+				width: 39%
+			&:last-child
+				width: 28%
 		.address-link
 			vertical-align: middle
 		.accord
@@ -1375,7 +1408,7 @@ a.address-link
 
 // requisites
 .requisites
-	margin-top: 35px
+	margin: 35px 0 15px
 	padding: 30px 0 35px
 	border-top: 1px solid $border-comment
 	border-bottom: 1px solid $border-comment

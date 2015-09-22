@@ -86,6 +86,7 @@
 				&:before
 					background: $green
 	a
+		position: relative
 		height: 30px
 		width: 32px
 		line-height: 29px
@@ -95,7 +96,10 @@
 		+transition(color .3s)
 		display: block
 	[class^="icon-"], [class*=" icon-"]
-		vertical-align: middle
+		position: absolute
+		top: 50%
+		left: 50%
+		+translate(-50%,-50%)
 		display: inline-block
 		font-size: 17px
 	.icon-ico-list
@@ -842,7 +846,7 @@
 		.btn
 			padding: 9px 16px
 			min-width: 144px
-			font-size: 12px
+			font-size: 13px
 			text-transform: initial
 			+f300
 	&.is-prod,
@@ -924,7 +928,8 @@
 			position: relative
 	.slick-list
 		height: 69px
-		border-right: 1px solid $border-item
+		padding-right: 1px
+		// border-right: 1px solid $border-item
 
 
 .slider-for,
@@ -1566,6 +1571,7 @@
 		border-top: none
 		+clr
 		.title-h4
+			margin-bottom: 18px
 			line-height: 1
 	.tab__cont
 		display: none
@@ -1585,7 +1591,7 @@
 				+f300
 	.list
 		float: left
-		margin-top: 12px
+		margin-top: 0
 		width: 49%
 		margin-left: 8%
 		letter-spacing: .3px
@@ -1670,9 +1676,20 @@
 		z-index: 1
 		border-bottom: 1px solid $border-left
 		.sheet__wrap
-			height: 50px
+			height: 62px
 			overflow: hidden
 		.sheet__left
+			position: relative
+			border-right: none
+			&:before
+				position: absolute
+				content: ''
+				top: 7px
+				right: 0
+				bottom: 0
+				width: 1px
+				z-index: 2
+				background: $border-left
 			.sorting
 				position: relative
 	.sheet__wrap
@@ -1686,6 +1703,7 @@
 		text-align: left
 		.sorting__item
 			text-align: left
+			line-height: 20px
 	.badge
 		margin-top: -3px
 		font-size: 9px
@@ -1823,6 +1841,8 @@
 			margin-top: 20px
 		.btn-open
 			float: right
+			position: relative
+			padding-right: 19px
 			margin-top: 17px
 			&:before,
 			&:after,

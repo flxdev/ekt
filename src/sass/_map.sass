@@ -139,7 +139,7 @@
 		font-weight: normal
 	.window__in
 		position: absolute
-		left: 30px
+		left: 0
 		right: 0
 		bottom: 0
 		height: 296px
@@ -147,18 +147,27 @@
 	.window__hiden
 		display: none
 	.link-white
-		margin: 25px 0 30px
+		margin: 25px 0 30px 30px
 	ul
-		padding-right: 26px
+		padding: 0 26px 0 30px
 		font-size: 13px
 		line-height: 24px
 		li
+			position: relative
 			margin-top: 5px
 			&:first-child
 				margin-top: 0
 		a
+			position: static
 			color: #fff
 			border-bottom: 1px solid rgba(#fff, .8)
 			+transition(border-color .1s)
 			&:hover
 				border-color: transparent
+			&:before
+				position: absolute
+				content: ''
+				left: -30px
+				right: -26px
+				bottom: 0
+				top: 0

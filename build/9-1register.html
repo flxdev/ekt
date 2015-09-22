@@ -341,33 +341,33 @@
 					<div class="login">
 						<div class="login__title">Регистрация пользователя</div>
 						<div class="form">
-							<form action="#" class="js-validate">
+							<div class="form__row">
+								<div class="input">
+									<p>Тип<span>*</span></p>
+									<div class="input__right">
+										<label class="radiobutton">
+											<input type="radio" name="type" checked class="js-open-org">
+											<span>Организация</span>
+										</label>
+										<label class="radiobutton">
+											<input type="radio" name="type" class="js-open-fiz">
+											<span>Физическое лицо</span>
+										</label>
+									</div>
+								</div>
+							</div>
+							<form action="#" class="js-org js-validate">
 								<div class="form__in">
 									<label class="form__row">
 										<div class="input">
-											<p>Тип<span>*</span></p>
-											<div class="input__right">
-												<label class="radiobutton">
-													<input type="radio" name="type" checked>
-													<span>Организация</span>
-												</label>
-												<label class="radiobutton">
-													<input type="radio" name="type">
-													<span>Физическое лицо</span>
-												</label>
-											</div>
-										</div>
-									</label>
-									<label class="form__row">
-										<div class="input">
 											<p>Название оранизации<span>*</span></p>
-											<input type="text" data-validation="required" placeholder="Название оранизации" data-validation-error-msg="Незаполненное поле" value="ООО “Технологии и крепежи”">
+											<input type="text" data-validation="required" placeholder="ООО “Технологии и крепежи”" data-validation-error-msg="Незаполненное поле">
 										</div>
 									</label>
 									<label class="form__row">
 										<div class="input">
 											<p>Контактное лицо<span>*</span></p>
-											<input type="text" data-validation="required" placeholder="Контактное лицо" data-validation-error-msg="Незаполненное поле" value="Иванов Иван Иванович">
+											<input type="text" data-validation="required" placeholder="Иванов Иван Иванович" data-validation-error-msg="Незаполненное поле">
 										</div>
 									</label>
 									<label class="form__row">
@@ -412,7 +412,60 @@
 									</label>
 								</div>
 								<div class="form__submit">
-									<input type="submit" class="btn" value="Войти">
+									<input type="submit" class="btn" value="Зарегистрироваться">
+								</div>	
+							</form>
+							<form action="#" class="js-fiz js-hide js-validate">
+								<div class="form__in">
+									<label class="form__row">
+										<div class="input">
+											<p>ФИО<span>*</span></p>
+											<input type="text" data-validation="required" placeholder="Иванов Иван Иванович”" data-validation-error-msg="Незаполненное поле">
+										</div>
+									</label>
+									<label class="form__row">
+										<div class="input">
+											<p>Телефон<span>*</span></p>
+											<input type="phone" name="phone" data-validation="required" placeholder="+375 29 000-00-00" data-validation-error-msg="Незаполненное поле">
+										</div>
+									</label>
+									<label class="form__row">
+										<div class="input">
+											<p>E-mail (логин)<span>*</span></p>
+											<input type="text" data-validation="email" placeholder="info@hmail.com" data-validation-error-msg="Неправильный логин">
+										</div>
+									</label>
+									<label class="form__row">
+										<div class="input">
+											<p>Пароль<span>*</span></p>
+											<input type="password" data-validation="required" placeholder="***********" data-validation-error-msg="Неправильный пароль">
+										</div>
+									</label>
+									<label class="form__row">
+										<div class="input">
+											<p>Повторите пароль<span>*</span></p>
+											<input type="password" data-validation="required" placeholder="***********" data-validation-error-msg="Неправильный пароль">
+										</div>
+									</label>
+								</div>
+								<div class="form__in">
+									<label class="form__row">
+										<div class="input input_cap">
+											<p>Проверочный код<span>*</span></p>
+											<div class="input__right">
+												<input class="input" type="text" data-validation="required" placeholder="" data-validation-error-msg="Неправильный код">
+												<div class="captcha">
+													<div class="captcha__code">
+														<img src="img/captcha.png" alt="img">
+													</div>
+													<button class="captcha__upd" type="button"></button>
+												</div>
+											</div>
+										</div>
+									</label>
+								</div>
+								<div class="form__submit">
+									<input type="submit" class="btn" value="Зарегистрироваться">
 								</div>	
 							</form>
 						</div>
