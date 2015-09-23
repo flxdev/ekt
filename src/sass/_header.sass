@@ -154,7 +154,7 @@
 		display: inline-block
 		&:first-child
 			margin-left: 0
-		+r(1200)
+		+r(1199)
 			margin-left: 15px
 	a
 		height: 83px
@@ -290,6 +290,7 @@
 		-webkit-text-fill-color: transparent
 		display: block
 		&::placeholder
+			color: rgba(#000, .3)
 			text-shadow: none
 			-webkit-text-fill-color: initial
 	.search-form__row
@@ -330,6 +331,12 @@
 		background: $accord-bg-h
 		.search-title
 			color: $red
+	.route
+		line-height: 30px
+		& + p
+			margin-bottom: 5px
+	p
+		line-height: 24px
 
 .search-title
 	color: $green

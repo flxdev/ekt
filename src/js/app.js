@@ -518,9 +518,9 @@ $(document).ready( function() {
 				scroll 	= popup.find('.js-p-scroll');
 			if (!parent.hasClass('is-open')) {
 				parent.removeClass('is-open');
-				popup.fadeOut(300);
+				popup.fadeOut(500);
 				parentThis.addClass('is-open');
-				popupThis.fadeIn(300);
+				popupThis.fadeIn(500);
 				body.addClass('is-hidden');
 				scroll.addClass('is-active');
 				scroll.jScrollPane();
@@ -530,12 +530,12 @@ $(document).ready( function() {
 		close.on('click', function() {
 			body.removeClass('is-hidden');
 			parent.removeClass('is-open');
-			popup.fadeOut(300);
+			popup.fadeOut(500);
 		});
 		popup.on('click', function() {
 			body.removeClass('is-hidden');
 			parent.removeClass('is-open');
-			popup.fadeOut(300);
+			popup.fadeOut(500);
 		});
 		wrap.on('click',function(event) {
 			event.stopPropagation();
@@ -645,6 +645,24 @@ $(document).ready( function() {
 				ul.slideUp(400);
 			}
 		});
+	});
+	$('.js-open-li').on('click', function() {
+		var this_ 	= $(this),
+			parent 	= this_.parents('.js-tab-cont'),
+			ul 		= parent.find('.js-p-list ul'),
+			btn		= parent.find('.js-u-turn');
+		this_.toggleClass('is-active');
+		if (!ul.hasClass('is-active')) {
+			ul.addClass('is-active');
+			btn.addClass('is-active');
+			ul.slideDown(400);
+
+		}
+		else {
+			ul.removeClass('is-active');
+			btn.removeClass('is-active');
+			ul.slideUp(400);
+		}
 	});
 
 	// scrollTop

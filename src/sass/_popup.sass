@@ -125,14 +125,30 @@
 			&:first-child
 				margin-top: 0
 	.popup__cont
+		position: relative
 		margin: 105px 0
 		display: none
+		.btn-open
+			position: absolute
+			left: 0
+			top: -86px
 		.title-h2
-			margin: 50px 0 25px
+			position: relative
+			margin: 30px 0 25px
 			&:first-child
 				margin-top: 0
 			&:last-child
 				margin-bottom: 0
+		li
+			position: relative
+		a
+			&:after
+				position: absolute
+				content: ''
+				top: -10px
+				bottom: -10px
+				left: -10px
+				right: -10px
 	.logo-popup
 		position: relative
 		margin: -20px 0 -20px 158px
@@ -159,7 +175,7 @@
 		&:first-child
 			padding-top: 2px
 		ul
-			margin: 8px -9px 8px 8px
+			margin: 5px -9px 5px 8px
 			line-height: 20px
 			font-size: 14px
 			display: none
@@ -174,6 +190,8 @@
 			&:hover
 				color: #fff
 				border-color: #fff
+		.last-ul
+			margin-bottom: 3px
 	li
 		display: block
 	a

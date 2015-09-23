@@ -150,6 +150,17 @@
 	right: 0
 	&:before
 		+s($ico-search-white)
+	&:after
+		left: -20px
+		right: -20px
+		top: -20px
+		bottom: -20px
+		width: auto
+		height: auto
+		background: none
+	&:hover
+		&:before
+			opacity: 1
 
 .btn_basket
 	padding: 7px 12px
@@ -249,6 +260,26 @@
 	vertical-align: top
 	display: inline-block
 	background: transparent
+	&.btn-open_white
+		color: #fff
+		opacity: .6
+		+transition(opacity .3s)
+		span
+			border-color: #fff
+			&:before,
+			&:after
+				background: #fff
+		&:hover
+			opacity: 1
+			color: #fff
+			span
+				border-color: #fff
+				&:before,
+				&:after
+					background: #fff
+		&.is-active
+			&:hover
+				color: #fff
 	&:before
 		position: absolute
 		content: ''
@@ -1011,7 +1042,7 @@ a.address-link
 	padding-left: 20px
 	color: $green
 	+transition(color .3s)
-	&:before
+	.ico
 		position: absolute
 		content: ''
 		top: 50%
@@ -1029,6 +1060,11 @@ a.address-link
 		color: $second_h
 		span
 			border-color: transparent
+		.ico
+			&:before
+				opacity: 0
+			&:after
+				opacity: 1
 	span
 		border-bottom: 1px solid $green
 		+transition(border-color .3s)
