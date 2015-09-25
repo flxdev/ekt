@@ -18,22 +18,23 @@
 	.footer__info
 		position: absolute
 		left: 50%
-		+translate(-50%,0)
+		margin-left: -96px
 		a
-			color: #fff
 			text-transform: uppercase
-			text-decoration: underline
-			&:hover
-				text-decoration: none
-	.copy,
+	.copy
+		opacity: .4
 	.footer__info,
 	.dev
-		opacity: .4
+		span
+			opacity: .4
 	a 
 		color: inherit
-		+transition(color .3s)
+		opacity: .4
+		border-bottom: 1px solid rgba(#fff, .8)
+		+transition(opacity .3s, border-color .3s)
 		&:hover
-			color: $second_h
+			opacity: 1
+			border-color: transparent
 
 // copy
 .copy

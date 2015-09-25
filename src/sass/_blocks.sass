@@ -352,7 +352,7 @@
 .l-layout
 	display: table
 	width: 100%
-	min-height: 675px
+	min-height: 684px
 	table-layout: fixed
 	background: #fff 
 	&.is-contact
@@ -690,6 +690,9 @@
 .wrapper
 	padding: 30px 45px 70px 44px
 	line-height: 24px
+	.wrapper__inner
+		margin-top: 48px
+		padding-right: 70px
 	.title-h2
 		margin: 40px 0 22px
 		&:first-child
@@ -834,11 +837,11 @@ a.badge
 				color: $second_h
 		.link-right
 			&:after
-				+translate(7px,0)
+				+translate(9px,0)
 				+s($ico-l-right-h)
 		.link-left
 			&:before
-				+translate(-7px,0)
+				+translate(-9px,0)
 				+s($ico-l-left-h)
 	&:after
 		position: absolute
@@ -1366,11 +1369,11 @@ a.address-link
 		position: absolute
 		top: 50%
 		right: 11px
-		opacity: .6
+		opacity: .5
 		margin-top: -6px
 		+transition(opacity .3s)
 		background: transparent
-		+s($x-white)
+		+s($balloon-close-button)
 		&:hover
 			opacity: 1
 

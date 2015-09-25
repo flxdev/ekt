@@ -119,6 +119,7 @@
 	.filter__right
 		float: right
 		& > .checkbox
+			font-size: 13px
 			+f300
 	.filter__text
 		margin: 4px 8px 0 0
@@ -191,12 +192,12 @@
 				&:before
 					background: $green
 	.accord__but
-		padding-right: 25px
+		padding-right: 17px
 		vertical-align: top
 		display: inline-block
 		&:before,
 		&:after
-			margin-top: -2px
+			margin-top: -3px
 	.accord__title
 		color: #000
 		font-size: 16px
@@ -222,6 +223,8 @@
 			min-width: 120px
 			width: 120px
 			font-size: 13px
+			&:hover
+				z-index: 1
 
 // form-item
 .form-item
@@ -246,9 +249,13 @@
 				&:hover
 					z-index: 1
 	input.input
+		position: relative
 		border-radius: 0 3px 3px 0
+		&:hover,
+		&:focus
+			z-index: 1
 		&:first-child
-			border-right: none
+			margin-right: -1px
 			border-radius: 3px 0 0 3px
 
 // items
@@ -288,6 +295,9 @@
 				top: 50%
 				left: 50%
 				+translate(-50%,-50%)
+				&_mod
+					margin: -14px 0 0 -49px
+					+translate(0, 0)
 			&:before,
 			&:after
 				left: 0
@@ -337,6 +347,9 @@
 			margin-left: 90px
 		.spiner
 			margin-top: 4px
+	&.items_equip
+		.item__link
+			+f700
 	.items__row,
 	.items__wrap
 		position: relative
@@ -428,7 +441,7 @@
 			text-decoration: underline
 			&:after
 				content: ''
-				margin: 0 0 -1px 10px
+				margin: 0 0 -2px 10px
 				+transition(transform .3s)
 				display: inline-block 
 				+s($item-arr-w)
@@ -580,6 +593,10 @@
 		position: relative
 		float: left
 		width: 105px
+		&:hover
+			& + .point__info a
+				color: $second_h
+				text-decoration: none
 		img
 			display: block
 	.point__info
@@ -664,7 +681,7 @@
 		.spiner__block
 			visibility: visible
 			opacity: 1
-			z-index: 2
+			z-index: 4
 			height: auto
 			margin-top: 9px
 	.spiner__block
@@ -850,7 +867,8 @@
 			text-transform: initial
 			+f300
 	&.is-prod,
-	&.is-prod-cena
+	&.is-prod-cena,
+	&.is-login
 		.item__link
 			font-size: 13px
 	.slick-dots
@@ -1419,6 +1437,10 @@
 		border-radius: 3px
 		background: #fff
 		display: inline-block
+		&.sorting__item_w82
+			width: 82px
+		&.sorting__item_w93
+			width: 93px
 		&:after
 			content: ''
 			position: relative
@@ -1461,7 +1483,7 @@
 		overflow: hidden
 		min-width: 190px
 		.title-h3
-			margin-top: -4px
+			margin: -4px 0 13px
 		.article
 			margin-top: 10px
 			font-size: 13px

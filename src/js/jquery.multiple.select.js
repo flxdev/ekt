@@ -327,9 +327,9 @@
                     $span.removeClass('placeholder').text((this.options.displayValues ? selects : this.getSelects('text').slice(0, this.options.minimumCountSelected)).join(this.options.delimiter) + '...');
                 }
                 else {
-                    $span.removeClass('placeholder').html(this.options.countSelected
-                        .replace('#', selects.length)
-                        .replace('%', this.$selectItems.length + this.$disableItems.length));
+                    $span.removeClass('placeholder').text(
+                    (this.options.displayValues ? selects : this.getSelects('text'))
+                        .join(this.options.delimiter));
                 }
             } else {
                 $span.removeClass('placeholder').text(
