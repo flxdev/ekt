@@ -251,6 +251,13 @@
 	&:after
 		opacity: 0
 		+s($ico-delete-h)
+	span
+		position: absolute
+		content: ''
+		top: -5px
+		left: -5px
+		right: -5px
+		bottom: -5px
 
 .btn-open
 	position: static
@@ -273,7 +280,7 @@
 			opacity: 1
 			color: #fff
 			span
-				border-color: #fff
+				border-color: transparent
 				&:before,
 				&:after
 					background: #fff
@@ -330,10 +337,18 @@
 		+translate(0,-50%)
 
 .btn-reest
+	position: relative
 	font-size: 13px
 	+transition(color .3s)
 	background: transparent
 	display: inline-block
+	&:before
+		position: absolute
+		content: ''
+		top: -5px
+		left: -5px
+		right: -5px
+		bottom: -5px
 	&:hover
 		color: $second_h
 
@@ -968,6 +983,7 @@ a.badge
 	display: inline-block
 	&:hover
 		opacity: 1
+		border-color: transparent
 	&.is-active
 		&:before
 			+rotate(135deg)
@@ -1190,6 +1206,7 @@ a.address-link
 					position: absolute
 					right: 0
 					bottom: 10px
+					font-size: 12px
 					opacity: .5
 		.accord__left
 			overflow: hidden
@@ -1218,6 +1235,8 @@ a.address-link
 		margin-bottom: 10px
 		.accord__block
 			padding: 0
+			.accord__table
+				padding-top: 3px
 		table
 			width: 100%
 		td,
@@ -1448,7 +1467,7 @@ a.address-link
 // requisites
 .requisites
 	margin: 35px 0 15px
-	padding: 30px 0 35px
+	padding: 30px 0 45px
 	border-top: 1px solid $border-comment
 	border-bottom: 1px solid $border-comment
 	p

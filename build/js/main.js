@@ -51,7 +51,7 @@ $(document).ready( function() {
 				button 		= form_this.find('input[type="submit"], button[type="submit"]');
 			$.validate({
 				form : form_this,
-				validateOnBlur : false,
+				// validateOnBlur : false,
 				borderColorOnError : false,
         		scrollToTopOnError : false
         		// showErrorDialogs : false
@@ -11221,6 +11221,11 @@ $(document).ready( function() {
 				onCloseClick: function (e) {
 					e.preventDefault();
 					this.events.fire('userclose');
+					$('#map').each(function() {
+						var this_ 	= $(this),
+							wind 	= this_.find('.js-window');
+						wind.removeClass('is-active');
+					});
 				},
 				getShape: function () {
 					if(!this._isElement(this._$element)) {
@@ -11252,6 +11257,23 @@ $(document).ready( function() {
 				balloonLayout: MyBalloonLayout,
 				balloonContentLayout: MyBalloonContentLayout,
 				balloonPanelMaxMapArea: 0
+			});
+			objectManager.events.add('click', function () {
+				setTimeout(function(){
+					$('.balloon').each(function() {
+						var this_ 	= $(this),
+							parent 	= this_.parents('#map'),
+							wind 	= parent.find('.js-window');
+						wind.addClass('is-active');
+					});
+				}, 100);
+			});
+			$('.close').on('click', function() {
+				var this_ 	= $(this),
+					parent 	= this.parents('#map'),
+					wind 	= parent.find('.js-window');
+				wind.removeClass('is-active');
+				alert();
 			});
 
 		ZoomLayout = ymaps.templateLayoutFactory.createClass(
@@ -11532,7 +11554,8 @@ $(document).ready( function() {
 	$('.js-open-window').on('click', function() {
 		var this_  	= $(this),
 			parent 	= this_.parents('.js-window'),
-			block 	= parent.find('.js-window-block');
+			block 	= parent.find('.js-window-block'),
+			scrCont = parent.find('.jspPane, .jspDrag');
 		if (!this_.hasClass('is-active')) {
 			this_.addClass('is-active');
 			this_.text('Скрыть все товарные позиции');
@@ -11542,6 +11565,9 @@ $(document).ready( function() {
 			this_.removeClass('is-active');
 			this_.text('Показать все товарные позиции');
 			block.slideUp(400);
+			scrCont.animate({
+				top: 0
+			}, 300);
 		}
 		return false;
 	});
@@ -12309,19 +12335,33 @@ $(document).ready( function() {
 
 	$('.js-histoy').each(function() {
 		var this_ 	= $(this),
-			btn 	= this_.find('.js-history-op')
+			btn 	= this_.find('.js-history-op'),
 			accord 	= this_.find('.js-accord'),
+			tAcc 	= this_.find('.js-accord-but'),
 			block 	= accord.find('.js-accord-block');
 		btn.on('click', function() {
-			$(this).toggleClass('is-active');
-			accord.toggleClass('is-active');
-			if (accord.hasClass('is-active')) {
+			if (!accord.hasClass('is-active')) {
+				accord.removeClass('is-active');
+				accord.addClass('is-active');
+				$(this).addClass('is-active');
 				block.slideDown(500);
 			}
 			else {
+				accord.removeClass('is-active');
+				$(this).removeClass('is-active');
 				block.slideUp(500);
 			}
 			return false;
+		});
+		tAcc.on('click', function() {
+			var parent 	= $(this).parents('.js-accord'),
+				inner 	= parent.find('.js-accord-block');
+			if (parent.hasClass('is-active')) {
+				accord.removeClass('is-active');
+				block.slideup(500);
+				parent.addClass('is-active');
+				inner.slideDown(500);
+			}
 		});
 	});
 	
@@ -12530,7 +12570,7 @@ $(document).ready( function() {
 				popupThis 	= parentThis.find('.js-popup'),
 				parent 		= $('.js-popup-par'),
 				popup 		= $('.js-popup'),
-				scroll 	= popup.find('.js-p-scroll');
+				scroll 		= popupThis.find('.js-p-scroll');
 			if (!parent.hasClass('is-open')) {
 				parent.removeClass('is-open');
 				popup.fadeOut(500);
@@ -12540,6 +12580,7 @@ $(document).ready( function() {
 				scroll.addClass('is-active');
 				scroll.jScrollPane();
 			}
+
 			return false;
 		});
 		close.on('click', function() {
@@ -12556,15 +12597,21 @@ $(document).ready( function() {
 			event.stopPropagation();
 		});
 	});
-	function popupScroll() {
-		$('.js-p-scroll').each(function() {
-			var this_ = $(this);
-			if (this_.hasClass('is-active')) {
-				this_.jScrollPane();
-			}
-		})
+	// function popupScroll() {
+	// 	$('.js-p-scroll').each(function() {
+	// 		var this_ = $(this);
+	// 		if (this_.hasClass('is-active')) {
+	// 			this_.jScrollPane({
+	// 				autoReinitialise: true
+	// 			});
+	// 		}
+	// 		// else {
+	// 		// 	var api = this_.data('jsp');
+	// 		// 	api.destroy();
+	// 		// }
+	// 	});
 		
-	} popupScroll();
+	// } popupScroll();
 
 
 	// add form

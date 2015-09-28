@@ -52,6 +52,11 @@ $(document).ready( function() {
 				onCloseClick: function (e) {
 					e.preventDefault();
 					this.events.fire('userclose');
+					$('#map').each(function() {
+						var this_ 	= $(this),
+							wind 	= this_.find('.js-window');
+						wind.removeClass('is-active');
+					});
 				},
 				getShape: function () {
 					if(!this._isElement(this._$element)) {
@@ -83,6 +88,23 @@ $(document).ready( function() {
 				balloonLayout: MyBalloonLayout,
 				balloonContentLayout: MyBalloonContentLayout,
 				balloonPanelMaxMapArea: 0
+			});
+			objectManager.events.add('click', function () {
+				setTimeout(function(){
+					$('.balloon').each(function() {
+						var this_ 	= $(this),
+							parent 	= this_.parents('#map'),
+							wind 	= parent.find('.js-window');
+						wind.addClass('is-active');
+					});
+				}, 100);
+			});
+			$('.close').on('click', function() {
+				var this_ 	= $(this),
+					parent 	= this.parents('#map'),
+					wind 	= parent.find('.js-window');
+				wind.removeClass('is-active');
+				alert();
 			});
 
 		ZoomLayout = ymaps.templateLayoutFactory.createClass(
@@ -363,7 +385,8 @@ $(document).ready( function() {
 	$('.js-open-window').on('click', function() {
 		var this_  	= $(this),
 			parent 	= this_.parents('.js-window'),
-			block 	= parent.find('.js-window-block');
+			block 	= parent.find('.js-window-block'),
+			scrCont = parent.find('.jspPane, .jspDrag');
 		if (!this_.hasClass('is-active')) {
 			this_.addClass('is-active');
 			this_.text('Скрыть все товарные позиции');
@@ -373,6 +396,9 @@ $(document).ready( function() {
 			this_.removeClass('is-active');
 			this_.text('Показать все товарные позиции');
 			block.slideUp(400);
+			scrCont.animate({
+				top: 0
+			}, 300);
 		}
 		return false;
 	});

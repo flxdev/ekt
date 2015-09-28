@@ -56,29 +56,38 @@
 			bottom: -20px
 	.popup__header
 		position: relative
-		padding: 25px 0 42px
+		padding: 21px 0 42px
 		font-size: 0
 		border-bottom: 1px solid #fff
+		+clr
 		.btm-menu
-			margin-top: 9px
+			margin-top: 14px
 			color: #fff	
 			&:before
 				top: 50%
 				left: 0
 				+translate(0,-50%)
 				+s($ico-menu-close)
+			&:after
+				position: absolute
+				content: ''
+				top: -20px
+				left: -20px
+				right: -20px
+				bottom: -20px
+				z-index: 1
 			&:hover
 				&:before
 					opacity: 1
 				&:after
-					display: none
+					opacity: 0
 		.btm-menu,
-		.logo-popup,
-		.popup__menu
+		.logo-popup
 			vertical-align: top
 			display: inline-block
 	.popup__menu
-		margin-left: 209px
+		float: right
+		margin: 0 335px 0 0
 		border-radius: 3px
 		border: 1px solid white
 		li
@@ -200,5 +209,14 @@
 		&:hover
 			border-color: transparent
 	.u-turn
+		position: relative
 		margin-left: 8px
+		z-index: 2
+		&:before
+			position: absolute
+			content: ''
+			top: -5px
+			left: -5px
+			right: -5px
+			bottom: -5px
 

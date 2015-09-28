@@ -4,6 +4,15 @@
         margin-top: 50px
         .login
             padding-bottom: 66px
+    &.cab_dan
+        margin-top: 15px
+        .alt
+            padding-top: 42px
+            .title-h3
+                line-height: 30px
+                margin-bottom: 15px
+            .btn
+                margin-top: 24px
     .cab__inf
         width: 550px
         p
@@ -73,6 +82,7 @@
     overflow-x: auto
     overflow-y: visible
     width: 100%
+    &.js-scroll
     &.is-doing
         table
             td, th
@@ -96,15 +106,30 @@
     .jspPane
         position: relative !important
         height: 100% !important
+        table
+            th
+                &:first-child
+                    .sorting__item
+                        +transition(transform .3s)
+                        &.is-active
+                            +translate(10px,0)
     table
         td
             width: 9%
             &:first-child
                 padding-right: 5px
+            &:nth-child(3),
+            &:nth-child(2)
+                &:hover
+                    & + td 
+                        a
+                            color: $red
+                            text-decoration: none
+
 
 .alt
     float: right
-    width: 38%
+    width: 37%
     padding: 50px 30px 
     background: #f9edc1 
     .alt__title
@@ -121,11 +146,19 @@
         margin-bottom: 20px 
         +clr
         .link-black
+            position: relative
             float: right
             margin-top: 7px
             line-height: 1
             font-size: 12px
             border-bottom: none
+            &:before
+                position: absolute
+                content: ''
+                top: -10px
+                left: -10px
+                right: -10px
+                bottom: -10px
     ul
         margin-top: 20px
         margin-bottom: 35px
@@ -147,7 +180,7 @@
         display: block            
 .login
     float: left
-    width: 60%
+    width: 61%
     margin-right: 2%
     padding: 43px 30px
     border: 1px solid #c5c5c5
@@ -178,10 +211,18 @@
         +f500
         +clr
         .link-black
+            position: relative
             float: right
             margin-top: 7px
             font-size: 12px
             line-height: 1
+            &:before
+                position: absolute
+                content: ''
+                top: -10px
+                left: -10px
+                right: -10px
+                bottom: -10px
 // reg
 .reg
     width: 610px
@@ -212,6 +253,8 @@
     margin-bottom: 20px
 .form__submit
     margin-top: 25px
+    &.form__submit_mod
+        margin: 40px 0 20px
     .btn
         width: 100% 
 .form__in
@@ -406,7 +449,36 @@ textarea.textarea
         right: 0
         +translate(0, -50%)
         background-color: transparent
-        +s($captcha-upd)
+        &:before
+            position: absolute
+            content: ''
+            top: -5px
+            left: -5px
+            right: -5px
+            bottom: -5px
+        &:hover
+            span
+                &:before
+                    opacity: 0
+                &:after
+                    opacity: 1
+        span
+            position: relative
+            width: 14px
+            height: 14px
+            display: inline-block
+            &:before,
+            &:after
+                position: absolute
+                content: ''
+                top: 0
+                left: 0
+                +transition(opacity .3s)
+            &:before
+                +s($captcha-upd)
+            &:after
+                opacity: 0
+                +s($ico-update)
 
 .datepicker
     position: relative
@@ -428,6 +500,12 @@ textarea.textarea
                 box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 0 8px rgba(11, 154, 66, 0.15)
     input
         width: 100%
+        &.error
+            + .ico
+                &:before
+                    opacity: 0
+                &:after
+                    opacity: 1
     .help-block
         white-space: nowrap
 
@@ -449,6 +527,8 @@ textarea.textarea
             &:before,
             &:after
                 background: $second_h
+            span
+                border-color: transparent
         &:before,
         &:after
             position: absolute

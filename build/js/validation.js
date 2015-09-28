@@ -9,7 +9,7 @@ $(document).ready( function() {
 				button 		= form_this.find('input[type="submit"], button[type="submit"]');
 			$.validate({
 				form : form_this,
-				validateOnBlur : false,
+				// validateOnBlur : false,
 				borderColorOnError : false,
         		scrollToTopOnError : false
         		// showErrorDialogs : false
