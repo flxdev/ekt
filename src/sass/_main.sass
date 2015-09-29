@@ -77,6 +77,8 @@
 			border-left: 1px solid $border-filter
 		&:last-child
 			border-radius: 0 3px 3px 0
+			[class^="icon-"], [class*=" icon-"]
+				margin: -9px 0 0 -5px
 		&.is-active
 			border-color: $green
 			background: $green
@@ -101,7 +103,7 @@
 		position: absolute
 		top: 50%
 		left: 50%
-		+translate(-50%,-50%)
+		margin: -8px 0 0 -8px
 		display: inline-block
 		font-size: 17px
 	.icon-ico-list
