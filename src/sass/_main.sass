@@ -60,8 +60,9 @@
 			box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 0 8px rgba(11, 154, 66, 0.15)
 			&:first-child
 				border-color: $green
-			a
-				color: #000
+			svg
+				g
+					fill: #000 !important
 		&:active
 			background: $viev-active
 		&:before
@@ -77,13 +78,14 @@
 			border-left: 1px solid $border-filter
 		&:last-child
 			border-radius: 0 3px 3px 0
-			[class^="icon-"], [class*=" icon-"]
-				margin: -9px 0 0 -5px
+			.icon
+				margin: -7px 0 0 -5px
 		&.is-active
 			border-color: $green
 			background: $green
-			a
-				color: #fff
+			svg
+				g
+					fill: #fff !important
 		& + .view__item
 			&.is-active,
 			&:hover
@@ -94,18 +96,19 @@
 		height: 30px
 		width: 32px
 		line-height: 29px
-		color: $border-filter
 		font-size: 16px
 		text-align: center
-		+transition(color .3s)
 		display: block
-	[class^="icon-"], [class*=" icon-"]
+		svg
+			g
+				fill: $border-filter !important
+				+transition(fill .3s)
+	.icon
 		position: absolute
 		top: 50%
 		left: 50%
 		margin: -8px 0 0 -8px
-		display: inline-block
-		font-size: 17px
+		font-size: 0
 	.icon-ico-list
 		font-size: 18px
 
