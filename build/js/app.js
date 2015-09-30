@@ -447,18 +447,68 @@ $(document).ready( function() {
 		// });
 	// });
 	
-	$('.js-drag').on('scroll', function() {
-		var parent 		= $(this).parents('.js-drag'),
-			bBar 		= parent.find('.bBarOn'),
-			bBarPos 	= bBar.css('left'),
-			bTab 		= parent.find('.js-sheet-l'),
-			bTabWid	 	= bTab.width(),
-			diff		= (parseInt(bBarPos, 10) / 1.8) + 'px',
-			wSort 		= $('.js-wrap-sort');
-		wSort.css({'left': '-' + diff});
+	// dargscroll
+	$('.js-drag').dragOn();
+	// $('.js-drag').trigger('BarOn.toggle');
+
+
+	if ($('.js-drag').length) {
+		$('.js-drag').each(function () {
+			var this_ = $(this);
+			this_.on('scroll', function() {
+				var parent 		= $(this),
+					bBar 		= parent.find('.bBarOn'),
+					bBarPos 	= bBar.css('left'),
+					bTab 		= parent.find('.js-sheet-l'),
+					bTabWid	 	= bTab.width(),
+					diff		= (parseInt(bBarPos, 10) / 1.8) + 'px',
+					wSort 		= $('.js-wrap-sort');
+				wSort.css({'left': '-' + diff});
+			});
+		});
+	};
+	
+	
+
+	// sheet-top
+	$(document).scroll(function() { 
+		var scroll 		= $(this).scrollTop();
+		if ($('#js-sheet').length) {
+			$('#js-sheet').each(function () {
+				var this_ 		= $(this),
+					head 		= this_.find('.js-sheet-top'),
+					headPos 	= this_.offset(),
+					widthSheet 	= this_.width(),
+					heightSheet = this_.height(),
+					point 		= headPos.top + (heightSheet - 795);
+					// console.log(point);
+				if (scroll >= headPos.top) {
+					head.addClass('is-fixed');
+					head.width(widthSheet);
+					if(scroll >= point) {
+						head.removeClass('is-fixed');
+					}
+					else {
+						head.addClass('is-fixed');
+					}
+				}
+				else {
+					head.removeClass('is-fixed');
+				}
+			});
+		};  
 	});
-	
-	
+	$(window).resize(function() {
+		if ($('#js-sheet').length) {
+			$('#js-sheet').each(function () {
+				var this_ 		= $(this),
+					head 		= this_.find('.js-sheet-top'),
+					widthSheet 	= this_.width();
+					head.width(widthSheet);
+				console.log(widthSheet);
+			});
+		}; 
+	});
 	
 	// $('[class*="js-scroll"]').each(function() {
 	// 	var api = $(this).data('jsp'),
@@ -747,10 +797,6 @@ $(document).ready( function() {
 	$('.js-refresh-input').on('click', function() {
 		$('.js-search-input').val("");
 	});
-
-	// dargscroll
-	$('.js-drag').dragOn();
-	$('.js-drag').trigger('BarOn.toggle');
 
 	// tags
 	$('.js-tally-close').on('click', function() {

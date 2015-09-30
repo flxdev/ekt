@@ -403,9 +403,9 @@
 		color: $second
 		border-bottom: 1px solid
 		+transition(color .2s, border-color .2s)
-		&:visited
-			color: $second_a
-			border-color: $second_a
+		// &:visited
+		// 	color: $second_a
+		// 	border-color: $second_a
 		&:hover
 			color: $second_h
 			border-color: transparent
@@ -906,12 +906,12 @@ a.badge
 	&.is-dot
 		text-decoration: none
 		border-bottom: 1px dotted $green
-		&:visited
-			border-color: $second_a
+		// &:visited
+		// 	border-color: $second_a
 		&:hover
 			border-color: transparent
-	&:visited
-		color: $second_a
+	// &:visited
+	// 	color: $second_a
 	&:hover
 		color: $second_h
 		text-decoration: none
@@ -962,8 +962,8 @@ a.badge
 	+f300
 	&:link
 		color: #000
-	&:visited
-		color: $second_a
+	// &:visited
+	// 	color: $second_a
 	&:hover
 		color: $second_h
 		text-decoration: none
@@ -1017,16 +1017,28 @@ a.badge
 	+transition(color .2s)
 	vertical-align: top
 	display: inline-block
-	&:visited
-		color: $second_a
+	// &:visited
+	// 	color: $second_a
+	&:before
+		position: absolute
+		content: ''
+		top: -10px
+		left: -10px
+		right: -10px
+		bottom: -10px
 	&:hover
 		color: $second_h
 		text-decoration: none
+		.ico
+			&:before
+				opacity: 0
+			&:after
+				opacity: 1
 	.ico
 		position: absolute
 		top: 0
 		left: 0
-
+		
 // address-link
 .address-link
 	position: relative
@@ -1297,8 +1309,10 @@ a.address-link
 			color: #000
 		.accord__but
 			&:before
+				background: $green
 				+rotate(135deg)
 			&:after
+				background: $green
 				+rotate(-135deg)
 	.accord__but
 		position: relative

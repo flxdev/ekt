@@ -49,9 +49,35 @@
 	&_m
 		+s($ico-m)
 	&_pdf
-		+s($ico-pdf)
+		width: 23px
+		height: 28px
+		&:before,
+		&:after
+			position: absolute
+			content: ''
+			top: 0
+			left: 0
+			+transition(opacity .3s)
+		&:before
+			+s($pdf)
+		&:after
+			opacity: 0
+			+s($pdf-red)
 	&_doc
-		+s($ico-doc)
+		width: 23px
+		height: 28px
+		&:before,
+		&:after
+			position: absolute
+			content: ''
+			top: 0
+			left: 0
+			+transition(opacity .3s)
+		&:before
+			+s($doc)
+		&:after
+			opacity: 0
+			+s($doc-red)
 	&_add
 		+s($arr-add-white)
 	&_logout

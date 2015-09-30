@@ -28,8 +28,6 @@
 					opacity: 1
 			.nav__wrap
 				background: $bg_ul-o
-				a
-					color: #fff
 			.nav__arr
 				+s($arr-white-bot)
 		&:first-child
@@ -48,6 +46,11 @@
 				&:hover
 					.nav__arr
 						+s($arr-white)
+		.nav__block
+			a
+				color: #e4e8e1
+				&:hover
+					color: #fff
 	.nav__arr
 		display: inline-block
 		position: absolute
@@ -269,8 +272,8 @@
 		+f700
 		text-decoration: underline
 		display: inline-block
-		&:visited
-			color: $second_a
+		// &:visited
+		// 	color: $second_a
 		&:hover
 			color: $second_h
 			text-decoration: none
@@ -336,8 +339,8 @@
 				top: -5px
 				right: -30px
 				bottom: -5px
-			&:visited
-				color: $second_a
+			// &:visited
+			// 	color: $second_a
 			&:hover
 				color: $second_h
 				text-decoration: none
