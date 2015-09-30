@@ -467,8 +467,6 @@ $(document).ready( function() {
 			});
 		});
 	};
-	
-	
 
 	// sheet-top
 	$(document).scroll(function() { 
@@ -826,5 +824,27 @@ $(document).ready( function() {
 			$('.js-org').fadeIn(500);
 		}
 	});
+
+	// height layout
+	function hLayout() {
+		var heightD 	= $(window).height(),
+			outHeight 	= $('.out').height(),
+			headHeight 	= $('.header').height() + 30,
+			layout 		= $('.l-layout'),
+			lH 			= layout.height(),
+			lnHeight 	= heightD - (headHeight + 90);
+		if (lH < lnHeight) {
+			layout.height(lnHeight);
+		}
+		else if (outHeight <= heightD) {
+			layout.css('height', 'auto');
+		}
+	} hLayout();
+
+
+	// $(window).resize(function() {
+	// 	hLayout();
+	// });
+	
 
 });
