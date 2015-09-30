@@ -12489,8 +12489,8 @@ $(document).ready( function() {
 	// });
 	
 	// dargscroll
-	$('.js-drag').dragOn();
-	// $('.js-drag').trigger('BarOn.toggle');
+	$('.js-drag').dragOn({easing:false});
+	$('.js-drag').trigger('BarOn.toggle');
 
 
 	if ($('.js-drag').length) {
@@ -12502,7 +12502,7 @@ $(document).ready( function() {
 					bBarPos 	= bBar.css('left'),
 					bTab 		= parent.find('.js-sheet-l'),
 					bTabWid	 	= bTab.width(),
-					diff		= (parseInt(bBarPos, 10) / 1.8) + 'px',
+					diff		= (parseInt(bBarPos, 10) / 1.9) + 'px',
 					wSort 		= $('.js-wrap-sort');
 				wSort.css({'left': '-' + diff});
 			});
@@ -12521,16 +12521,15 @@ $(document).ready( function() {
 					headPos 	= this_.offset(),
 					widthSheet 	= this_.width(),
 					heightSheet = this_.height(),
-					point 		= headPos.top + (heightSheet - 795);
-					// console.log(point);
+					point 		= headPos.top + (heightSheet - 278);
 				if (scroll >= headPos.top) {
 					head.addClass('is-fixed');
 					head.width(widthSheet);
 					if(scroll >= point) {
-						head.removeClass('is-fixed');
+						head.addClass('is-opacity');
 					}
 					else {
-						head.addClass('is-fixed');
+						head.removeClass('is-opacity');
 					}
 				}
 				else {

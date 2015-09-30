@@ -1743,6 +1743,8 @@
 			td
 				&:first-child
 					padding-left: 15px
+		.sheet__right
+			cursor: default !important
 	.sheet__right
 		float: right
 		text-align: right
@@ -1765,7 +1767,11 @@
 			top: 0
 			bottom: auto
 			height: 63px
+		&.is-opacity
+			opacity: 0
+			z-index: -2
 		.sheet__wrap
+			margin-left: -4px
 			height: 62px
 			overflow: hidden
 		.sheet__left
