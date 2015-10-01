@@ -1841,6 +1841,8 @@
 			display: block
 	.card__ind
 		margin: 10px 0 25px
+		& > table 
+			opacity: .7
 	.card__bot
 		padding: 34px 0 0 14.5%
 		+clr
@@ -1893,14 +1895,20 @@
 		display: none
 	&.is-list
 		.products__item
-			padding: 5px 0
+			padding: 10px 0
+			.article
+				margin-top: -4px
 			.products__price,
 			.products__sum
-				margin-top: 11px
-			.spiner
 				margin-top: 8px
+			.spiner
+				margin-top: 5px
 			.btn-delete
-				margin-top: 18px
+				margin-top: 15px
+			.link-green
+				font-size: 12px
+				line-height: 20px
+				+f500
 	.products__item	
 		padding: 20px 0
 		min-width: 800px
@@ -1921,7 +1929,7 @@
 		+f700
 	.products__open
 		position: relative
-		margin: 30px -45px 0
+		margin: 40px -45px 0
 		padding: 20px 45px
 		line-height: 1
 		+transition(background .3s)

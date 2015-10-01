@@ -9,7 +9,7 @@
 //= jquery.mousewheel.js
 //= jquery.jscrollpane.js
 //= jquery.fancybox.js
-//= jquery.maskedinput.min.js
+//= jquery.inputmask.js
 //= uikit.js
 //= form-select.js
 //= datepicker.js

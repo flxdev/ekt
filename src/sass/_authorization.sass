@@ -129,7 +129,7 @@
 .alt
     float: right
     width: 37%
-    padding: 50px 30px 
+    padding: 50px 30px 60px
     background: #f9edc1 
     .alt__title
         margin-top: 5px
@@ -159,8 +159,9 @@
                 right: -10px
                 bottom: -10px
     ul
-        margin-top: 20px
-        margin-bottom: 35px
+        margin-top: 16px
+        margin-bottom: 30px
+        line-height: 30px
         li
             position: relative
             padding-left: 22px
@@ -181,7 +182,7 @@
     float: left
     width: 61%
     margin-right: 2%
-    padding: 43px 30px
+    padding: 43px 30px 62px
     border: 1px solid #c5c5c5
     .login__title
         margin-bottom: 32px
@@ -446,7 +447,7 @@ textarea.textarea
         position: absolute
         top: 50%
         right: 0
-        +translate(0, -50%)
+        margin-top: -8px
         background-color: transparent
         &:before
             position: absolute
@@ -482,12 +483,17 @@ textarea.textarea
 .datepicker
     position: relative
     display: block
-    &.has-error
+    &.error
         .ico
             &:before
                 opacity: 0
             &:after
                 opacity: 1
+        input
+            border-color: red
+    &.valid
+        input
+            border-color: $green
     .ico
         position: absolute
         top: 8px
@@ -571,16 +577,19 @@ textarea.textarea
                 +s($accord-arr-h-op)
     .history__filter
         margin-bottom: 20px
-        padding: 0 234px 0 10px
+        padding: 0 234px 0 5px
     .sorting
         text-align: left
     table
         td
             vertical-align: top
             &:first-child
-                width: 160px
+                width: 165px
             &:last-child
                 text-align: right
+    .accordions
+        .accord__but
+            padding-left: 17px
 
 
 

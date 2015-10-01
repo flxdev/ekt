@@ -293,34 +293,45 @@ $(document).ready( function() {
 	});
 
 	$('.js-histoy').each(function() {
-		var this_ 	= $(this),
-			btn 	= this_.find('.js-history-op'),
-			accord 	= this_.find('.js-accord'),
-			tAcc 	= this_.find('.js-accord-but'),
-			block 	= accord.find('.js-accord-block');
+		var this_ 		= $(this),
+			btn 		= this_.find('.js-history-op'),
+			accord 		= this_.find('.js-accord'),
+			tAcc 		= this_.find('.js-accord-but'),
+			block 		= accord.find('.js-accord-block');
 		btn.on('click', function() {
-			if (!accord.hasClass('is-active')) {
-				accord.removeClass('is-active');
-				accord.addClass('is-active');
-				$(this).addClass('is-active');
-				block.slideDown(500);
+			var this_ 		= $(this),
+				parent 		= this_.parents('.js-histoy'),
+				classVal 	= parent.find('.js-accord.is-active').size(),
+				clValLast 	= parent.find('.js-accord').size();
+			if (!this_.hasClass('is-active')) {
+				this_.addClass('is-active');
+				this_.text('Cвернуть всю историю');
 			}
 			else {
-				accord.removeClass('is-active');
-				$(this).removeClass('is-active');
-				block.slideUp(500);
+				this_.removeClass('is-active');
+				this_.text('Развернуть всю историю');
 			}
+			setTimeout(function(){
+				if (!accord.hasClass('is-active')) {
+					accord.addClass('is-active');
+					block.slideDown(500);
+				}
+				else if (classVal < clValLast) {
+					accord.addClass('is-active');
+					block.slideDown(500);
+				}
+				else {
+					accord.removeClass('is-active');
+					block.slideUp(500);
+					btn.removeClass('is-active');
+				}
+				console.log(classVal);
+			}, 1);
 			return false;
 		});
 		tAcc.on('click', function() {
-			var parent 	= $(this).parents('.js-accord'),
-				inner 	= parent.find('.js-accord-block');
-			if (parent.hasClass('is-active')) {
-				accord.removeClass('is-active');
-				block.slideup(500);
-				parent.addClass('is-active');
-				inner.slideDown(500);
-			}
+			btn.removeClass('is-active');
+			btn.text('Развернуть всю историю');
 		});
 	});
 	
@@ -448,13 +459,11 @@ $(document).ready( function() {
 	// });
 	
 	// dargscroll
-	$('.js-drag').dragOn({easing:false});
-	$('.js-drag').trigger('BarOn.toggle');
-
-
 	if ($('.js-drag').length) {
 		$('.js-drag').each(function () {
 			var this_ = $(this);
+			this_.dragOn({easing:false});
+			this_.trigger('BarOn.toggle');
 			this_.on('scroll', function() {
 				var parent 		= $(this),
 					bBar 		= parent.find('.bBarOn'),
@@ -502,7 +511,6 @@ $(document).ready( function() {
 					head 		= this_.find('.js-sheet-top'),
 					widthSheet 	= this_.width();
 					head.width(widthSheet);
-				console.log(widthSheet);
 			});
 		}; 
 	});
@@ -716,6 +724,7 @@ $(document).ready( function() {
 	});
 	$('.js-open-li').on('click', function() {
 		var this_ 	= $(this),
+			span 	= this_.find('span'),
 			parent 	= this_.parents('.js-tab-cont'),
 			ul 		= parent.find('.js-p-list ul'),
 			btn		= parent.find('.js-u-turn');
@@ -724,12 +733,13 @@ $(document).ready( function() {
 			ul.addClass('is-active');
 			btn.addClass('is-active');
 			ul.slideDown(400);
-
+			span.text('Свернуть все разделы');
 		}
 		else {
 			ul.removeClass('is-active');
 			btn.removeClass('is-active');
 			ul.slideUp(400);
+			span.text('Развернуть все разделы')
 		}
 	});
 
