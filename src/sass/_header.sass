@@ -39,9 +39,9 @@
 			&:after
 				background-color: $second_h
 			&:before
-				bottom: -7px
+				+translate(0,7px)
 			&:after
-				top: -7px
+				+translate(0,-7px)
 	&:before
 		position: absolute
 		content: ''
@@ -66,11 +66,13 @@
 			height: 2px
 			width: 17px
 			background-color: $green
-			+transition(background-color .3s, bottom .3s, top .3s)
+			+transition(background-color .3s, transform .3s)
 		&:before
-			bottom: -4px
+			+translate(0,4px)
+			// bottom: -4px
 		&:after
-			top: -4px
+			// top: -4px
+			+translate(0,-4px)
 
 // logo
 .logo
@@ -318,6 +320,8 @@
 	.is-search
 		color: $red
 	.point
+		padding-left: 30px
+		padding-right: 30px
 		&:first-child
 			margin-top: -1px
 

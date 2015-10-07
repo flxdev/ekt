@@ -30,7 +30,8 @@
 				background: $bg_ul-o
 			.nav__arr
 				+s($arr-white-bot)
-
+			& > .nav__wrap > a
+				color: #fff
 
 		&:first-child
 			border-top: 1px solid $border-nav
@@ -51,8 +52,10 @@
 		.nav__block
 			a
 				color: #e4e8e1
+			li
 				&:hover
-					color: #fff
+					& > a 
+						color: #fff
 	.nav__arr
 		display: inline-block
 		position: absolute
@@ -66,6 +69,7 @@
 		padding: 11px 35px 12px 18px
 		cursor: pointer
 		+transition(background .1s linear)
+
 	.nav__block
 		position: absolute
 		top: 0

@@ -402,6 +402,7 @@
 			opacity: 1
 		div.item__link
 			text-decoration: none
+			color: $second_h
 	&:before,
 	&:after
 		position: absolute
@@ -500,12 +501,9 @@
 		line-height: 24px
 		text-decoration: underline
 		display: block
+		color: #000
 		+f500
 		+transition(color .1s linear)
-		&:link
-			color: #000
-		// &:visited
-		// 	color: $second_a
 		&:hover
 			color: $second_h
 			text-decoration: none
@@ -1478,6 +1476,7 @@
 		cursor: pointer
 		vertical-align: top
 		+transition(color .3s, background-color .3s, opacity .3s)
+		+translate3d(0,0,0)
 		border-radius: 3px
 		background: #fff
 		display: inline-block
@@ -1710,7 +1709,7 @@
 		border-bottom: 1px solid $border-td
 		td
 			border-top: 1px solid $border-td
-			padding-left: 10px
+			padding-left: 6px
 			height: 52px !important
 			line-height: 52px
 		tr
@@ -1775,7 +1774,7 @@
 			opacity: 0
 			z-index: -2
 		.sheet__wrap
-			margin-left: -4px
+			// margin-left: -2px
 			height: 62px
 			overflow: hidden
 		.sheet__left
@@ -1790,8 +1789,12 @@
 				width: 1px
 				z-index: 2
 				background: $border-left
+			.sorting__item
+				margin-left: -6px
 			.sorting
 				position: relative
+		.sorting .sorting__item
+			padding-left: 9px
 	.sheet__wrap
 		overflow-x: auto
 	.sheet__price
@@ -1845,6 +1848,7 @@
 			display: block
 	.card__ind
 		margin: 10px 0 25px
+		font-size: 12px
 		& > table
 			opacity: .7
 	.card__bot
@@ -1874,6 +1878,10 @@
 				min-width: 95px
 				width: 11.5%
 				text-align: left
+				&:hover
+					& + td a
+						color: $second_h
+						text-decoration: none
 			&:nth-child(2)
 				width: 28%
 				text-align: left

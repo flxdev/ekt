@@ -197,8 +197,9 @@
 	&:before
 		+s($x)
 	&:after
+		margin: -5px 0 0 1px
 		opacity: 0
-		+s($x-h)
+		+s($cross_red)
 	&:hover
 		color: $second_h
 		&:before
@@ -323,6 +324,8 @@
 			width: 1px
 			background: #000
 			margin-top: -2px
+			+translate3d(0,0,0)
+			will-change: transform
 			+transition(background .3s, transform .3s)
 		&:before
 			+rotate(44deg)
@@ -359,6 +362,7 @@
 	background-color: transparent
 	+s($u-turn)
 	display: inline-block
+	will-change: transform
 	&:hover
 		opacity: 1
 	&.is-active
@@ -804,9 +808,6 @@ a.badge
 		color: rgba(#fff, .5)
 		display: inline-block
 		+transition(color .3s)
-		&:hover
-			color: #fff
-
 
 		&:last-child
 			padding-right: 0
@@ -1003,6 +1004,8 @@ a.badge
 		background: #fff
 		margin-top: -2px
 		+translate(0,-50%)
+		+translate3d(0,0,0)
+		will-change: transform
 		+transition(transform .3s)
 	&:before
 		+rotate(44deg)
@@ -1337,6 +1340,8 @@ a.address-link
 			width: 1px
 			background: #000
 			+translate(0,-50%)
+			+translate3d(0,0,0)
+			will-change: transform
 			+transition(background .3s, transform .3s)
 		&:before
 			+rotate(44deg)
@@ -1349,6 +1354,8 @@ a.address-link
 		line-height: 30px
 		user-select: none
 		+transition(color .3s)
+		+translate3d(0,0,0)
+		will-change: transform
 		border-bottom: 1px dotted $green
 		+font-smoothing(antialiased)
 		+f500
@@ -1367,6 +1374,8 @@ a.address-link
 			margin: 13px 0 0px
 			&:first-child
 				margin-top: 0
+		.form__submit
+			margin-top: 38px
 	.accord__wrap
 		+clr
 	.accord__table

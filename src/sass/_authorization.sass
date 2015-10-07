@@ -4,6 +4,11 @@
         margin-top: 50px
         .login
             padding-bottom: 66px
+        .alt
+            ul
+                margin-bottom: 28px
+            .btn
+                margin-top: 28px
     &.cab_dan
         margin-top: 15px
         .alt
@@ -108,9 +113,11 @@
         table
             th
                 &:first-child
+                    padding-left: 2px
                     .sorting__item
                         +transition(transform .3s)
-                        &.is-active
+                        &.is-active,
+                        &.is-active-top
                             +translate(10px,0)
     table
         td
@@ -589,7 +596,17 @@ textarea.textarea
                 text-align: right
     .accordions
         .accord__but
-            padding-left: 17px
+            padding: 12px 44px 9px 17px
+        .accord__block
+            position: relative
+            padding-top: 0
+            top: -9px
+            .accord__right
+                margin-top: 15px
+            .link-green, .title-h3 .link-green
+                line-height: 20px
+            table td
+                padding-bottom: 9px
 
 
 

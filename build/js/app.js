@@ -305,11 +305,11 @@ $(document).ready( function() {
 				clValLast 	= parent.find('.js-accord').size();
 			if (!this_.hasClass('is-active')) {
 				this_.addClass('is-active');
-				this_.text('Cвернуть всю историю');
+				this_.find('span').text('Cвернуть всю историю');
 			}
 			else {
 				this_.removeClass('is-active');
-				this_.text('Развернуть всю историю');
+				this_.find('span').text('Развернуть всю историю');
 			}
 			setTimeout(function(){
 				if (!accord.hasClass('is-active')) {

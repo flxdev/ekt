@@ -57,6 +57,11 @@ $(document).ready( function() {
 							wind 	= this_.find('.js-window');
 						wind.removeClass('is-active');
 					});
+					console.log('d');
+					objectManager.objects.options.set({
+					    iconLayout: 'default#image',
+						iconImageHref: 'img/marker.png'
+					});
 				},
 				getShape: function () {
 					if(!this._isElement(this._$element)) {
@@ -89,6 +94,29 @@ $(document).ready( function() {
 				balloonContentLayout: MyBalloonContentLayout,
 				balloonPanelMaxMapArea: 0
 			});
+			function onObjectEvent (e) {
+				var objectId = e.get('objectId');
+				if (e.get('type') == 'mouseenter') {
+				    objectManager.objects.setObjectOptions(objectId, {
+				        iconLayout: 'default#image',
+						iconImageHref: 'img/pin.png'
+				    });
+				}
+				if (e.get('type') == 'mouseleave') {
+				    objectManager.objects.setObjectOptions(objectId, {
+				    	iconLayout: 'default#image',
+				    	iconImageHref: 'img/marker.png'
+				    });
+				}
+				if (e.get('type') == 'click') {
+					    objectManager.objects.setObjectOptions(objectId, {
+				    	iconLayout: 'default#image',
+				    	iconImageHref: 'img/marker.png'
+				    });
+				}
+			}
+			objectManager.objects.events.add(['mouseenter', 'mouseleave', 'click'], onObjectEvent);
+		
 			objectManager.events.add('click', function () {
 				setTimeout(function(){
 					$('.balloon').each(function() {
@@ -104,7 +132,7 @@ $(document).ready( function() {
 					parent 	= this.parents('#map'),
 					wind 	= parent.find('.js-window');
 				wind.removeClass('is-active');
-				alert();
+
 			});
 
 		ZoomLayout = ymaps.templateLayoutFactory.createClass(
