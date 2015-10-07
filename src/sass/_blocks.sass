@@ -1,7 +1,7 @@
 .btn
 	display: inline-block
 	vertical-align: middle
-	padding: 13px 43px 12px 
+	padding: 13px 43px 12px
 	min-width: 192px
 	background: $primary
 	border-radius: 3px
@@ -27,12 +27,12 @@
 .btn_border
 	background: #fff
 	border: 1px solid $primary
-	color: $primary 
+	color: $primary
 	&:hover
 		color: #fff
 		border-color: $primary_h
 	&:active
-		color: #fff 
+		color: #fff
 		border-color: $primary
 .btn_small
 	padding: 10px 20px
@@ -44,7 +44,7 @@
 .btn_white
 	background: #fff
 	+f700
-	color: #000 
+	color: #000
 	&:hover
 		color: #fff
 	&:active
@@ -56,7 +56,7 @@
     +tr(color .3s)
     &:hover
         background: $primary_h
-        color: #fff 
+        color: #fff
     &:active
         background: $primary_a
 .btn_share
@@ -113,7 +113,7 @@
 
 // btn-search
 .btn-search
-	position: absolute 
+	position: absolute
 	top: 46px
 	right: 24px
 	height: 19px
@@ -368,7 +368,7 @@
 	display: table
 	width: 100%
 	table-layout: fixed
-	background: #fff 
+	background: #fff
 	&.is-contact
 		.topic__in,
 		.wrapper
@@ -381,8 +381,8 @@
 .main
 	display: table-cell
 	vertical-align: top
-	background: #fff 
-	
+	background: #fff
+
 .title-h1
 	margin-bottom: 22px
 	font-size: 34px
@@ -410,7 +410,7 @@
 			border-color: transparent
 		&:active
 			color: $second_a
-			border-color: transparent  
+			border-color: transparent
 	& + p
 		margin-top: -10px
 	& + .wrapper__left-t
@@ -434,7 +434,7 @@
 			border-color: transparent
 		&:active
 			color: $second_a
-			border-color: transparent 
+			border-color: transparent
 	.link-green
 		@extend .link-green
 		text-decoration: none !important
@@ -453,7 +453,7 @@
 			border-color: transparent
 		&:active
 			color: $primary_a
-			border-color: transparent 
+			border-color: transparent
 .title-h5
 	margin-bottom: 22px
 	font-size: 14px
@@ -468,7 +468,7 @@
 			border-color: transparent
 		&:active
 			color: $primary_a
-			border-color: transparent 
+			border-color: transparent
 .title-h6
 	margin-bottom: 22px
 	font-size: 12px
@@ -503,7 +503,7 @@
 			border-radius: 3px 3px 0 0
 .select__text
 	position: relative
-	padding: 0 20px 0 10px 
+	padding: 0 20px 0 10px
 	height: 32px
 	min-width: 211px
 	line-height: 32px
@@ -533,20 +533,20 @@
 	top: 100%
 	z-index: 100
 	border: 1px solid $border-filter
-	border-top: 0 
+	border-top: 0
 	max-height: 200px
 	overflow-x: hidden
 	overflow-y: auto
 	border-radius: 0 0 3px 3px
 	background: #fff
 	li
-		padding: 5px 11px 
+		padding: 5px 11px
 		cursor: pointer
 		line-height: 1
 		&:hover
 			background: $green
 			color: #fff
-		
+
 // multiple-select
 .multiple-select
 	min-width: 211px
@@ -711,6 +711,7 @@
 		margin: 40px 0 22px
 		&:first-child
 			margin-top: 0
+
 	.wrapper__top
 		position: relative
 		.checkbox
@@ -805,6 +806,8 @@ a.badge
 		+transition(color .3s)
 		&:hover
 			color: #fff
+
+
 		&:last-child
 			padding-right: 0
 			&:before
@@ -815,6 +818,7 @@ a.badge
 			right: 5px
 			content: '/'
 			opacity: .5
+
 		a
 			color: rgba(#fff, .5)
 			+transition(color .3s)
@@ -831,7 +835,7 @@ a.badge
 			margin-top: 0
 	& + .read-more
 		margin-top: 66px
-		
+
 .read-more
 	position: relative
 	height: 168px
@@ -851,11 +855,11 @@ a.badge
 				color: $second_h
 		.link-right
 			&:after
-				+translate(9px,0)
+				+translate(10px,0)
 				+s($ico-l-right-h)
 		.link-left
 			&:before
-				+translate(-9px,0)
+				+translate(-10px,0)
 				+s($ico-l-left-h)
 	&:after
 		position: absolute
@@ -938,7 +942,7 @@ a.badge
 			+s($r-m-right-arr-red)
 	&:after
 		position: relative
-		margin-left: 4px
+		margin-left: 5px
 		+s($arr-green-right)
 .link-left
 	margin-right: 5px
@@ -949,7 +953,7 @@ a.badge
 			+s($ico-l-left-h)
 	&:before
 		position: relative
-		margin-right: 4px
+		margin-right: 5px
 		+s($ico-l-left)
 
 .link-black
@@ -1037,7 +1041,7 @@ a.badge
 		position: absolute
 		top: 0
 		left: 0
-		
+
 // address-link
 .address-link
 	position: relative
@@ -1288,7 +1292,7 @@ a.address-link
 			bottom: -68px
 			z-index: 1
 	&.is-contact
-		.accord 
+		.accord
 			padding-bottom: 0
 			border-bottom: none
 			.accord__but
@@ -1527,3 +1531,9 @@ a.address-link
 // js-hide
 .js-hide
 	display: none
+
+
+//other
+
+.cab-mt
+	margin-top: 15px
