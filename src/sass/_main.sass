@@ -214,12 +214,14 @@
 		font-size: 16px
 		+f700
 		border-color: #000
+		line-height: 20px
+		display: inline-block
 		&:before
 			position: absolute
 			content: ''
-			top: 6px
+			top: 2px
 			left: -15px
-			bottom: 5px
+			bottom: 1px
 			width: 5px
 			background: transparent
 			+transition(background .3s)
@@ -280,8 +282,7 @@
 		.item__link
 			margin: 0
 			font-size: 13px
-			&:link
-				color: $green
+			color: $green 
 	&.is-prod-cena
 		.item
 			padding-bottom: 105px
@@ -1416,16 +1417,16 @@
 	line-height: 30px
 	+font-smoothing(antialiased)
 	border-bottom: 1px solid $border-comment
+	display: block
+	&:hover
+		.public__link
+			color: $second_h
+			text-decoration: none
 	.public__link
 		margin-right: 15px
 		color: $green
 		+f500
-		// &:visited
-		// 	color: $second_a
-		&:hover
-			color: $second_h
-			text-decoration: none
-
+		display: inline
 // par
 .par
 	padding: 14px 0 16px

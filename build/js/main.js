@@ -14607,11 +14607,13 @@ $(document).ready( function() {
 		}
 	});
 
-	$('.js-filter-select').multipleSelect({
-		single: true,
-        onClose: function() {
-			$('.ms-choice').removeClass('is-active');
-		}
+	$('.js-filter-select').each(function() {
+		$(this).multipleSelect({
+			single: true,
+	        onClose: function() {
+				$('.ms-choice').removeClass('is-active');
+			}
+		});
 	});
 	function activeSel() {
 		var parent 		= $('.js-filter-select, .js-multiple-select'),
@@ -14624,12 +14626,15 @@ $(document).ready( function() {
 			}
 		});
 		item.on('click', function () {
-			var this_ = $(this),
-				div = this_.find('> div');
+			var this_ 	= $(this),
+				div 	= this_.find('> div'),
+				drop 	= this_.parents('.ms-parent').find('.ms-drop');
+			$('.ms-drop').hide();
+			drop.show();
 			if (div.hasClass('open')) {
 				setTimeout(function(){
 					div.parents('.ms-choice').addClass('is-active');
-				}, 1);
+				}, 10);
 			}
 		});
 	}
@@ -14667,7 +14672,6 @@ $(document).ready( function() {
 				block.show();
 			}
 			input.on('change', function() {
-				console.log('h');
 				var this_ 	= $(this),
 					parent 	= this_.parents('.js-accord');
 				if (this_.val().length > 0) {
