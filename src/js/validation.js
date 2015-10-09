@@ -29,6 +29,9 @@ $(document).ready( function() {
 					else {
 						m = 0;
 					}
+					if ($(this).hasClass('error')){
+						m=0;
+					}
 					good = good *m;
 				});
 				if(good==1){
@@ -40,6 +43,7 @@ $(document).ready( function() {
 			};
 			form_this.find(input).on('keyup', function() {
 				checkInput();
+
 			});
 		});
 	};
@@ -51,9 +55,9 @@ $(document).ready( function() {
 		showMaskOnFocus: false,
 		placeholder: ''
 	});
-	$('.datepicker input').on('validation', function(evt, valid) {
-    	alert();
-    });
+	// $('.datepicker input').on('validation', function(evt, valid) {
+ //    	alert();
+ //    });
 
 	// var datepicker = $('.datepicker');
 	// if (datepicker.length) {
