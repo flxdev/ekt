@@ -47,19 +47,12 @@ $(document).ready( function() {
 	if (form_validate.length) {
 		form_validate.each(function () {
 			var form_this 	= $(this),
-				input = 'input[data-validation="required"], input[data-validation="email"], input[data-validation="number"], input[data-validation="password"]',
+				input 		= 'input[data-validation="required"], input[data-validation="email"], input[data-validation="number"], input[data-validation="password"], input[data-validation="custom"]',
 				button 		= form_this.find('input[type="submit"], button[type="submit"]');
 			$.validate({
 				form : form_this,
 				borderColorOnError : false,
         		scrollToTopOnError : false
-        		// onValidate : function() {
-    		    //   return {
-    		    //     element : $('.datepicker input'),
-    		    //     message : 'This input has an invalid value for some reason'
-    		    //   }
-    		    // },
-        		// showErrorDialogs : false
 			});
 			button.prop('disabled', true);
 			function checkInput() {
@@ -67,25 +60,27 @@ $(document).ready( function() {
 				form_this.find(input).each(function () {
 					if ($(this).val() != '') {
 						m = 1;
+						console.log('val');
 					}
 					else {
 						m = 0;
+						console.log('err');
 					}
 					if ($(this).hasClass('error')){
-						m=0;
+						m = 0;
 					}
-					good = good *m;
+					good = good * m;
 				});
-				if(good==1){
+				if (good == 1){
 					button.prop('disabled', false);
 				}
-				else{
+				else {
 					button.prop('disabled', true);	
 				}
 			};
-			form_this.find(input).on('keyup', function() {
+			$('body').on('keyup', form_this.find(input), function() {
+				console.log('keyup');
 				checkInput();
-
 			});
 		});
 	};
@@ -15077,9 +15072,9 @@ $(document).ready( function() {
 		// console.log(bPrev.html());
 		setTimeout(function(){
 			$.validate({
-				form : parents
+				form : '.js-validate'
 			});
-		}, 1);
+		}, 100);
 		block.clone().insertBefore(parent).addClass('js-form-add');
 		bFirst.addClass('form__in');
 		parent.prev('.form__in').removeClass('form__in');

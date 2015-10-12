@@ -672,9 +672,9 @@ $(document).ready( function() {
 		// console.log(bPrev.html());
 		setTimeout(function(){
 			$.validate({
-				form : parents
+				form : '.js-validate'
 			});
-		}, 1);
+		}, 100);
 		block.clone().insertBefore(parent).addClass('js-form-add');
 		bFirst.addClass('form__in');
 		parent.prev('.form__in').removeClass('form__in');
