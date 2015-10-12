@@ -670,6 +670,11 @@ $(document).ready( function() {
 			block 	= parents.find('.is-hide .form__in'),
 			bFirst 	= parents.find('.js-form-add');
 		// console.log(bPrev.html());
+		setTimeout(function(){
+			$.validate({
+				form : parents
+			});
+		}, 1);
 		block.clone().insertBefore(parent).addClass('js-form-add');
 		bFirst.addClass('form__in');
 		parent.prev('.form__in').removeClass('form__in');

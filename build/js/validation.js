@@ -55,46 +55,25 @@ $(document).ready( function() {
 		showMaskOnFocus: false,
 		placeholder: ''
 	});
-	// $('.datepicker input').on('validation', function(evt, valid) {
- //    	alert();
- //    });
-
-	// var datepicker = $('.datepicker');
-	// if (datepicker.length) {
-	// 	datepicker.each(function() {
-	// 		var this_ = $(this),
-	// 			input = this_.find('input');
-	// 		input.on('chenge', function(){
-	// 			$(this).addClass('is-date');
-	// 		});
-	// 	});
-	// }
-	// $('.datepicker input').change(function() {
-	// 	if($(this).val() != '') {
-	// 		inputAc.removeClass('error');
-	// 		$(this).addClass('valid');
-	// 	}
-	// 	else {
-	// 		inputAc.removeClass('valid');
-	// 		$(this).addClass('error');
-	// 	}
-	// });
-	$('.datepicker input').on('click', function(event) {
+	
+	$('body').on('click', '.datepicker input', function(event) {
 		$(this).addClass('is-active');
 		event.stopPropagation();
 	});
 
 	$('body').on('click', function() {
-		var inputAc = $('.datepicker input.is-active'),
-			parent 	= inputAc.parents('.datepicker');
-		if(inputAc.val() != '') {
-			parent.removeClass('error');
-			parent.addClass('valid');
-		}
-		else {
-			parent.removeClass('valid');
-			parent.addClass('error');
-		}
+		$('.datepicker input.is-active').each(function() {
+			var this_ = $(this),
+				parent 	= this_.parents('.datepicker');
+			if(this_.val() != '') {
+				parent.removeClass('error');
+				parent.addClass('valid');
+			}
+			else {
+				parent.removeClass('valid');
+				parent.addClass('error');
+			}
+		});
 	});
 
 });
