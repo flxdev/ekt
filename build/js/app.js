@@ -185,16 +185,14 @@ $(document).ready( function() {
 		}
 	});
 
-	$('.js-filter-select').each(function() {
-		$(this).multipleSelect({
-			single: true,
-	        onClose: function() {
-				$('.ms-choice').removeClass('is-active');
-			}
-		});
+	$('.js-filter-select').multipleSelect({
+		single: true,
+		onClose: function() {
+			$('.ms-choice').removeClass('is-active');
+		}
 	});
 	function activeSel() {
-		var parent 		= $('.js-filter-select, .js-multiple-select'),
+		var parent 		= $('.multiple-select'),
 			item 		= parent.find('> button'),
 			first 		= parent.find('.ms-drop li:first'),
 			firstCheck 	= first.find('input[type="checkbox"]');
@@ -207,9 +205,10 @@ $(document).ready( function() {
 			var this_ 	= $(this),
 				div 	= this_.find('> div'),
 				drop 	= this_.parents('.ms-parent').find('.ms-drop');
-			$('.ms-drop').hide();
-			drop.show();
-			if (div.hasClass('open')) {
+			if (!div.hasClass('open')) {
+				$('.ms-choice').removeClass('is-active');
+			}
+			else {
 				setTimeout(function(){
 					div.parents('.ms-choice').addClass('is-active');
 				}, 10);
@@ -293,8 +292,8 @@ $(document).ready( function() {
 		});
 	} accord();
 
-	$('.js-accord-but .btn, .js-accord-block, .js-history-op').on('click',function(event) {
-		event.stopPropagation();
+	$('.js-accord-but .btn, .js-history-op').on('click',function(event) {
+		event.preventDefault();
 	});
 
 	$('.js-histoy').each(function() {
@@ -510,6 +509,12 @@ $(document).ready( function() {
 			});
 		});
 	};
+	$('.bBarOn').on('mouseenter', function(){
+		$(this).addClass('is-hover');
+	});
+	$('.bBarOn').on('mouseleave', function(){
+		$('.bBarOn').removeClass('is-hover');
+	});
 
 	// sheet-top
 	$(document).scroll(function() { 

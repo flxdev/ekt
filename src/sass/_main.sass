@@ -183,6 +183,8 @@
 	.multiple-select
 		min-width: 200px
 		width: 200px
+		.placeholder
+			opacity: .5
 	.view
 		margin-left: 50px
 	.checkbox
@@ -238,6 +240,8 @@
 			font-size: 13px
 			&:hover
 				z-index: 1
+			&::placeholder
+				opacity: .5
 
 // form-item
 .form-item
@@ -1470,7 +1474,7 @@
 	.sorting__item
 		position: relative
 		margin-left: 8px
-		padding: 3px 20px 3px 3px
+		padding: 6px 20px 6px 4px
 		font-size: 12px
 		+f300
 		opacity: .7
@@ -1539,6 +1543,9 @@
 			margin: 0
 			right: -8px
 
+table.sorting
+	.sorting__item
+		padding: 3px 20px 3px 3px
 
 // product pg 8-7
 .product
@@ -1808,6 +1815,10 @@
 			padding-right: 0
 		.sorting .sorting__item
 			padding-left: 9px
+		td
+			&:first-child
+				.sorting__item
+					margin-left: 0
 	.sheet__wrap
 		overflow-x: auto
 	.sheet__price
@@ -1834,7 +1845,7 @@
 			min-width: 70px
 			width: 100px
 			&:first-child
-				min-width: 77px
+				min-width: 90px
 			&:nth-child(2)
 				min-width: 70px
 			&:nth-child(3)
