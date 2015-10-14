@@ -79,8 +79,9 @@ $(document).ready( function() {
 				}
 			};
 			$('body').on('keyup', form_this.find(input), function() {
-				console.log('keyup');
-				checkInput();
+				setTimeout(function(){
+					checkInput();
+				}, 600);
 			});
 		});
 	};
@@ -111,6 +112,25 @@ $(document).ready( function() {
 				parent.addClass('error');
 			}
 		});
+	});
+
+	$('.datepicker, .datepicker .ico, .uk-datepicker').on('click', function() {
+		if (!$('.uk-dropdown.uk-datepicker').hasClass('is-active')) {
+			$('.uk-dropdown.uk-datepicker').addClass('is-active');
+			$('.uk-dropdown.uk-datepicker').show();
+		}
+		else {
+			$('.uk-dropdown.uk-datepicker').removeClass('is-active');
+			$('.uk-dropdown.uk-datepicker').hide();
+		}
+	});
+	$('body').on('click', '.datepicker .ico', function(event) {
+		event.stopPropagation();
+	});
+
+	$('body').on('click', function() {
+		$('.uk-dropdown.uk-datepicker').removeClass('is-active');
+		$('.uk-dropdown.uk-datepicker').hide();
 	});
 
 });
