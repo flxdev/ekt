@@ -5,7 +5,7 @@ $(document).ready( function() {
 	if (form_validate.length) {
 		form_validate.each(function () {
 			var form_this 	= $(this),
-				input 		= 'input[data-validation="required"], input[data-validation="email"], input[data-validation="number"], input[data-validation="password"], input[data-validation="custom"]',
+				input 		= 'input[data-validation="required"], input[data-validation="email"], input[data-validation="number"], input[data-validation="password"], input[data-validation="custom"], textarea[data-validation="required"]',
 				button 		= form_this.find('input[type="submit"], button[type="submit"]');
 			$.validate({
 				form : form_this,
@@ -72,7 +72,7 @@ $(document).ready( function() {
 		});
 	});
 
-	$('.datepicker, .datepicker .ico, .uk-datepicker').on('click', function() {
+	$('body').on('click', '.datepicker, .datepicker .ico, .uk-datepicker', function() {
 		if (!$('.uk-dropdown.uk-datepicker').hasClass('is-active')) {
 			$('.uk-dropdown.uk-datepicker').addClass('is-active');
 			$('.uk-dropdown.uk-datepicker').show();
@@ -82,6 +82,7 @@ $(document).ready( function() {
 			$('.uk-dropdown.uk-datepicker').hide();
 		}
 	});
+	
 	$('body').on('click', '.datepicker .ico', function(event) {
 		event.stopPropagation();
 	});

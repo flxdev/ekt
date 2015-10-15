@@ -622,6 +622,7 @@ $(document).ready( function() {
 				parentThis 	= thisBtn.parents('.js-popup-par'),
 				popupThis 	= parentThis.find('.js-popup'),
 				parent 		= $('.js-popup-par'),
+				popupIn 	= popupThis.find('.popup__in'),
 				popup 		= $('.js-popup'),
 				scroll 		= popupThis.find('.js-p-scroll');
 			if (!parent.hasClass('is-open')) {
@@ -629,6 +630,8 @@ $(document).ready( function() {
 				popup.fadeOut(500);
 				parentThis.addClass('is-open');
 				popupThis.fadeIn(500);
+				$('.popup__in').removeClass('is-active');
+				popupIn.addClass('is-active');
 				body.addClass('is-hidden');
 				scroll.addClass('is-active');
 				scroll.jScrollPane();
@@ -637,11 +640,13 @@ $(document).ready( function() {
 			return false;
 		});
 		close.on('click', function() {
+			$('.popup__in').removeClass('is-active');
 			body.removeClass('is-hidden');
 			parent.removeClass('is-open');
 			popup.fadeOut(500);
 		});
 		popup.on('click', function() {
+			$('.popup__in').removeClass('is-active');
 			body.removeClass('is-hidden');
 			parent.removeClass('is-open');
 			popup.fadeOut(500);

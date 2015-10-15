@@ -47,7 +47,7 @@ $(document).ready( function() {
 	if (form_validate.length) {
 		form_validate.each(function () {
 			var form_this 	= $(this),
-				input 		= 'input[data-validation="required"], input[data-validation="email"], input[data-validation="number"], input[data-validation="password"], input[data-validation="custom"]',
+				input 		= 'input[data-validation="required"], input[data-validation="email"], input[data-validation="number"], input[data-validation="password"], input[data-validation="custom"], textarea[data-validation="required"]',
 				button 		= form_this.find('input[type="submit"], button[type="submit"]');
 			$.validate({
 				form : form_this,
@@ -114,7 +114,7 @@ $(document).ready( function() {
 		});
 	});
 
-	$('.datepicker, .datepicker .ico, .uk-datepicker').on('click', function() {
+	$('body').on('click', '.datepicker, .datepicker .ico, .uk-datepicker', function() {
 		if (!$('.uk-dropdown.uk-datepicker').hasClass('is-active')) {
 			$('.uk-dropdown.uk-datepicker').addClass('is-active');
 			$('.uk-dropdown.uk-datepicker').show();
@@ -124,6 +124,7 @@ $(document).ready( function() {
 			$('.uk-dropdown.uk-datepicker').hide();
 		}
 	});
+	
 	$('body').on('click', '.datepicker .ico', function(event) {
 		event.stopPropagation();
 	});
@@ -13833,11 +13834,15 @@ $(document).ready( function() {
 
 			if (!parent.hasClass('is-active')) {
 				if (!map.length) {
-					wrapThis.append(div);
-					ymaps.ready(initialize);
+					// setTimeout(function(){
+						wrapThis.append(div);
+						ymaps.ready(initialize);
+					// }, 100);
 				}
 				else {
-					map.appendTo(wrapThis);
+					// setTimeout(function(){
+						map.appendTo(wrapThis);
+					// }, 900);
 				}
 			}
 		});
@@ -13932,17 +13937,18 @@ $(document).ready( function() {
 
 	$('.js-open-window').on('click', function() {
 		var this_  	= $(this),
+			span 	= this_.find('span'),
 			parent 	= this_.parents('.js-window'),
 			block 	= parent.find('.js-window-block'),
 			scrCont = parent.find('.jspPane, .jspDrag');
 		if (!this_.hasClass('is-active')) {
 			this_.addClass('is-active');
-			this_.text('Скрыть все товарные позиции');
+			span.text('Скрыть все товарные позиции');
 			block.slideDown(400);
 		}
 		else {
 			this_.removeClass('is-active');
-			this_.text('Показать все товарные позиции');
+			span.text('Показать все товарные позиции');
 			block.slideUp(400);
 			scrCont.animate({
 				top: 0
@@ -15042,6 +15048,7 @@ $(document).ready( function() {
 				parentThis 	= thisBtn.parents('.js-popup-par'),
 				popupThis 	= parentThis.find('.js-popup'),
 				parent 		= $('.js-popup-par'),
+				popupIn 	= popupThis.find('.popup__in'),
 				popup 		= $('.js-popup'),
 				scroll 		= popupThis.find('.js-p-scroll');
 			if (!parent.hasClass('is-open')) {
@@ -15049,6 +15056,8 @@ $(document).ready( function() {
 				popup.fadeOut(500);
 				parentThis.addClass('is-open');
 				popupThis.fadeIn(500);
+				$('.popup__in').removeClass('is-active');
+				popupIn.addClass('is-active');
 				body.addClass('is-hidden');
 				scroll.addClass('is-active');
 				scroll.jScrollPane();
@@ -15057,11 +15066,13 @@ $(document).ready( function() {
 			return false;
 		});
 		close.on('click', function() {
+			$('.popup__in').removeClass('is-active');
 			body.removeClass('is-hidden');
 			parent.removeClass('is-open');
 			popup.fadeOut(500);
 		});
 		popup.on('click', function() {
+			$('.popup__in').removeClass('is-active');
 			body.removeClass('is-hidden');
 			parent.removeClass('is-open');
 			popup.fadeOut(500);

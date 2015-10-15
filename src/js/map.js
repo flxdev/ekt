@@ -313,11 +313,15 @@ $(document).ready( function() {
 
 			if (!parent.hasClass('is-active')) {
 				if (!map.length) {
-					wrapThis.append(div);
-					ymaps.ready(initialize);
+					// setTimeout(function(){
+						wrapThis.append(div);
+						ymaps.ready(initialize);
+					// }, 100);
 				}
 				else {
-					map.appendTo(wrapThis);
+					// setTimeout(function(){
+						map.appendTo(wrapThis);
+					// }, 900);
 				}
 			}
 		});
@@ -412,17 +416,18 @@ $(document).ready( function() {
 
 	$('.js-open-window').on('click', function() {
 		var this_  	= $(this),
+			span 	= this_.find('span'),
 			parent 	= this_.parents('.js-window'),
 			block 	= parent.find('.js-window-block'),
 			scrCont = parent.find('.jspPane, .jspDrag');
 		if (!this_.hasClass('is-active')) {
 			this_.addClass('is-active');
-			this_.text('Скрыть все товарные позиции');
+			span.text('Скрыть все товарные позиции');
 			block.slideDown(400);
 		}
 		else {
 			this_.removeClass('is-active');
-			this_.text('Показать все товарные позиции');
+			span.text('Показать все товарные позиции');
 			block.slideUp(400);
 			scrCont.animate({
 				top: 0
