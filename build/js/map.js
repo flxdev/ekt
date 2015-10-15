@@ -208,8 +208,7 @@ $(document).ready( function() {
 								"</div>" +
 							"</div>" 
 						, 
-						"clusterCaption": "Еще одна метка", 
-						"hintContent": "Текст подсказки"
+						"clusterCaption": "Еще одна метка"
 					}
 				},
 				{
@@ -234,8 +233,7 @@ $(document).ready( function() {
 								"</div>" +
 							"</div>" 
 						, 
-						"clusterCaption": "Еще одна метка", 
-						"hintContent": "Текст подсказки"
+						"clusterCaption": "Еще одна метка"
 					}
 				},
 				{
@@ -260,8 +258,7 @@ $(document).ready( function() {
 								"</div>" +
 							"</div>" 
 						, 
-						"clusterCaption": "Еще одна метка", 
-						"hintContent": "Текст подсказки"
+						"clusterCaption": "Еще одна метка"
 					}
 				},
 				{
@@ -286,8 +283,7 @@ $(document).ready( function() {
 								"</div>" +
 							"</div>" 
 						, 
-						"clusterCaption": "Еще одна метка", 
-						"hintContent": "Текст подсказки"
+						"clusterCaption": "Еще одна метка"
 					}
 				}
 			]

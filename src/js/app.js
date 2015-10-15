@@ -516,6 +516,42 @@ $(document).ready( function() {
 		$('.bBarOn').removeClass('is-hover');
 	});
 
+	var scrollKeys = [33,34,35,36,38,40];
+	var drag = ".js-drag";
+
+	function preventScroll() {
+	  $(document).on("mousewheel DOMMouseScroll", "body", function(e) {
+	    var $np = $(drag)[0];
+	    var st = $np.scrollTop;
+	    if (e.originalEvent.wheelDelta > 0 || e.originalEvent.detail < 0) {
+	      if ($(e.target).closest(drag).length && 
+	          st > 0) return;
+	    } else {
+	      if ($(e.target).closest(drag).length && 
+	          st + $np.offsetHeight < $np.scrollHeight) return;
+	    }
+	    e.preventDefault();
+	    e.stopPropagation();
+	  });
+
+	  $(document).on("hover", function(e) {
+	    if (scrollKeys.indexOf(e.which) > -1) {
+	      e.preventDefault();
+	    }
+	  });
+	};
+
+	function returnScroll() {
+	  $(document).off("mousewheel DOMMouseScroll keydown");
+	};
+
+	
+	$(drag).hover(function() {
+	  preventScroll();
+	}, function() {
+	  returnScroll();
+	});
+
 	// sheet-top
 	$(document).scroll(function() { 
 		var scroll 		= $(this).scrollTop();
@@ -905,5 +941,6 @@ $(document).ready( function() {
 	// 	hLayout();
 	// });
 	
+
 
 });
