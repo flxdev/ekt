@@ -14939,7 +14939,7 @@ $(document).ready( function() {
 	});
 
 	var scrollKeys = [33,34,35,36,38,40];
-	var drag = ".js-drag";
+	var drag = ".sheet__left .js-drag";
 
 	function preventScroll() {
 	  $(document).on("mousewheel DOMMouseScroll", "body", function(e) {
