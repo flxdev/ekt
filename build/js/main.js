@@ -15063,8 +15063,22 @@ $(document).ready( function() {
 			closeEffect : 'fade',
 			maxWidth	: 800,
 			nextEffect  : 'fade',
-			prevEffect  : 'fade'
+			prevEffect  : 'fade',
+			beforeShow: function () {
+				$('.fancybox-overlay, .fancybox-close').bind("click", function (e) {
+					$('.fancybox-wrap').removeClass('is-active');
+				});
+			},
+			onClosed: function() {
+				alert();
+				$('.fancybox-wrap').removeClass('is-active');
+			}
 		});
+	$('.js-fansy-item').on('click', function(){
+		setTimeout(function(){
+			$('.fancybox-wrap').addClass('is-active');
+		}, 1);
+	});
 
 	// popup
 	$('.js-popup').each(function() {
