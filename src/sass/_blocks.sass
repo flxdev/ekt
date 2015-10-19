@@ -1296,8 +1296,11 @@ a.address-link
 			&.is-active
 				.accord__but
 					background: $accord-bg-address
+				.accord__block
+					+transition(background .01s)
+					background: $accord-bg-address
 		.accord__block
-			background: $accord-bg-address
+			+transition(background .3s)
 		.accord__but
 			&:hover
 				.address-link

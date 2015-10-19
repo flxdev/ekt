@@ -241,6 +241,7 @@
 			&:hover
 				z-index: 1
 			&::placeholder
+				color: #000
 				opacity: .5
 
 // form-item
@@ -357,6 +358,7 @@
 		.article
 			float: left
 			width: 90px
+			line-height: 20px
 		.link-green
 			line-height: 18px
 			font-size: 12px
@@ -1510,6 +1512,8 @@
 		text-align: left
 		.sorting__item
 			margin-right: 8px
+			&:first-child
+				margin-left: 2px
 	.sorting__right
 		float: right
 		.sorting__item
@@ -1526,12 +1530,15 @@
 		cursor: pointer
 		vertical-align: top
 		+transition(color .3s, background-color .3s, opacity .3s)
+		will-change: color, background, opacity
 		+translate3d(0,0,0)
 		border-radius: 3px
 		background: #fff
 		display: inline-block
 		&.sorting__item_w82
 			width: 82px
+		&.sorting__item_w77
+			width: 77px
 		&.sorting__item_w76
 			width: 76px
 		&.sorting__item_w73
@@ -1604,6 +1611,14 @@ table.sorting
 	.product__descr
 		overflow: hidden
 		min-width: 190px
+		+r(1200)
+			display: -webkit-flex
+			display: -moz-flex
+			display: -ms-flex
+			display: -o-flex
+			display: flex
+			-webkit-flex-flow: row wrap
+			flex-flow: row wrap
 		.title-h3
 			margin: -4px 0 13px
 		.article
@@ -1612,14 +1627,17 @@ table.sorting
 			+f700
 		.list
 			margin-top: 7px
+		.product__right
+			margin-bottom: 0
+			+r(1200)
+				width: 100%
+				text-align: left
+				order: 2
 	.product__right
 		float: right
 		margin-bottom: 18px
 		width: 215px
 		text-align: right
-		+r(1200)
-			text-align: left
-			width: calc(100% - 330px)
 		& > .btn_add
 			padding: 10px 16px 9px
 			min-width: 146px
@@ -1629,11 +1647,6 @@ table.sorting
 		margin-bottom: 15px
 		font-size: 24px
 		+f500
-.ff
-	+r(1200)
-		.product__descr
-			min-width: 342px
-			padding-top: 54px
 
 // tab__cont
 .tab
@@ -1775,7 +1788,7 @@ table.sorting
 		border-bottom: 1px solid $border-td
 		td
 			border-top: 1px solid $border-td
-			padding-left: 6px
+			padding-left: 4px
 			height: 52px !important
 			line-height: 52px
 		tr
@@ -1860,8 +1873,12 @@ table.sorting
 				margin-left: -6px
 			.sorting
 				position: relative
-		.sheet__right td:last-child
-			padding-right: 0
+		.sheet__right 
+			td
+				&:first-child
+					padding-right: 8px
+				&:last-child
+					padding-right: 0
 		.sorting .sorting__item
 			padding-left: 9px
 		td

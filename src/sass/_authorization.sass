@@ -13,6 +13,7 @@
         margin-top: 15px
         .alt
             padding-top: 42px
+            padding-bottom: 60px
             .title-h3
                 line-height: 30px
                 margin-bottom: 15px
@@ -144,6 +145,11 @@
         +f700
         &:first-child
             margin-top: 0
+    .alt__head
+        margin-top: -2px
+        &.title-h3
+            .link-black
+                margin-top: 9px
     .alt__in
         p
             margin-top: 5px
@@ -499,7 +505,7 @@ textarea.textarea
             &:after
                 opacity: 1
         input
-            border-color: red
+            border-color: $red
     &.valid
         input
             border-color: $green
@@ -586,9 +592,11 @@ textarea.textarea
                 +s($accord-arr-h-op)
     .history__filter
         margin-bottom: 20px
-        padding: 0 234px 0 5px
+        padding: 0 230px 0 5px
         .sorting__item
             margin-left: 0
+        td
+            padding-left: 3px
     .sorting
         text-align: left
     table
