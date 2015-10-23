@@ -33,7 +33,7 @@
 		letter-spacing: 1px
 		overflow: hidden
 	.topic__text
-		margin-top: 30px
+		margin-top: 25px
 		line-height: 30px
 		opacity: .8
 		letter-spacing: 0.5px
@@ -46,7 +46,7 @@
 // view
 .view
 	font-size: 0
-	border-radius: 3px
+	border-radius: 4px
 	background: #fff
 	.view__item
 		position: relative
@@ -352,17 +352,17 @@
 		.point__info
 			padding: 0 45px 0 0
 		.point__text
-			margin-left: 90px
+			margin-left: 86px
 		.point__price
 			margin-top: 8px
 		.article
 			float: left
-			width: 90px
+			width: 86px
 			line-height: 20px
 		.link-green
 			line-height: 18px
 			font-size: 12px
-			margin-left: 90px
+			margin-left: 86px
 		.spiner
 			margin-top: 4px
 	&.items_equip
@@ -661,6 +661,8 @@
 			display: block
 	.point__info
 		padding: 5px 33px 0 0
+		.article
+			margin-top: 5px
 	.point__price
 		margin-top: 28px
 		+f500
@@ -885,6 +887,8 @@
 	.slick-prev,
 	.slick-next
 		opacity: 0
+		will-change: opacity
+		+translate3d(0,0,0)
 		+transition(opacity .3s)
 	.spiner
 		.spiner__block
@@ -900,6 +904,8 @@
 	.slick-prev,
 	.slick-next
 		top: 50%
+		will-change: opacity
+		+translate3d(0,0,0)
 		+translate(0,-50%)
 		margin-top: -18px
 	.slick-prev

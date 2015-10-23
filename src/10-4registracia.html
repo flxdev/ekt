@@ -153,7 +153,7 @@
 										<label class="form__row">
 											<div class="input">
 												<p>Серийный номер<span>*</span></p>
-												<input type="text" data-validation="required" placeholder="Заполняется латинскими символами" data-validation-error-msg="Неправильный номер">
+												<input type="text" data-validation="custom" placeholder="Заполняется латинскими символами" data-validation-error-msg="Неправильный номер" data-validation-regexp="^[a-zA-Z0-9]+$">
 											</div>
 										</label>
 										<div class="form__row">

@@ -506,6 +506,14 @@ textarea.textarea
                 opacity: 1
         input
             border-color: $red
+            &:hover
+                border-color: $red
+                box-shadow: 0 1px 1px rgba($red, 0.12), 0 0 8px rgba($red, 0.15)
+        .ico
+            &:hover
+                & + input
+                    border-color: $red
+                    box-shadow: 0 1px 1px rgba($red, 0.12), 0 0 8px rgba($red, 0.15)
     &.valid
         input
             border-color: $green
@@ -526,6 +534,9 @@ textarea.textarea
                     opacity: 0
                 &:after
                     opacity: 1
+            &:hover
+                border-color: $red
+                box-shadow: 0 1px 1px rgba($red, 0.12), 0 0 8px rgba($red, 0.15)
     .help-block
         white-space: nowrap
 
