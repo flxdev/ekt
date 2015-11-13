@@ -15082,6 +15082,9 @@ $(document).ready( function() {
 				$('.fancybox-overlay, .fancybox-close').bind("click", function (e) {
 					$('.fancybox-wrap').removeClass('is-active');
 				});
+				$('.fancybox-wrap').bind('click', function(event) {
+					event.stopPropagation();
+				});
 			},
 			onClosed: function() {
 				$('.fancybox-wrap').removeClass('is-active');
