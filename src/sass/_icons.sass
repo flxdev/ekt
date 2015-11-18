@@ -63,6 +63,21 @@
 		&:after
 			opacity: 0
 			+s($pdf-red)
+	&_jpg
+		width: 23px
+		height: 28px
+		&:before,
+		&:after
+			position: absolute
+			content: ''
+			top: 0
+			left: 0
+			+transition(opacity .3s)
+		&:before
+			+s($jpg)
+		&:after
+			opacity: 0
+			+s($jpg-red)
 	&_doc
 		width: 23px
 		height: 28px
@@ -78,6 +93,51 @@
 		&:after
 			opacity: 0
 			+s($doc-red)
+	&_excel
+		width: 23px
+		height: 28px
+		&:before,
+		&:after
+			position: absolute
+			content: ''
+			top: 0
+			left: 0
+			+transition(opacity .3s)
+		&:before
+			+s($excel)
+		&:after
+			opacity: 0
+			+s($excel-red)
+	&_rar
+		width: 23px
+		height: 28px
+		&:before,
+		&:after
+			position: absolute
+			content: ''
+			top: 0
+			left: 0
+			+transition(opacity .3s)
+		&:before
+			+s($rar)
+		&:after
+			opacity: 0
+			+s($rar-red)
+	&_zip
+		width: 23px
+		height: 28px
+		&:before,
+		&:after
+			position: absolute
+			content: ''
+			top: 0
+			left: 0
+			+transition(opacity .3s)
+		&:before
+			+s($zip)
+		&:after
+			opacity: 0
+			+s($zip-red)
 	&_add
 		+s($arr-add-white)
 	&_logout
