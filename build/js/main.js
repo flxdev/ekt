@@ -15334,7 +15334,19 @@ $(document).ready( function() {
 
 	// remove value
 	$('.js-refresh-input').on('click', function() {
-		$('.js-search-input').val("");
+		var this_ 	= $(this),
+			input 	= $('.js-search-input'),
+			popup 	= this_.parents('.js-popup'),
+			parent 	= this_.parents('.js-popup-par');
+		if (input.val().length == 0) {
+			$('.popup__in').removeClass('is-active');
+			$('body').removeClass('is-hidden');
+			parent.removeClass('is-open');
+			popup.fadeOut(300);
+		}
+		else {
+			input.val("");
+		}
 	});
 
 	// tags

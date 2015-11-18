@@ -186,61 +186,60 @@
 			left: -22px
 			right: -22px
 			bottom: 0
+	// cabinet
+	.cabinet
+		float: right
+		padding: 0 0 29px 30px
+		width: 140px
+		height: 83px
+		line-height: 28px
+		font-size: 14px
+		letter-spacing: 0
+		&:hover
+			.cabinet__row
+				color: $red
+				.ico_user
+					&:before
+						opacity: 0
+					&:after
+						opacity: 1
+		&.is-active
+			&:before
+				position: absolute
+				content: ''
+				left: 0
+				right: 2px
+				bottom: 0
+				height: 2px
+				background: #000
 
-// cabinet
-.cabinet
-	float: right
-	margin-left: 45px
-	padding: 0 0 29px 30px
-	width: 140px
-	height: 83px
-	line-height: 28px
-	font-size: 14px
-	&:hover
+		+r(1200)
+			margin-left: 20px
 		.cabinet__row
-			color: $red
-			.ico_user
-				&:before
-					opacity: 0
+			position: relative
+			height: 21px
+			line-height: 21px
+			vertical-align: bottom
+			display: inline-block
+			+transition(color .3s)
+
+			.ico
+				position: absolute
+				left: -30px
+				top: 0
+				&:before,
 				&:after
-					opacity: 1
-	&.is-active
-		&:before
-			position: absolute
-			content: ''
-			left: 0
-			right: 2px
-			bottom: 0
-			height: 2px
-			background: #000
-
-	+r(1200)
-		margin-left: 20px
-	.cabinet__row
-		position: relative
-		height: 21px
-		line-height: 21px
-		vertical-align: bottom
-		display: inline-block
-		+transition(color .3s)
-
-		.ico
-			position: absolute
-			left: -30px
-			top: 0
-			&:before,
-			&:after
-				+transition(opacity .3s)
-	.cabinet__name
-		width: 106px
-		font-size: 12px
-		height: 15px
-		line-height: 16px
-		vertical-align: bottom
-		overflow: hidden
-		white-space: nowrap
-		text-overflow: ellipsis
-		display: inline-block
+					+transition(opacity .3s)
+		.cabinet__name
+			width: 106px
+			font-size: 12px
+			height: 15px
+			line-height: 16px
+			vertical-align: bottom
+			overflow: hidden
+			white-space: nowrap
+			text-overflow: ellipsis
+			display: inline-block
 
 // search
 .search
