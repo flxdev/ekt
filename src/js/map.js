@@ -13,7 +13,7 @@ $(document).ready( function() {
 				searchControlProvider: 'yandex#search'
 			}),
 			objectManager = new ymaps.ObjectManager({
-				clusterize: true
+				clusterize: false
 			}),
 			MyBalloonLayout = ymaps.templateLayoutFactory.createClass(
 				'<div class="popover top">' +
@@ -289,6 +289,20 @@ $(document).ready( function() {
 			]
 		}
 		objectManager.add(data);
+		function clickGoto() {
+
+			var pos = $(this).data('address');
+			myMap.panTo([pos], {
+				flying: 1
+			});
+
+			return false;
+		}
+
+		var option = $('.is-map.js-select ul li');
+		for (var i = 0, n = option.length; i < n; ++i) {
+			option[i].onclick = clickGoto;
+		}
 	};
 
 	// map accord
@@ -306,7 +320,7 @@ $(document).ready( function() {
 				wrap 		= $('.js-map-wrap'),
 				map 		= wrap.find('#map-accord'),
 				div 		= ('<div class="map" id="map-accord"></div>');
-
+			console.log($(this).data('address'));
 			if (!parent.hasClass('is-active')) {
 				if (!map.length) {
 					// setTimeout(function(){
@@ -324,13 +338,13 @@ $(document).ready( function() {
 	});
 
 	function initialize() {
-		var destinations = {
-			'Киев': [50.45466, 30.5238],
-			'Минск': [53.9, 27.56667],
-			'Одесса': [46.466444, 30.7058]
-		},
+		// var destinations = {
+		// 	'Киев': [50.45466, 30.5238],
+		// 	'Минск': [53.9, 27.56667],
+		// 	'Одесса': [46.466444, 30.7058]
+		// },
 		myMap = new ymaps.Map('map-accord', {
-			center: destinations['Киев'],
+			center: [50.45466, 30.5238],
 			zoom: 18,
 			controls: []
 			}, {
@@ -396,7 +410,7 @@ $(document).ready( function() {
 		function clickGoto() {
 
 			var pos = $(this).data('address');
-			myMap.panTo(destinations[pos], {
+			myMap.panTo([pos], {
 				flying: 1
 			});
 

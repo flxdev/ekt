@@ -504,7 +504,13 @@
 		opacity: 0
 	&.is-active
 		.select__text
-			border-radius: 3px 3px 0 0
+			border-color: $green
+			border-radius: 3px
+			box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 0 8px rgba(11, 154, 66, 0.15)
+			&:before
+				+arr(5,4,$green,t)
+			&:after
+				+arr(5,4,$green,b)
 .select__text
 	position: relative
 	padding: 0 20px 0 10px
@@ -516,6 +522,7 @@
 	text-overflow: ellipsis
 	border-radius: 3px
 	border: 1px solid $border-filter
+	+transition(border-color .3s, box-shadow .3s)
 	display: block
 	&:before,
 	&:after
@@ -523,33 +530,55 @@
 		position: absolute
 		right: 10px
 		margin-top: -3px
+		+transition(border-color .3s)
 	&:before
 		top: 11px
 		+arr(5,4,$border-filter,t)
 	&:after
 		bottom: 9px
 		+arr(5,4,$border-filter,b)
+	&:hover
+		border-color: $green
+		border-radius: 3px
+		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 0 8px rgba(11, 154, 66, 0.15)
+		&:before
+			+arr(5,4,$green,t)
+		&:after
+			+arr(5,4,$green,b)
 .select__list
 	position: absolute
 	display: none
 	left: 0
 	right: 0
 	top: 100%
+	margin-top: 11px
 	z-index: 100
-	border: 1px solid $border-filter
 	border-top: 0
 	max-height: 200px
 	overflow-x: hidden
 	overflow-y: auto
-	border-radius: 0 0 3px 3px
+	box-shadow: 0 2px 7px rgba(0, 0, 0, 0.23)
 	background: #fff
 	li
-		padding: 5px 11px
+		position: relative
+		padding: 2px 9px
+		line-height: 25px
 		cursor: pointer
-		line-height: 1
+		+transition(background .3s)
 		&:hover
-			background: $green
-			color: #fff
+			background: rgba($green, .1)
+		&:before
+			position: absolute
+			content: ''
+			right: 10px
+			top: 50%
+			+translate(0,-50%)
+			+s($checkbox-arr)
+			display: none
+		&.is-active
+			+f700
+			&:before
+				display: block
 
 // multiple-select
 .multiple-select

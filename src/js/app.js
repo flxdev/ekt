@@ -28,7 +28,7 @@ $(document).ready( function() {
 	      });
 
 	      $("body").on("click",".js-select-list li",function() {
-	          var val = $(this).attr("data-val");
+	          var val = $(this).text();
 	          var text = $(this).text();
 	          var select = $(this).parents(".js-select");
 	          var selectList = $(this).parents(".js-select-list");

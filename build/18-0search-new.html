@@ -777,23 +777,31 @@
 						<div class="filter__row">
 							<div class="filter__col">
 								<span class="filter__text">Город</span>
-								<select class="multiple-select js-multiple-select" multiple="multiple">
-									<option value="Минск" selected>Минск</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-									<option value="5">5</option>
-								</select>
+								<div class="select is-map js-select">
+									<span class="select__text js-select-text">Минск</span>
+									<ul class="select__list js-select-list">
+										<li data-address="[53.9, 27.56667]">Минск</li>
+										<li data-address="[50.45466, 30.5238]">Киев</li>
+									</ul>
+									<select>
+										<option value="Минск">Минск</option>
+										<option value="Киев">Киев</option>
+									</select>
+								</div>
 							</div>
 							<div class="filter__col">
 								<span class="filter__text">Сортировать</span>
-								<select class="multiple-select js-multiple-select" multiple="multiple">
-									<option value="по адресу" selected>по адресу</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-									<option value="5">5</option>
-								</select>
+								<div class="select is-map js-select">
+									<span class="select__text js-select-text"> по адресу</span>
+									<ul class="select__list js-select-list">
+										<li data-address="[53.9, 27.56667]">var1</li>
+										<li data-address="[50.45466, 30.5238]">var2</li>
+									</ul>
+									<select>
+										<option value="var1">var1</option>
+										<option value="var2">var2</option>
+									</select>
+								</div>
 							</div>
 						</div>
 						<div class="filter__block js-filter-block">
@@ -836,7 +844,7 @@
 					</form>
 					<div class="title-h2">Все точки продаж на карте</div>
 					<!-- map -->
-					<div class="map" id="map">
+					<div class="map map_wind" id="map">
 						<div class="window js-window">
 							<h3 class="window__title">Здесь можно купить</h3>
 							<div class="window__in js-scroll">
@@ -866,7 +874,7 @@
 					<div class="accordions is-address">
 						<!-- accord -->
 						<div class="accord js-accord is-active">
-							<div class="accord__but js-accord-but" data-address="Киев">
+							<div class="accord__but js-accord-but" data-address="[50.45466, 30.5238]">
 								<table>
 									<tr>
 										<td>
@@ -933,7 +941,7 @@
 						</div>
 						<!-- accord -->
 						<div class="accord js-accord">
-							<div class="accord__but js-accord-but" data-address="Минск">
+							<div class="accord__but js-accord-but" data-address="[53.9, 27.56667]">
 								<table>
 									<tr>
 										<td>
@@ -999,7 +1007,7 @@
 						</div>
 						<!-- accord -->
 						<div class="accord js-accord">
-							<div class="accord__but js-accord-but" data-address="Одесса">
+							<div class="accord__but js-accord-but" data-address="[46.466444, 30.7058]">
 								<table>
 									<tr>
 										<td>
