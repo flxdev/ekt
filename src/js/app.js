@@ -716,6 +716,18 @@ $(document).ready( function() {
 			event.stopPropagation();
 		});
 	});
+
+	$('.btn-search-white.js-open-popup').on('click', function(){
+		
+		console.log('kk');
+		$('.popup__in').removeClass('is-active');
+		$('.js-popup').fadeOut(300);
+		$('.js-popup-par').removeClass('is-open');
+		setTimeout(function() {
+			$('.search .js-open-popup').trigger('click');
+		}, 100);
+		console.log($('.search .js-open-popup'));
+	});
 	// function popupScroll() {
 	// 	$('.js-p-scroll').each(function() {
 	// 		var this_ = $(this);
