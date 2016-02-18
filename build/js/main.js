@@ -14106,13 +14106,13 @@ $(function () {
             		if (_this.on) {
 			            S.css({ cursor: o.cursor }).on(o.holdEvents,'a',onPrevent).find('a').css({ cursor: 'pointer'});
 			            S.on(o.wheelEvents,_this.onWhell).on(o.holdEvents,_this.onHold);
-			            $('body').on({'keydown.dragon':_this.onKeyDown,'keyup.dragon':_this.onKeyDown});
-			            (("Info" in window) && Info || console).log('DragOn fly...');
+			            // $('body').on({'keydown.dragon':_this.onKeyDown,'keyup.dragon':_this.onKeyDown});
+			            // (("Info" in window) && Info || console).log('DragOn fly...');
 			        } else {
 			            S.css({ cursor: '' }).off(o.holdEvents,'**',onPrevent).find('a').css({ cursor: '' });
 			            S.off(o.wheelEvents,_this.onWhell).off(o.holdEvents,_this.onHold);
-			            $('body').off({'keydown.dragon':_this.onKeyDown,'keyup.dragon':_this.onKeyDown});
-			            (("Info" in window) && Info || console).log('DragOn landed...');
+			            // $('body').off({'keydown.dragon':_this.onKeyDown,'keyup.dragon':_this.onKeyDown});
+			            // (("Info" in window) && Info || console).log('DragOn landed...');
 			        }
 			        _this.on=!_this.on;
 			        if (e!=null) S.trigger('BarOn.toggle');
