@@ -225,6 +225,7 @@ $(document).ready( function() {
 						$('.ajax-catalog__area').html(replace);
 						SortBtn();
 						if(history_parent.length){
+							accord();
 							history_accord();
 						} else {
 							itemOpen();
@@ -579,6 +580,62 @@ $(document).ready( function() {
 	}
 	triggerTabsSearch();
 
+	function accord() {
+		$('.js-accord').each(function() {
+			var this_ 	= $(this),
+				block 	= this_.find('.js-accord-block'),
+				input 	= this_.find('input, select');
+			if (this_.hasClass('is-active')) {
+				block.show();
+			}
+			input.on('change', function() {
+				var this_ 	= $(this),
+					parent 	= this_.parents('.js-accord');
+				if (this_.val().length > 0) {
+					parent.addClass('is-chenge');
+				}
+				else {
+					parent.removeClass('is-chenge');
+				}
+			});
+		});
+		$('.js-accord-but').on('click', function() {
+			var this_ 		= $(this),
+				parent 		= this_.parents('.js-accord'),
+				blockThis 	= parent.find('.js-accord-block'),
+				accord 		= $('.js-accord'),
+				block 		= accord.find('.js-accord-block');
+			if (!parent.parents('.filter__block').hasClass('js-filter-block')) {
+				//console.log('k');
+				if (!parent.hasClass('is-active')) {
+					accord.removeClass('is-active');
+					block.slideUp(500);
+					parent.addClass('is-active');
+					blockThis.slideDown(500);
+				}
+				else {
+					parent.removeClass('is-active');
+					blockThis.slideUp(500);
+				}
+			}
+			else {
+				if (!parent.hasClass('is-active')) {
+					parent.addClass('is-active');
+					blockThis.slideDown(200);
+				}
+				else {
+					parent.removeClass('is-active');
+					blockThis.slideUp(200);
+				}
+			}
+			return false;
+		});
+	} accord();
+
+	$('.js-accord .btn, .js-history-op').on('click',function(event) {
+		event.stopPropagation();
+	});
+
 	function history_accord(){
 		$('.js-accord .btn, .js-history-op').on('click',function(event) {
 			event.stopPropagation();
@@ -622,7 +679,7 @@ $(document).ready( function() {
 			});
 			tAcc.on('click', function() {
 				btn.removeClass('is-active');
-				btn.text('Развернуть всю историю');
+				btn.find('span').text('Развернуть всю историю');
 			});
 		});
 	}
